@@ -14214,3 +14214,582 @@ body.ff-dashboardModernBody .ff-dashboardModern__metric {
     }
   }
 }
+
+/* === FutureFunded Phase 5A Platform Homepage Parity START === */
+/*
+  Marker: hoi-phase5a-platform-homepage-parity-v1
+
+  Scope:
+  - Platform homepage / sales page only.
+  - Matches the premium campaign quality without touching campaign.css.
+  - No checkout, sponsor, share, QR, modal, payment, dashboard, or campaign hook changes.
+*/
+
+@layer platform {
+  body.ff-platformBody {
+    --ff-platform-shell: min(100% - clamp(1rem, 3vw, 2.5rem), 1180px);
+    --ff-platform-section-gap: clamp(2rem, 4vw, 4.5rem);
+    --ff-platform-radius-xl: clamp(1.35rem, 2vw, 2rem);
+    --ff-platform-radius-lg: clamp(1rem, 1.5vw, 1.5rem);
+    --ff-platform-card-pad: clamp(1rem, 2.2vw, 2rem);
+    --ff-platform-hairline: rgba(104, 68, 34, .12);
+    --ff-platform-shadow-soft: 0 18px 48px rgba(45, 28, 10, .078);
+    --ff-platform-shadow-lift: 0 28px 78px rgba(45, 28, 10, .12);
+    --ff-platform-cream: rgba(255, 253, 248, .92);
+    --ff-platform-cream-strong: rgba(255, 255, 255, .965);
+    --ff-platform-orange: #ff6422;
+    --ff-platform-green: #0f766e;
+  }
+
+  body.ff-platformBody .ff-shell {
+    width: var(--ff-platform-shell);
+    max-width: var(--ff-platform-shell);
+  }
+
+  body.ff-platformBody .ff-platformPage {
+    background:
+      radial-gradient(circle at 16% 0%, rgba(255, 112, 37, .15), transparent 31rem),
+      radial-gradient(circle at 88% 12%, rgba(255, 198, 130, .24), transparent 36rem),
+      radial-gradient(circle at 50% 86%, rgba(15, 118, 110, .075), transparent 32rem),
+      linear-gradient(180deg, #fff8ef 0%, #f5eadc 54%, #efe4d6 100%);
+  }
+
+  body.ff-platformBody .ff-platformMain {
+    display: grid;
+    gap: var(--ff-platform-section-gap);
+  }
+
+  body.ff-platformBody .ff-platformHero {
+    padding-block: clamp(.85rem, 1.8vw, 1.35rem) clamp(1.8rem, 3.6vw, 3.5rem);
+  }
+
+  body.ff-platformBody .ff-platformHero__grid {
+    align-items: stretch;
+    gap: clamp(1rem, 2.4vw, 1.75rem);
+  }
+
+  body.ff-platformBody .ff-card,
+  body.ff-platformBody .ff-card--hero,
+  body.ff-platformBody .ff-launchCard,
+  body.ff-platformBody .ff-featureCard,
+  body.ff-platformBody .ff-proofSplit,
+  body.ff-platformBody .ff-campaignPreview,
+  body.ff-platformBody .ff-sponsorCard,
+  body.ff-platformBody .ff-launchFlow,
+  body.ff-platformBody .ff-faqItem,
+  body.ff-platformBody .ff-finalCta {
+    border-color: var(--ff-platform-hairline);
+    box-shadow: var(--ff-platform-shadow-soft);
+  }
+
+  body.ff-platformBody .ff-platformHero__copy {
+    position: relative;
+    isolation: isolate;
+    min-height: clamp(520px, calc(100svh - 145px), 690px);
+    overflow: hidden;
+    border-radius: var(--ff-platform-radius-xl);
+    padding: clamp(1.35rem, 4vw, 3.15rem);
+    background:
+      radial-gradient(circle at 4% 0%, rgba(255,255,255,.98), transparent 20rem),
+      radial-gradient(circle at 92% 4%, rgba(255, 196, 137, .36), transparent 31rem),
+      radial-gradient(circle at 78% 92%, rgba(15, 118, 110, .08), transparent 24rem),
+      linear-gradient(145deg, rgba(255,255,255,.985), rgba(255,246,234,.94));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.90) inset,
+      0 30px 82px rgba(45, 28, 10, .12);
+  }
+
+  body.ff-platformBody .ff-platformHero__copy::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: auto -12% -22% 35%;
+    height: 48%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 100, 34, .13), transparent 68%);
+  }
+
+  body.ff-platformBody .ff-platformHeroTitle {
+    max-width: 10.6ch;
+    color: var(--ff-ink-strong);
+    font-size: clamp(3.35rem, 6.9vw, 6.65rem);
+    font-weight: 950;
+    letter-spacing: -.078em;
+    line-height: .87;
+  }
+
+  body.ff-platformBody .ff-platformHeroTitle em {
+    color: var(--ff-platform-orange);
+    font-style: italic;
+    letter-spacing: -.072em;
+  }
+
+  body.ff-platformBody .ff-platformHeroTitle strong {
+    color: var(--ff-ink-strong);
+  }
+
+  body.ff-platformBody .ff-lede {
+    max-width: 40rem;
+    color: rgba(48, 35, 24, .70);
+    font-size: clamp(1rem, 1.35vw, 1.14rem);
+    line-height: 1.55;
+  }
+
+  body.ff-platformBody .ff-pillRow {
+    gap: .45rem;
+  }
+
+  body.ff-platformBody .ff-pill {
+    min-height: 2rem;
+    border-color: rgba(104, 68, 34, .11);
+    background: rgba(255,255,255,.72);
+    box-shadow: 0 1px 0 rgba(255,255,255,.78) inset;
+    color: rgba(50, 36, 26, .70);
+    font-weight: 900;
+  }
+
+  body.ff-platformBody .ff-pill--hot {
+    border-color: rgba(255, 100, 34, .22);
+    background: linear-gradient(180deg, rgba(255, 237, 213, .86), rgba(255,255,255,.70));
+    color: #a84310;
+  }
+
+  body.ff-platformBody .ff-actions .ff-button {
+    min-height: 3rem;
+  }
+
+  body.ff-platformBody .ff-button--primary {
+    border-color: rgba(255, 100, 34, .48);
+    background: linear-gradient(180deg, #ff7a2f 0%, #ff6422 54%, #f2551a 100%);
+    box-shadow:
+      0 14px 30px rgba(255, 91, 31, .24),
+      0 1px 0 rgba(255,255,255,.34) inset;
+  }
+
+  body.ff-platformBody .ff-button--ghost {
+    border-color: rgba(83, 54, 24, .12);
+    background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,249,242,.78));
+    box-shadow:
+      0 10px 22px rgba(45, 28, 10, .055),
+      0 1px 0 rgba(255,255,255,.86) inset;
+  }
+
+  body.ff-platformBody .ff-button:hover {
+    transform: translateY(-1px);
+  }
+
+  body.ff-platformBody .ff-trustGrid {
+    gap: .65rem;
+  }
+
+  body.ff-platformBody .ff-trustGrid article {
+    min-height: 6.3rem;
+    border-color: rgba(83, 54, 24, .105);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.83), rgba(255,249,242,.68));
+    box-shadow:
+      0 10px 24px rgba(45, 28, 10, .055),
+      0 1px 0 rgba(255,255,255,.78) inset;
+  }
+
+  body.ff-platformBody .ff-trustGrid strong {
+    letter-spacing: -.025em;
+  }
+
+  body.ff-platformBody .ff-launchCard {
+    align-self: stretch;
+    overflow: hidden;
+    border-radius: var(--ff-platform-radius-xl);
+    padding: clamp(1.1rem, 2.25vw, 1.8rem);
+    background:
+      radial-gradient(circle at 90% 0%, rgba(255, 196, 137, .28), transparent 24rem),
+      linear-gradient(180deg, rgba(255,255,255,.965), rgba(255,244,229,.89));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.88) inset,
+      0 25px 70px rgba(45, 28, 10, .115);
+  }
+
+  body.ff-platformBody .ff-launchCard__head h2 {
+    max-width: 11ch;
+    font-size: clamp(1.9rem, 3.2vw, 3rem);
+    font-weight: 950;
+    letter-spacing: -.068em;
+    line-height: .9;
+  }
+
+  body.ff-platformBody .ff-platformReadinessTitle em {
+    color: var(--ff-platform-orange);
+    font-style: italic;
+  }
+
+  body.ff-platformBody .ff-readinessList {
+    gap: .7rem;
+  }
+
+  body.ff-platformBody .ff-readinessList article {
+    border-color: rgba(83, 54, 24, .10);
+    background: rgba(255,255,255,.76);
+    box-shadow:
+      0 9px 22px rgba(45, 28, 10, .055),
+      0 1px 0 rgba(255,255,255,.80) inset;
+  }
+
+  body.ff-platformBody .ff-readinessList b {
+    background: rgba(15, 118, 110, .10);
+    color: var(--ff-platform-green);
+    font-weight: 950;
+  }
+
+  body.ff-platformBody .ff-previewStrip {
+    border-color: rgba(255, 100, 34, .18);
+    background:
+      linear-gradient(135deg, rgba(255, 244, 233, .90), rgba(255,255,255,.70));
+    box-shadow:
+      0 12px 28px rgba(45, 28, 10, .055),
+      0 1px 0 rgba(255,255,255,.80) inset;
+  }
+
+  body.ff-platformBody .ff-platformSection {
+    padding-block: 0;
+  }
+
+  body.ff-platformBody .ff-sectionHeader {
+    margin-bottom: clamp(1rem, 2.4vw, 1.75rem);
+  }
+
+  body.ff-platformBody .ff-sectionHeader--center {
+    max-width: 46rem;
+  }
+
+  body.ff-platformBody .ff-sectionHeader h2,
+  body.ff-platformBody .ff-faqIntro h2,
+  body.ff-platformBody .ff-finalCta h2 {
+    font-weight: 950;
+    letter-spacing: -.068em;
+    line-height: .9;
+  }
+
+  body.ff-platformBody .ff-sectionHeader p,
+  body.ff-platformBody .ff-faqIntro p,
+  body.ff-platformBody .ff-finalCta p {
+    color: rgba(48, 35, 24, .68);
+  }
+
+  body.ff-platformBody .ff-featureGrid {
+    gap: clamp(.85rem, 1.7vw, 1.25rem);
+  }
+
+  body.ff-platformBody .ff-featureCard {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 14rem;
+    border-color: rgba(83, 54, 24, .11);
+    border-radius: var(--ff-platform-radius-lg);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.91), rgba(255,249,242,.78));
+    box-shadow:
+      0 16px 38px rgba(45, 28, 10, .075),
+      0 1px 0 rgba(255,255,255,.80) inset;
+  }
+
+  body.ff-platformBody .ff-featureCard::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ff-platform-orange), rgba(255, 164, 82, .65), rgba(15, 118, 110, .45));
+  }
+
+  body.ff-platformBody .ff-featureCard span,
+  body.ff-platformBody .ff-flowGrid span {
+    color: #a84310;
+    letter-spacing: .10em;
+  }
+
+  body.ff-platformBody .ff-featureCard h3 {
+    margin-top: 1rem;
+    letter-spacing: -.045em;
+  }
+
+  body.ff-platformBody .ff-proofSplit {
+    overflow: hidden;
+    border-radius: var(--ff-platform-radius-xl);
+    background:
+      radial-gradient(circle at 8% 0%, rgba(255, 196, 137, .18), transparent 26rem),
+      linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,248,240,.84));
+  }
+
+  body.ff-platformBody .ff-proofSplit__copy {
+    padding: clamp(1.15rem, 3vw, 2.35rem);
+  }
+
+  body.ff-platformBody .ff-campaignPreview {
+    border-radius: var(--ff-platform-radius-lg);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,243,229,.78));
+  }
+
+  body.ff-platformBody .ff-campaignPreview__top strong {
+    letter-spacing: -.055em;
+  }
+
+  body.ff-platformBody .ff-campaignPreview__meter > div {
+    border-color: rgba(83, 54, 24, .10);
+    background: rgba(255,255,255,.72);
+    box-shadow: 0 8px 18px rgba(45, 28, 10, .045);
+  }
+
+  body.ff-platformBody .ff-sponsorGrid {
+    gap: clamp(.85rem, 1.7vw, 1.25rem);
+  }
+
+  body.ff-platformBody .ff-sponsorCard {
+    border-color: rgba(83, 54, 24, .11);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,249,242,.76));
+    box-shadow:
+      0 16px 38px rgba(45, 28, 10, .075),
+      0 1px 0 rgba(255,255,255,.78) inset;
+  }
+
+  body.ff-platformBody .ff-sponsorCard[data-featured="true"] {
+    border-color: rgba(255, 100, 34, .24);
+    background:
+      linear-gradient(180deg, rgba(255,248,240,.96), rgba(255,238,220,.82));
+    box-shadow:
+      0 18px 46px rgba(255, 91, 31, .12),
+      0 1px 0 rgba(255,255,255,.82) inset;
+  }
+
+  body.ff-platformBody .ff-launchFlow {
+    border-radius: var(--ff-platform-radius-xl);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(15,118,110,.08), transparent 25rem),
+      linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,249,242,.80));
+  }
+
+  body.ff-platformBody .ff-flowGrid {
+    gap: clamp(.75rem, 1.5vw, 1rem);
+  }
+
+  body.ff-platformBody .ff-flowGrid article {
+    min-height: 11rem;
+    border-color: rgba(83, 54, 24, .10);
+    background: rgba(255,255,255,.75);
+    box-shadow: 0 11px 26px rgba(45, 28, 10, .055);
+  }
+
+  body.ff-platformBody .ff-faqLayout {
+    align-items: start;
+  }
+
+  body.ff-platformBody .ff-faqItem {
+    border-color: rgba(83, 54, 24, .10);
+    background: rgba(255,255,255,.82);
+    box-shadow:
+      0 9px 22px rgba(45, 28, 10, .05),
+      0 1px 0 rgba(255,255,255,.80) inset;
+  }
+
+  body.ff-platformBody .ff-finalCta {
+    border-radius: var(--ff-platform-radius-xl);
+    background:
+      radial-gradient(circle at 86% 0%, rgba(255, 196, 137, .22), transparent 26rem),
+      linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,248,240,.84));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.86) inset,
+      var(--ff-platform-shadow-lift);
+  }
+
+  body.ff-platformBody .ff-finalCta h2 {
+    max-width: 12ch;
+  }
+
+  body.ff-platformBody .ff-siteHeader__shell {
+    border-color: rgba(83, 54, 24, .10);
+    background: rgba(255, 250, 242, .92);
+    box-shadow:
+      0 12px 34px rgba(45, 28, 10, .09),
+      0 1px 0 rgba(255,255,255,.86) inset;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    body.ff-platformBody .ff-platformHero__copy,
+    body.ff-platformBody .ff-launchCard {
+      animation: ffPlatformHeroRise 760ms cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    body.ff-platformBody .ff-launchCard {
+      animation-delay: 120ms;
+    }
+
+    body.ff-platformBody .ff-featureCard,
+    body.ff-platformBody .ff-sponsorCard,
+    body.ff-platformBody .ff-flowGrid article {
+      animation: ffPlatformCardIn 680ms cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    body.ff-platformBody .ff-featureCard:nth-child(2),
+    body.ff-platformBody .ff-sponsorCard:nth-child(2),
+    body.ff-platformBody .ff-flowGrid article:nth-child(2) {
+      animation-delay: 80ms;
+    }
+
+    body.ff-platformBody .ff-featureCard:nth-child(3),
+    body.ff-platformBody .ff-sponsorCard:nth-child(3),
+    body.ff-platformBody .ff-flowGrid article:nth-child(3) {
+      animation-delay: 140ms;
+    }
+  }
+
+  @keyframes ffPlatformHeroRise {
+    from {
+      opacity: 0;
+      transform: translateY(18px) scale(.992);
+      filter: blur(9px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes ffPlatformCardIn {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+      filter: blur(7px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  @media (min-width: 1080px) {
+    body.ff-platformBody .ff-platformHero__grid {
+      grid-template-columns: minmax(0, 1.12fr) minmax(340px, .72fr);
+    }
+  }
+
+  @media (max-width: 960px) {
+    body.ff-platformBody {
+      --ff-platform-section-gap: 1.45rem;
+    }
+
+    body.ff-platformBody .ff-platformHero__copy {
+      min-height: auto;
+    }
+
+    body.ff-platformBody .ff-platformHero__grid,
+    body.ff-platformBody .ff-proofSplit,
+    body.ff-platformBody .ff-faqLayout {
+      grid-template-columns: 1fr;
+    }
+
+    body.ff-platformBody .ff-platformHeroTitle {
+      font-size: clamp(2.8rem, 12vw, 4.6rem);
+    }
+
+    body.ff-platformBody .ff-trustGrid {
+      grid-template-columns: 1fr;
+    }
+
+    body.ff-platformBody .ff-featureGrid--four,
+    body.ff-platformBody .ff-flowGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.ff-platformBody .ff-finalCta {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 700px) {
+    body.ff-platformBody {
+      --ff-platform-section-gap: 1.15rem;
+    }
+
+    body.ff-platformBody .ff-platformHero {
+      padding-block: .55rem .9rem;
+    }
+
+    body.ff-platformBody .ff-platformHero__copy,
+    body.ff-platformBody .ff-launchCard,
+    body.ff-platformBody .ff-proofSplit,
+    body.ff-platformBody .ff-launchFlow,
+    body.ff-platformBody .ff-finalCta {
+      border-radius: 1.1rem;
+    }
+
+    body.ff-platformBody .ff-platformHero__copy,
+    body.ff-platformBody .ff-launchCard,
+    body.ff-platformBody .ff-proofSplit__copy,
+    body.ff-platformBody .ff-campaignPreview,
+    body.ff-platformBody .ff-launchFlow,
+    body.ff-platformBody .ff-finalCta {
+      padding: 1rem;
+    }
+
+    body.ff-platformBody .ff-pillRow {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: .08rem;
+      scrollbar-width: none;
+    }
+
+    body.ff-platformBody .ff-pillRow::-webkit-scrollbar {
+      display: none;
+    }
+
+    body.ff-platformBody .ff-platformHeroTitle {
+      max-width: 10ch;
+      font-size: clamp(2.55rem, 13vw, 3.8rem);
+      line-height: .88;
+    }
+
+    body.ff-platformBody .ff-actions,
+    body.ff-platformBody .ff-platformHero .ff-actions,
+    body.ff-platformBody .ff-finalCta .ff-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    body.ff-platformBody .ff-actions .ff-button,
+    body.ff-platformBody .ff-platformHero .ff-button,
+    body.ff-platformBody .ff-finalCta .ff-button {
+      width: 100%;
+    }
+
+    body.ff-platformBody .ff-featureGrid--four,
+    body.ff-platformBody .ff-flowGrid,
+    body.ff-platformBody .ff-sponsorGrid,
+    body.ff-platformBody .ff-campaignPreview__meter {
+      grid-template-columns: 1fr;
+    }
+
+    body.ff-platformBody .ff-featureCard,
+    body.ff-platformBody .ff-sponsorCard,
+    body.ff-platformBody .ff-flowGrid article {
+      min-height: auto;
+      padding: 1rem;
+    }
+
+    body.ff-platformBody .ff-sectionHeader,
+    body.ff-platformBody .ff-sectionHeader--center {
+      justify-items: start;
+      text-align: left;
+    }
+
+    body.ff-platformBody .ff-sectionHeader--center p {
+      margin-inline: 0;
+    }
+  }
+}
+/* === FutureFunded Phase 5A Platform Homepage Parity END === */
