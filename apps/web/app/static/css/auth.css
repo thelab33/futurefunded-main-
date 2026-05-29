@@ -1,0 +1,956 @@
+/* ==========================================================================
+   FutureFunded — Auth CSS Authority
+   File: apps/web/app/static/css/auth.css
+   Marker: hoi-auth-css-authority-v1
+
+   Owns:
+   - /platform/login
+   - future /platform/forgot-password
+   - future /platform/reset-password
+   - future /platform/invite
+   - future /platform/mfa
+   - future /platform/register
+
+   Does not own:
+   - platform homepage
+   - campaign page
+   - onboarding workspace
+   - dashboard records UI
+========================================================================== */
+
+html[data-ff-page="platform-login"],
+html[data-ff-page="platform-forgot-password"],
+html[data-ff-page="platform-reset-password"],
+html[data-ff-page="platform-invite"],
+html[data-ff-page="platform-mfa"],
+html[data-ff-page="platform-register"] {
+  color-scheme: light;
+
+  --auth-bg-0: #fff8ef;
+  --auth-bg-1: #f6e8d4;
+  --auth-bg-2: #ead4b7;
+
+  --auth-ink: #120b07;
+  --auth-ink-2: #23160f;
+  --auth-muted: rgba(56, 42, 31, 0.74);
+  --auth-soft: rgba(75, 56, 41, 0.58);
+  --auth-faint: rgba(75, 56, 41, 0.42);
+
+  --auth-card: rgba(255, 255, 255, 0.88);
+  --auth-card-strong: rgba(255, 255, 255, 0.96);
+  --auth-card-soft: rgba(255, 250, 243, 0.78);
+  --auth-line: rgba(72, 44, 25, 0.11);
+  --auth-line-strong: rgba(72, 44, 25, 0.18);
+
+  --auth-orange: #ff5a1f;
+  --auth-orange-2: #ff8a2b;
+  --auth-orange-dark: #a84212;
+  --auth-teal: #0f766e;
+  --auth-green: #14866f;
+  --auth-red: #b42318;
+  --auth-gold: #f59e0b;
+
+  --auth-radius-xl: clamp(1.45rem, 3vw, 2.45rem);
+  --auth-radius-lg: clamp(1.15rem, 2vw, 1.75rem);
+  --auth-radius-md: 1.05rem;
+  --auth-pill: 999px;
+
+  --auth-shell: min(100% - clamp(1rem, 3vw, 2.25rem), 1180px);
+  --auth-shadow: 0 34px 90px rgba(56, 36, 20, 0.14);
+  --auth-shadow-soft: 0 18px 46px rgba(56, 36, 20, 0.09);
+  --auth-shadow-hot: 0 18px 44px rgba(255, 90, 31, 0.2);
+  --auth-focus: rgba(255, 90, 31, 0.36);
+  --auth-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html[data-ff-page="platform-login"][data-theme="dark"],
+html[data-theme="dark"][data-ff-page="platform-login"],
+[data-theme="dark"] html[data-ff-page="platform-login"] {
+  color-scheme: dark;
+}
+
+body.ff-loginAuthorityBody,
+body[data-ff-surface="platform-login"] {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+  overflow-x: clip;
+  background:
+    radial-gradient(circle at 9% -8%, rgba(255, 122, 35, 0.22), transparent 32rem),
+    radial-gradient(circle at 88% 0%, rgba(15, 118, 110, 0.14), transparent 34rem),
+    radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.52), transparent 28rem),
+    linear-gradient(180deg, var(--auth-bg-0) 0%, var(--auth-bg-1) 56%, var(--auth-bg-2) 100%);
+  color: var(--auth-ink);
+  font-family: var(--ff-type-sans, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[data-ff-page="platform-login"] *,
+html[data-ff-page="platform-login"] *::before,
+html[data-ff-page="platform-login"] *::after {
+  box-sizing: border-box;
+}
+
+html[data-ff-page="platform-login"] :where(h1, h2, h3, p, figure, dl, dd) {
+  margin: 0;
+}
+
+html[data-ff-page="platform-login"] :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+html[data-ff-page="platform-login"] :where(button, input, select, textarea) {
+  font: inherit;
+}
+
+html[data-ff-page="platform-login"] :where(button) {
+  cursor: pointer;
+}
+
+html[data-ff-page="platform-login"] :where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--auth-focus);
+  outline-offset: 3px;
+}
+
+/* Skip link */
+
+.ff-loginAuthority__skip {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.ff-loginAuthority__skip:focus {
+  position: fixed;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 10000;
+  width: auto;
+  height: auto;
+  clip: auto;
+  margin: 0;
+  border: 1px solid var(--auth-line);
+  border-radius: var(--auth-pill);
+  background: var(--auth-card-strong);
+  box-shadow: var(--auth-shadow-soft);
+  color: var(--auth-ink);
+  font-weight: 900;
+  padding: 0.8rem 1rem;
+}
+
+/* Page shell */
+
+.ff-loginAuthority {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  padding-block: max(0.7rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-bottom));
+}
+
+.ff-loginAuthority::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(90, 62, 38, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90, 62, 38, 0.022) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent 86%);
+}
+
+.ff-loginAuthority::after {
+  content: "";
+  position: fixed;
+  inset: auto -10vw -18rem auto;
+  z-index: -1;
+  width: min(42rem, 70vw);
+  height: min(42rem, 70vw);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 138, 43, 0.16), transparent 66%);
+  pointer-events: none;
+}
+
+.ff-loginAuthority__shell {
+  width: var(--auth-shell);
+  min-height: calc(100svh - 1.4rem);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(1rem, 2.4vw, 1.75rem);
+  margin-inline: auto;
+}
+
+/* Shared shell header override on auth pages */
+
+html[data-ff-page="platform-login"] [data-ff-header].ff-loginAuthority__header,
+html[data-ff-page="platform-login"] .ffShellHeader.ff-loginAuthority__header,
+html[data-ff-page="platform-login"] .ff-siteHeader.ff-loginAuthority__header {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 50 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  pointer-events: auto !important;
+  border: 1px solid var(--auth-line);
+  border-radius: 1.55rem;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,250,242,0.93));
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.86) inset,
+    0 14px 38px rgba(56,36,20,0.1);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ffShellHeader__shell,
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ff-siteHeader__shell,
+html[data-ff-page="platform-login"] .ff-loginAuthority__header [data-ff-header-shell] {
+  width: 100%;
+  min-height: 3.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.6rem, 1.6vw, 1rem);
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  box-shadow: none;
+  padding: 0.42rem 0.5rem;
+}
+
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ff-brandMark__symbol,
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ffShellHeader__mark,
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ff-siteHeader__mark {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 0.82rem;
+  background:
+    radial-gradient(circle at 32% 12%, rgba(255,255,255,0.2), transparent 1.35rem),
+    linear-gradient(135deg, #20130c, #553018);
+  color: #fffaf4;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.16) inset,
+    0 10px 22px rgba(56,36,20,0.16);
+}
+
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ffShellHeader__copy strong,
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ff-brandMark__copy strong {
+  color: var(--auth-ink);
+  font-size: 0.86rem;
+  font-weight: 950;
+}
+
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ffShellHeader__copy small,
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ff-brandMark__copy small {
+  color: rgba(75,56,41,0.62);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+html[data-ff-page="platform-login"] .ff-loginAuthority__header [data-ff-header-nav],
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ffShellHeader__nav,
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ff-siteHeader__nav {
+  display: flex;
+  gap: 0.22rem;
+  border: 1px solid rgba(68,43,25,0.085);
+  border-radius: var(--auth-pill);
+  background: rgba(255,255,255,0.72);
+  padding: 0.25rem;
+}
+
+html[data-ff-page="platform-login"] .ff-loginAuthority__header [data-ff-nav-link="true"],
+html[data-ff-page="platform-login"] .ff-loginAuthority__header .ffShellHeader__nav a {
+  min-height: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--auth-pill);
+  color: rgba(38,28,21,0.76);
+  font-size: 0.74rem;
+  font-weight: 850;
+  padding: 0 0.85rem;
+}
+
+/* Stage */
+
+.ff-loginAuthority__stage {
+  min-height: clamp(38rem, calc(100svh - 10rem), 48rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(21rem, 0.88fr);
+  align-items: stretch;
+  gap: clamp(1rem, 2.6vw, 2rem);
+}
+
+.ff-loginAuthority__hero,
+.ff-loginAuthority__card,
+.ff-loginAuthority__footer {
+  border: 1px solid var(--auth-line);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 122, 35, 0.075), transparent 20rem),
+    linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,250,244,0.86));
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.86) inset,
+    var(--auth-shadow-soft);
+}
+
+.ff-loginAuthority__hero {
+  position: relative;
+  overflow: clip;
+  display: grid;
+  align-content: center;
+  gap: clamp(1rem, 2vw, 1.35rem);
+  border-radius: var(--auth-radius-xl);
+  padding: clamp(1.35rem, 4vw, 3.4rem);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.98), transparent 18rem),
+    radial-gradient(circle at 16% 18%, rgba(255,232,196,0.34), transparent 24rem),
+    radial-gradient(circle at 92% 4%, rgba(255,196,137,0.24), transparent 31rem),
+    radial-gradient(circle at 82% 92%, rgba(15,118,110,0.09), transparent 24rem),
+    linear-gradient(145deg, rgba(255,255,255,0.99), rgba(255,246,233,0.95));
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.92) inset,
+    var(--auth-shadow);
+}
+
+.ff-loginAuthority__hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto clamp(1.35rem, 3vw, 2.4rem);
+  width: min(19rem, 48%);
+  height: 2px;
+  border-radius: var(--auth-pill);
+  background: linear-gradient(90deg, rgba(255,90,31,0.78), rgba(15,118,110,0.28), transparent);
+}
+
+.ff-loginAuthority__hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ff-loginAuthority__pills,
+.ff-loginAuthority__trustStrip,
+.ff-loginAuthority__securityPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.48rem;
+}
+
+.ff-loginAuthority__pills span,
+.ff-loginAuthority__trustStrip span,
+.ff-loginAuthority__securityPills span {
+  min-height: 1.86rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--auth-line);
+  border-radius: var(--auth-pill);
+  background: rgba(255,255,255,0.72);
+  color: rgba(75,56,41,0.72);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.74) inset;
+  font-size: 0.7rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0 0.66rem;
+}
+
+.ff-loginAuthority__eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.48rem;
+  color: var(--auth-orange-dark);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.15em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ff-loginAuthority__eyebrow::before {
+  content: "";
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: var(--auth-pill);
+  background: currentColor;
+  box-shadow: 0 0 16px rgba(255,90,31,0.36);
+}
+
+.ff-loginAuthority h1,
+.ff-loginAuthority h2,
+.ff-loginAuthority h3 {
+  color: var(--auth-ink);
+  font-family: var(--ff-type-display, var(--ff-type-sans, Inter, ui-sans-serif, system-ui));
+  font-weight: 950;
+  text-wrap: balance;
+}
+
+.ff-loginAuthority h1 {
+  max-width: 10.4ch;
+  font-size: clamp(3.4rem, 7.1vw, 6.8rem);
+  line-height: 0.84;
+  letter-spacing: -0.088em;
+}
+
+.ff-loginAuthority h1 span {
+  display: block;
+  color: var(--auth-orange);
+  font-style: italic;
+}
+
+.ff-loginAuthority h2 {
+  max-width: 12ch;
+  font-size: clamp(2rem, 3.6vw, 3.55rem);
+  line-height: 0.9;
+  letter-spacing: -0.074em;
+}
+
+.ff-loginAuthority__lede {
+  max-width: 62ch;
+  color: rgba(55,41,30,0.74);
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
+  font-weight: 560;
+  line-height: 1.54;
+}
+
+.ff-loginAuthority__proofGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.65rem, 1.4vw, 0.9rem);
+  margin-top: 0.25rem;
+}
+
+.ff-loginAuthority__proofGrid article {
+  min-width: 0;
+  min-height: 11rem;
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  border: 1px solid var(--auth-line);
+  border-radius: var(--auth-radius-lg);
+  background: rgba(255,255,255,0.68);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.78) inset;
+  padding: clamp(0.9rem, 1.9vw, 1.08rem);
+}
+
+.ff-loginAuthority__proofGrid article > span {
+  width: fit-content;
+  border-radius: var(--auth-pill);
+  background: rgba(255,237,213,0.88);
+  color: var(--auth-orange-dark);
+  font-size: 0.72rem;
+  font-weight: 950;
+  line-height: 1;
+  padding: 0.42rem 0.58rem;
+}
+
+.ff-loginAuthority__proofGrid strong {
+  color: var(--auth-ink);
+  font-size: 1rem;
+  font-weight: 950;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+}
+
+.ff-loginAuthority__proofGrid p {
+  color: rgba(56,42,31,0.68);
+  font-size: 0.88rem;
+  line-height: 1.42;
+}
+
+/* Login card */
+
+.ff-loginAuthority__card {
+  display: grid;
+  align-content: center;
+  border-radius: var(--auth-radius-xl);
+  padding: clamp(1.15rem, 3.4vw, 3rem);
+}
+
+.ff-loginAuthority__cardHead {
+  display: grid;
+  gap: 0.68rem;
+  margin-bottom: clamp(1rem, 2vw, 1.35rem);
+}
+
+.ff-loginAuthority__cardHead p:not(.ff-loginAuthority__eyebrow) {
+  max-width: 42ch;
+  color: var(--auth-muted);
+  font-size: clamp(0.96rem, 1.05vw, 1.04rem);
+  line-height: 1.5;
+}
+
+.ff-loginAuthority__form {
+  display: grid;
+  gap: 0.92rem;
+}
+
+.ff-loginAuthority__field {
+  min-width: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.ff-loginAuthority__field > span:first-child {
+  color: rgba(31,22,16,0.92);
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.ff-loginAuthority__field input,
+.ff-loginAuthority__password {
+  width: 100%;
+}
+
+.ff-loginAuthority__field input {
+  min-height: 3.45rem;
+  border: 1px solid var(--auth-line);
+  border-radius: 1rem;
+  background: rgba(255,255,255,0.92);
+  color: var(--auth-ink);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.82) inset;
+  font-size: 0.98rem;
+  font-weight: 680;
+  outline: none;
+  padding: 0 1rem;
+}
+
+.ff-loginAuthority__field input::placeholder {
+  color: rgba(75,56,41,0.46);
+}
+
+.ff-loginAuthority__field input:focus {
+  border-color: rgba(255,90,31,0.38);
+  box-shadow:
+    0 0 0 4px rgba(255,90,31,0.105),
+    0 1px 0 rgba(255,255,255,0.82) inset;
+}
+
+.ff-loginAuthority__password {
+  position: relative;
+  display: block;
+}
+
+.ff-loginAuthority__password input {
+  padding-right: 5.5rem;
+}
+
+.ff-loginAuthority__passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 0.45rem;
+  min-width: 4.1rem;
+  min-height: 2.35rem;
+  transform: translateY(-50%);
+  border: 1px solid rgba(68,43,25,0.08);
+  border-radius: var(--auth-pill);
+  background: rgba(255,255,255,0.84);
+  color: rgba(38,28,21,0.72);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.78) inset;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: capitalize;
+}
+
+.ff-loginAuthority__passwordToggle:hover {
+  color: var(--auth-orange-dark);
+  background: rgba(255,237,213,0.72);
+}
+
+.ff-loginAuthority__submit {
+  min-height: 3.55rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,90,31,0.36);
+  border-radius: var(--auth-pill);
+  background:
+    radial-gradient(circle at 30% 0%, rgba(255,255,255,0.28), transparent 44%),
+    linear-gradient(135deg, var(--auth-orange), var(--auth-orange-2));
+  color: #fffaf4;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.26) inset,
+    var(--auth-shadow-hot);
+  font-size: 0.96rem;
+  font-weight: 950;
+  line-height: 1;
+  padding: 0 1.2rem;
+  transition:
+    transform 180ms var(--auth-ease),
+    box-shadow 180ms var(--auth-ease),
+    filter 180ms var(--auth-ease);
+}
+
+.ff-loginAuthority__submit:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.04);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.28) inset,
+    0 22px 52px rgba(255,90,31,0.24);
+}
+
+.ff-loginAuthority__submit:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.ff-loginAuthority__securityPills {
+  margin-top: 0.15rem;
+}
+
+.ff-loginAuthority__securityPills span {
+  min-height: 1.82rem;
+  font-size: 0.7rem;
+}
+
+.ff-loginAuthority__securityNote {
+  color: rgba(55,41,30,0.7);
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.ff-loginAuthority__formFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  border-top: 1px solid var(--auth-line);
+  margin-top: 0.15rem;
+  padding-top: 0.95rem;
+}
+
+.ff-loginAuthority__formFooter a,
+.ff-loginAuthority__footer a {
+  color: var(--auth-orange-dark);
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.ff-loginAuthority__formFooter a:hover,
+.ff-loginAuthority__footer a:hover {
+  color: var(--auth-orange);
+}
+
+/* Flash and error states */
+
+.ff-loginAuthority__error,
+.ff-loginAuthority__flash {
+  display: grid;
+  gap: 0.28rem;
+  border-radius: 1rem;
+  padding: 0.85rem 0.95rem;
+}
+
+.ff-loginAuthority__error {
+  border: 1px solid rgba(180, 35, 24, 0.18);
+  background: rgba(255, 241, 240, 0.88);
+  color: var(--auth-red);
+}
+
+.ff-loginAuthority__error strong,
+.ff-loginAuthority__error span {
+  color: var(--auth-red);
+}
+
+.ff-loginAuthority__flash {
+  border: 1px solid rgba(15,118,110,0.16);
+  background: rgba(229,248,243,0.78);
+  color: rgb(21,103,87);
+}
+
+.ff-loginAuthority__flash p {
+  color: inherit;
+}
+
+/* Footer */
+
+.ff-loginAuthority__footer {
+  min-height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 1.55rem;
+  padding: 0.72rem 0.9rem;
+}
+
+.ff-loginAuthority__footer > span {
+  color: rgba(75,56,41,0.74);
+  font-size: 0.84rem;
+  font-weight: 850;
+}
+
+.ff-loginAuthority__footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+.ff-loginAuthority__footer nav a {
+  min-height: 2.15rem;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--auth-pill);
+  padding: 0 0.7rem;
+}
+
+.ff-loginAuthority__footer nav a:hover {
+  background: rgba(255,237,213,0.74);
+}
+
+/* Future auth suite generic contract */
+
+.ff-authAuthority,
+.ff-authAuthority__shell,
+.ff-authAuthority__card,
+.ff-authAuthority__form,
+.ff-authAuthority__field {
+  min-width: 0;
+}
+
+.ff-authAuthority {
+  min-height: 100svh;
+}
+
+.ff-authAuthority__card {
+  border: 1px solid var(--auth-line);
+  border-radius: var(--auth-radius-xl);
+  background: var(--auth-card);
+  box-shadow: var(--auth-shadow-soft);
+}
+
+/* Dark mode */
+
+[data-theme="dark"] body.ff-loginAuthorityBody,
+[data-theme="dark"] body[data-ff-surface="platform-login"] {
+  --auth-ink: #fffaf4;
+  --auth-muted: rgba(226,232,240,0.74);
+  --auth-soft: rgba(226,232,240,0.58);
+  --auth-card: rgba(17,24,39,0.78);
+  --auth-card-strong: rgba(24,32,48,0.94);
+  --auth-line: rgba(255,255,255,0.12);
+  --auth-line-strong: rgba(255,255,255,0.18);
+
+  background:
+    radial-gradient(circle at 10% -8%, rgba(249,115,22,0.26), transparent 30rem),
+    radial-gradient(circle at 88% 0%, rgba(37,99,235,0.25), transparent 34rem),
+    linear-gradient(145deg, #07111f, #0b1220 58%, #050814 100%);
+}
+
+[data-theme="dark"] .ff-loginAuthority__hero,
+[data-theme="dark"] .ff-loginAuthority__card,
+[data-theme="dark"] .ff-loginAuthority__footer,
+[data-theme="dark"] [data-ff-header].ff-loginAuthority__header {
+  border-color: rgba(255,255,255,0.12);
+  background:
+    linear-gradient(140deg, rgba(255,255,255,0.1), rgba(255,255,255,0.035)),
+    rgba(17,24,39,0.78);
+}
+
+[data-theme="dark"] .ff-loginAuthority h1,
+[data-theme="dark"] .ff-loginAuthority h2,
+[data-theme="dark"] .ff-loginAuthority h3,
+[data-theme="dark"] .ff-loginAuthority strong {
+  color: #fffaf4;
+}
+
+[data-theme="dark"] .ff-loginAuthority p,
+[data-theme="dark"] .ff-loginAuthority__securityNote,
+[data-theme="dark"] .ff-loginAuthority__footer > span {
+  color: rgba(226,232,240,0.72);
+}
+
+[data-theme="dark"] .ff-loginAuthority__field input {
+  border-color: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.08);
+  color: #fffaf4;
+}
+
+/* Motion */
+
+@media (prefers-reduced-motion: no-preference) {
+  .ff-loginAuthority__hero,
+  .ff-loginAuthority__card,
+  .ff-loginAuthority__footer {
+    animation: ffAuthRise 640ms var(--auth-ease) both;
+  }
+
+  .ff-loginAuthority__card {
+    animation-delay: 100ms;
+  }
+
+  .ff-loginAuthority__footer {
+    animation-delay: 160ms;
+  }
+
+  @keyframes ffAuthRise {
+    from {
+      opacity: 0;
+      transform: translateY(18px) scale(0.985);
+      filter: blur(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-ff-page="platform-login"] *,
+  html[data-ff-page="platform-login"] *::before,
+  html[data-ff-page="platform-login"] *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Responsive */
+
+@media (max-width: 1060px) {
+  .ff-loginAuthority__stage {
+    min-height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .ff-loginAuthority__proofGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  html[data-ff-page="platform-login"] {
+    --auth-shell: min(100% - 1rem, 1180px);
+  }
+
+  .ff-loginAuthority {
+    padding-block: max(0.5rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .ff-loginAuthority__shell {
+    gap: 0.85rem;
+  }
+
+  html[data-ff-page="platform-login"] [data-ff-header].ff-loginAuthority__header {
+    border-radius: 1.2rem;
+  }
+
+  html[data-ff-page="platform-login"] .ff-loginAuthority__header [data-ff-header-nav],
+  html[data-ff-page="platform-login"] .ff-loginAuthority__header .ffShellHeader__nav {
+    display: none;
+  }
+
+  .ff-loginAuthority__hero,
+  .ff-loginAuthority__card {
+    border-radius: 1.35rem;
+    padding: 1rem;
+  }
+
+  .ff-loginAuthority h1 {
+    max-width: 10.25ch;
+    font-size: clamp(2.8rem, 13vw, 4.4rem);
+    line-height: 0.9;
+    letter-spacing: -0.064em;
+  }
+
+  .ff-loginAuthority h2 {
+    font-size: clamp(1.9rem, 9vw, 3rem);
+  }
+
+  .ff-loginAuthority__proofGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ff-loginAuthority__proofGrid article {
+    min-height: auto;
+  }
+
+  .ff-loginAuthority__pills,
+  .ff-loginAuthority__trustStrip,
+  .ff-loginAuthority__securityPills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ff-loginAuthority__pills span,
+  .ff-loginAuthority__trustStrip span,
+  .ff-loginAuthority__securityPills span {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .ff-loginAuthority__formFooter,
+  .ff-loginAuthority__footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ff-loginAuthority__footer nav {
+    justify-content: flex-start;
+  }
+
+  .ff-loginAuthority__submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .ff-loginAuthority__pills,
+  .ff-loginAuthority__trustStrip,
+  .ff-loginAuthority__securityPills {
+    grid-template-columns: 1fr;
+  }
+
+  .ff-loginAuthority h1 {
+    font-size: clamp(2.5rem, 12.5vw, 3.8rem);
+  }
+
+  .ff-loginAuthority__password input {
+    padding-right: 4.8rem;
+  }
+
+  .ff-loginAuthority__passwordToggle {
+    min-width: 3.55rem;
+    font-size: 0.74rem;
+  }
+}
+
+/* Defensive overflow guard */
+
+html[data-ff-page="platform-login"] :where(
+  .ff-loginAuthority,
+  .ff-loginAuthority__shell,
+  .ff-loginAuthority__header,
+  .ff-loginAuthority__stage,
+  .ff-loginAuthority__hero,
+  .ff-loginAuthority__card,
+  .ff-loginAuthority__form,
+  .ff-loginAuthority__field,
+  .ff-loginAuthority__proofGrid,
+  .ff-loginAuthority__footer
+) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+html[data-ff-page="platform-login"] :where(
+  h1, h2, h3, p, span, strong, small, label, input, button, a
+) {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}

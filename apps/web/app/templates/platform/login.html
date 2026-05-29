@@ -3,19 +3,20 @@
 {% set ff_page = 'platform-login' %}
 {% set _cfg = (config if config is defined and config is mapping else {}) %}
 {% set _requested_css_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else '')|string|trim %}
-{% set _asset_v = (_requested_css_v if _requested_css_v else asset_v|default(_cfg.get('ASSET_V'), true)|default('public-home-login-official-v1', true))|string|trim %}
+{% set _asset_v = (_requested_css_v if _requested_css_v else asset_v|default(_cfg.get('ASSET_V'), true)|default('login-authority-v3', true))|string|trim %}
 {% if not _asset_v %}
-  {% set _asset_v = 'public-home-login-official-v1' %}
+  {% set _asset_v = 'login-authority-v3' %}
 {% endif %}
 
 {% extends "_base/site_base.html" %}
 
 {% block html_class %}ff-root ff-loginRoot{% endblock %}
-{% block body_class %}ff-loginAuthorityBody ff-platformBrandBody{% endblock %}
-{% block page_title %}FutureFunded Organizer Access{% endblock %}
+{% block body_class %}ff-page ff-login-page ff-loginAuthorityBody ff-platformBrandBody{% endblock %}
+{% block title %}Organizer access · FutureFunded{% endblock %}
+{% block page_title %}Organizer access · FutureFunded{% endblock %}
 
 {% block page_description %}
-Secure organizer access for campaign setup, donation records, sponsor review, and operator follow-up.
+Secure organizer access for campaign setup, launch readiness, donation records, sponsor review, offline support, and operator follow-up.
 {% endblock %}
 
 {% block head_meta %}
@@ -25,48 +26,72 @@ Secure organizer access for campaign setup, donation records, sponsor review, an
 {% endblock %}
 
 {% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}?v={{ _asset_v|e }}">
 {% endblock %}
 
 {% block body_attrs %}
 data-ff-surface="platform-login"
-data-ff-login-template="login-public-official-v2"
+data-ff-page="platform-login"
+data-ff-login-template="login-authority-v3"
 {% endblock %}
 
 {% block content %}
   {% set _platform_url = platform_url|default('/platform/', true)|string|trim %}
-  {% set _campaign_url = platform_campaign_url|default('/c/connect-atx-elite', true)|string|trim %}
-  {% set _support_email = support_email|default('support@getfuturefunded.com', true)|string|trim %}
-  {% set _next_url = next_url|default(request.args.get('next') if request is defined and request else '/platform/dashboard', true)|string|trim %}
-  {% if not _next_url or not _next_url.startswith('/') or _next_url.startswith('//') %}
-    {% set _next_url = '/platform/dashboard' %}
+  {% if not _platform_url %}
+    {% set _platform_url = '/platform/' %}
   {% endif %}
 
-  <a class="ff-loginAuthority__skip" href="#login-form">Skip to organizer login</a>
+  {% set _campaign_url = platform_campaign_url|default('/c/connect-atx-elite', true)|string|trim %}
+  {% if not _campaign_url %}
+    {% set _campaign_url = '/c/connect-atx-elite' %}
+  {% endif %}
 
-  <main class="ff-loginAuthority"
-        id="login-main"
-        data-ff-login-root
-        data-ff-login-authority="v3"
-        data-ff-login-premium-pass="hoi-9i">
+  {% set _dashboard_url = dashboard_url|default('/platform/dashboard', true)|string|trim %}
+  {% if not _dashboard_url %}
+    {% set _dashboard_url = '/platform/dashboard' %}
+  {% endif %}
+
+  {% set _support_email = support_email|default('support@getfuturefunded.com', true)|string|trim %}
+  {% if not _support_email %}
+    {% set _support_email = 'support@getfuturefunded.com' %}
+  {% endif %}
+
+  {% set _raw_next = next_url|default(request.args.get('next') if request is defined and request else _dashboard_url, true)|string|trim %}
+  {% if not _raw_next or not _raw_next.startswith('/') or _raw_next.startswith('//') %}
+    {% set _next_url = _dashboard_url %}
+  {% else %}
+    {% set _next_url = _raw_next %}
+  {% endif %}
+
+  <a class="ff-loginAuthority__skip" href="#login-form">Skip to organizer sign in</a>
+
+  <main
+    class="ff-loginAuthority"
+    id="login-main"
+    data-ff-login-root
+    data-ff-login-authority="v3"
+    data-ff-login-page
+  >
     <div class="ff-loginAuthority__shell">
       {{ ff_shell_header(
-  mode='operator',
-  brand_name='FutureFunded',
-  context='Organizer access',
-  brand_href='/platform/',
-  nav_items=[
-    {'label':'Platform','href':'/platform/'},
-    {'label':'Fundraiser','href':'/c/connect-atx-elite'}
-  ],
-  actions=[]
-) }}
+        mode='operator',
+        brand_name='FutureFunded',
+        context='Organizer access',
+        brand_href=_platform_url,
+        nav_items=[
+          {'label': 'Platform', 'href': _platform_url},
+          {'label': 'Fundraiser', 'href': _campaign_url}
+        ],
+        actions=[],
+        extra_class='ff-loginAuthority__header'
+      ) }}
 
       <section class="ff-loginAuthority__stage" aria-labelledby="login-title">
         <article class="ff-loginAuthority__hero" data-ff-login-reveal>
-          <div class="ff-loginAuthority__pills" aria-label="Workspace scope">
+          <div class="ff-loginAuthority__pills" aria-label="Workspace status">
             <span>Protected access</span>
-            <span>Records-ready</span>
-            <span>Sponsor-ready</span>
+            <span>Operator-ready</span>
+            <span>Records-safe</span>
           </div>
 
           <p class="ff-loginAuthority__eyebrow">Organizer workspace</p>
@@ -76,52 +101,65 @@ data-ff-login-template="login-public-official-v2"
           </h1>
 
           <p class="ff-loginAuthority__lede">
-            Sign in to manage readiness, donations, sponsor interest, offline support, and launch follow-up.
+            Sign in to manage launch readiness, donation records, sponsor interest,
+            offline support, and follow-up from one private workspace.
           </p>
 
-          <div class="ff-loginAuthority__proofGrid" aria-label="Operator workspace includes">
+          <div class="ff-loginAuthority__proofGrid" aria-label="Workspace capabilities">
             <article>
               <span>01</span>
               <strong>Launch readiness</strong>
-              <p>Review the page before families, donors, and sponsors arrive.</p>
+              <p>Review the campaign before families, donors, and sponsors arrive.</p>
             </article>
 
             <article>
               <span>02</span>
               <strong>Donation records</strong>
-              <p>Keep confirmed gifts, offline support, and exports organized.</p>
+              <p>Keep confirmed gifts, offline support, and exportable records organized.</p>
             </article>
 
             <article>
               <span>03</span>
               <strong>Sponsor follow-up</strong>
-              <p>Track sponsor interest without cluttering the public page.</p>
+              <p>Track sponsor interest without cluttering the public fundraiser.</p>
             </article>
           </div>
 
-          <div class="ff-loginAuthority__trustStrip" aria-label="Platform assurance">
+          <div class="ff-loginAuthority__trustStrip" aria-label="Access assurance">
             <span>Private dashboard</span>
-            <span>Secure access</span>
+            <span>Secure sign in</span>
             <span>Campaign records</span>
           </div>
         </article>
 
-        <section class="ff-loginAuthority__card"
-                 aria-labelledby="login-form-title"
-                 data-ff-login-card
-                 data-ff-login-reveal>
+        <section
+          class="ff-loginAuthority__card"
+          aria-labelledby="login-form-title"
+          data-ff-login-card
+          data-ff-login-reveal
+        >
           <div class="ff-loginAuthority__cardHead">
             <p class="ff-loginAuthority__eyebrow">Secure sign in</p>
             <h2 id="login-form-title">Access the workspace</h2>
-            <p id="login-help">Use the organizer credentials connected to this campaign.</p>
+            <p id="login-help">
+              Use the organizer credentials connected to this campaign.
+            </p>
           </div>
 
-          <form id="login-form"
-                class="ff-loginAuthority__form"
-                method="post"
-                action="{{ url_for('platform.platform_operator_login_submit') }}"
-                aria-describedby="login-help login-security-note{% if error is defined and error %} login-error{% endif %}"
-                data-ff-login-form>
+          {% set _flash_messages = [] %}
+          {% if get_flashed_messages is defined %}
+            {% set _flash_messages = get_flashed_messages(with_categories=true) %}
+          {% endif %}
+
+          <form
+            id="login-form"
+            class="ff-loginAuthority__form"
+            method="post"
+            action="{{ url_for('platform.platform_operator_login_submit') }}"
+            aria-describedby="login-help login-security-note{% if error is defined and error %} login-error{% endif %}{% if _flash_messages %} login-flash{% endif %}"
+            data-ff-login-form
+            novalidate
+          >
             {% if csrf_token is defined %}
               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             {% endif %}
@@ -129,43 +167,58 @@ data-ff-login-template="login-public-official-v2"
             <input type="hidden" name="next" value="{{ _next_url|e }}">
 
             {% if error is defined and error %}
-              <p class="ff-loginAuthority__error" id="login-error" role="alert" data-ff-login-error>
+              <div class="ff-loginAuthority__error" id="login-error" role="alert" data-ff-login-error>
                 <strong>We couldn’t sign you in.</strong>
                 <span>Check your email and password, then try again.</span>
-              </p>
+              </div>
+            {% endif %}
+
+            {% if _flash_messages %}
+              <div class="ff-loginAuthority__flash" id="login-flash" role="status" aria-live="polite" data-ff-login-flash>
+                {% for category, message in _flash_messages %}
+                  <p data-ff-flash-category="{{ category|e }}">{{ message }}</p>
+                {% endfor %}
+              </div>
             {% endif %}
 
             <label class="ff-loginAuthority__field" for="ff-login-email">
               <span>Email</span>
-              <input id="ff-login-email"
-                     name="email"
-                     type="email"
-                     autocomplete="email"
-                     inputmode="email"
-                     autocapitalize="none"
-                     spellcheck="false"
-                     value="{{ email|default('', true)|e }}"
-                     placeholder="you@example.org"
-                     required
-                     data-ff-login-email>
+              <input
+                id="ff-login-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                inputmode="email"
+                autocapitalize="none"
+                spellcheck="false"
+                value="{{ email|default('', true)|e }}"
+                placeholder="you@example.org"
+                required
+                data-ff-login-email
+              >
             </label>
 
             <label class="ff-loginAuthority__field" for="ff-login-password">
               <span>Password</span>
-              <span class="ff-loginAuthority__password">
-                <input id="ff-login-password"
-                       name="password"
-                       type="password"
-                       autocomplete="current-password"
-                       placeholder="Enter your password"
-                       required
-                       data-ff-login-password>
 
-                <button type="button"
-                        class="ff-loginAuthority__passwordToggle"
-                        data-ff-login-password-toggle
-                        aria-controls="ff-login-password"
-                        aria-label="Show password">
+              <span class="ff-loginAuthority__password">
+                <input
+                  id="ff-login-password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="Enter your password"
+                  required
+                  data-ff-login-password
+                >
+
+                <button
+                  type="button"
+                  class="ff-loginAuthority__passwordToggle"
+                  data-ff-login-password-toggle
+                  aria-controls="ff-login-password"
+                  aria-label="Show password"
+                >
                   Show
                 </button>
               </span>
@@ -194,9 +247,9 @@ data-ff-login-template="login-public-official-v2"
       </section>
 
       <footer class="ff-loginAuthority__footer" aria-label="FutureFunded login footer">
-        <span>Protected access organizer access · FutureFunded</span>
+        <span>Protected organizer access · FutureFunded</span>
 
-        <nav aria-label="Footer links">
+        <nav aria-label="Login footer links">
           <a href="{{ _campaign_url|e }}">Live fundraiser</a>
           <a href="{{ _platform_url|e }}">Platform</a>
           <a href="mailto:{{ _support_email|e }}">Support</a>
@@ -207,5 +260,6 @@ data-ff-login-template="login-public-official-v2"
 {% endblock %}
 
 {% block scripts %}
+{{ super() }}
 <script src="{{ url_for('static', filename='js/login.js') }}?v={{ _asset_v|e }}" defer data-ff-login-js></script>
 {% endblock %}
