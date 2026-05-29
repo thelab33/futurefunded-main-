@@ -43,3 +43,6 @@ futurefunded.egg-info/
 .DS_Store
 .vscode/
 .idea/
+
+# Local runtime helpers
+.runtime/

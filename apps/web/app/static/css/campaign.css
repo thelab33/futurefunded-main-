@@ -6781,3 +6781,83 @@
   }
 }
 /* === FutureFunded Phase 2B Mobile Sticky Rail Safe Disable END === */
+
+/* === FutureFunded Phase 2E Campaign Header Flow All Viewports START === */
+/*
+  Marker: hoi-phase2e-campaign-header-flow-all-viewports-v1
+  Scope: public campaign header only.
+
+  Why:
+  - Generic ff.css makes .ff-siteHeader fixed globally.
+  - On campaign pages, the fixed header visually overlays the hero/donate top-fold.
+  - Mobile-only repair was not enough because wide/desktop review still showed overlay.
+  - This makes campaign header sticky + in-flow on every viewport:
+    it reserves layout space at load and remains visible while scrolling.
+
+  No template edits.
+  No payment/Stripe/PayPal/checkout/sponsor/share/QR hook edits.
+*/
+@layer campaign {
+  body.ff-campaignBody .ff-campaignHeader.ff-siteHeader,
+  body.ff-campaignBody .ff-campaignHeader.ffShellHeader,
+  body.ff-campaignBody [data-ff-header].ff-campaignHeader {
+    position: sticky !important;
+    inset-inline: auto !important;
+    top: max(0.5rem, env(safe-area-inset-top)) !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: min(calc(100% - clamp(1rem, 3vw, 2.25rem)), 1180px) !important;
+    max-width: calc(100% - clamp(1rem, 3vw, 2.25rem)) !important;
+    margin: max(0.5rem, env(safe-area-inset-top)) auto clamp(0.85rem, 2vw, 1.25rem) !important;
+    padding: 0 !important;
+    transform: none !important;
+    z-index: 120 !important;
+    pointer-events: none !important;
+  }
+
+  body.ff-campaignBody .ff-campaignHeader .ff-siteHeader__shell,
+  body.ff-campaignBody .ff-campaignHeader .ffShellHeader__shell,
+  body.ff-campaignBody .ff-campaignHeader [data-ff-header-shell] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: clamp(3.625rem, 5vw, 4rem) !important;
+    margin: 0 !important;
+    pointer-events: auto !important;
+  }
+
+  body.ff-campaignBody .ff-campaignPage,
+  body.ff-campaignBody .ff-campaignMain {
+    padding-top: 0 !important;
+  }
+
+  body.ff-campaignBody .ff-campaignHero {
+    margin-top: 0 !important;
+    padding-top: clamp(0.75rem, 2.2vw, 1.35rem) !important;
+    scroll-margin-top: calc(clamp(3.625rem, 5vw, 4rem) + 1.25rem) !important;
+  }
+
+  body.ff-campaignBody .ff-campaignHero__grid,
+  body.ff-campaignBody .ff-campaignHero__story,
+  body.ff-campaignBody .ff-donatePanel,
+  body.ff-campaignBody .ff-campaignSection {
+    scroll-margin-top: calc(clamp(3.625rem, 5vw, 4rem) + 1.25rem) !important;
+  }
+
+  @media (max-width: 767px) {
+    body.ff-campaignBody .ff-campaignHeader.ff-siteHeader,
+    body.ff-campaignBody .ff-campaignHeader.ffShellHeader,
+    body.ff-campaignBody [data-ff-header].ff-campaignHeader {
+      width: min(calc(100% - 1rem), 1180px) !important;
+      max-width: calc(100% - 1rem) !important;
+      margin-bottom: clamp(0.75rem, 3vw, 1rem) !important;
+    }
+
+    body.ff-campaignBody .ff-campaignHeader .ff-siteHeader__shell,
+    body.ff-campaignBody .ff-campaignHeader .ffShellHeader__shell,
+    body.ff-campaignBody .ff-campaignHeader [data-ff-header-shell] {
+      min-height: 3.625rem !important;
+    }
+  }
+}
+/* === FutureFunded Phase 2E Campaign Header Flow All Viewports END === */
