@@ -21,7 +21,7 @@
 {% set _dashboard_url = '/platform/dashboard' ~ _auth_qs %}
 {% set _dashboard_ledger_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/summary' %}
 {% set _dashboard_events_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/events' %}
-{% set _dashboard_offline_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/offline' %}
+{% set _dashboard_offline_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/offline-donation' %}
 {% set _dashboard_export_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/export.csv' %}
 {% set _dashboard_operator_token = '' %}
 {% if request is defined and request.args is defined %}
