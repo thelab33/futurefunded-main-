@@ -11,7 +11,14 @@ const SHOT_DIR = path.join(OUT_DIR, "screenshots");
 
 fs.mkdirSync(SHOT_DIR, { recursive: true });
 
-const operatorToken = process.env.FF_OPERATOR_ACCESS_TOKEN || "";
+// Marker: hoi-visual-gate-token-fallback-v1
+const baseUrlForToken = process.env.FF_BASE_URL || process.env.BASE_URL || "http://127.0.0.1:5000";
+const isLocalTokenProof = /^(http:\/\/127\.0\.0\.1|http:\/\/localhost)/.test(baseUrlForToken);
+const operatorToken =
+  process.env.FF_OPERATOR_ACCESS_TOKEN ||
+  process.env.OPERATOR_ACCESS_TOKEN ||
+  process.env.OPERATOR_TOKEN ||
+  (isLocalTokenProof ? "dev-operator-20260529123018" : "");
 
 const surfaces = [
   {

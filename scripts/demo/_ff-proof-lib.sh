@@ -40,7 +40,13 @@ print("Created /tmp/ff_operator_token")
 PY
   fi
 
+  # Marker: hoi-demo-proof-token-preserve-v1
+if [ -z "${FF_OPERATOR_ACCESS_TOKEN:-}" ]; then
   export FF_OPERATOR_ACCESS_TOKEN="$(cat /tmp/ff_operator_token 2>/dev/null || true)"
+fi
+if [ -z "${OPERATOR_ACCESS_TOKEN:-}" ]; then
+  export OPERATOR_ACCESS_TOKEN="${FF_OPERATOR_ACCESS_TOKEN:-}"
+fi
 }
 
 health_ok() {
