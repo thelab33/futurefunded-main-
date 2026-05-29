@@ -9,15 +9,21 @@ from typing import Any
 
 from flask import (
     Blueprint,
+    Response,
     abort,
+    after_this_request,
     current_app,
+    flash,
     g,
     jsonify,
     make_response,
     redirect,
     render_template,
     request,
+    send_file,
+    send_from_directory,
     session,
+    stream_with_context,
     url_for,
 )
 from werkzeug.security import check_password_hash
@@ -368,7 +374,6 @@ def onboarding():
     )
 
 
-
 @platform_bp.post("/platform/onboarding")
 @platform_bp.post("/platform/onboarding/")
 def onboarding_submit():
@@ -705,7 +710,6 @@ def _ff_media_upload_allowed() -> bool:
     return bool(current_app.debug or current_app.config.get("ENV") != "production")
 
 
-
 def _onboarding_payload_errors(payload: dict[str, Any]) -> list[str]:
     errors: list[str] = []
 
@@ -806,3 +810,60 @@ def platform_media_upload():
             "campaign_url": f"/c/{safe_slug}",
         }
     )
+
+
+# ============================================================================
+# FutureFunded Auth Suite Routes
+# Marker: hoi-auth-suite-routes-v1
+# Safe UI-ready auth surfaces. Provider-backed email/MFA can be wired later.
+# ============================================================================
+
+@platform_bp.route("/platform/forgot-password", methods=["GET", "POST"])
+def platform_forgot_password():
+    """Password recovery request page."""
+    if request.method == "POST":
+        flash("If an organizer account exists, reset instructions will be sent.", "success")
+        return redirect("/platform/forgot-password")
+    return render_template("platform/forgot_password.html")
+
+
+@platform_bp.route("/platform/reset-password", methods=["GET", "POST"])
+def platform_reset_password():
+    """Password reset page for token-based recovery links."""
+    token = request.args.get("token", "").strip()
+    if request.method == "POST":
+        flash("Password reset is ready for provider wiring.", "info")
+        return redirect("/platform/login")
+    return render_template("platform/reset_password.html", reset_token=token)
+
+
+@platform_bp.route("/platform/invite", methods=["GET", "POST"])
+def platform_invite():
+    """Organizer invite acceptance page."""
+    invite_token = request.args.get("token", "").strip()
+    if request.method == "POST":
+        flash("Invite acceptance is ready for provider wiring.", "info")
+        return redirect("/platform/login")
+    return render_template("platform/invite.html", invite_token=invite_token)
+
+
+@platform_bp.route("/platform/mfa", methods=["GET", "POST"])
+def platform_mfa():
+    """Multi-factor verification page."""
+    next_url = request.args.get("next", "/platform/dashboard").strip() or "/platform/dashboard"
+    if not next_url.startswith("/") or next_url.startswith("//"):
+        next_url = "/platform/dashboard"
+    if request.method == "POST":
+        flash("MFA verification is ready for provider wiring.", "info")
+        return redirect("/platform/login?next=" + next_url)
+    return render_template("platform/mfa.html", next_url=next_url)
+
+
+@platform_bp.route("/platform/register", methods=["GET", "POST"])
+def platform_register():
+    """Invite-first organizer registration page."""
+    if request.method == "POST":
+        flash("Organizer registration is invite-first. Request access to continue.", "info")
+        return redirect("/platform/invite")
+    return render_template("platform/register.html")
+

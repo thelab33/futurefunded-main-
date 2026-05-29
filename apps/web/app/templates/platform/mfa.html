@@ -1,0 +1,67 @@
+{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+{% set html_page = 'platform-mfa' %}
+{% set ff_page = 'platform-mfa' %}
+{% set _cfg = (config if config is defined and config is mapping else {}) %}
+{% set _asset_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else asset_v|default(_cfg.get('ASSET_V'), true)|default('auth-suite-v1', true))|string|trim %}
+{% if not _asset_v %}{% set _asset_v = 'auth-suite-v1' %}{% endif %}
+{% extends "_base/site_base.html" %}
+
+{% block html_class %}ff-root ff-authRoot{% endblock %}
+{% block body_class %}ff-page ff-authSuiteBody ff-platformBrandBody{% endblock %}
+{% block title %}Verify access · FutureFunded{% endblock %}
+{% block page_title %}Verify access · FutureFunded{% endblock %}
+{% block page_description %}Verify organizer access with a second factor for a FutureFunded workspace.{% endblock %}
+{% block head_meta %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}?v={{ _asset_v|e }}">{% endblock %}
+{% block body_attrs %}data-ff-surface="platform-mfa" data-ff-page="platform-mfa" data-ff-auth-template="mfa-v1"{% endblock %}
+
+{% block content %}
+<main class="ff-authAuthority ff-authAuthority--mfa" data-ff-auth-root data-ff-auth-page="mfa">
+  <div class="ff-authAuthority__shell">
+    {{ ff_shell_header(
+      mode='operator',
+      brand_name='FutureFunded',
+      context='MFA verification',
+      brand_href='/platform/',
+      nav_items=[{'label':'Platform','href':'/platform/'},{'label':'Sign in','href':'/platform/login'}],
+      actions=[],
+      extra_class='ff-authAuthority__header'
+    ) }}
+
+    <section class="ff-authAuthority__stage" aria-labelledby="mfa-title">
+      <article class="ff-authAuthority__hero">
+        <p class="ff-authAuthority__eyebrow">Second factor</p>
+        <h1 id="mfa-title">Verify it is really you.</h1>
+        <p class="ff-authAuthority__lede">
+          Protect campaign funds, donor records, sponsor leads, and exportable data with a second verification step.
+        </p>
+        <div class="ff-authAuthority__trustStrip">
+          <span>Funds-aware</span><span>Records-safe</span><span>Operator-only</span>
+        </div>
+      </article>
+
+      <section class="ff-authAuthority__card" aria-labelledby="mfa-form-title">
+        <p class="ff-authAuthority__eyebrow">Verification code</p>
+        <h2 id="mfa-form-title">Enter your code</h2>
+        <p>Use the code from your authenticator app or identity provider.</p>
+
+        <form class="ff-authAuthority__form" method="post" data-ff-auth-form data-ff-auth-kind="mfa">
+          {% if csrf_token is defined %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+          <input type="hidden" name="next" value="{{ next_url|default('/platform/dashboard', true)|e }}">
+          <label class="ff-authAuthority__field" for="mfa-code">
+            <span>Verification code</span>
+            <input id="mfa-code" class="ff-authAuthority__otp" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="8" placeholder="123456" required>
+          </label>
+          <button class="ff-authAuthority__submit" type="submit">Verify securely</button>
+          <p class="ff-authAuthority__fineprint">Provider wiring can support app codes, email codes, SMS, passkeys, or WebAuthn.</p>
+        </form>
+
+        <div class="ff-authAuthority__links">
+          <a href="/platform/login">Use another account</a>
+          <a href="mailto:support@getfuturefunded.com">Can’t verify?</a>
+        </div>
+      </section>
+    </section>
+  </div>
+</main>
+{% endblock %}

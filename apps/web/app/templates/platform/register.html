@@ -1,0 +1,76 @@
+{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+{% set html_page = 'platform-register' %}
+{% set ff_page = 'platform-register' %}
+{% set _cfg = (config if config is defined and config is mapping else {}) %}
+{% set _asset_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else asset_v|default(_cfg.get('ASSET_V'), true)|default('auth-suite-v1', true))|string|trim %}
+{% if not _asset_v %}{% set _asset_v = 'auth-suite-v1' %}{% endif %}
+{% extends "_base/site_base.html" %}
+
+{% block html_class %}ff-root ff-authRoot{% endblock %}
+{% block body_class %}ff-page ff-authSuiteBody ff-platformBrandBody{% endblock %}
+{% block title %}Create organizer access · FutureFunded{% endblock %}
+{% block page_title %}Create organizer access · FutureFunded{% endblock %}
+{% block page_description %}Create invite-first organizer access for a FutureFunded workspace.{% endblock %}
+{% block head_meta %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}?v={{ _asset_v|e }}">{% endblock %}
+{% block body_attrs %}data-ff-surface="platform-register" data-ff-page="platform-register" data-ff-auth-template="register-v1"{% endblock %}
+
+{% block content %}
+<main class="ff-authAuthority ff-authAuthority--register" data-ff-auth-root data-ff-auth-page="register">
+  <div class="ff-authAuthority__shell">
+    {{ ff_shell_header(
+      mode='operator',
+      brand_name='FutureFunded',
+      context='Create access',
+      brand_href='/platform/',
+      nav_items=[{'label':'Platform','href':'/platform/'},{'label':'Sign in','href':'/platform/login'}],
+      actions=[],
+      extra_class='ff-authAuthority__header'
+    ) }}
+
+    <section class="ff-authAuthority__stage" aria-labelledby="register-title">
+      <article class="ff-authAuthority__hero">
+        <p class="ff-authAuthority__eyebrow">Invite-first registration</p>
+        <h1 id="register-title">Create access only when the campaign is ready.</h1>
+        <p class="ff-authAuthority__lede">
+          Registration should be controlled by campaign owners, schools, clubs, and nonprofits—not open to the public.
+        </p>
+        <div class="ff-authAuthority__proofGrid">
+          <article><span>01</span><strong>Controlled access</strong><p>New users join through invite or admin approval.</p></article>
+          <article><span>02</span><strong>Organization-ready</strong><p>Designed for schools, teams, nonprofits, and clubs.</p></article>
+          <article><span>03</span><strong>Launch-safe</strong><p>Public pages stay separate from private operator tools.</p></article>
+        </div>
+      </article>
+
+      <section class="ff-authAuthority__card" aria-labelledby="register-form-title">
+        <p class="ff-authAuthority__eyebrow">Request access</p>
+        <h2 id="register-form-title">Start organizer setup</h2>
+        <p>Use this request path when a campaign owner has not sent an invite yet.</p>
+
+        <form class="ff-authAuthority__form" method="post" data-ff-auth-form data-ff-auth-kind="register">
+          {% if csrf_token is defined %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+          <label class="ff-authAuthority__field" for="register-name">
+            <span>Name</span>
+            <input id="register-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+          </label>
+          <label class="ff-authAuthority__field" for="register-email">
+            <span>Email</span>
+            <input id="register-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.org" required>
+          </label>
+          <label class="ff-authAuthority__field" for="register-org">
+            <span>Organization</span>
+            <input id="register-org" name="organization" type="text" autocomplete="organization" placeholder="Team, school, nonprofit, or club" required>
+          </label>
+          <button class="ff-authAuthority__submit" type="submit">Request organizer access</button>
+          <p class="ff-authAuthority__fineprint">For launch safety, production registration should verify organization ownership.</p>
+        </form>
+
+        <div class="ff-authAuthority__links">
+          <a href="/platform/invite">Have an invite?</a>
+          <a href="/platform/login">Back to sign in</a>
+        </div>
+      </section>
+    </section>
+  </div>
+</main>
+{% endblock %}

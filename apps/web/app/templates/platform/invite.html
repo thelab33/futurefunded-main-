@@ -1,0 +1,79 @@
+{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+{% set html_page = 'platform-invite' %}
+{% set ff_page = 'platform-invite' %}
+{% set _cfg = (config if config is defined and config is mapping else {}) %}
+{% set _asset_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else asset_v|default(_cfg.get('ASSET_V'), true)|default('auth-suite-v1', true))|string|trim %}
+{% if not _asset_v %}{% set _asset_v = 'auth-suite-v1' %}{% endif %}
+{% extends "_base/site_base.html" %}
+
+{% block html_class %}ff-root ff-authRoot{% endblock %}
+{% block body_class %}ff-page ff-authSuiteBody ff-platformBrandBody{% endblock %}
+{% block title %}Organizer invite · FutureFunded{% endblock %}
+{% block page_title %}Organizer invite · FutureFunded{% endblock %}
+{% block page_description %}Accept or request organizer access for a FutureFunded campaign workspace.{% endblock %}
+{% block head_meta %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block page_css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}?v={{ _asset_v|e }}">{% endblock %}
+{% block body_attrs %}data-ff-surface="platform-invite" data-ff-page="platform-invite" data-ff-auth-template="invite-v1"{% endblock %}
+
+{% block content %}
+<main class="ff-authAuthority ff-authAuthority--invite" data-ff-auth-root data-ff-auth-page="invite">
+  <div class="ff-authAuthority__shell">
+    {{ ff_shell_header(
+      mode='operator',
+      brand_name='FutureFunded',
+      context='Organizer invite',
+      brand_href='/platform/',
+      nav_items=[{'label':'Platform','href':'/platform/'},{'label':'Sign in','href':'/platform/login'}],
+      actions=[],
+      extra_class='ff-authAuthority__header'
+    ) }}
+
+    <section class="ff-authAuthority__stage" aria-labelledby="invite-title">
+      <article class="ff-authAuthority__hero">
+        <p class="ff-authAuthority__eyebrow">Invite-first access</p>
+        <h1 id="invite-title">Add trusted operators without opening the doors.</h1>
+        <p class="ff-authAuthority__lede">
+          Invite flows keep campaign records, donation data, and sponsor follow-up limited to verified organizers.
+        </p>
+        <div class="ff-authAuthority__proofGrid">
+          <article><span>01</span><strong>Role-ready</strong><p>Prepared for owner, manager, and viewer access models.</p></article>
+          <article><span>02</span><strong>Private launch</strong><p>Campaign setup stays private until approved.</p></article>
+          <article><span>03</span><strong>Sponsor-safe</strong><p>Recognition controls stay behind the operator wall.</p></article>
+        </div>
+      </article>
+
+      <section class="ff-authAuthority__card" aria-labelledby="invite-form-title">
+        <p class="ff-authAuthority__eyebrow">Accept invite</p>
+        <h2 id="invite-form-title">Join the workspace</h2>
+        <p>Use an invite token or request access from the campaign owner.</p>
+
+        {% if not invite_token %}
+          <div class="ff-authAuthority__warning" role="status">
+            <strong>No invite token detected.</strong>
+            <span>You can still request access from the campaign organizer.</span>
+          </div>
+        {% endif %}
+
+        <form class="ff-authAuthority__form" method="post" data-ff-auth-form data-ff-auth-kind="invite">
+          {% if csrf_token is defined %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+          <input type="hidden" name="token" value="{{ invite_token|default('', true)|e }}">
+          <label class="ff-authAuthority__field" for="invite-email">
+            <span>Email</span>
+            <input id="invite-email" name="email" type="email" autocomplete="email" placeholder="you@example.org" required>
+          </label>
+          <label class="ff-authAuthority__field" for="invite-name">
+            <span>Name</span>
+            <input id="invite-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+          </label>
+          <button class="ff-authAuthority__submit" type="submit">Continue invite setup</button>
+        </form>
+
+        <div class="ff-authAuthority__links">
+          <a href="/platform/login">Already have access?</a>
+          <a href="mailto:support@getfuturefunded.com">Request help</a>
+        </div>
+      </section>
+    </section>
+  </div>
+</main>
+{% endblock %}
