@@ -1,40 +1,74 @@
-/*
-  FutureFunded Onboarding CSS Authority
-  File: apps/web/app/static/css/onboarding.css
-  Version: onboarding-launch-authority-v3
-  Purpose:
-  - Official premium launch workspace for /platform/onboarding
-  - Matches homepage/campaign/dashboard visual language
-  - Preserves onboarding form, text-to-donate, launch completion, and handoff hooks
-*/
+/* ==========================================================================
+   FutureFunded — Onboarding CSS Authority V2
+   File: apps/web/app/static/css/onboarding.css
+   Marker: hoi-onboarding-v2-css-authority-20260529
 
-html[data-ff-page="platform-onboarding"],
-body.ff-onboardAuthorityBody {
+   Purpose:
+   - Production-grade visual authority for /platform/onboarding
+   - Matches platform, campaign, auth, and dashboard premium language
+   - Targets the new onboarding.html ffOnboardV2* template contract
+   - Preserves setup, theme picker, color inputs, save button, handoff, and JS hooks
+
+   Stable hooks supported:
+   data-ff-page="platform-onboarding"
+   data-ff-onboarding-root
+   data-ff-onboard-root
+   data-ff-theme-picker
+   data-ff-theme-preset
+   data-ff-color-primary
+   data-ff-color-accent
+   data-ff-color-soft
+   data-ff-theme-preview
+   data-ff-save-onboarding
+   data-ff-save-note
+========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Page tokens
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] {
   color-scheme: light;
-  --onb-page: #fff8ef;
-  --onb-page-2: #f7e9d3;
-  --onb-page-3: #efd8bb;
+
+  --onb-bg-0: #fff9f0;
+  --onb-bg-1: #f6e8d3;
+  --onb-bg-2: #ead5b8;
+
   --onb-ink: #120b07;
-  --onb-ink-strong: #0d0805;
-  --onb-muted: rgba(56,42,31,.72);
-  --onb-soft: rgba(74,55,39,.56);
-  --onb-line: rgba(72,44,25,.105);
-  --onb-line-strong: rgba(72,44,25,.17);
-  --onb-surface: rgba(255,255,255,.74);
-  --onb-orange: #f35f16;
+  --onb-ink-2: #211711;
+  --onb-muted: rgba(52, 39, 29, 0.72);
+  --onb-soft: rgba(75, 56, 41, 0.58);
+  --onb-faint: rgba(75, 56, 41, 0.42);
+
+  --onb-card: rgba(255, 255, 255, 0.78);
+  --onb-card-strong: rgba(255, 255, 255, 0.9);
+  --onb-card-warm: rgba(255, 249, 240, 0.84);
+
+  --onb-line: rgba(68, 43, 25, 0.105);
+  --onb-line-strong: rgba(68, 43, 25, 0.16);
+
+  --onb-orange: #ff5a1f;
   --onb-orange-2: #ff8a2b;
-  --onb-orange-dark: #a84310;
-  --onb-teal: #127c6f;
+  --onb-orange-dark: #a84212;
+  --onb-teal: #0f766e;
+  --onb-teal-soft: rgba(15, 118, 110, 0.12);
   --onb-gold: #f59e0b;
-  --onb-blue: #2563eb;
-  --onb-radius: clamp(24px, 3vw, 36px);
-  --onb-radius-md: 22px;
+
+  --onb-radius-xl: clamp(1.5rem, 3vw, 2.5rem);
+  --onb-radius-lg: clamp(1.15rem, 2.2vw, 1.75rem);
+  --onb-radius-md: 1.1rem;
+  --onb-radius-sm: 0.82rem;
   --onb-pill: 999px;
-  --onb-shadow: 0 34px 90px rgba(55,36,20,.14);
-  --onb-shadow-soft: 0 18px 48px rgba(55,36,20,.09);
-  --onb-shadow-hover: 0 24px 64px rgba(55,36,20,.13);
-  --onb-focus: rgba(243,95,22,.38);
-  --ff-onboard-progress: 68%;
+
+  --onb-shell: min(100% - clamp(1rem, 3vw, 2.25rem), 1180px);
+  --onb-section-gap: clamp(1.15rem, 2.5vw, 2.2rem);
+
+  --onb-shadow: 0 34px 90px rgba(56, 36, 20, 0.14);
+  --onb-shadow-soft: 0 18px 46px rgba(56, 36, 20, 0.09);
+  --onb-shadow-hover: 0 24px 62px rgba(56, 36, 20, 0.13);
+  --onb-focus: rgba(255, 90, 31, 0.34);
+
+  --onb-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 html[data-ff-page="platform-onboarding"],
@@ -42,1036 +76,1076 @@ html[data-ff-page="platform-onboarding"] body {
   min-height: 100%;
 }
 
-html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody {
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body {
   min-width: 320px;
   margin: 0 !important;
   overflow-x: clip;
   background:
-    radial-gradient(circle at 8% -7%, rgba(255,122,26,.245), transparent 31rem),
-    radial-gradient(circle at 94% 2%, rgba(18,124,111,.155), transparent 34rem),
-    radial-gradient(circle at 54% 22%, rgba(255,255,255,.54), transparent 30rem),
-    linear-gradient(180deg, var(--onb-page) 0%, var(--onb-page-2) 50%, var(--onb-page-3) 100%);
+    radial-gradient(circle at 8% -6%, rgba(255, 118, 35, 0.2), transparent 30rem),
+    radial-gradient(circle at 92% 2%, rgba(15, 118, 110, 0.13), transparent 34rem),
+    radial-gradient(circle at 56% 26%, rgba(255, 255, 255, 0.62), transparent 32rem),
+    linear-gradient(180deg, var(--onb-bg-0) 0%, var(--onb-bg-1) 54%, var(--onb-bg-2) 100%);
   color: var(--onb-ink);
-  font-family: var(--ff-font-sans, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-family: var(--ff-type-sans, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
-html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody *,
-html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody *::before,
-html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody *::after {
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body *,
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body *::before,
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body *::after {
   box-sizing: border-box;
 }
 
-html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody a {
+html[data-ff-page="platform-onboarding"] :where(h1, h2, h3, p, ul, ol, dl, dd, figure) {
+  margin: 0;
+}
+
+html[data-ff-page="platform-onboarding"] :where(a) {
   color: inherit;
   text-decoration: none;
 }
 
-html[data-ff-page="platform-onboarding"] :where(h1, h2, h3, p, ul, ol, dl, dd) {
-  margin: 0;
+html[data-ff-page="platform-onboarding"] :where(button, input, select, textarea) {
+  font: inherit;
 }
 
-html[data-ff-page="platform-onboarding"] :is(a, button, input, select, textarea, summary):focus-visible {
+html[data-ff-page="platform-onboarding"] :where(button) {
+  cursor: pointer;
+}
+
+html[data-ff-page="platform-onboarding"] :where(a, button, input, select, textarea):focus-visible {
   outline: 3px solid var(--onb-focus);
   outline-offset: 3px;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardSkip:not(:focus):not(:focus-visible) {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-  clip: rect(0 0 0 0) !important;
-  white-space: nowrap !important;
-}
+/* --------------------------------------------------------------------------
+   Shared shell header page fit
+-------------------------------------------------------------------------- */
 
-html[data-ff-page="platform-onboarding"] .ff-onboardSkip:focus,
-html[data-ff-page="platform-onboarding"] .ff-onboardSkip:focus-visible {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  z-index: 9999;
-  border-radius: var(--onb-pill);
-  background: var(--onb-ink);
-  color: #fffaf4;
-  box-shadow: var(--onb-shadow-soft);
-  font-weight: 950;
-  padding: .75rem 1rem;
-}
-
-/* Shell + header */
-
-html[data-ff-page="platform-onboarding"] .ff-onboardShell {
-  width: min(calc(100% - 24px), 1180px);
-  max-width: min(calc(100% - 24px), 1180px);
-  display: grid;
-  gap: 16px;
-  margin-inline: auto;
-  padding-block: max(14px, env(safe-area-inset-top)) max(28px, env(safe-area-inset-bottom));
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardHeader {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header,
+html[data-ff-page="platform-onboarding"] [data-ff-header].ffOnboardV2__header {
   position: sticky;
-  top: max(10px, env(safe-area-inset-top));
-  z-index: 40;
-  min-height: 58px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  top: max(0.65rem, env(safe-area-inset-top));
+  z-index: 50;
+  width: var(--onb-shell);
+  margin: max(0.65rem, env(safe-area-inset-top)) auto 0;
   border: 1px solid var(--onb-line);
-  border-radius: 24px;
+  border-radius: 1.55rem;
   background:
-    linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,250,242,.90));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 250, 242, 0.92));
   box-shadow:
-    0 1px 0 rgba(255,255,255,.74) inset,
-    0 14px 38px rgba(55,36,20,.10);
+    0 1px 0 rgba(255, 255, 255, 0.82) inset,
+    0 14px 38px rgba(56, 36, 20, 0.1);
   backdrop-filter: blur(18px) saturate(145%);
   -webkit-backdrop-filter: blur(18px) saturate(145%);
-  padding: 8px 10px;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardBrand,
-html[data-ff-page="platform-onboarding"] .ff-onboardNav,
-html[data-ff-page="platform-onboarding"] .ff-onboardHero__actions,
-html[data-ff-page="platform-onboarding"] .ff-onboardForm__actions {
-  display: flex;
-  align-items: center;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__shell {
+  min-height: 3.65rem;
+  padding: 0.5rem 0.65rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardBrand {
-  min-width: 0;
-  gap: 10px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardBrand__mark {
-  width: 40px;
-  height: 40px;
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  border-radius: 13px;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__mark {
   background:
-    radial-gradient(circle at 30% 15%, rgba(255,255,255,.18), transparent 1.4rem),
+    radial-gradient(circle at 32% 12%, rgba(255, 255, 255, 0.18), transparent 1.45rem),
     linear-gradient(135deg, #20130c, #553018);
-  color: #fffaf4;
-  box-shadow: 0 12px 26px rgba(55,36,20,.18);
-  font-size: .78rem;
-  font-weight: 1000;
-  letter-spacing: -.04em;
+  box-shadow: 0 12px 26px rgba(56, 36, 20, 0.18);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardBrand__copy {
-  min-width: 0;
-  display: grid;
-  line-height: 1;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardBrand__copy strong {
-  overflow: hidden;
-  color: var(--onb-ink);
-  font-size: .94rem;
-  font-weight: 1000;
-  letter-spacing: -.035em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardBrand__copy small {
-  overflow: hidden;
-  margin-top: 3px;
-  color: var(--onb-soft);
-  font-size: .68rem;
-  font-weight: 850;
-  letter-spacing: .065em;
-  text-overflow: ellipsis;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardNav {
-  flex: 0 0 auto;
-  gap: 6px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardNav a,
-html[data-ff-page="platform-onboarding"] .ff-onboardButton {
-  min-height: 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__nav {
   border: 1px solid var(--onb-line);
   border-radius: var(--onb-pill);
-  background: rgba(255,255,255,.84);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.82) inset;
+  padding: 0.25rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__nav a {
+  border-radius: var(--onb-pill);
+  color: rgba(38, 28, 21, 0.78);
+  font-weight: 900;
+  min-height: 2.3rem;
+  padding-inline: 0.9rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__nav a:hover {
+  background: rgba(255, 255, 255, 0.88);
   color: var(--onb-ink);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,.78) inset,
-    0 10px 24px rgba(55,36,20,.07);
-  cursor: pointer;
-  font: inherit;
-  font-size: .82rem;
-  font-weight: 950;
-  line-height: 1;
-  padding: 0 15px;
-  text-align: center;
-  transition:
-    transform 180ms var(--ff-ease, ease),
-    border-color 180ms var(--ff-ease, ease),
-    box-shadow 180ms var(--ff-ease, ease),
-    background 180ms var(--ff-ease, ease);
-  white-space: nowrap;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardNav a:hover,
-html[data-ff-page="platform-onboarding"] .ff-onboardButton:hover {
-  transform: translateY(-1px);
-  border-color: var(--onb-line-strong);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,.82) inset,
-    var(--onb-shadow-soft);
-}
+/* --------------------------------------------------------------------------
+   Core typography
+-------------------------------------------------------------------------- */
 
-html[data-ff-page="platform-onboarding"] .ff-onboardNav__primary,
-html[data-ff-page="platform-onboarding"] .ff-onboardButton--primary {
-  border-color: rgba(243,95,22,.34);
-  background:
-    radial-gradient(circle at 30% 0%, rgba(255,255,255,.26), transparent 42%),
-    linear-gradient(135deg, var(--onb-orange), var(--onb-orange-2));
-  color: #fffaf4;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,.24) inset,
-    0 16px 34px rgba(243,95,22,.25),
-    0 22px 54px rgba(243,95,22,.14);
-}
-
-/* Typography */
-
-html[data-ff-page="platform-onboarding"] h1,
-html[data-ff-page="platform-onboarding"] h2,
-html[data-ff-page="platform-onboarding"] h3 {
-  color: var(--onb-ink-strong);
-  font-weight: 1000;
+html[data-ff-page="platform-onboarding"] :where(h1, h2, h3) {
+  color: var(--onb-ink);
+  font-family: var(--ff-type-display, var(--ff-type-sans, Inter, ui-sans-serif, system-ui));
+  font-weight: var(--ff-type-weight-display, 950);
   text-wrap: balance;
 }
 
 html[data-ff-page="platform-onboarding"] h1 {
-  max-width: 10.4ch;
-  font-size: clamp(3.4rem, 7.2vw, 6.4rem);
-  line-height: .86;
-  letter-spacing: -.084em;
+  max-width: 10.8ch;
+  font-size: clamp(3.35rem, 7vw, 6.35rem);
+  line-height: 0.86;
+  letter-spacing: -0.085em;
 }
 
 html[data-ff-page="platform-onboarding"] h2 {
-  max-width: 11ch;
-  font-size: clamp(2.25rem, 4vw, 4.4rem);
-  line-height: .89;
-  letter-spacing: -.078em;
+  max-width: 11.4ch;
+  font-size: clamp(2.1rem, 4.4vw, 4.2rem);
+  line-height: 0.9;
+  letter-spacing: -0.074em;
 }
 
 html[data-ff-page="platform-onboarding"] h3 {
-  font-size: clamp(1.22rem, 2vw, 1.75rem);
-  line-height: .96;
-  letter-spacing: -.055em;
+  font-size: clamp(1.18rem, 2vw, 1.65rem);
+  line-height: 0.98;
+  letter-spacing: -0.052em;
 }
 
-html[data-ff-page="platform-onboarding"] p {
+html[data-ff-page="platform-onboarding"] p,
+html[data-ff-page="platform-onboarding"] li,
+html[data-ff-page="platform-onboarding"] dd {
   color: var(--onb-muted);
-  font-size: clamp(.94rem, 1.05vw, 1.03rem);
-  line-height: 1.48;
+  font-size: clamp(0.94rem, 1vw, 1.04rem);
+  line-height: 1.52;
   text-wrap: pretty;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardKicker {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__eyebrow {
   width: fit-content;
   color: var(--onb-orange-dark);
-  font-size: .72rem;
-  font-weight: 1000;
-  letter-spacing: .145em;
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.15em;
   line-height: 1;
   text-transform: uppercase;
 }
 
-/* Main surfaces */
-
-html[data-ff-page="platform-onboarding"] .ff-onboardMain {
-  display: grid;
-  gap: 16px;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__miniNote,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__saveNote {
+  color: rgba(65, 48, 35, 0.72);
+  font-size: 0.86rem;
+  font-weight: 760;
 }
 
+/* --------------------------------------------------------------------------
+   Main layout
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__main {
+  position: relative;
+  display: grid;
+  gap: var(--onb-section-gap);
+  width: var(--onb-shell);
+  margin-inline: auto;
+  padding-block: clamp(1.1rem, 2.5vw, 2rem) max(2rem, env(safe-area-inset-bottom));
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__main::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(90, 62, 38, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90, 62, 38, 0.022) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 82%);
+}
+
+/* --------------------------------------------------------------------------
+   Reusable surfaces
+-------------------------------------------------------------------------- */
+
 html[data-ff-page="platform-onboarding"] :where(
-  .ff-onboardHero,
-  .ff-onboardSteps article,
-  .ff-onboardWorkspaceSummary,
-  .ff-onboardCommand,
-  .ff-onboardSetup,
-  .ff-onboardKit,
-  .ff-onboardHandoff,
-  .ff-onboardReadiness,
-  .ff-onboardPackageGrid article,
-  .ff-onboardCommand__stack article
+  .ffOnboardV2__hero,
+  .ffOnboardV2__steps article,
+  .ffOnboardV2__section,
+  .ffOnboardV2__handoff,
+  .ffOnboardV2__readiness,
+  .ffOnboardV2__themeControls,
+  .ffOnboardV2__themePreview,
+  .ffOnboardV2__packageGrid article,
+  .ffOnboardV2__notice
 ) {
   border: 1px solid var(--onb-line);
   background:
-    radial-gradient(circle at 100% 0%, rgba(255,122,26,.045), transparent 14rem),
-    linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,250,244,.88));
+    radial-gradient(circle at 100% 0%, rgba(255, 122, 35, 0.055), transparent 15rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 244, 0.86));
   box-shadow:
-    0 1px 0 rgba(255,255,255,.82) inset,
-    0 16px 40px rgba(55,36,20,.075);
+    0 1px 0 rgba(255, 255, 255, 0.86) inset,
+    0 16px 40px rgba(56, 36, 20, 0.075);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHero {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__section,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff {
   position: relative;
-  overflow: hidden;
-  min-height: min(620px, calc(100svh - 112px));
+  overflow: clip;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
-  align-items: center;
-  gap: clamp(18px, 3vw, 42px);
-  border-radius: var(--onb-radius);
-  background:
-    radial-gradient(circle at 4% 0%, rgba(255,255,255,.96), transparent 17rem),
-    radial-gradient(circle at 92% 0%, rgba(255,122,26,.20), transparent 25rem),
-    radial-gradient(circle at 78% 92%, rgba(18,124,111,.09), transparent 24rem),
-    linear-gradient(145deg, rgba(255,255,255,.985), rgba(255,247,237,.92));
-  box-shadow:
-    0 1px 0 rgba(255,255,255,.92) inset,
-    var(--onb-shadow);
-  padding: clamp(22px, 4vw, 54px);
+  gap: clamp(1rem, 2vw, 1.45rem);
+  border-radius: var(--onb-radius-xl);
+  padding: clamp(1.2rem, 3.2vw, 2.6rem);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHero::after {
-  position: absolute;
-  right: clamp(18px, 4vw, 54px);
-  bottom: clamp(16px, 3vw, 36px);
-  width: clamp(130px, 18vw, 260px);
-  height: clamp(130px, 18vw, 260px);
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(255,138,43,.14), transparent 64%);
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__section::before,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff::before {
   content: "";
+  position: absolute;
+  inset: 0 auto auto clamp(1.2rem, 3vw, 2rem);
+  width: min(18rem, 48%);
+  height: 2px;
+  border-radius: var(--onb-pill);
+  background: linear-gradient(90deg, rgba(255, 90, 31, 0.78), rgba(15, 118, 110, 0.28), transparent);
   pointer-events: none;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHero > * {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__section > *,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff > * {
   position: relative;
   z-index: 1;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHero__copy,
-html[data-ff-page="platform-onboarding"] .ff-onboardSectionCopy,
-html[data-ff-page="platform-onboarding"] .ff-onboardSetup__header {
-  min-width: 0;
+/* --------------------------------------------------------------------------
+   Hero
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero {
+  position: relative;
+  overflow: hidden;
+  min-height: min(650px, calc(100svh - 6.5rem));
   display: grid;
-  gap: clamp(10px, 1.45vw, 16px);
+  grid-template-columns: minmax(0, 1fr) minmax(19rem, 24rem);
+  align-items: center;
+  gap: clamp(1.1rem, 3vw, 2.7rem);
+  border-radius: var(--onb-radius-xl);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.98), transparent 18rem),
+    radial-gradient(circle at 15% 18%, rgba(255, 232, 196, 0.38), transparent 24rem),
+    radial-gradient(circle at 93% 3%, rgba(255, 205, 155, 0.44), transparent 31rem),
+    radial-gradient(circle at 82% 92%, rgba(15, 118, 110, 0.09), transparent 24rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.99), rgba(255, 244, 226, 0.95));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.92) inset,
+    var(--onb-shadow);
+  padding: clamp(1.4rem, 4vw, 3.4rem);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHero__copy {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero::after {
+  content: "";
+  position: absolute;
+  right: clamp(1rem, 4vw, 3.4rem);
+  bottom: clamp(1rem, 3vw, 2.4rem);
+  width: clamp(9rem, 18vw, 17rem);
+  height: clamp(9rem, 18vw, 17rem);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 148, 66, 0.16), transparent 66%);
+  pointer-events: none;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__heroCopy {
+  min-width: 0;
   max-width: 760px;
+  display: grid;
   align-content: center;
   justify-items: start;
+  gap: clamp(0.7rem, 1.55vw, 1rem);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHero__lede {
-  max-width: 63ch;
-  color: var(--onb-muted);
-  font-size: clamp(1rem, 1.16vw, 1.12rem);
-  line-height: 1.52;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__lede {
+  max-width: 62ch;
+  color: rgba(55, 41, 30, 0.74);
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
+  font-weight: 560;
+  line-height: 1.54;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardPills {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardPills span,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid small,
-html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate__badge {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__pills span,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__status,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid article > span {
   display: inline-flex;
   width: fit-content;
-  min-height: 30px;
+  min-height: 1.9rem;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--onb-line);
   border-radius: var(--onb-pill);
-  background: rgba(255,255,255,.74);
-  color: var(--onb-muted);
-  font-size: .72rem;
+  background: rgba(255, 255, 255, 0.76);
+  color: rgba(74, 55, 39, 0.72);
+  font-size: 0.7rem;
   font-weight: 900;
-  padding: 0 10px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding: 0 0.65rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHero__actions,
-html[data-ff-page="platform-onboarding"] .ff-onboardForm__actions {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__actions,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoffActions {
+  display: flex;
   flex-wrap: wrap;
-  gap: 9px;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.1rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardMetrics {
-  width: min(100%, 700px);
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 10px;
-  margin: 4px 0 0;
-}
+/* --------------------------------------------------------------------------
+   Buttons
+-------------------------------------------------------------------------- */
 
-html[data-ff-page="platform-onboarding"] .ff-onboardMetrics div {
-  min-height: 66px;
-  display: grid;
-  align-content: center;
-  gap: 4px;
-  border: 1px solid rgba(72,44,25,.075);
-  border-radius: 18px;
-  background: rgba(255,255,255,.60);
-  padding: 12px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardMetrics dt {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__btn,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__presetRow button,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview button {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--onb-line);
+  border-radius: var(--onb-pill);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 244, 0.84));
   color: var(--onb-ink);
-  font-size: 1.05rem;
-  font-weight: 1000;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.82) inset,
+    0 12px 26px rgba(56, 36, 20, 0.075);
+  font-size: 0.86rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0 1rem;
+  text-align: center;
+  transition:
+    transform 180ms var(--onb-ease),
+    border-color 180ms var(--onb-ease),
+    box-shadow 180ms var(--onb-ease),
+    background 180ms var(--onb-ease);
+  white-space: nowrap;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardMetrics dd {
-  margin: 0;
-  color: var(--onb-soft);
-  font-size: .76rem;
-  font-weight: 850;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__btn:hover,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__presetRow button:hover,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview button:hover {
+  transform: translateY(-1px);
+  border-color: var(--onb-line-strong);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.86) inset,
+    var(--onb-shadow-soft);
 }
 
-/* Readiness */
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__btn--primary,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview button {
+  border-color: rgba(255, 90, 31, 0.36);
+  background:
+    radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.28), transparent 44%),
+    linear-gradient(135deg, var(--onb-orange), var(--onb-orange-2));
+  color: #fffaf4;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.26) inset,
+    0 16px 34px rgba(255, 90, 31, 0.22),
+    0 22px 54px rgba(255, 90, 31, 0.14);
+}
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__btn--ghost {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+/* --------------------------------------------------------------------------
+   Hero readiness card
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness {
   width: 100%;
-  max-width: 360px;
+  max-width: 24rem;
   justify-self: end;
   display: grid;
-  gap: 12px;
-  border-radius: 24px;
+  gap: 0.85rem;
+  border-radius: 1.55rem;
   background:
-    radial-gradient(circle at 100% 0%, rgba(18,124,111,.10), transparent 18rem),
-    rgba(255,255,255,.76);
-  padding: 18px;
+    radial-gradient(circle at 100% 0%, rgba(255, 205, 155, 0.32), transparent 20rem),
+    radial-gradient(circle at 0% 100%, rgba(15, 118, 110, 0.08), transparent 18rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.985), rgba(255, 246, 232, 0.96));
+  padding: clamp(1rem, 2.4vw, 1.25rem);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness__top {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readinessHead {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0.8rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness__top span {
-  color: var(--onb-soft);
-  font-size: .72rem;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readinessHead strong {
+  color: rgba(31, 22, 16, 0.94);
+  font-size: 0.78rem;
   font-weight: 950;
-  letter-spacing: .09em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness__top strong {
-  color: var(--onb-teal);
-  font-size: 1.12rem;
-  font-weight: 1000;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readinessHead span {
+  color: var(--onb-ink);
+  font-size: 0.9rem;
+  font-weight: 950;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardMeter {
-  height: 11px;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__meter {
+  height: 0.72rem;
   overflow: hidden;
   border-radius: var(--onb-pill);
-  background: rgba(72,44,25,.10);
-  box-shadow: inset 0 1px 1px rgba(72,44,25,.08);
+  background: rgba(80, 49, 27, 0.11);
+  box-shadow: inset 0 1px 1px rgba(80, 49, 27, 0.08);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardMeter span {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__meter span {
   display: block;
-  width: var(--ff-onboard-progress);
+  width: 94%;
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--onb-orange), var(--onb-orange-2), var(--onb-teal));
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness ul {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness dl {
   display: grid;
-  gap: 8px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  gap: 0.55rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness li {
-  min-height: 40px;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness dl div {
+  min-height: 3.1rem;
   display: grid;
-  grid-template-columns: minmax(0,1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 10px;
-  border: 1px solid rgba(72,44,25,.075);
-  border-radius: 15px;
-  background: rgba(255,255,255,.56);
-  padding: 9px 10px;
+  gap: 0.75rem;
+  border: 1px solid rgba(68, 43, 25, 0.085);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.58);
+  padding: 0.65rem 0.7rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness li span {
-  color: var(--onb-soft);
-  font-size: .76rem;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness dt {
+  color: rgba(75, 56, 41, 0.68);
+  font-size: 0.78rem;
   font-weight: 900;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness li strong {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness dd {
+  min-width: max-content;
   border-radius: var(--onb-pill);
-  background: rgba(18,124,111,.10);
-  color: var(--onb-teal);
-  font-size: .66rem;
-  font-weight: 1000;
-  padding: 6px 8px;
-  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.8);
+  color: rgba(31, 22, 16, 0.9);
+  font-size: 0.74rem;
+  font-weight: 950;
+  line-height: 1;
+  padding: 0.42rem 0.55rem;
 }
 
-/* Steps + summary */
+/* --------------------------------------------------------------------------
+   Steps
+-------------------------------------------------------------------------- */
 
-html[data-ff-page="platform-onboarding"] .ff-onboardSteps {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__steps {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
-  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.7rem, 1.45vw, 0.9rem);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardSteps article,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid article,
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand__stack article,
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid article {
-  min-height: 152px;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__steps article {
+  min-width: 0;
+  min-height: 10rem;
   display: grid;
   align-content: start;
-  gap: 9px;
-  border-radius: 22px;
-  padding: 16px;
+  gap: 0.58rem;
+  border-radius: var(--onb-radius-lg);
+  padding: clamp(0.9rem, 2vw, 1.15rem);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardSteps span,
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid span {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__steps article span {
   width: fit-content;
-  border-radius: 999px;
-  background: rgba(255,237,213,.82);
+  border-radius: var(--onb-pill);
+  background: rgba(255, 237, 213, 0.88);
   color: var(--onb-orange-dark);
-  font-size: .72rem;
-  font-weight: 1000;
-  padding: 6px 9px;
+  font-size: 0.72rem;
+  font-weight: 950;
+  line-height: 1;
+  padding: 0.42rem 0.58rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardSteps strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand__stack strong {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__steps article strong {
   color: var(--onb-ink);
-  font-size: .98rem;
-  font-weight: 1000;
-  letter-spacing: -.025em;
+  font-size: 0.98rem;
+  font-weight: 950;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary,
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand,
-html[data-ff-page="platform-onboarding"] .ff-onboardSetup,
-html[data-ff-page="platform-onboarding"] .ff-onboardKit,
-html[data-ff-page="platform-onboarding"] .ff-onboardHandoff {
+/* --------------------------------------------------------------------------
+   Section headers
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__sectionHead {
   display: grid;
-  gap: 18px;
-  border-radius: var(--onb-radius);
-  padding: clamp(20px, 3.2vw, 38px);
+  gap: 0.72rem;
+  max-width: 44rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid,
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand__stack,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__sectionHead p:not(.ffOnboardV2__eyebrow) {
+  max-width: 56ch;
+}
+
+/* --------------------------------------------------------------------------
+   Forms
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__formGrid {
   display: grid;
-  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.7vw, 1rem);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid {
-  grid-template-columns: repeat(4, minmax(0,1fr));
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand__stack,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid {
-  grid-template-columns: repeat(3, minmax(0,1fr));
-}
-
-/* Form */
-
-html[data-ff-page="platform-onboarding"] .ff-onboardForm {
-  display: grid;
-  gap: 14px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardForm fieldset,
-html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate {
-  min-width: 0;
-  border: 1px solid var(--onb-line);
-  border-radius: 24px;
-  background: rgba(255,255,255,.64);
-  box-shadow: 0 1px 0 rgba(255,255,255,.76) inset;
-  padding: clamp(16px, 2.4vw, 24px);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardForm legend {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--onb-ink);
-  font-size: 1rem;
-  font-weight: 1000;
-  letter-spacing: -.025em;
-  padding: 0 0 12px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardForm legend span {
-  border-radius: 999px;
-  background: rgba(255,237,213,.82);
-  color: var(--onb-orange-dark);
-  font-size: .72rem;
-  padding: 6px 9px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardFields {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 12px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardFields__full {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__wide {
   grid-column: 1 / -1;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardFields label {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__formGrid label,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themeControls label {
   min-width: 0;
   display: grid;
-  gap: 7px;
+  gap: 0.45rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardFields label > span {
-  color: var(--onb-ink);
-  font-size: .78rem;
-  font-weight: 950;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__formGrid label > span,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themeControls label > span {
+  color: rgba(31, 22, 16, 0.92);
+  font-size: 0.78rem;
+  font-weight: 900;
 }
 
 html[data-ff-page="platform-onboarding"] :where(input, select, textarea) {
   width: 100%;
-  min-height: 48px;
+  min-width: 0;
+  min-height: 3rem;
   border: 1px solid var(--onb-line);
-  border-radius: 16px;
-  background: rgba(255,255,255,.84);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.86);
   color: var(--onb-ink);
-  box-shadow: 0 1px 0 rgba(255,255,255,.78) inset;
-  padding: 0 13px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.82) inset;
+  font-size: 0.94rem;
+  font-weight: 640;
+  line-height: 1.2;
+  padding: 0 0.85rem;
 }
 
 html[data-ff-page="platform-onboarding"] textarea {
-  min-height: 98px;
+  min-height: 6.6rem;
   resize: vertical;
-  padding-block: 12px;
+  line-height: 1.42;
+  padding-block: 0.8rem;
+}
+
+html[data-ff-page="platform-onboarding"] :where(input, select, textarea)::placeholder {
+  color: rgba(75, 56, 41, 0.46);
 }
 
 html[data-ff-page="platform-onboarding"] :where(input, select, textarea):focus {
-  border-color: rgba(243,95,22,.36);
+  border-color: rgba(255, 90, 31, 0.38);
   box-shadow:
-    0 0 0 4px rgba(243,95,22,.105),
-    0 1px 0 rgba(255,255,255,.78) inset;
+    0 0 0 4px rgba(255, 90, 31, 0.105),
+    0 1px 0 rgba(255, 255, 255, 0.82) inset;
   outline: none;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardSaveStatus {
-  border: 1px solid rgba(18,124,111,.16);
-  border-radius: 18px;
-  background: rgba(232,250,244,.74);
-  color: rgba(26,69,60,.82);
-  font-size: .88rem;
-  font-weight: 850;
-  padding: 12px 14px;
-}
+/* --------------------------------------------------------------------------
+   Brand kit
+-------------------------------------------------------------------------- */
 
-/* Sponsor package kit */
-
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid article {
-  min-height: 270px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid article > div {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid strong {
-  color: var(--onb-ink);
-  font-size: 1.05rem;
-  font-weight: 1000;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid article > div span {
-  color: var(--onb-orange-dark);
-  font-size: .94rem;
-  font-weight: 1000;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid ul {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__brandGrid {
   display: grid;
-  gap: 7px;
+  grid-template-columns: minmax(0, 0.95fr) minmax(19rem, 1.05fr);
+  gap: clamp(0.85rem, 2vw, 1.1rem);
+  align-items: stretch;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themeControls,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview {
+  min-width: 0;
+  display: grid;
+  gap: clamp(0.85rem, 1.8vw, 1rem);
+  border-radius: var(--onb-radius-lg);
+  padding: clamp(1rem, 2.2vw, 1.35rem);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__presetRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__presetRow button {
+  min-height: 2.4rem;
+  padding-inline: 0.78rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__presetRow button[aria-pressed="true"] {
+  border-color: rgba(255, 90, 31, 0.34);
+  background: rgba(255, 237, 213, 0.85);
+  color: var(--onb-orange-dark);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__colorGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+html[data-ff-page="platform-onboarding"] input[type="color"] {
+  min-height: 3.15rem;
+  padding: 0.35rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview {
+  overflow: hidden;
+  align-content: center;
+  color: #fffaf4;
+  border-color: rgba(255, 255, 255, 0.14);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 122, 35, 0.34), transparent 18rem),
+    radial-gradient(circle at 0% 100%, rgba(15, 118, 110, 0.18), transparent 18rem),
+    linear-gradient(135deg, #3a1f10, #100b08 72%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.14) inset,
+    0 20px 56px rgba(28, 18, 12, 0.22);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview :where(h3, p) {
+  color: inherit;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview p {
+  color: rgba(255, 250, 244, 0.74);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__previewTop {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__previewLogo {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fffaf4;
+  font-size: 0.72rem;
+  font-weight: 950;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__previewTop strong,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__previewTop small {
+  display: block;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__previewTop strong {
+  font-size: 0.9rem;
+  font-weight: 950;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__previewTop small {
+  margin-top: 0.12rem;
+  color: rgba(255, 250, 244, 0.62);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__previewMeter {
+  height: 0.65rem;
+  overflow: hidden;
+  border-radius: var(--onb-pill);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__previewMeter span {
+  display: block;
+  width: 68%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--onb-orange), var(--onb-orange-2), var(--onb-teal));
+}
+
+/* --------------------------------------------------------------------------
+   Giving readiness notice
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__notice {
+  display: grid;
+  gap: 0.35rem;
+  border-color: rgba(15, 118, 110, 0.16);
+  border-radius: var(--onb-radius-md);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(15, 118, 110, 0.1), transparent 18rem),
+    rgba(255, 255, 255, 0.72);
+  padding: 1rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__notice strong {
+  color: rgba(21, 67, 58, 0.92);
+  font-size: 0.92rem;
+  font-weight: 950;
+}
+
+/* --------------------------------------------------------------------------
+   Sponsor package cards
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.7vw, 1rem);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid article {
+  min-width: 0;
+  min-height: 17rem;
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+  border-radius: var(--onb-radius-lg);
+  padding: clamp(1rem, 2vw, 1.25rem);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid article > span {
+  color: var(--onb-orange-dark);
+  background: rgba(255, 237, 213, 0.86);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid article strong {
+  color: var(--onb-ink);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 950;
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid ul {
+  display: grid;
+  gap: 0.42rem;
   list-style: none;
-  margin: 0;
   padding: 0;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid li {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid li {
   position: relative;
-  color: var(--onb-muted);
-  font-size: .86rem;
-  line-height: 1.38;
-  padding-left: 16px;
+  color: rgba(52, 39, 29, 0.7);
+  font-size: 0.88rem;
+  font-weight: 640;
+  line-height: 1.36;
+  padding-left: 1rem;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid li::before {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid li::before {
+  content: "";
   position: absolute;
   left: 0;
-  top: .55em;
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
+  top: 0.54em;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: var(--onb-pill);
   background: var(--onb-teal);
-  content: "";
 }
 
-/* Text-to-donate partial support */
+/* --------------------------------------------------------------------------
+   Launch handoff
+-------------------------------------------------------------------------- */
 
-html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate,
-html[data-ff-page="platform-onboarding"] [data-ff-text-to-donate] {
-  display: grid;
-  gap: 12px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 10px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate__card,
-html[data-ff-page="platform-onboarding"] [data-ff-text-to-donate] article {
-  border: 1px solid rgba(72,44,25,.085);
-  border-radius: 18px;
-  background: rgba(255,255,255,.58);
-  padding: 14px;
-}
-
-/* Handoff */
-
-html[data-ff-page="platform-onboarding"] .ff-onboardHandoff {
-  grid-template-columns: minmax(0,1fr) auto;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff {
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHandoff .ff-onboardHero__actions {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff > div:first-child {
+  display: grid;
+  gap: 0.72rem;
+  max-width: 46rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoffActions {
   justify-content: flex-end;
 }
 
-/* Responsive */
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__saveNote {
+  grid-column: 1 / -1;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba(68, 43, 25, 0.09);
+  border-radius: var(--onb-pill);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.82) inset;
+  padding: 0.6rem 0.8rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__saveNote[data-tone="success"],
+html[data-ff-page="platform-onboarding"] [data-ff-save-note][data-tone="success"] {
+  border-color: rgba(15, 118, 110, 0.18);
+  background: rgba(229, 248, 243, 0.78);
+  color: rgb(21, 103, 87);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__saveNote[data-tone="warning"],
+html[data-ff-page="platform-onboarding"] [data-ff-save-note][data-tone="warning"] {
+  border-color: rgba(255, 90, 31, 0.2);
+  background: rgba(255, 237, 213, 0.82);
+  color: rgb(151, 59, 21);
+}
+
+/* --------------------------------------------------------------------------
+   Motion: restrained, premium, accessible
+-------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__heroCopy > *,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__steps article,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__section,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff {
+    animation: ffOnboardV2Rise 640ms var(--onb-ease) both;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__heroCopy > *:nth-child(1) { animation-delay: 40ms; }
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__heroCopy > *:nth-child(2) { animation-delay: 80ms; }
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__heroCopy > *:nth-child(3) { animation-delay: 120ms; }
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__heroCopy > *:nth-child(4) { animation-delay: 160ms; }
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__heroCopy > *:nth-child(5) { animation-delay: 200ms; }
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness { animation-delay: 180ms; }
+
+  @keyframes ffOnboardV2Rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px) scale(0.985);
+      filter: blur(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-ff-page="platform-onboarding"] *,
+  html[data-ff-page="platform-onboarding"] *::before,
+  html[data-ff-page="platform-onboarding"] *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+-------------------------------------------------------------------------- */
 
 @media (max-width: 1060px) {
-  html[data-ff-page="platform-onboarding"] .ff-onboardHero,
-  html[data-ff-page="platform-onboarding"] .ff-onboardHandoff {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__brandGrid,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff {
     grid-template-columns: 1fr;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardReadiness {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness {
     max-width: none;
     justify-self: stretch;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid,
-  html[data-ff-page="platform-onboarding"] .ff-onboardSteps {
-    grid-template-columns: repeat(2, minmax(0,1fr));
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoffActions {
+    justify-content: flex-start;
   }
 }
 
 @media (max-width: 780px) {
-  html[data-ff-page="platform-onboarding"] .ff-onboardCommand__stack,
-  html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid,
-  html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate__grid,
-  html[data-ff-page="platform-onboarding"] .ff-onboardFields {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__formGrid,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__colorGrid {
     grid-template-columns: 1fr;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardFields__full {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__wide {
     grid-column: auto;
   }
 }
 
 @media (max-width: 680px) {
-  html[data-ff-page="platform-onboarding"] .ff-onboardShell {
-    width: min(calc(100% - 20px), 1180px);
-    max-width: min(calc(100% - 20px), 1180px);
-    gap: 12px;
+  html[data-ff-page="platform-onboarding"],
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: clip;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardHeader {
-    align-items: flex-start;
+  html[data-ff-page="platform-onboarding"] {
+    --onb-shell: min(100% - 1rem, 1180px);
+    --onb-section-gap: 1rem;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardNav {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header,
+  html[data-ff-page="platform-onboarding"] [data-ff-header].ffOnboardV2__header {
+    top: max(0.45rem, env(safe-area-inset-top));
+    width: min(100% - 0.75rem, 1180px);
+    margin-top: max(0.45rem, env(safe-area-inset-top));
+    border-radius: 1.25rem;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__nav {
     display: none;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardHero,
-  html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary,
-  html[data-ff-page="platform-onboarding"] .ff-onboardCommand,
-  html[data-ff-page="platform-onboarding"] .ff-onboardSetup,
-  html[data-ff-page="platform-onboarding"] .ff-onboardKit,
-  html[data-ff-page="platform-onboarding"] .ff-onboardHandoff {
-    border-radius: 24px;
-    padding: 20px;
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__main {
+    padding-top: 0.8rem;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__section,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff {
+    border-radius: 1.35rem;
+    padding: 1rem;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero {
+    min-height: auto;
+    padding-block: 1.35rem;
   }
 
   html[data-ff-page="platform-onboarding"] h1 {
-    max-width: 10.6ch;
-    font-size: clamp(2.8rem, 15vw, 4.5rem);
-    letter-spacing: -.072em;
-    line-height: .89;
+    max-width: 10.2ch;
+    font-size: clamp(2.7rem, 14vw, 4.25rem);
+    line-height: 0.91;
+    letter-spacing: -0.062em;
   }
 
   html[data-ff-page="platform-onboarding"] h2 {
-    font-size: clamp(2.05rem, 11vw, 3.55rem);
+    max-width: 10.6ch;
+    font-size: clamp(1.95rem, 10vw, 3.15rem);
+    line-height: 0.94;
+    letter-spacing: -0.056em;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardHero__actions,
-  html[data-ff-page="platform-onboarding"] .ff-onboardForm__actions,
-  html[data-ff-page="platform-onboarding"] .ff-onboardHandoff .ff-onboardHero__actions {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: stretch;
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__lede {
+    font-size: 0.96rem;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardButton {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__pills {
     width: 100%;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardMetrics,
-  html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid,
-  html[data-ff-page="platform-onboarding"] .ff-onboardSteps {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__pills span {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__actions,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoffActions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__btn,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview button {
+    width: 100%;
+    white-space: normal;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__steps {
     grid-template-columns: 1fr;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardSteps article,
-  html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid article {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__steps article {
     min-height: auto;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  html[data-ff-page="platform-onboarding"] .ff-onboardNav a,
-  html[data-ff-page="platform-onboarding"] .ff-onboardButton {
-    transition: none;
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness dl div {
+    grid-template-columns: 1fr;
+    align-items: start;
   }
 
-  html[data-ff-page="platform-onboarding"] .ff-onboardNav a:hover,
-  html[data-ff-page="platform-onboarding"] .ff-onboardButton:hover {
-    transform: none;
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness dd {
+    width: fit-content;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__presetRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__presetRow button {
+    white-space: normal;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__packageGrid article {
+    min-height: auto;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__saveNote {
+    width: 100%;
+    border-radius: 1rem;
   }
 }
 
-/* ==========================================================================
-   FutureFunded Onboarding Typography Alignment v1
-   ========================================================================== */
+@media (max-width: 390px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__presetRow {
+    grid-template-columns: 1fr;
+  }
 
-html[data-ff-page="platform-onboarding"],
-html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody {
-  font-family: var(--ff-type-sans);
-}
-
-html[data-ff-page="platform-onboarding"] h1 {
-  max-width: 10.7ch;
-  font-family: var(--ff-type-display);
-  font-size: var(--ff-type-hero);
-  font-weight: var(--ff-type-weight-display);
-  letter-spacing: var(--ff-type-hero-tracking);
-  line-height: var(--ff-type-hero-leading);
-}
-
-html[data-ff-page="platform-onboarding"] h2 {
-  font-family: var(--ff-type-display);
-  font-size: var(--ff-type-section);
-  font-weight: var(--ff-type-weight-heading);
-  letter-spacing: var(--ff-type-section-tracking);
-  line-height: var(--ff-type-section-leading);
-}
-
-html[data-ff-page="platform-onboarding"] h3,
-html[data-ff-page="platform-onboarding"] .ff-onboardSteps strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand__stack strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardBrand__copy strong {
-  font-family: var(--ff-type-display);
-  font-weight: var(--ff-type-weight-title);
-  letter-spacing: var(--ff-type-title-tracking);
-  line-height: var(--ff-type-title-leading);
-}
-
-html[data-ff-page="platform-onboarding"] p,
-html[data-ff-page="platform-onboarding"] .ff-onboardHero__lede,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid li,
-html[data-ff-page="platform-onboarding"] .ff-onboardSaveStatus {
-  color: var(--ff-type-muted);
-  font-size: var(--ff-type-body);
-  font-weight: var(--ff-type-weight-body);
-  line-height: var(--ff-type-body-leading);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardKicker,
-html[data-ff-page="platform-onboarding"] .ff-onboardPills span,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid small,
-html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate__badge,
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness__top span {
-  font-weight: 850;
-  letter-spacing: var(--ff-type-eyebrow-tracking);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardButton,
-html[data-ff-page="platform-onboarding"] .ff-onboardNav a,
-html[data-ff-page="platform-onboarding"] input,
-html[data-ff-page="platform-onboarding"] select,
-html[data-ff-page="platform-onboarding"] textarea {
-  font-weight: 520;
-  letter-spacing: -.01em;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardButton,
-html[data-ff-page="platform-onboarding"] .ff-onboardNav a {
-  font-weight: 820;
-}
-
-@media (max-width: 680px) {
   html[data-ff-page="platform-onboarding"] h1 {
-    font-size: var(--ff-type-hero-mobile);
-    letter-spacing: -.066em;
-    line-height: .9;
-  }
-
-  html[data-ff-page="platform-onboarding"] h2 {
-    font-size: var(--ff-type-section-mobile);
+    font-size: clamp(2.45rem, 13.2vw, 3.75rem);
   }
 }
 
-/* ==========================================================================
-   FutureFunded Onboarding Typography Alignment v1
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   Defensive overflow guard
+-------------------------------------------------------------------------- */
 
-html[data-ff-page="platform-onboarding"],
-html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody {
-  font-family: var(--ff-type-sans);
-}
-
-html[data-ff-page="platform-onboarding"] h1 {
-  max-width: 10.7ch;
-  font-family: var(--ff-type-display);
-  font-size: var(--ff-type-hero);
-  font-weight: var(--ff-type-weight-display);
-  letter-spacing: var(--ff-type-hero-tracking);
-  line-height: var(--ff-type-hero-leading);
-}
-
-html[data-ff-page="platform-onboarding"] h2 {
-  font-family: var(--ff-type-display);
-  font-size: var(--ff-type-section);
-  font-weight: var(--ff-type-weight-heading);
-  letter-spacing: var(--ff-type-section-tracking);
-  line-height: var(--ff-type-section-leading);
-}
-
-html[data-ff-page="platform-onboarding"] h3,
-html[data-ff-page="platform-onboarding"] .ff-onboardSteps strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand__stack strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid strong,
-html[data-ff-page="platform-onboarding"] .ff-onboardBrand__copy strong {
-  font-family: var(--ff-type-display);
-  font-weight: var(--ff-type-weight-title);
-  letter-spacing: var(--ff-type-title-tracking);
-  line-height: var(--ff-type-title-leading);
-}
-
-html[data-ff-page="platform-onboarding"] p,
-html[data-ff-page="platform-onboarding"] .ff-onboardHero__lede,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid li,
-html[data-ff-page="platform-onboarding"] .ff-onboardSaveStatus {
-  color: var(--ff-type-muted);
-  font-size: var(--ff-type-body);
-  font-weight: var(--ff-type-weight-body);
-  line-height: var(--ff-type-body-leading);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardKicker,
-html[data-ff-page="platform-onboarding"] .ff-onboardPills span,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid small,
-html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate__badge,
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness__top span {
-  font-weight: 850;
-  letter-spacing: var(--ff-type-eyebrow-tracking);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardButton,
-html[data-ff-page="platform-onboarding"] .ff-onboardNav a,
-html[data-ff-page="platform-onboarding"] input,
-html[data-ff-page="platform-onboarding"] select,
-html[data-ff-page="platform-onboarding"] textarea {
-  font-weight: 520;
-  letter-spacing: -.01em;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardButton,
-html[data-ff-page="platform-onboarding"] .ff-onboardNav a {
-  font-weight: 820;
-}
-
-@media (max-width: 680px) {
-  html[data-ff-page="platform-onboarding"] h1 {
-    font-size: var(--ff-type-hero-mobile);
-    letter-spacing: -.066em;
-    line-height: .9;
-  }
-
-  html[data-ff-page="platform-onboarding"] h2 {
-    font-size: var(--ff-type-section-mobile);
-  }
-}
-
-/* ==========================================================================
-   FutureFunded Onboarding Mobile Overflow Guard v1
-   Purpose:
-   - Fix mobile overflow introduced during unified typography pass
-   - Preserve launch workspace design, form contracts, and visual hierarchy
-   ========================================================================== */
-
-html[data-ff-page="platform-onboarding"],
-html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody {
-  max-width: 100%;
-  overflow-x: clip;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardShell,
-html[data-ff-page="platform-onboarding"] .ff-onboardMain,
-html[data-ff-page="platform-onboarding"] .ff-onboardHero,
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary,
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand,
-html[data-ff-page="platform-onboarding"] .ff-onboardSetup,
-html[data-ff-page="platform-onboarding"] .ff-onboardKit,
-html[data-ff-page="platform-onboarding"] .ff-onboardHandoff,
-html[data-ff-page="platform-onboarding"] .ff-onboardForm,
-html[data-ff-page="platform-onboarding"] fieldset,
-html[data-ff-page="platform-onboarding"] .ff-onboardFields,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid,
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand__stack,
-html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid,
-html[data-ff-page="platform-onboarding"] .ff-onboardSteps,
-html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate,
-html[data-ff-page="platform-onboarding"] [data-ff-text-to-donate] {
+html[data-ff-page="platform-onboarding"] :where(
+  .ffOnboardV2__main,
+  .ffOnboardV2__hero,
+  .ffOnboardV2__heroCopy,
+  .ffOnboardV2__readiness,
+  .ffOnboardV2__steps,
+  .ffOnboardV2__steps article,
+  .ffOnboardV2__section,
+  .ffOnboardV2__sectionHead,
+  .ffOnboardV2__formGrid,
+  .ffOnboardV2__brandGrid,
+  .ffOnboardV2__themeControls,
+  .ffOnboardV2__themePreview,
+  .ffOnboardV2__packageGrid,
+  .ffOnboardV2__packageGrid article,
+  .ffOnboardV2__handoff
+) {
   min-width: 0;
   max-width: 100%;
 }
@@ -1091,9 +1165,7 @@ html[data-ff-page="platform-onboarding"] :where(
   button,
   a,
   li,
-  dd,
-  code,
-  pre
+  dd
 ) {
   max-width: 100%;
 }
@@ -1107,311 +1179,402 @@ html[data-ff-page="platform-onboarding"] :where(
   a,
   li,
   dd,
-  code,
-  pre,
   textarea
 ) {
   overflow-wrap: anywhere;
   word-break: normal;
 }
 
-html[data-ff-page="platform-onboarding"] input,
-html[data-ff-page="platform-onboarding"] select,
-html[data-ff-page="platform-onboarding"] textarea {
-  min-width: 0;
-  max-width: 100%;
+/* === FutureFunded onboarding-v2-header-rhythm-fix START === */
+/*
+  Marker: hoi-onboarding-v2-header-rhythm-fix-v1
+
+  Purpose:
+  - Complete styling for ff_shell_header() on /platform/onboarding
+  - Neutralize global fixed ff-siteHeader behavior on this page only
+  - Tighten hero top whitespace, pills, readiness panel, and CTA rhythm
+  - Preserve ffOnboardV2 template contract and all JS hooks
+*/
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body {
+  --onb-shell: min(100% - clamp(1rem, 3vw, 2.25rem), 1180px);
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardButton,
-html[data-ff-page="platform-onboarding"] .ff-onboardNav a {
-  max-width: 100%;
-  white-space: normal;
-}
-
-@media (max-width: 680px) {
-  html[data-ff-page="platform-onboarding"],
-  html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody {
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: clip;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardShell {
-    width: min(100% - 20px, 1180px);
-    max-width: calc(100vw - 20px);
-    margin-inline: auto;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardHeader {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardBrand {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardBrand__copy {
-    min-width: 0;
-    max-width: calc(100vw - 92px);
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardHero,
-  html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary,
-  html[data-ff-page="platform-onboarding"] .ff-onboardCommand,
-  html[data-ff-page="platform-onboarding"] .ff-onboardSetup,
-  html[data-ff-page="platform-onboarding"] .ff-onboardKit,
-  html[data-ff-page="platform-onboarding"] .ff-onboardHandoff {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  html[data-ff-page="platform-onboarding"] h1 {
-    max-width: 9.9ch;
-    font-size: clamp(2.55rem, 13.8vw, 4.1rem);
-    letter-spacing: -.058em;
-    line-height: .92;
-  }
-
-  html[data-ff-page="platform-onboarding"] h2 {
-    max-width: 10.5ch;
-    font-size: clamp(1.9rem, 9.8vw, 3.18rem);
-    letter-spacing: -.056em;
-    line-height: .94;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardPills,
-  html[data-ff-page="platform-onboarding"] .ff-onboardHero__actions,
-  html[data-ff-page="platform-onboarding"] .ff-onboardForm__actions {
-    width: 100%;
-    min-width: 0;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardPills span {
-    min-width: 0;
-    white-space: normal;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardForm fieldset,
-  html[data-ff-page="platform-onboarding"] .ff-onboardTextDonate {
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid article,
-  html[data-ff-page="platform-onboarding"] .ff-onboardCommand__stack article,
-  html[data-ff-page="platform-onboarding"] .ff-onboardWorkspaceSummary__grid article,
-  html[data-ff-page="platform-onboarding"] .ff-onboardSteps article {
-    min-width: 0;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid article > div {
-    min-width: 0;
-    flex-wrap: wrap;
-  }
-}
-
-/* ==========================================================================
-   FutureFunded Onboarding Hero Typography Calm Pass v1.1
-   ========================================================================== */
-
-html[data-ff-page="platform-onboarding"] h1 {
-  max-width: 11.2ch;
-  font-size: var(--ff-type-hero);
-  font-weight: var(--ff-type-weight-display);
-  letter-spacing: var(--ff-type-hero-tracking);
-  line-height: var(--ff-type-hero-leading);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardHero__lede {
-  max-width: 62ch;
-  font-size: clamp(.96rem, 1.03vw, 1.06rem);
-  line-height: 1.54;
-}
-
-html[data-ff-page="platform-onboarding"] h2 {
-  max-width: 11.5ch;
-  font-size: clamp(1.95rem, 3.35vw, 3.65rem);
-  font-weight: 850;
-  letter-spacing: -.054em;
-  line-height: .94;
-}
-
-@media (max-width: 680px) {
-  html[data-ff-page="platform-onboarding"] h1 {
-    max-width: 10.75ch;
-    font-size: var(--ff-type-hero-mobile);
-    letter-spacing: -.048em;
-    line-height: .95;
-  }
-
-  html[data-ff-page="platform-onboarding"] h2 {
-    font-size: clamp(1.85rem, 8.8vw, 2.95rem);
-    letter-spacing: -.048em;
-    line-height: .96;
-  }
-}
-
-/* ==========================================================================
-   FutureFunded Onboarding Surface + Accent Harmonization v1.2
-   ========================================================================== */
-
-html[data-ff-page="platform-onboarding"],
-body.ff-onboardAuthorityBody {
-  --onb-orange: var(--ff-accent-warm);
-  --onb-orange-2: var(--ff-accent-warm-2);
-  --onb-orange-dark: #b44911;
-}
-
-html[data-ff-page="platform-onboarding"] body.ff-onboardAuthorityBody {
+/* The shared shell header carries ff-siteHeader globals.
+   On onboarding, it should behave like an in-flow sticky workspace header,
+   not the fixed public marketing/campaign rail. */
+html[data-ff-page="platform-onboarding"] [data-ff-header].ffOnboardV2__header,
+html[data-ff-page="platform-onboarding"] .ffShellHeader.ffOnboardV2__header,
+html[data-ff-page="platform-onboarding"] .ff-siteHeader.ffOnboardV2__header {
+  position: sticky !important;
+  top: max(0.62rem, env(safe-area-inset-top)) !important;
+  left: auto !important;
+  right: auto !important;
+  z-index: 80 !important;
+  width: var(--onb-shell) !important;
+  max-width: var(--onb-shell) !important;
+  margin: max(0.62rem, env(safe-area-inset-top)) auto 0 !important;
+  pointer-events: auto !important;
+  border: 1px solid rgba(68, 43, 25, 0.105);
+  border-radius: 1.55rem;
   background:
-    radial-gradient(circle at 8% -7%, rgba(255,148,66,.17), transparent 31rem),
-    radial-gradient(circle at 94% 2%, rgba(18,124,111,.13), transparent 34rem),
-    radial-gradient(circle at 54% 22%, rgba(255,255,255,.58), transparent 30rem),
-    linear-gradient(180deg, #fff9f1 0%, #f7ead7 50%, #efd9bd 100%);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardHero {
-  background: var(--ff-hero-surface-neutral);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardHero::after {
-  opacity: .58;
-  background: radial-gradient(circle, rgba(255,148,66,.11), transparent 64%);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardButton--primary,
-html[data-ff-page="platform-onboarding"] .ff-onboardNav__primary {
-  background:
-    radial-gradient(circle at 30% 0%, rgba(255,255,255,.28), transparent 42%),
-    linear-gradient(135deg, var(--ff-accent-warm), var(--ff-accent-warm-2));
+    linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,250,242,0.93));
   box-shadow:
-    0 1px 0 rgba(255,255,255,.26) inset,
-    0 14px 30px rgba(255,107,26,.21),
-    0 20px 48px rgba(255,107,26,.12);
+    0 1px 0 rgba(255,255,255,0.86) inset,
+    0 16px 42px rgba(56,36,20,0.105);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
 }
 
-/* ==========================================================================
-   FutureFunded Onboarding Hero Background Harmony v1.3
-   ========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ff-onboardHero {
-  background: var(--ff-hero-surface-warm-strong);
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__shell,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__shell,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header [data-ff-header-shell] {
+  width: 100%;
+  min-height: 3.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.6rem, 1.5vw, 1rem);
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  box-shadow: none;
+  padding: 0.42rem 0.5rem;
+  pointer-events: auto;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHero::after {
-  opacity: .48;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__brand,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__brand,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header [data-ff-header-brand] {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.62rem;
+  border-radius: 999px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__mark,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__mark,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-brandMark__symbol {
+  width: 2.35rem;
+  height: 2.35rem;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(68,43,25,0.12);
+  border-radius: 0.82rem;
   background:
-    radial-gradient(circle, rgba(255,196,137,.17), transparent 64%);
+    radial-gradient(circle at 32% 12%, rgba(255,255,255,0.2), transparent 1.35rem),
+    linear-gradient(135deg, #20130c, #553018);
+  color: #fffaf4;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.16) inset,
+    0 10px 22px rgba(56,36,20,0.16);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: -0.04em;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__copy,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__copy,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-brandMark__copy {
+  min-width: 0;
+  display: grid;
+  line-height: 1.03;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__copy strong,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__copy strong,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-brandMark__copy strong {
+  max-width: min(32vw, 14rem);
+  overflow: hidden;
+  color: var(--onb-ink, #120b07);
+  font-size: 0.86rem;
+  font-weight: 950;
+  letter-spacing: -0.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__copy small,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__copy small,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-brandMark__copy small {
+  max-width: min(34vw, 15rem);
+  overflow: hidden;
+  margin-top: 0.12rem;
+  color: rgba(75,56,41,0.62);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__nav,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__nav,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header [data-ff-header-nav] {
+  display: flex;
+  align-items: center;
+  gap: 0.22rem;
+  border: 1px solid rgba(68,43,25,0.085);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.72);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.84) inset;
+  padding: 0.25rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__nav a,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__nav a,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header [data-ff-nav-link="true"] {
+  min-height: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: rgba(38,28,21,0.76);
+  font-size: 0.74rem;
+  font-weight: 850;
+  line-height: 1;
+  padding: 0 0.85rem;
+  white-space: nowrap;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__nav a:hover,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__nav a:hover,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__header [data-ff-nav-link="true"]:hover {
+  background: rgba(255,237,213,0.76);
+  color: #a84212;
+}
+
+/* Remove the stretched empty feel in the hero without making it cramped. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__main {
+  gap: clamp(1rem, 2.35vw, 1.85rem);
+  padding-top: clamp(0.8rem, 1.6vw, 1.15rem);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero {
+  min-height: clamp(31rem, 64svh, 38rem);
+  align-items: center;
+  padding: clamp(1.35rem, 3.45vw, 3rem);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__heroCopy {
+  gap: clamp(0.78rem, 1.5vw, 1rem);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__pills {
+  width: min(100%, 44rem);
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  overflow: visible;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__pills span {
+  min-height: 1.72rem;
+  border-color: rgba(68,43,25,0.08);
+  background: rgba(255,255,255,0.72);
+  color: rgba(75,56,41,0.72);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.74) inset;
+  font-size: 0.68rem;
+  font-weight: 850;
+  padding: 0 0.58rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__eyebrow::before {
+  content: "";
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 16px rgba(255,90,31,0.36);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero h1 {
+  max-width: 10.65ch;
+  font-size: clamp(3.15rem, 6.55vw, 5.95rem);
+  line-height: 0.88;
+  letter-spacing: -0.078em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__lede {
+  max-width: 56ch;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__miniNote {
+  max-width: 52ch;
+}
+
+/* Readiness panel: more premium, less black-box heavy. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness {
+  align-self: center;
+  border-color: rgba(255,255,255,0.12);
   background:
-    radial-gradient(circle at 100% 0%, rgba(255,196,137,.16), transparent 20rem),
-    radial-gradient(circle at 0% 100%, rgba(18,124,111,.065), transparent 18rem),
-    linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,248,238,.94));
+    radial-gradient(circle at 92% 0%, rgba(255,122,35,0.24), transparent 16rem),
+    radial-gradient(circle at 0% 100%, rgba(15,118,110,0.12), transparent 16rem),
+    linear-gradient(145deg, #2b180e, #100b08 72%);
+  color: #fffaf4;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.12) inset,
+    0 24px 64px rgba(38,24,14,0.22);
 }
 
-/* FutureFunded Onboarding Hero Background Harmony v1.3 */
-html[data-ff-page="platform-onboarding"] .ff-onboardHero {
-  background: var(--ff-hero-surface-warm-strong);
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readinessHead strong,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readinessHead span {
+  color: #fffaf4;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardHero::after {
-  opacity: .48;
-  background: radial-gradient(circle, rgba(255,196,137,.17), transparent 64%);
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readinessHead strong {
+  letter-spacing: 0.13em;
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness {
-  background: var(--ff-hero-surface-warm-panel);
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness dl div {
+  border-color: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.11);
 }
 
-/* FutureFunded Hero Visible Wash v1.4 */
-html[data-ff-page="platform-onboarding"] .ff-onboardHero {
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness dt {
+  color: rgba(255,250,244,0.68);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness dd {
+  background: rgba(255,255,255,0.88);
+  color: #2b1a10;
+}
+
+/* Section density and forms. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__section {
+  padding-block: clamp(1.35rem, 3vw, 2.45rem);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__sectionHead {
+  gap: 0.62rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__formGrid {
+  align-items: start;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__formGrid label,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themeControls label {
+  gap: 0.38rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__formGrid label > span,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themeControls label > span {
+  letter-spacing: -0.01em;
+}
+
+html[data-ff-page="platform-onboarding"] :where(input, select, textarea) {
+  border-color: rgba(68,43,25,0.095);
+  background: rgba(255,255,255,0.9);
+}
+
+/* Brand section should feel like a product builder, not just a form. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__brandGrid {
+  align-items: stretch;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themeControls,
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview {
+  min-height: 100%;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__themePreview h3 {
+  max-width: 9.5ch;
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+}
+
+/* Handoff card: stronger final action hierarchy. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff {
+  gap: 1rem;
   background:
-    radial-gradient(circle at 0% 0%, rgba(255,255,255,.98), transparent 18rem),
-    radial-gradient(circle at 14% 18%, rgba(255,232,196,.36), transparent 24rem),
-    radial-gradient(circle at 92% 4%, rgba(255,205,155,.42), transparent 31rem),
-    radial-gradient(circle at 82% 92%, rgba(18,124,111,.09), transparent 24rem),
-    linear-gradient(145deg, rgba(255,255,255,.992), rgba(255,244,226,.955)) !important;
+    radial-gradient(circle at 100% 0%, rgba(255,122,35,0.11), transparent 22rem),
+    linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,250,244,0.88));
 }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness {
-  background:
-    radial-gradient(circle at 100% 0%, rgba(255,205,155,.30), transparent 20rem),
-    radial-gradient(circle at 0% 100%, rgba(18,124,111,.08), transparent 18rem),
-    linear-gradient(180deg, rgba(255,255,255,.985), rgba(255,246,232,.96)) !important;
+html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoffActions .ffOnboardV2__btn--primary {
+  min-width: 10.5rem;
 }
 
-/* FutureFunded Hero Section Visible Band v1.5 */
-html[data-ff-page="platform-onboarding"] .ff-onboardHero {
-  background: var(--ff-hero-panel-visible) !important;
-}
+/* Mobile polish: keep everything visible and premium. */
+@media (max-width: 900px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__nav,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__nav,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header [data-ff-header-nav] {
+    display: none;
+  }
 
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness {
-  background: var(--ff-hero-side-panel-visible) !important;
-}
-
-/* === FutureFunded visual-rhythm-authority-v16 START === */
-html[data-ff-page="platform-onboarding"] .ff-onboardShell {
-  gap: 12px;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardMain {
-  gap: clamp(18px, 2.7vw, 34px);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardHero {
-  gap: clamp(14px, 2vw, 24px);
-  padding: clamp(24px, 4vw, 48px);
-  border-radius: clamp(24px, 2.8vw, 32px);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardHero h1 {
-  max-width: 10.5ch;
-  font-size: clamp(3.15rem, 7vw, 6.25rem);
-  line-height: .86;
-  letter-spacing: -.084em;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardHero__lede {
-  max-width: 58ch;
-  font-size: clamp(.98rem, 1.15vw, 1.08rem);
-  line-height: 1.48;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardSetup,
-html[data-ff-page="platform-onboarding"] .ff-onboardForm,
-html[data-ff-page="platform-onboarding"] .ff-onboardKit,
-html[data-ff-page="platform-onboarding"] .ff-onboardHandoff,
-html[data-ff-page="platform-onboarding"] .ff-onboardCommand {
-  border-radius: clamp(20px, 2.4vw, 28px);
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardSectionCopy h2,
-html[data-ff-page="platform-onboarding"] .ff-onboardSetup__header h2 {
-  font-size: clamp(2rem, 4vw, 3.65rem);
-  line-height: .89;
-  letter-spacing: -.074em;
-}
-
-html[data-ff-page="platform-onboarding"] .ff-onboardSteps,
-html[data-ff-page="platform-onboarding"] .ff-onboardPackageGrid,
-html[data-ff-page="platform-onboarding"] .ff-onboardReadiness {
-  gap: clamp(10px, 1.5vw, 16px);
-}
-
-@media (max-width: 860px) {
-  html[data-ff-page="platform-onboarding"] .ff-onboardHero h1 {
-    font-size: clamp(3rem, 14vw, 4.7rem);
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero {
+    min-height: auto;
   }
 }
-/* === FutureFunded visual-rhythm-authority-v16 END === */
 
+@media (max-width: 680px) {
+  html[data-ff-page="platform-onboarding"] [data-ff-header].ffOnboardV2__header,
+  html[data-ff-page="platform-onboarding"] .ffShellHeader.ffOnboardV2__header,
+  html[data-ff-page="platform-onboarding"] .ff-siteHeader.ffOnboardV2__header {
+    width: min(100% - 0.75rem, 1180px) !important;
+    max-width: min(100% - 0.75rem, 1180px) !important;
+    border-radius: 1.2rem;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__shell,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__shell,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header [data-ff-header-shell] {
+    min-height: 3.15rem;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__copy strong,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__copy strong,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-brandMark__copy strong {
+    max-width: calc(100vw - 7.5rem);
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ffShellHeader__copy small,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-siteHeader__copy small,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__header .ff-brandMark__copy small {
+    max-width: calc(100vw - 7.5rem);
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero {
+    padding: 1rem;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__pills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__pills span {
+    width: 100%;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__hero h1 {
+    max-width: 10.2ch;
+    font-size: clamp(2.65rem, 13.4vw, 4.15rem);
+    line-height: 0.92;
+    letter-spacing: -0.06em;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__readiness {
+    border-radius: 1.2rem;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__section,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV2__handoff {
+    padding: 1rem;
+  }
+}
+
+/* === FutureFunded onboarding-v2-header-rhythm-fix END === */
