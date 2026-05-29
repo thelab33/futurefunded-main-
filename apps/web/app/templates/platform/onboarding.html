@@ -15,6 +15,9 @@ Set up a trusted fundraising campaign with campaign basics, brand colors, giving
 {% endblock %}
 
 {% block page_css %}
+  <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/onboarding.css') }}?v={{ _asset_v|e }}"
+        data-ff-css="onboarding.css">
 {% endblock %}
 
 {% block body_attrs %}
@@ -36,7 +39,6 @@ data-ff-onboarding-template="site-shell-v2"
     actions=[],
     extra_class='ffOnboardV2__header'
   ) }}
-
   <main
     class="ffOnboardV2__main"
     id="main-content"
@@ -429,3 +431,4 @@ data-ff-onboarding-template="site-shell-v2"
 {{ super() }}
 <script src="{{ url_for('static', filename='js/ff-onboarding.js') }}?v={{ asset_v|default('dev', true) }}" defer></script>
 {% endblock %}
+
