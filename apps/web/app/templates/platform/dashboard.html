@@ -21,6 +21,7 @@
 {% set _dashboard_url = '/platform/dashboard' ~ _auth_qs %}
 {% set _dashboard_ledger_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/summary' %}
 {% set _dashboard_events_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/events' %}
+{% set _dashboard_offline_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/offline' %}
 {% set _dashboard_export_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/export.csv' %}
 {% set _dashboard_operator_token = '' %}
 {% if request is defined and request.args is defined %}
@@ -68,6 +69,7 @@ data-ff-system-loop="platform-dashboard"
   data-ff-brand-contract="futurefunded-platform-v1"
   data-ff-ledger-url="{{ _dashboard_ledger_url }}"
   data-ff-events-url="{{ _dashboard_events_url }}"
+  data-ff-offline-url="{{ _dashboard_offline_url }}"
   data-ff-export-url="{{ _dashboard_export_url }}"
   data-ff-export-href="{{ _dashboard_export_href }}"
   data-ff-operator-token="{{ _operator_token|e }}"
@@ -414,6 +416,140 @@ data-ff-dashboard-template="site-shell-v1"
             </ol>
           </article>
         </aside>
+      </section>
+
+
+      {# Marker: hoi-phase5d-dashboard-operator-live-record-hooks-v1 #}
+      <section
+        class="ff-dashboardModern__records"
+        aria-labelledby="dashboard-records-title"
+        data-ff-operator-records
+      >
+        <div class="ff-dashboardModern__recordsHeader">
+          <div>
+            <p class="ff-dashboardModern__eyebrow">Live records</p>
+            <h2 id="dashboard-records-title">Donations, sponsors, and offline support.</h2>
+            <p>
+              Keep confirmed gifts, sponsor movement, and cash/check support organized
+              before the next parent or sponsor push.
+            </p>
+          </div>
+
+          <div class="ff-dashboardModern__recordsActions" aria-label="Ledger actions">
+            <button
+              type="button"
+              class="ff-dashboardModern__button ff-dashboardModern__button--small"
+              data-ff-refresh-ledger
+            >
+              Refresh ledger
+            </button>
+            <a
+              class="ff-dashboardModern__button ff-dashboardModern__button--small"
+              href="{{ _dashboard_export_href|e }}"
+              data-ff-export-url
+              data-ff-export-csv
+            >
+              Export CSV
+            </a>
+          </div>
+        </div>
+
+        <div class="ff-dashboardModern__ledgerStatus" aria-live="polite">
+          <strong data-ff-ledger-health>Checking ledger…</strong>
+          <span data-ff-ledger-updated>Loading latest campaign records.</span>
+        </div>
+
+        <div class="ff-dashboardModern__recordsGrid">
+          <article class="ff-dashboardModern__panel ff-dashboardModern__ledgerPanel">
+            <div class="ff-dashboardModern__panelHead">
+              <div>
+                <p class="ff-dashboardModern__eyebrow">Donation ledger</p>
+                <h3>Recent confirmed support</h3>
+              </div>
+              <span class="ff-dashboardModern__status">Verified</span>
+            </div>
+
+            <div class="ff-dashboardModern__tableWrap" role="region" aria-label="Recent donations" tabindex="0">
+              <table class="ff-dashboardModern__table">
+                <thead>
+                  <tr>
+                    <th scope="col">Supporter</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody data-ff-donations-table>
+                  <tr>
+                    <td colspan="5">Loading donations…</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <aside class="ff-dashboardModern__recordsSide">
+            <article class="ff-dashboardModern__panel ff-dashboardModern__sponsorOrders">
+              <div class="ff-dashboardModern__panelHead">
+                <div>
+                  <p class="ff-dashboardModern__eyebrow">Sponsor orders</p>
+                  <h3>Recent sponsor movement</h3>
+                </div>
+                <span class="ff-dashboardModern__status ff-dashboardModern__status--quiet">Review</span>
+              </div>
+
+              <div class="ff-dashboardModern__sponsorsList" data-ff-sponsors-list>
+                <article class="ff-opEmpty">Loading sponsor orders…</article>
+              </div>
+            </article>
+
+            <article class="ff-dashboardModern__panel ff-dashboardModern__offlinePanel">
+              <div class="ff-dashboardModern__panelHead">
+                <div>
+                  <p class="ff-dashboardModern__eyebrow">Offline support</p>
+                  <h3>Record cash or check</h3>
+                </div>
+              </div>
+
+              <form
+                class="ff-dashboardModern__offlineForm"
+                data-ff-offline-donation-form
+              >
+                <label>
+                  <span>Amount</span>
+                  <input name="amount" type="number" min="1" step="1" inputmode="decimal" placeholder="100">
+                </label>
+
+                <label>
+                  <span>Supporter name</span>
+                  <input name="donor_name" type="text" autocomplete="name" placeholder="Parent, donor, or sponsor">
+                </label>
+
+                <label>
+                  <span>Email optional</span>
+                  <input name="donor_email" type="email" autocomplete="email" placeholder="name@example.com">
+                </label>
+
+                <label>
+                  <span>Note optional</span>
+                  <textarea name="note" rows="3" placeholder="Cash, check, sponsor pledge, or context for the record."></textarea>
+                </label>
+
+                <button
+                  type="submit"
+                  class="ff-dashboardModern__button ff-dashboardModern__button--primary"
+                  data-ff-submit-offline-donation
+                  data-ff-idle-text="Add offline donation"
+                >
+                  Add offline donation
+                </button>
+
+                <p class="ff-dashboardModern__offlineStatus" data-ff-offline-status role="status" aria-live="polite"></p>
+              </form>
+            </article>
+          </aside>
+        </div>
       </section>
 
       <section
