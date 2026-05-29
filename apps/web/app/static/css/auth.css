@@ -1431,3 +1431,471 @@ html[data-ff-page^="platform-"] :where(
   min-width: 0;
   max-width: 100%;
 }
+
+/* ==========================================================================
+   FutureFunded — Auth Suite UX Polish
+   Marker: hoi-auth-suite-ux-polish-v1
+   Purpose:
+   - Tighten the new auth-suite pages from functional-pass to premium SaaS.
+   - Preserve login/auth root hooks, shared header, forms, and route contracts.
+========================================================================== */
+
+body[data-ff-surface="platform-forgot-password"],
+body[data-ff-surface="platform-reset-password"],
+body[data-ff-surface="platform-invite"],
+body[data-ff-surface="platform-mfa"],
+body[data-ff-surface="platform-register"] {
+  --auth-shell: min(100% - clamp(1.15rem, 3.2vw, 3.75rem), 1240px);
+  --auth-hero-max: 4.85rem;
+  --auth-card-max: 3.05rem;
+  --auth-section-gap: clamp(1rem, 1.8vw, 1.55rem);
+  background:
+    radial-gradient(circle at 8% -6%, rgba(255, 122, 35, 0.2), transparent 26rem),
+    radial-gradient(circle at 92% -4%, rgba(15, 118, 110, 0.13), transparent 30rem),
+    radial-gradient(circle at 48% 24%, rgba(255, 255, 255, 0.74), transparent 36rem),
+    linear-gradient(180deg, #fff8ef 0%, #f7ebdc 54%, #ead7bd 100%);
+}
+
+/* Header: keep it premium, but less floaty/oversized on auth utility pages. */
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__shell,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__shell,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__shell,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__shell,
+body[data-ff-surface="platform-register"] .ff-authAuthority__shell {
+  min-height: calc(100svh - 1.1rem);
+  gap: clamp(0.75rem, 1.45vw, 1.1rem);
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__header,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__header,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__header,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__header,
+body[data-ff-surface="platform-register"] .ff-authAuthority__header {
+  max-width: 100%;
+  border-color: rgba(57, 41, 28, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 250, 243, 0.86)),
+    radial-gradient(circle at 100% 0%, rgba(15, 118, 110, 0.08), transparent 18rem);
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__header .ff-brandMark__copy strong,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__header .ff-brandMark__copy strong,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__header .ff-brandMark__copy strong,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__header .ff-brandMark__copy strong,
+body[data-ff-surface="platform-register"] .ff-authAuthority__header .ff-brandMark__copy strong {
+  letter-spacing: -0.03em;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__header .ff-brandMark__copy small,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__header .ff-brandMark__copy small,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__header .ff-brandMark__copy small,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__header .ff-brandMark__copy small,
+body[data-ff-surface="platform-register"] .ff-authAuthority__header .ff-brandMark__copy small {
+  color: rgba(18, 11, 7, 0.54);
+  font-size: 0.78rem;
+  letter-spacing: 0.19em;
+}
+
+/* Main stage: more product-like, less oversized landing-poster. */
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__stage,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__stage,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__stage,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__stage,
+body[data-ff-surface="platform-register"] .ff-authAuthority__stage {
+  min-height: clamp(34rem, calc(100svh - 7.2rem), 43rem);
+  grid-template-columns: minmax(0, 1.02fr) minmax(22rem, 0.94fr);
+  gap: clamp(1rem, 2vw, 1.55rem);
+  align-items: stretch;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__hero,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__hero,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__hero,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__hero,
+body[data-ff-surface="platform-register"] .ff-authAuthority__hero {
+  align-content: center;
+  gap: var(--auth-section-gap);
+  border-color: rgba(57, 41, 28, 0.1);
+  padding: clamp(1.65rem, 4vw, 3.15rem);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.62), transparent 46%),
+    radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.98), transparent 22rem),
+    radial-gradient(circle at 16% 8%, rgba(255, 219, 173, 0.34), transparent 22rem),
+    radial-gradient(circle at 86% 88%, rgba(15, 118, 110, 0.075), transparent 22rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(255, 247, 236, 0.9));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.92) inset,
+    0 28px 74px rgba(55, 37, 21, 0.12);
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__card,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__card,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__card,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__card,
+body[data-ff-surface="platform-register"] .ff-authAuthority__card {
+  align-content: center;
+  gap: clamp(0.8rem, 1.45vw, 1.05rem);
+  border-color: rgba(57, 41, 28, 0.11);
+  padding: clamp(1.4rem, 3.25vw, 3rem);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 122, 35, 0.08), transparent 18rem),
+    radial-gradient(circle at 0% 100%, rgba(15, 118, 110, 0.045), transparent 20rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 250, 244, 0.9));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 24px 70px rgba(55, 37, 21, 0.11);
+}
+
+/* Typography: still bold, now controlled and enterprise. */
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority h1,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority h1,
+body[data-ff-surface="platform-invite"] .ff-authAuthority h1,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority h1,
+body[data-ff-surface="platform-register"] .ff-authAuthority h1 {
+  max-width: 11.25ch;
+  font-size: clamp(3.1rem, 5.55vw, var(--auth-hero-max));
+  line-height: 0.88;
+  letter-spacing: -0.078em;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority h2,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority h2,
+body[data-ff-surface="platform-invite"] .ff-authAuthority h2,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority h2,
+body[data-ff-surface="platform-register"] .ff-authAuthority h2 {
+  max-width: 11.8ch;
+  font-size: clamp(2rem, 3.15vw, var(--auth-card-max));
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__lede,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__lede,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__lede,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__lede,
+body[data-ff-surface="platform-register"] .ff-authAuthority__lede {
+  max-width: 56ch;
+  color: rgba(55, 41, 30, 0.68);
+  font-size: clamp(0.98rem, 1.02vw, 1.08rem);
+  font-weight: 650;
+  line-height: 1.48;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__eyebrow,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__eyebrow,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__eyebrow,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__eyebrow,
+body[data-ff-surface="platform-register"] .ff-authAuthority__eyebrow {
+  color: rgba(121, 55, 22, 0.88);
+  font-size: 0.76rem;
+  letter-spacing: 0.19em;
+}
+
+/* Proof cards: smaller, calmer, more system-like. */
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__proofGrid,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__proofGrid,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__proofGrid,
+body[data-ff-surface="platform-register"] .ff-authAuthority__proofGrid {
+  gap: clamp(0.65rem, 1.2vw, 0.9rem);
+  margin-top: 0.1rem;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__proofGrid article,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__proofGrid article,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__proofGrid article,
+body[data-ff-surface="platform-register"] .ff-authAuthority__proofGrid article {
+  min-height: 8.6rem;
+  border-color: rgba(72, 44, 25, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 251, 245, 0.66));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.82) inset,
+    0 14px 34px rgba(55, 37, 21, 0.055);
+  padding: clamp(0.85rem, 1.45vw, 1rem);
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__proofGrid strong,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__proofGrid strong,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__proofGrid strong,
+body[data-ff-surface="platform-register"] .ff-authAuthority__proofGrid strong {
+  font-size: 0.96rem;
+  line-height: 1.02;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__proofGrid p,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__proofGrid p,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__proofGrid p,
+body[data-ff-surface="platform-register"] .ff-authAuthority__proofGrid p {
+  color: rgba(55, 41, 30, 0.64);
+  font-size: 0.84rem;
+  line-height: 1.38;
+}
+
+/* Form system: better rhythm, button polish, less generic SaaS form. */
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__form,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__form,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__form,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__form,
+body[data-ff-surface="platform-register"] .ff-authAuthority__form {
+  gap: 0.78rem;
+  margin-top: 0.15rem;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__field,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__field,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__field,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__field,
+body[data-ff-surface="platform-register"] .ff-authAuthority__field {
+  gap: 0.42rem;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__field > span,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__field > span,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__field > span,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__field > span,
+body[data-ff-surface="platform-register"] .ff-authAuthority__field > span {
+  color: rgba(18, 11, 7, 0.86);
+  font-size: 0.86rem;
+  letter-spacing: -0.01em;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__field input,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__field input,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__field input,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__field input,
+body[data-ff-surface="platform-register"] .ff-authAuthority__field input {
+  min-height: 3.35rem;
+  border-color: rgba(55, 37, 21, 0.1);
+  border-radius: 1.05rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 252, 248, 0.9));
+  color: #140d08;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 12px 26px rgba(55, 37, 21, 0.045);
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__submit,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__submit,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__submit,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__submit,
+body[data-ff-surface="platform-register"] .ff-authAuthority__submit {
+  min-height: 3.45rem;
+  margin-top: 0.18rem;
+  border-color: rgba(255, 90, 31, 0.44);
+  background:
+    radial-gradient(circle at 28% 0%, rgba(255, 255, 255, 0.32), transparent 42%),
+    linear-gradient(135deg, #ff5a1f 0%, #ff7626 58%, #ff8b2e 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.28) inset,
+    0 16px 34px rgba(255, 90, 31, 0.18),
+    0 8px 18px rgba(70, 31, 12, 0.08);
+  letter-spacing: -0.015em;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__submit:hover,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__submit:hover,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__submit:hover,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__submit:hover,
+body[data-ff-surface="platform-register"] .ff-authAuthority__submit:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.3) inset,
+    0 20px 42px rgba(255, 90, 31, 0.23),
+    0 10px 24px rgba(70, 31, 12, 0.1);
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__fineprint,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__fineprint,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__fineprint,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__fineprint,
+body[data-ff-surface="platform-register"] .ff-authAuthority__fineprint {
+  max-width: 52ch;
+  color: rgba(55, 41, 30, 0.68);
+  font-size: 0.88rem;
+  font-weight: 720;
+  line-height: 1.45;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__links,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__links,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__links,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__links,
+body[data-ff-surface="platform-register"] .ff-authAuthority__links {
+  border-top-color: rgba(55, 37, 21, 0.09);
+  padding-top: 0.95rem;
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__links a,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__links a,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__links a,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__links a,
+body[data-ff-surface="platform-register"] .ff-authAuthority__links a {
+  border-radius: 0.7rem;
+  color: rgba(153, 63, 19, 0.95);
+  text-decoration: none;
+  transition:
+    background-color 160ms var(--auth-ease, ease),
+    color 160ms var(--auth-ease, ease),
+    transform 160ms var(--auth-ease, ease);
+}
+
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__links a:hover,
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__links a:hover,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__links a:hover,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__links a:hover,
+body[data-ff-surface="platform-register"] .ff-authAuthority__links a:hover {
+  color: #7c2d12;
+  transform: translateY(-1px);
+}
+
+/* Warning/notice panels: more premium, less default alert. */
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__warning,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__warning,
+body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__notice,
+body[data-ff-surface="platform-register"] .ff-authAuthority__notice,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__notice {
+  border-radius: 1.1rem;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.72) inset,
+    0 12px 28px rgba(55, 37, 21, 0.055);
+}
+
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__warning,
+body[data-ff-surface="platform-invite"] .ff-authAuthority__warning {
+  border-color: rgba(180, 83, 9, 0.17);
+  background:
+    linear-gradient(180deg, rgba(255, 251, 235, 0.86), rgba(255, 247, 237, 0.7));
+}
+
+/* MFA: make OTP feel intentional, not oversized default text. */
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__otp {
+  min-height: 4.15rem;
+  border-radius: 1.15rem;
+  color: rgba(18, 11, 7, 0.68);
+  font-size: clamp(2rem, 4.8vw, 2.8rem) !important;
+  letter-spacing: 0.22em;
+  text-align: center;
+}
+
+/* Utility pages should not feel empty on desktop. */
+@media (min-width: 1180px) {
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority,
+  body[data-ff-surface="platform-register"] .ff-authAuthority {
+    padding-block: max(0.9rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-bottom));
+  }
+
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority__stage {
+    grid-template-columns: minmax(0, 1fr) minmax(23rem, 0.9fr);
+  }
+}
+
+/* Tablet and mobile: keep the gate green while improving rhythm. */
+@media (max-width: 1060px) {
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__stage,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority__stage,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority__stage,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority__stage,
+  body[data-ff-surface="platform-register"] .ff-authAuthority__stage {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__hero,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority__hero,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority__hero,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority__hero,
+  body[data-ff-surface="platform-register"] .ff-authAuthority__hero {
+    min-height: auto;
+  }
+
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority h1,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority h1,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority h1,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority h1,
+  body[data-ff-surface="platform-register"] .ff-authAuthority h1 {
+    max-width: 12.5ch;
+    font-size: clamp(2.85rem, 10vw, 4.35rem);
+    line-height: 0.9;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-ff-surface="platform-forgot-password"],
+  body[data-ff-surface="platform-reset-password"],
+  body[data-ff-surface="platform-invite"],
+  body[data-ff-surface="platform-mfa"],
+  body[data-ff-surface="platform-register"] {
+    --auth-shell: min(100% - 0.85rem, 1180px);
+  }
+
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__shell,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority__shell,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority__shell,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority__shell,
+  body[data-ff-surface="platform-register"] .ff-authAuthority__shell {
+    gap: 0.72rem;
+  }
+
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__hero,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority__hero,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority__hero,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority__hero,
+  body[data-ff-surface="platform-register"] .ff-authAuthority__hero,
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__card,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority__card,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority__card,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority__card,
+  body[data-ff-surface="platform-register"] .ff-authAuthority__card {
+    border-radius: 1.25rem;
+    padding: 1rem;
+  }
+
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority h1,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority h1,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority h1,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority h1,
+  body[data-ff-surface="platform-register"] .ff-authAuthority h1 {
+    max-width: 10.8ch;
+    font-size: clamp(2.45rem, 12vw, 3.45rem);
+    letter-spacing: -0.062em;
+  }
+
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority h2,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority h2,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority h2,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority h2,
+  body[data-ff-surface="platform-register"] .ff-authAuthority h2 {
+    max-width: 13ch;
+    font-size: clamp(1.8rem, 8vw, 2.45rem);
+  }
+
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__proofGrid article,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority__proofGrid article,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority__proofGrid article,
+  body[data-ff-surface="platform-register"] .ff-authAuthority__proofGrid article {
+    min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__submit,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority__submit,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority__submit,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority__submit,
+  body[data-ff-surface="platform-register"] .ff-authAuthority__submit {
+    transition: none;
+  }
+
+  body[data-ff-surface="platform-forgot-password"] .ff-authAuthority__submit:hover,
+  body[data-ff-surface="platform-reset-password"] .ff-authAuthority__submit:hover,
+  body[data-ff-surface="platform-invite"] .ff-authAuthority__submit:hover,
+  body[data-ff-surface="platform-mfa"] .ff-authAuthority__submit:hover,
+  body[data-ff-surface="platform-register"] .ff-authAuthority__submit:hover {
+    transform: none;
+  }
+}
+
