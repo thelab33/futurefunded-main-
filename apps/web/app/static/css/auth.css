@@ -2620,3 +2620,224 @@ body[data-ff-surface="platform-mfa"] .ff-authAuthority__otp {
   }
 }
 
+/* ==========================================================================
+   FutureFunded — Auth Suite Composition Lock
+   Marker: hoi-auth-suite-composition-lock-v1
+   Purpose:
+   - Fix auth-suite desktop clipping/overstretch after enterprise polish.
+   - Keep the premium look while making the surfaces feel intentional.
+   - Preserve all route/form/header/data-hook contracts.
+========================================================================== */
+
+html[data-ff-page="platform-login"],
+html[data-ff-page="platform-forgot-password"],
+html[data-ff-page="platform-reset-password"],
+html[data-ff-page="platform-invite"],
+html[data-ff-page="platform-mfa"],
+html[data-ff-page="platform-register"] {
+  --auth-composition-shell: min(100% - clamp(1rem, 3vw, 3rem), 1230px);
+  --auth-composition-card-h: clamp(34rem, 64svh, 42.5rem);
+  --auth-composition-card-h-compact: clamp(30rem, 56svh, 38rem);
+  --auth-composition-gap: clamp(1rem, 2.1vw, 1.7rem);
+  --auth-composition-pad: clamp(1.75rem, 3.3vw, 3rem);
+}
+
+/* Prevent the shared header wash from visually covering the first row of content. */
+.ff-loginAuthority__shell,
+.ff-authAuthority__shell {
+  width: var(--auth-composition-shell) !important;
+  grid-template-rows: auto auto auto !important;
+  gap: clamp(1rem, 1.8vw, 1.45rem) !important;
+  min-height: 100svh !important;
+}
+
+html[data-ff-page="platform-login"] [data-ff-header],
+html[data-ff-page="platform-forgot-password"] [data-ff-header],
+html[data-ff-page="platform-reset-password"] [data-ff-header],
+html[data-ff-page="platform-invite"] [data-ff-header],
+html[data-ff-page="platform-mfa"] [data-ff-header],
+html[data-ff-page="platform-register"] [data-ff-header] {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 30 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+/* Stage should feel like a product workspace, not a poster locked to full viewport height. */
+.ff-loginAuthority__stage,
+.ff-authAuthority__stage {
+  min-height: auto !important;
+  height: auto !important;
+  display: grid !important;
+  align-items: center !important;
+  grid-template-columns: minmax(0, 0.98fr) minmax(22rem, 0.9fr) !important;
+  gap: var(--auth-composition-gap) !important;
+  padding-top: clamp(0.65rem, 1.35vw, 1.1rem) !important;
+  padding-bottom: clamp(0.8rem, 1.5vw, 1.2rem) !important;
+}
+
+/* Large panels: stop the 884px desktop lock and give content enough safe inset. */
+.ff-loginAuthority__hero,
+.ff-loginAuthority__card,
+.ff-authAuthority__hero,
+.ff-authAuthority__card {
+  min-height: var(--auth-composition-card-h) !important;
+  height: auto !important;
+  align-content: center !important;
+  padding: var(--auth-composition-pad) !important;
+  overflow: clip !important;
+}
+
+/* Compact utility pages with fewer hero elements should not become empty vertical billboards. */
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__hero,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__hero {
+  min-height: var(--auth-composition-card-h-compact) !important;
+}
+
+body[data-ff-surface="platform-reset-password"] .ff-authAuthority__card,
+body[data-ff-surface="platform-mfa"] .ff-authAuthority__card {
+  min-height: var(--auth-composition-card-h-compact) !important;
+}
+
+/* Give the first text elements breathing room so screenshots never show clipped eyebrows. */
+.ff-loginAuthority__hero > .ff-loginAuthority__eyebrow:first-child,
+.ff-loginAuthority__card > .ff-loginAuthority__eyebrow:first-child,
+.ff-authAuthority__hero > .ff-authAuthority__eyebrow:first-child,
+.ff-authAuthority__card > .ff-authAuthority__eyebrow:first-child {
+  margin-top: clamp(0.2rem, 0.55vw, 0.45rem) !important;
+}
+
+.ff-loginAuthority__hero > h1,
+.ff-authAuthority__hero > h1 {
+  margin-top: 0.05rem !important;
+}
+
+.ff-loginAuthority__card > h2,
+.ff-authAuthority__card > h2 {
+  margin-top: 0.05rem !important;
+}
+
+/* Typography: slightly tighten desktop scale so the left panel feels authoritative, not cropped. */
+@media (min-width: 1180px) {
+  .ff-loginAuthority,
+  .ff-authAuthority {
+    padding-block: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-bottom)) !important;
+  }
+
+  .ff-loginAuthority h1,
+  .ff-authAuthority h1 {
+    max-width: 11.25ch !important;
+    font-size: clamp(3.2rem, 4.35vw, 4.35rem) !important;
+    line-height: 0.91 !important;
+    letter-spacing: -0.07em !important;
+  }
+
+  .ff-loginAuthority h2,
+  .ff-authAuthority h2 {
+    max-width: 13ch !important;
+    font-size: clamp(2rem, 2.6vw, 2.65rem) !important;
+    line-height: 0.95 !important;
+  }
+
+  .ff-loginAuthority__lede,
+  .ff-authAuthority__lede {
+    max-width: 60ch !important;
+  }
+
+  .ff-loginAuthority__proofGrid article,
+  .ff-authAuthority__proofGrid article {
+    min-height: 7.75rem !important;
+  }
+}
+
+/* Tablet: stacked but still premium. */
+@media (max-width: 1060px) {
+  .ff-loginAuthority__stage,
+  .ff-authAuthority__stage {
+    grid-template-columns: 1fr !important;
+    padding-top: 0.35rem !important;
+  }
+
+  .ff-loginAuthority__hero,
+  .ff-loginAuthority__card,
+  .ff-authAuthority__hero,
+  .ff-authAuthority__card {
+    min-height: auto !important;
+  }
+
+  .ff-loginAuthority h1,
+  .ff-authAuthority h1 {
+    font-size: clamp(2.75rem, 8.5vw, 4rem) !important;
+    line-height: 0.92 !important;
+  }
+}
+
+/* Mobile: reduce bulk and keep the first task above the fold. */
+@media (max-width: 760px) {
+  html[data-ff-page="platform-login"],
+  html[data-ff-page="platform-forgot-password"],
+  html[data-ff-page="platform-reset-password"],
+  html[data-ff-page="platform-invite"],
+  html[data-ff-page="platform-mfa"],
+  html[data-ff-page="platform-register"] {
+    --auth-composition-shell: min(100% - 0.85rem, 1180px);
+    --auth-composition-gap: 0.75rem;
+    --auth-composition-pad: 1rem;
+  }
+
+  .ff-loginAuthority__shell,
+  .ff-authAuthority__shell {
+    min-height: 100svh !important;
+    gap: 0.72rem !important;
+  }
+
+  .ff-loginAuthority__stage,
+  .ff-authAuthority__stage {
+    gap: 0.8rem !important;
+    padding-top: 0.15rem !important;
+  }
+
+  .ff-loginAuthority h1,
+  .ff-authAuthority h1 {
+    font-size: clamp(2.35rem, 10.8vw, 3.25rem) !important;
+    line-height: 0.93 !important;
+  }
+
+  .ff-loginAuthority h2,
+  .ff-authAuthority h2 {
+    font-size: clamp(1.75rem, 7.25vw, 2.25rem) !important;
+    line-height: 0.96 !important;
+  }
+
+  .ff-loginAuthority__proofGrid,
+  .ff-authAuthority__proofGrid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Extra-small: keep nav usable and avoid header crowding. */
+@media (max-width: 460px) {
+  html[data-ff-page="platform-login"] .ff-brandMark__symbol,
+  html[data-ff-page="platform-forgot-password"] .ff-brandMark__symbol,
+  html[data-ff-page="platform-reset-password"] .ff-brandMark__symbol,
+  html[data-ff-page="platform-invite"] .ff-brandMark__symbol,
+  html[data-ff-page="platform-mfa"] .ff-brandMark__symbol,
+  html[data-ff-page="platform-register"] .ff-brandMark__symbol {
+    width: 2.15rem !important;
+    height: 2.15rem !important;
+  }
+
+  html[data-ff-page="platform-login"] .ff-brandMark__copy strong,
+  html[data-ff-page="platform-forgot-password"] .ff-brandMark__copy strong,
+  html[data-ff-page="platform-reset-password"] .ff-brandMark__copy strong,
+  html[data-ff-page="platform-invite"] .ff-brandMark__copy strong,
+  html[data-ff-page="platform-mfa"] .ff-brandMark__copy strong,
+  html[data-ff-page="platform-register"] .ff-brandMark__copy strong {
+    max-width: 9.5rem !important;
+  }
+}
+
