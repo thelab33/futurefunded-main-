@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Alternate team placeholder">
+  <defs>
+    <linearGradient id="bg2" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg2)"/>
+  <rect x="100" y="100" width="1000" height="600" rx="34" fill="#0b1220" stroke="#374151"/>
+  <circle cx="260" cy="250" r="90" fill="#fb923c" opacity="0.16"/>
+  <circle cx="470" cy="250" r="90" fill="#fb923c" opacity="0.11"/>
+  <circle cx="680" cy="250" r="90" fill="#fb923c" opacity="0.16"/>
+  <circle cx="890" cy="250" r="90" fill="#fb923c" opacity="0.11"/>
+  <text x="120" y="560" fill="#fdba74" font-size="28" font-family="Inter, Arial, sans-serif" font-weight="700" letter-spacing="3">PROGRAM VISUAL</text>
+  <text x="120" y="620" fill="#f8fafc" font-size="50" font-family="Inter, Arial, sans-serif" font-weight="800">Temporary roster image</text>
+  <text x="120" y="670" fill="#94a3b8" font-size="28" font-family="Inter, Arial, sans-serif">Use this until the real team assets are restored.</text>
+</svg>

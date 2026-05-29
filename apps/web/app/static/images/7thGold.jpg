@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Team placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="980" cy="120" r="180" fill="#fb923c" opacity="0.08"/>
+  <circle cx="180" cy="700" r="220" fill="#ffffff" opacity="0.05"/>
+  <rect x="84" y="86" width="1032" height="628" rx="30" fill="#0b1220" stroke="#334155"/>
+  <rect x="120" y="122" width="960" height="360" rx="20" fill="#111827" stroke="#475569"/>
+  <path d="M240 600h720" stroke="url(#accent)" stroke-width="10" stroke-linecap="round"/>
+  <text x="120" y="560" fill="#fb923c" font-size="28" font-family="Inter, Arial, sans-serif" font-weight="700" letter-spacing="3">FUTUREFUNDED</text>
+  <text x="120" y="618" fill="#f8fafc" font-size="54" font-family="Inter, Arial, sans-serif" font-weight="800">Campaign media placeholder</text>
+  <text x="120" y="670" fill="#94a3b8" font-size="28" font-family="Inter, Arial, sans-serif">Replace with your real team photography when ready.</text>
+</svg>

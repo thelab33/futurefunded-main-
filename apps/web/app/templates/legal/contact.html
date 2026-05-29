@@ -1,0 +1,51 @@
+<!doctype html>
+{# FF_ROOT_HTML_PAGE_CONTRACT:
+   Path-aware root page identity for runtime audits and page-scoped styling.
+   Login must render <html data-ff-page="platform-login">.
+#}
+{% set _ff_page_attr = (
+  html_page if html_page is defined and html_page
+  else ff_page if ff_page is defined and ff_page
+  else page_id if page_id is defined and page_id
+  else 'platform-login' if request is defined and request.path.startswith('/platform/login')
+  else 'platform-onboarding' if request is defined and request.path.startswith('/platform/onboarding')
+  else 'platform-dashboard' if request is defined and request.path.startswith('/platform/dashboard')
+  else 'platform-home' if request is defined and request.path.startswith('/platform')
+  else 'campaign' if request is defined and request.path.startswith('/c/')
+  else ''
+) %}
+<html{% if _ff_page_attr %} data-ff-page="{{ _ff_page_attr|e }}"{% endif %} lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact FutureFunded</title>
+  <meta name="description" content="Contact FutureFunded about fundraising pages, sponsorships, onboarding, and platform partnerships.">
+  <link rel="stylesheet" href="/static/css/ff.css">
+</head>
+<body class="ff-surface">
+  <main class="ff-page-shell" style="min-height:100vh;display:grid;place-items:center;padding:clamp(24px,6vw,72px);">
+    <section class="ff-card" style="width:min(920px,100%);padding:clamp(28px,5vw,56px);border-radius:32px;">
+      <p class="ff-eyebrow">FutureFunded contact</p>
+      <h1 style="font-size:clamp(2.25rem,6vw,4.75rem);line-height:.94;margin:.35em 0;">
+        Let’s build a smoother fundraising campaign.
+      </h1>
+      <p style="font-size:clamp(1rem,2vw,1.25rem);max-width:68ch;color:var(--ff-muted, #667085);">
+        Have a question about launching a campaign, setting up sponsors, onboarding your team, or preparing a white-label fundraiser?
+        Send a note and we’ll help route the next step.
+      </p>
+
+      <div style="display:grid;gap:16px;margin-top:32px;">
+        <a class="ff-btn ff-btn-primary" href="mailto:hello@futurefunded.com?subject=FutureFunded%20campaign%20question">
+          Email FutureFunded
+        </a>
+        <a class="ff-btn ff-btn-secondary" href="/platform/onboarding">
+          Start campaign setup
+        </a>
+        <a class="ff-btn ff-btn-ghost" href="/platform/">
+          Back to platform
+        </a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

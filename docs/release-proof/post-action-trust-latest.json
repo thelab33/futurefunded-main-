@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "checkedAt": "2026-05-20T06:35:14.257Z",
+  "paymentUrl": "http://127.0.0.1:5000/c/connect-atx-elite?payment=success&session_id=cs_test_post_action_audit",
+  "sponsorUrl": "http://127.0.0.1:5000/c/connect-atx-elite?sponsor=submitted",
+  "payment": {
+    "runtime": "post-action-trust-v2",
+    "shareRuntime": "share-qr-reliability-v3",
+    "trustExists": true,
+    "trustKind": "payment",
+    "trustState": "returned",
+    "trustText": "Donation returned Thank you — your support is recorded. Your secure checkout returned to FutureFunded. Connect ATX Elite can use this support toward real season costs, and the operator ledger can confirm payment status as Stripe updates. Share the campaign so the next supporter can help keep momentum going. Share campaign View impact",
+    "sponsorNoteExists": true,
+    "sponsorNoteText": "Sponsor recognition is reviewed before public display. Business names, links, and recognition notes stay controlled by the campaign owner so the public page remains family-safe and sponsor-ready.",
+    "shareDrawerVisible": true
+  },
+  "sponsor": {
+    "runtime": "post-action-trust-v2",
+    "shareRuntime": "share-qr-reliability-v3",
+    "trustExists": true,
+    "trustKind": "sponsor",
+    "trustState": "submitted",
+    "trustText": "Sponsor handoff received Sponsor recognition is queued for review. Sponsor recognition stays family-safe and campaign-owner controlled. Business names, links, and recognition notes are reviewed before public display, then operators can approve recognition from the dashboard. Share campaign View sponsor packages",
+    "sponsorNoteExists": true,
+    "sponsorNoteText": "Sponsor recognition is reviewed before public display. Business names, links, and recognition notes stay controlled by the campaign owner so the public page remains family-safe and sponsor-ready.",
+    "shareDrawerVisible": false
+  },
+  "checks": [
+    {
+      "ok": true,
+      "label": "post-action runtime v2 exists",
+      "detail": "post-action-trust-v2"
+    },
+    {
+      "ok": true,
+      "label": "payment success trust panel renders",
+      "detail": "Donation returned Thank you — your support is recorded. Your secure checkout returned to FutureFunded. Connect ATX Elite can use this support toward real season costs, and the operator ledger can confirm payment status as Stripe updates. Share the campaign so the next supporter can help keep momentum going. Share campaign View impact"
+    },
+    {
+      "ok": true,
+      "label": "payment panel has donor confidence copy"
+    },
+    {
+      "ok": true,
+      "label": "payment success share CTA opens Share/QR drawer"
+    },
+    {
+      "ok": true,
+      "label": "sponsor handoff trust panel renders",
+      "detail": "Sponsor handoff received Sponsor recognition is queued for review. Sponsor recognition stays family-safe and campaign-owner controlled. Business names, links, and recognition notes are reviewed before public display, then operators can approve recognition from the dashboard. Share campaign View sponsor packages"
+    },
+    {
+      "ok": true,
+      "label": "sponsor handoff explains review before public display"
+    },
+    {
+      "ok": true,
+      "label": "sponsor section includes review note",
+      "detail": "Sponsor recognition is reviewed before public display. Business names, links, and recognition notes stay controlled by the campaign owner so the public page remains family-safe and sponsor-ready."
+    }
+  ]
+}

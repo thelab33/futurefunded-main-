@@ -1,0 +1,103 @@
+{# ============================================================================
+  FutureFunded — Shared Shell Header
+  Marker: hoi-9a-shared-shell-header-enterprise-v1
+
+  One header contract for:
+  - marketing pages
+  - public campaign pages
+  - operator/auth/dashboard pages
+
+  Stable contracts preserved:
+  data-ff-header
+  data-ff-header-mode="marketing|campaign|operator"
+  data-ff-brand-context
+  ffShellHeader*
+  ff-siteHeader*
+============================================================================ #}
+
+{% macro ff_shell_header(
+  mode='marketing',
+  brand_name='FutureFunded',
+  context='Fundraising platform',
+  brand_href='/platform/',
+  nav_items=[],
+  actions=[],
+  extra_class=''
+) -%}
+  {%- set _mode = (mode|default('marketing', true)|string|lower|trim) -%}
+  {%- if _mode not in ['marketing', 'campaign', 'operator'] -%}
+    {%- set _mode = 'marketing' -%}
+  {%- endif -%}
+
+  {%- set _brand = brand_name|default('FutureFunded', true)|string|trim -%}
+  {%- if not _brand -%}{%- set _brand = 'FutureFunded' -%}{%- endif -%}
+
+  {%- set _context = context|default('Fundraising platform', true)|string|trim -%}
+  {%- if not _context -%}{%- set _context = 'Fundraising platform' -%}{%- endif -%}
+
+  {%- set _context_slug = _context|lower|replace('&', 'and')|replace('/', '-')|replace(' ', '-')|replace('--', '-') -%}
+  {%- set _href = brand_href|default('/platform/', true)|string|trim -%}
+  {%- if not _href -%}{%- set _href = '/platform/' -%}{%- endif -%}
+
+  <header
+    class="ffShellHeader ff-siteHeader ffShellHeader--{{ _mode|e }} ff-siteHeader--{{ _mode|e }}{% if _mode == 'campaign' %} ff-campaignHeader{% elif _mode == 'operator' %} ff-operatorHeader{% endif %}{% if extra_class %} {{ extra_class|e }}{% endif %}"
+    data-ff-header
+    data-ff-header-mode="{{ _mode|e }}"
+    data-ff-brand-context="{{ _context_slug|e }}"
+    role="banner"
+  >
+    <div class="ffShellHeader__shell ff-siteHeader__shell ff-shell" data-ff-header-shell>
+      <a
+        class="ffShellHeader__brand ff-siteHeader__brand ff-brandMark"
+        href="{{ _href|e }}"
+        aria-label="{{ _brand|e }} — {{ _context|e }}"
+        data-ff-header-brand
+      >
+        <span class="ffShellHeader__mark ff-siteHeader__mark ff-brandMark__symbol" aria-hidden="true">FF</span>
+        <span class="ffShellHeader__copy ff-siteHeader__copy ff-brandMark__copy">
+          <strong>{{ _brand }}</strong>
+          <small>{{ _context }}</small>
+        </span>
+      </a>
+
+      {% if nav_items %}
+        <nav class="ffShellHeader__nav ff-siteHeader__nav" aria-label="{{ _context|e }} navigation" data-ff-header-nav>
+          {% for item in nav_items %}
+            {%- set _label = item.label|default('Link', true)|string|trim -%}
+            {%- set _item_href = item.href|default('#', true)|string|trim -%}
+            <a
+              href="{{ (_item_href if _item_href else '#')|e }}"
+              data-ff-nav-link="true"
+              {% if item.active|default(false, true) %}aria-current="page"{% endif %}
+            >{{ _label if _label else 'Link' }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+
+      {% if actions %}
+        <div class="ffShellHeader__actions ff-siteHeader__actions" aria-label="{{ _context|e }} actions" data-ff-header-actions>
+          {% for action in actions %}
+            {%- set _tone = action.tone|default('ghost', true)|string|lower|trim -%}
+            {%- if _tone not in ['primary', 'secondary', 'ghost', 'quiet'] -%}{%- set _tone = 'ghost' -%}{%- endif -%}
+            {%- set _attrs = action.attrs|default('', true) -%}
+            {%- set _label = action.label|default('Action', true)|string|trim -%}
+            {%- set _element = action.element|default('a', true)|string|lower|trim -%}
+
+            {% if _element == 'button' %}
+              <button
+                class="ffShellHeader__action ffShellHeader__action--{{ _tone|e }} ff-button ff-button--{{ 'primary' if _tone == 'primary' else 'ghost' }}"
+                {{ _attrs|safe }}
+              >{{ _label if _label else 'Action' }}</button>
+            {% else %}
+              <a
+                class="ffShellHeader__action ffShellHeader__action--{{ _tone|e }} ff-button ff-button--{{ 'primary' if _tone == 'primary' else 'ghost' }}"
+                href="{{ action.href|default('#', true)|e }}"
+                {{ _attrs|safe }}
+              >{{ _label if _label else 'Action' }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </header>
+{%- endmacro %}

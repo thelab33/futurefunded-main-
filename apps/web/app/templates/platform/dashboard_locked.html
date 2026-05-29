@@ -1,0 +1,187 @@
+<!doctype html>
+{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+{# ============================================================================
+  FutureFunded • Protected Dashboard Gate
+
+  Purpose:
+  - shown when a visitor reaches /platform/dashboard without valid operator access
+  - no private campaign/operator data
+  - premium standalone protected-workspace surface
+  - loads only ff.css + dashboard.css
+
+  CSS authority:
+  - ff.css = global foundation
+  - dashboard.css = dashboard-only authority
+============================================================================ #}
+
+{% set _cfg = (config if config is mapping else {}) %}
+{% set _requested_css_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else '')|string|trim %}
+{% set _asset_v = (_requested_css_v if _requested_css_v else asset_v|default(_asset_v|default(_cfg.get('ASSET_V'), true), true)|default('dashboard-locked', true))|string|trim %}
+{% if not _asset_v %}{% set _asset_v = 'dashboard-locked' %}{% endif %}
+
+{% set _campaign_slug = campaign_slug|default('connect-atx-elite', true)|string|trim %}
+{% if not _campaign_slug %}{% set _campaign_slug = 'connect-atx-elite' %}{% endif %}
+
+{% set _campaign_name = campaign_name|default('Spring Fundraiser', true)|string|trim %}
+{% if not _campaign_name %}{% set _campaign_name = 'Spring Fundraiser' %}{% endif %}
+
+{% set _brand_name = platform_name|default('FutureFunded', true)|string|trim %}
+{% if not _brand_name %}{% set _brand_name = 'FutureFunded' %}{% endif %}
+
+{% set _campaign_url = campaign_url|default('/c/' ~ _campaign_slug, true) %}
+{% set _platform_url = platform_url|default('/platform/', true) %}
+{% set _login_url = login_url|default('/platform/login', true) %}
+{% set _onboarding_url = onboarding_url|default('/platform/onboarding', true) %}
+
+<html lang="en" data-ff-page="platform-dashboard-locked" data-theme="light" data-ff-ui-version="dashboard-locked-v2">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#fff7ed">
+  <meta
+    name="description"
+    content="Protected FutureFunded operator dashboard access for campaign setup, sponsor review, donation records, and launch operations."
+  >
+
+  <title>Protected dashboard access • {{ _brand_name }}</title>
+
+  <link rel="preload"
+        as="style"
+        href="{{ url_for('static', filename='css/ff.css') }}?v={{ _asset_v|e }}">
+  <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/ff.css') }}?v={{ _asset_v|e }}"
+        data-ff-dashboard-core-css="ff.css">
+
+
+</head>
+
+<body
+  class="ff-body ff-dashboardLockedBody"
+  data-ff-system-loop="platform-dashboard-locked"
+  data-ff-page-body="platform-dashboard-locked"
+  data-ff-surface="dashboard-locked"
+  data-ff-dashboard-locked-root
+  data-ff-brand-contract="futurefunded-platform-v1"
+>
+  <a class="ff-skipLink" href="#dashboard-locked-main">Skip to protected dashboard message</a>
+
+  <div class="ff-dashboardLockedShell">
+  {{ ff_shell_header(
+    mode='operator',
+    brand_name=_brand_name,
+    context='Protected dashboard',
+    brand_href=_platform_url,
+    nav_items=[
+      {'label': 'Campaign', 'href': _campaign_url},
+      {'label': 'Platform', 'href': _platform_url},
+      {'label': 'Login', 'href': _login_url}
+    ],
+    actions=[],
+    extra_class='ff-dashboardLockedSharedHeader'
+  ) }}
+
+
+    <main
+      id="dashboard-locked-main"
+      class="ff-dashboardLockedMain"
+      aria-labelledby="ff-dashboard-locked-title"
+    >
+      <section class="ff-dashboardLockedHero" aria-labelledby="ff-dashboard-locked-title">
+        <div class="ff-dashboardLockedPills" aria-label="Access status">
+          <span>Protected workspace</span>
+          <span>Private records</span>
+          <span>Operator-only</span>
+        </div>
+
+        <p class="ff-dashboardLockedEyebrow">Operator access</p>
+
+        <h1 id="ff-dashboard-locked-title">Operator access required.</h1>
+
+        <p class="ff-dashboardLockedLead">
+          This private dashboard protects donation activity, sponsor review, ledger exports,
+          launch setup, and campaign operations. Sign in as an operator or use the private
+          dashboard link shared by the campaign owner.
+        </p>
+
+        <div class="ff-dashboardLockedCards" aria-label="What the protected workspace controls">
+          <article>
+            <span>01</span>
+            <h2>Launch control</h2>
+            <p>Review readiness before families, donors, or sponsors arrive.</p>
+          </article>
+
+          <article>
+            <span>02</span>
+            <h2>Ledger clarity</h2>
+            <p>Keep supporter activity and sponsor records private.</p>
+          </article>
+
+          <article>
+            <span>03</span>
+            <h2>Trusted handoff</h2>
+            <p>Give organizers a command center without exposing records.</p>
+          </article>
+        </div>
+      </section>
+
+      <aside class="ff-dashboardLockedPanel" aria-labelledby="ff-dashboard-access-title">
+        <p class="ff-dashboardLockedEyebrow">Secure sign in</p>
+
+        <h2 id="ff-dashboard-access-title">Dashboard access is protected.</h2>
+
+        <p>
+          Public visitors should use the campaign page. Operators can sign in or open the
+          private dashboard URL that includes their operator token.
+        </p>
+
+        <div class="ff-dashboardLockedPills" aria-label="Protected dashboard scope">
+          <span>Protected dashboard</span>
+          <span>Private records</span>
+          <span>Campaign owner access</span>
+        </div>
+
+        <div class="ff-dashboardLockedActions" aria-label="Protected dashboard actions">
+          <a class="ff-dashboardLockedButton ff-dashboardLockedButton--primary" href="{{ _login_url|e }}">
+            Open operator login
+          </a>
+
+          <a class="ff-dashboardLockedButton" href="{{ _onboarding_url|e }}">
+            Continue launch setup
+          </a>
+
+          <a class="ff-dashboardLockedButton" href="{{ _campaign_url|e }}">
+            View live campaign
+          </a>
+        </div>
+
+        <p class="ff-dashboardLockedNote">
+          Already have access? Use the private dashboard link that was shared with the campaign owner.
+        </p>
+
+        <div class="ff-dashboardLockedStatusGrid" aria-label="Protected workspace status">
+          <article>
+            <span>Ready</span>
+            <strong>Campaign setup</strong>
+          </article>
+
+          <article>
+            <span>Protected</span>
+            <strong>Donation records</strong>
+          </article>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="ff-dashboardLockedFooter">
+      <span>Protected workspace · {{ _brand_name }}</span>
+
+      <nav aria-label="Protected dashboard footer navigation">
+        <a href="{{ _login_url|e }}">Login</a>
+        <a href="{{ _platform_url|e }}">Platform</a>
+        <a href="{{ _campaign_url|e }}">Campaign</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

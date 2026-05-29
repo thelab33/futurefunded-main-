@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{# ============================================================================
+  FutureFunded • Root Site Shell
+
+  Role:
+  - owns the HTML document only
+  - exposes stable blocks for public/platform/campaign shells
+  - provides CSP nonce helper
+  - normalizes theme, density, lang, viewport, metadata, and asset slots
+  - keeps global CSS before page-specific CSS
+  - does not contain product-specific campaign markup
+============================================================================ #}
+
+{% macro nonce_attr() -%}
+  {%- set _n = (csp_nonce|default((g.csp_nonce if g is defined else ''), true))|string|trim -%}
+  {%- if _n -%}nonce="{{ _n|e }}"{%- endif -%}
+{%- endmacro %}
+
+{% set _html_lang = html_lang|default('en', true)|string|trim or 'en' %}
+
+{% set _theme = theme|default('light', true)|string|lower|trim %}
+{% if _theme not in ['light', 'dark'] %}
+  {% set _theme = 'light' %}
+{% endif %}
+
+{% set _density = density|default('compact', true)|string|lower|trim %}
+{% if _density not in ['compact', 'comfortable'] %}
+  {% set _density = 'compact' %}
+{% endif %}
+
+{% set _asset_v = asset_v|default(g.asset_v if g is defined and g.asset_v is defined else 'dev', true) %}
+{% set _site_name = site_name|default('FutureFunded', true)|string|trim or 'FutureFunded' %}
+{% set _site_description = site_description|default('FutureFunded is a premium fundraising platform for teams, schools, nonprofits, and clubs.', true)|string|trim or 'FutureFunded is a premium fundraising platform for teams, schools, nonprofits, and clubs.' %}
+
+{% set _page_title = self.page_title()|trim if self.page_title is defined else _site_name %}
+{% if not _page_title %}
+  {% set _page_title = _site_name %}
+{% endif %}
+
+{% set _page_description = self.page_description()|trim if self.page_description is defined else _site_description %}
+{% if not _page_description %}
+  {% set _page_description = _site_description %}
+{% endif %}
+
+{% set _canonical_url = canonical_url|default(request.url if request is defined else '', true)|string|trim %}
+{% set _og_image = og_image_url|default('', true)|string|trim %}
+
+{# FF_HTML_PAGE_CONTRACT:
+   Enables runtime audits and page-scoped styling hooks from the document root.
+   Keep this near the root <html{% if _ff_page_attr %} data-ff-page="{{ _ff_page_attr|e }}"{% endif %}> tag.
+#}
+{% set _ff_page_attr = (
+  html_page if html_page is defined and html_page
+  else ff_page if ff_page is defined and ff_page
+  else page_id if page_id is defined and page_id
+  else 'platform-login' if request is defined and request.path.startswith('/platform/login')
+  else ''
+) %}
+<html{% if _ff_page_attr %} data-ff-page="{{ _ff_page_attr|e }}"{% endif %}
+  lang="{{ _html_lang|e }}"
+  class="{% block html_class %}ff-root{% endblock %}"
+  data-theme="{{ _theme|e }}"
+  data-ff-theme="{{ _theme|e }}"
+  data-density="{{ _density|e }}"
+  {% block html_attrs %}{% endblock %}
+>
+  <head>
+    {% block head_start %}{% endblock %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no,date=no,address=no,email=no">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff7ed">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#120c08">
+
+    <title>{% block title %}{{ _page_title|striptags|e }}{% endblock %}</title>
+    <meta name="description" content="{% block page_description %}{{ _page_description|striptags|e }}{% endblock %}">
+
+    {% if _canonical_url %}
+      <link rel="canonical" href="{{ _canonical_url|e }}">
+      <meta property="og:url" content="{{ _canonical_url|e }}">
+    {% endif %}
+
+    <meta property="og:site_name" content="{{ _site_name|e }}">
+    <meta property="og:title" content="{{ _page_title|striptags|e }}">
+    <meta property="og:description" content="{{ _page_description|striptags|e }}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    {% if _og_image %}
+      <meta property="og:image" content="{{ _og_image|e }}">
+      <meta name="twitter:image" content="{{ _og_image|e }}">
+    {% endif %}
+    <meta name="twitter:card" content="{% block twitter_card %}summary_large_image{% endblock %}">
+
+    {% block head_meta %}{% endblock %}
+    {% block head_links %}{% endblock %}
+    {% block icons %}{% endblock %}
+    {% block preloads %}{% endblock %}
+
+    {% block styles %}
+      <link rel="stylesheet"
+            href="{{ url_for('static', filename='css/ff.css') }}?v={{ _asset_v|e }}"
+            data-ff-css="ff.css">
+    {% endblock %}
+
+    {# Page-specific CSS must load after ff.css. Keep for runtime audits. #}
+    {% block page_css %}{% endblock %}
+
+    {# Optional marker used by build/patch scripts. Keep stable. #}
+    <!-- ff:layered-css:start -->
+    {% block layered_css %}{% endblock %}
+    <!-- ff:layered-css:end -->
+
+    {% block manifest %}
+      <link rel="manifest" href="{{ manifest_url|default(url_for('static', filename='site.webmanifest'), true)|e }}">
+    {% endblock %}
+
+    {% block head_scripts %}{% endblock %}
+    {% block head_end %}{% endblock %}
+  </head>
+
+  <body
+    class="ff-body {% block body_class %}{% endblock %}"
+    data-theme="{{ _theme|e }}"
+    data-ff-theme="{{ _theme|e }}"
+    data-density="{{ _density|e }}"
+    {% block body_attrs %}{% endblock %}
+  >
+    {% block body %}
+      {% block body_open %}{% endblock %}
+      {% block content %}{% endblock %}
+      {% block body_close %}{% endblock %}
+    {% endblock %}
+
+    {% block scripts %}{% endblock %}
+    {% block body_end %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,54 @@
+.ff_backups/brand-identity-closeout-v2-20260516094420/apps/web/app/templates/platform/dashboard.html	373	{% include "platform/_provider_readiness_panel.html" ignore missing %}
+.ff_backups/brand-identity-closeout-v2-20260516094420/apps/web/app/templates/platform/dashboard.html	379	{% include "platform/_sponsor_queue_preview.html" ignore missing %}
+.ff_backups/brand-identity-closeout-v2-20260516094420/apps/web/app/templates/platform/dashboard.html	380	{% include "platform/_sponsor_package_preview.html" ignore missing %}
+.ff_backups/brand-identity-closeout-v3-20260516094846/apps/web/app/templates/platform/dashboard.html	373	{% include "platform/_provider_readiness_panel.html" ignore missing %}
+.ff_backups/brand-identity-closeout-v3-20260516094846/apps/web/app/templates/platform/dashboard.html	379	{% include "platform/_sponsor_queue_preview.html" ignore missing %}
+.ff_backups/brand-identity-closeout-v3-20260516094846/apps/web/app/templates/platform/dashboard.html	380	{% include "platform/_sponsor_package_preview.html" ignore missing %}
+.ff_backups/brand-locked-dashboard-v4-20260516104659/apps/web/app/templates/platform/dashboard.html	381	{% include "platform/_provider_readiness_panel.html" ignore missing %}
+.ff_backups/brand-locked-dashboard-v4-20260516104659/apps/web/app/templates/platform/dashboard.html	387	{% include "platform/_sponsor_queue_preview.html" ignore missing %}
+.ff_backups/brand-locked-dashboard-v4-20260516104659/apps/web/app/templates/platform/dashboard.html	388	{% include "platform/_sponsor_package_preview.html" ignore missing %}
+.ff_backups/final-compact-campaign-launch-20260515215629/apps/web/app/templates/campaign/index.html	631	{% include "campaign/_campaign_momentum_bar.html" %}
+.ff_backups/locked-dashboard-brand-source-v6-20260516110456/apps/web/app/templates/platform/dashboard.html	381	{% include "platform/_provider_readiness_panel.html" ignore missing %}
+.ff_backups/locked-dashboard-brand-source-v6-20260516110456/apps/web/app/templates/platform/dashboard.html	387	{% include "platform/_sponsor_queue_preview.html" ignore missing %}
+.ff_backups/locked-dashboard-brand-source-v6-20260516110456/apps/web/app/templates/platform/dashboard.html	388	{% include "platform/_sponsor_package_preview.html" ignore missing %}
+.ff_backups/brand-identity-unification-v1-20260516093640/apps/web/app/templates/platform/dashboard.html	373	{% include "platform/_provider_readiness_panel.html" ignore missing %}
+.ff_backups/brand-identity-unification-v1-20260516093640/apps/web/app/templates/platform/dashboard.html	379	{% include "platform/_sponsor_queue_preview.html" ignore missing %}
+.ff_backups/brand-identity-unification-v1-20260516093640/apps/web/app/templates/platform/dashboard.html	380	{% include "platform/_sponsor_package_preview.html" ignore missing %}
+.ff_backups/brand-locked-dashboard-v5-20260516105909/apps/web/app/templates/platform/dashboard.html	381	{% include "platform/_provider_readiness_panel.html" ignore missing %}
+.ff_backups/brand-locked-dashboard-v5-20260516105909/apps/web/app/templates/platform/dashboard.html	387	{% include "platform/_sponsor_queue_preview.html" ignore missing %}
+.ff_backups/brand-locked-dashboard-v5-20260516105909/apps/web/app/templates/platform/dashboard.html	388	{% include "platform/_sponsor_package_preview.html" ignore missing %}
+.ff_backups/cinematic-launch-os-20260515152029/apps/web/app/templates/campaign_premium.html	631	{% include "campaign/_campaign_momentum_bar.html" %}
+.ff_backups/cinematic-launch-os-20260515152029/apps/web/app/templates/platform/dashboard.html	373	{% include "platform/_provider_readiness_panel.html" ignore missing %}
+.ff_backups/cinematic-launch-os-20260515152029/apps/web/app/templates/platform/dashboard.html	379	{% include "platform/_sponsor_queue_preview.html" ignore missing %}
+.ff_backups/cinematic-launch-os-20260515152029/apps/web/app/templates/platform/dashboard.html	380	{% include "platform/_sponsor_package_preview.html" ignore missing %}
+.ff_backups/cinematic-launch-os-20260515152029/apps/web/app/templates/campaign/index.html	6	{% from "_partials/ff_site_header.html" import ff_site_header %}
+.ff_backups/cinematic-launch-os-20260515152029/apps/web/app/templates/campaign/index.html	1238	{% include "campaign/_campaign_momentum_bar.html" %}
+.ff_backups/campaign-final-link-hygiene-20260515224003/apps/web/app/templates/campaign/index.html	631	{% include "campaign/_campaign_momentum_bar.html" %}
+.ff_backups/dashboard-command-center-v1/apps/web/app/templates/platform/dashboard.html	377	{% include "platform/_provider_readiness_panel.html" ignore missing %}
+.ff_backups/dashboard-command-center-v1/apps/web/app/templates/platform/dashboard.html	383	{% include "platform/_sponsor_queue_preview.html" ignore missing %}
+.ff_backups/dashboard-command-center-v1/apps/web/app/templates/platform/dashboard.html	384	{% include "platform/_sponsor_package_preview.html" ignore missing %}
+apps/web/app/templates/campaign_premium.html	10	{% include "campaign/index.html" %}
+apps/web/app/templates/platform/dashboard.html	1	{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+apps/web/app/templates/platform/dashboard.html	45	{% extends "_base/site_base.html" %}
+apps/web/app/templates/platform/dashboard.html	199	{% include "_partials/ff_dashboard_launch_assistant.html" %}
+apps/web/app/templates/platform/dashboard.html	544	{% include "platform/_provider_readiness_panel.html" ignore missing %}
+apps/web/app/templates/platform/dashboard.html	550	{% include "platform/_sponsor_queue_preview.html" ignore missing %}
+apps/web/app/templates/platform/dashboard.html	551	{% include "platform/_sponsor_package_preview.html" ignore missing %}
+apps/web/app/templates/platform/onboarding.html	1	{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+apps/web/app/templates/platform/onboarding.html	4	{% extends "_base/site_base.html" %}
+apps/web/app/templates/platform/login.html	1	{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+apps/web/app/templates/platform/login.html	11	{% extends "_base/site_base.html" %}
+apps/web/app/templates/platform/dashboard_locked.html	2	{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+apps/web/app/templates/platform/index.html	1	{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+apps/web/app/templates/platform/index.html	46	{% extends "_base/site_base.html" %}
+apps/web/app/templates/campaign/index.html	1	{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+apps/web/app/templates/campaign/index.html	139	{% extends "_base/campaign_base.html" %}
+apps/web/app/templates/_base/campaign_base.html	1	{% extends "_base/site_base.html" %}
+apps/web/app/templates/_base/campaign_base.html	2	{% from "_base/site_base.html" import nonce_attr %}
+apps/web/app/_quarantine/ui-core-safe-20260523021333/apps/web/app/templates/shared/_section_intro.html	6	{% from "shared/_section_intro.html" import render_section_intro %}
+apps/web/app/_quarantine/ui-core-safe-20260523021333/apps/web/app/templates/shared/_faq_item.html	6	{% from "shared/_faq_item.html" import render_faq_item %}
+apps/web/app/_quarantine/ui-core-safe-20260523021333/apps/web/app/templates/shared/_pill.html	6	{% from "shared/_pill.html" import render_pill %}
+apps/web/app/_quarantine/ui-core-safe-20260523021333/apps/web/app/templates/shared/_button.html	6	{% from "shared/_button.html" import render_button %}
+apps/web/app/_quarantine/ui-core-safe-20260523021333/apps/web/app/templates/shared/_stat_card.html	6	{% from "shared/_stat_card.html" import render_stat_card %}
+apps/web/app/_quarantine/ui-core-safe-20260523021333/apps/web/app/templates/_base/platform_base.html	1	{% extends "_base/site_base.html" %}
+tmp/ff-css-authority-final-backups/20260507-111134/apps/web/app/templates/campaign/index.html	1	{% from "_partials/ff_site_header.html" import ff_site_header %}

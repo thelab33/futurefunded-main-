@@ -1,0 +1,349 @@
+{
+  "generated_at": "2026-05-20T19:45:57.740645+00:00",
+  "branch": "production/premium-campaign-rebuild",
+  "head": "c95dfa8",
+  "status_short": "M docs/release-proof/repo-quarantine-plan-latest.json\n M docs/release-proof/repo-quarantine-plan-latest.md\n M scripts/final_release_gate.py\n M scripts/qa_campaign_gate.sh\n?? repo-quarantine/scripts/legacy-audits/README.md",
+  "summary": {
+    "total_candidates": 36,
+    "tracked_candidates": 30,
+    "untracked_candidates": 6
+  },
+  "candidates": [
+    {
+      "file": "apps/web/app/static/css/_quarantine/wave2e-20260511-185014/MANIFEST.json",
+      "tracked": true,
+      "size": 779,
+      "risk": "already-quarantined",
+      "reasons": [
+        "already-quarantined",
+        "backup-or-legacy-name"
+      ]
+    },
+    {
+      "file": "apps/web/app/static/css/_quarantine/wave2e-20260511-185014/ff.base.css",
+      "tracked": true,
+      "size": 12889,
+      "risk": "already-quarantined",
+      "reasons": [
+        "already-quarantined",
+        "backup-or-legacy-name"
+      ]
+    },
+    {
+      "file": "apps/web/app/static/css/_quarantine/wave2e-20260511-185014/ff.campaign-polish.css",
+      "tracked": true,
+      "size": 151104,
+      "risk": "already-quarantined",
+      "reasons": [
+        "already-quarantined",
+        "backup-or-legacy-name"
+      ]
+    },
+    {
+      "file": "apps/web/app/static/css/_quarantine/wave2e-20260511-185014/ff.homepage-flagship.css",
+      "tracked": true,
+      "size": 30181,
+      "risk": "already-quarantined",
+      "reasons": [
+        "already-quarantined",
+        "backup-or-legacy-name"
+      ]
+    },
+    {
+      "file": "apps/web/app/static/css/_quarantine/wave2e-20260511-185014/ff.pages.css",
+      "tracked": true,
+      "size": 3456,
+      "risk": "already-quarantined",
+      "reasons": [
+        "already-quarantined",
+        "backup-or-legacy-name"
+      ]
+    },
+    {
+      "file": "apps/web/app/static/css/_quarantine/wave2e-20260511-185014/ff.tokens.css",
+      "tracked": true,
+      "size": 3889,
+      "risk": "already-quarantined",
+      "reasons": [
+        "already-quarantined",
+        "backup-or-legacy-name"
+      ]
+    },
+    {
+      "file": "apps/web/app/static/css/_quarantine/wave2e-20260511-185014/ff.ui-micropolish.css",
+      "tracked": true,
+      "size": 19743,
+      "risk": "already-quarantined",
+      "reasons": [
+        "already-quarantined",
+        "backup-or-legacy-name"
+      ]
+    },
+    {
+      "file": ".env",
+      "tracked": false,
+      "size": 4605,
+      "risk": "do-not-commit",
+      "reasons": [
+        "private-runtime-secret-file"
+      ]
+    },
+    {
+      "file": ".env.local",
+      "tracked": false,
+      "size": 506,
+      "risk": "do-not-commit",
+      "reasons": [
+        "private-runtime-secret-file"
+      ]
+    },
+    {
+      "file": ".env.local.stripe-test",
+      "tracked": false,
+      "size": 1196,
+      "risk": "do-not-commit",
+      "reasons": [
+        "private-runtime-secret-file"
+      ]
+    },
+    {
+      "file": ".env.production",
+      "tracked": false,
+      "size": 359,
+      "risk": "do-not-commit",
+      "reasons": [
+        "private-runtime-secret-file"
+      ]
+    },
+    {
+      "file": ".stripe-local-whsec",
+      "tracked": false,
+      "size": 71,
+      "risk": "do-not-commit",
+      "reasons": [
+        "private-runtime-secret-file"
+      ]
+    },
+    {
+      "file": "docs/release-proof/active-repo-map-latest.json",
+      "tracked": true,
+      "size": 140561,
+      "risk": "generated-restore-or-ignore",
+      "reasons": [
+        "generated-proof-artifact"
+      ]
+    },
+    {
+      "file": "docs/release-proof/active-repo-map-latest.md",
+      "tracked": true,
+      "size": 26982,
+      "risk": "generated-restore-or-ignore",
+      "reasons": [
+        "generated-proof-artifact"
+      ]
+    },
+    {
+      "file": "docs/release-proof/money-flow-script-inventory-latest.json",
+      "tracked": true,
+      "size": 323934,
+      "risk": "generated-restore-or-ignore",
+      "reasons": [
+        "generated-proof-artifact",
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/repo-quarantine-plan-latest.json",
+      "tracked": true,
+      "size": 8835,
+      "risk": "generated-restore-or-ignore",
+      "reasons": [
+        "backup-or-legacy-name",
+        "generated-proof-artifact",
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/repo-quarantine-plan-latest.md",
+      "tracked": true,
+      "size": 5446,
+      "risk": "generated-restore-or-ignore",
+      "reasons": [
+        "backup-or-legacy-name",
+        "generated-proof-artifact",
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/secret-hygiene-latest.md",
+      "tracked": true,
+      "size": 1923,
+      "risk": "generated-restore-or-ignore",
+      "reasons": [
+        "generated-proof-artifact"
+      ]
+    },
+    {
+      "file": ".env.example",
+      "tracked": true,
+      "size": 1707,
+      "risk": "review",
+      "reasons": [
+        "example-env-template"
+      ]
+    },
+    {
+      "file": ".env.production.example",
+      "tracked": true,
+      "size": 771,
+      "risk": "review",
+      "reasons": [
+        "example-env-template"
+      ]
+    },
+    {
+      "file": "docs/release-proof/campaign-asset-map-latest.json",
+      "tracked": true,
+      "size": 10054,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/campaign-css-bundle-latest.json",
+      "tracked": true,
+      "size": 938,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/campaign-css-selector-map-latest.json",
+      "tracked": true,
+      "size": 8661,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/campaign-single-css-bundle-latest.json",
+      "tracked": true,
+      "size": 2448,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/dashboard-single-css-bundle-latest.json",
+      "tracked": true,
+      "size": 1562,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/enterprise-launch-gate-latest.json",
+      "tracked": true,
+      "size": 410,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/futurefunded-production-closeout-v1.md",
+      "tracked": true,
+      "size": 1013,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/login-single-css-bundle-latest.json",
+      "tracked": true,
+      "size": 1221,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/onboarding-single-css-bundle-latest.json",
+      "tracked": true,
+      "size": 1547,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/platform-single-css-bundle-latest.json",
+      "tracked": true,
+      "size": 1548,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/platform-topology-latest.json",
+      "tracked": true,
+      "size": 16050,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/post-action-trust-latest.json",
+      "tracked": true,
+      "size": 3471,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/release-proof-docs-audit-latest.json",
+      "tracked": true,
+      "size": 8575,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/release-proof-docs-audit-latest.md",
+      "tracked": true,
+      "size": 6997,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": "docs/release-proof/surface-stylesheet-map-latest.json",
+      "tracked": true,
+      "size": 2428,
+      "risk": "review",
+      "reasons": [
+        "release-proof-history-or-generated-doc"
+      ]
+    },
+    {
+      "file": ".env.local.example",
+      "tracked": false,
+      "size": 209,
+      "risk": "review",
+      "reasons": [
+        "example-env-template"
+      ]
+    }
+  ]
+}

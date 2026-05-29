@@ -1,0 +1,705 @@
+{
+  "ok": true,
+  "checkedAt": "2026-05-26T20:01:58.542Z",
+  "baseUrl": "http://127.0.0.1:5000",
+  "strict": false,
+  "errors": [],
+  "warnings": [
+    "platform-mobile: console errors observed: Applying inline style violates the following Content Security Policy directive 'style-src 'self' https:'. Either the 'unsafe-inline' keyword, a hash ('sha256-t0esl956mDzVzwKc5pfR4KE32BvFdoRCmvPWLBktoqM='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "campaign-mobile: console errors observed: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://js.stripe.com https://www.paypal.com https://*.paypal.com https://static.cloudflareinsights.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-xNlbosNiX81JFLnBe9S2TlVb59AzMgNhddzmmzwPkv8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+    "dashboard-locked-mobile: console errors observed: Failed to load resource: the server responded with a status of 403 (FORBIDDEN)",
+    "platform-desktop: console errors observed: Applying inline style violates the following Content Security Policy directive 'style-src 'self' https:'. Either the 'unsafe-inline' keyword, a hash ('sha256-t0esl956mDzVzwKc5pfR4KE32BvFdoRCmvPWLBktoqM='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "campaign-desktop: console errors observed: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://js.stripe.com https://www.paypal.com https://*.paypal.com https://static.cloudflareinsights.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-xNlbosNiX81JFLnBe9S2TlVb59AzMgNhddzmmzwPkv8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+    "dashboard-locked-desktop: console errors observed: Failed to load resource: the server responded with a status of 403 (FORBIDDEN)"
+  ],
+  "results": [
+    {
+      "key": "platform-mobile",
+      "path": "/platform/",
+      "status": 200,
+      "timing": {
+        "loadMs": 68,
+        "domContentLoadedMs": 33
+      },
+      "summary": {
+        "requests": 3,
+        "totalKB": 259.1,
+        "htmlKB": 15.7,
+        "cssKB": 197.4,
+        "jsKB": 46,
+        "imageKB": 0,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 90,
+        "totalKB": 2400,
+        "htmlKB": 450,
+        "cssKB": 950,
+        "jsKB": 1200,
+        "imageKB": 2200,
+        "fontKB": 500,
+        "loadMs": 6500,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [
+        "console errors observed: Applying inline style violates the following Content Security Policy directive 'style-src 'self' https:'. Either the 'unsafe-inline' keyword, a hash ('sha256-t0esl956mDzVzwKc5pfR4KE32BvFdoRCmvPWLBktoqM='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked."
+      ],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-app.js?v=1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 46,
+          "contentType": "text/javascript; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/platform/",
+          "type": "html",
+          "status": 200,
+          "kb": 15.7,
+          "contentType": "text/html; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "key": "campaign-mobile",
+      "path": "/c/connect-atx-elite",
+      "status": 200,
+      "timing": {
+        "loadMs": 224,
+        "domContentLoadedMs": 212
+      },
+      "summary": {
+        "requests": 12,
+        "totalKB": 2782,
+        "htmlKB": 47.2,
+        "cssKB": 303.6,
+        "jsKB": 111.4,
+        "imageKB": 2319.8,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 105,
+        "totalKB": 2800,
+        "htmlKB": 450,
+        "cssKB": 1100,
+        "jsKB": 1400,
+        "imageKB": 2600,
+        "fontKB": 500,
+        "loadMs": 7000,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [
+        "console errors observed: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://js.stripe.com https://www.paypal.com https://*.paypal.com https://static.cloudflareinsights.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-xNlbosNiX81JFLnBe9S2TlVb59AzMgNhddzmmzwPkv8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+      ],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/images/7thBlack.png",
+          "type": "image",
+          "status": 200,
+          "kb": 2212.9,
+          "contentType": "image/png"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/css/campaign.css?v=1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 106.2,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/images/teams/connect-atx-elite/logo.jpg",
+          "type": "image",
+          "status": 200,
+          "kb": 101.3,
+          "contentType": "image/jpeg"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-campaign.js?v=1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 89.9,
+          "contentType": "text/javascript; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/c/connect-atx-elite",
+          "type": "html",
+          "status": 200,
+          "kb": 47.2,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-checkout-direct.js?v=1779822894-202108&checkout_direct=xhr-v2",
+          "type": "js",
+          "status": 200,
+          "kb": 16.7,
+          "contentType": "text/javascript; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-donation-payload-firewall.js?v=1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 4,
+          "contentType": "text/javascript; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/images/program-proof/6th-grade.svg",
+          "type": "image",
+          "status": 200,
+          "kb": 1.9,
+          "contentType": "image/svg+xml; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/images/program-proof/8th-grade.svg",
+          "type": "image",
+          "status": 200,
+          "kb": 1.9,
+          "contentType": "image/svg+xml; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/images/program-proof/7th-grade.svg",
+          "type": "image",
+          "status": 200,
+          "kb": 1.9,
+          "contentType": "image/svg+xml; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-embedded-checkout.js?v=1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 0.9,
+          "contentType": "text/javascript; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "key": "login-mobile",
+      "path": "/platform/login",
+      "status": 200,
+      "timing": {
+        "loadMs": 39,
+        "domContentLoadedMs": 28
+      },
+      "summary": {
+        "requests": 3,
+        "totalKB": 206.8,
+        "htmlKB": 8.5,
+        "cssKB": 197.4,
+        "jsKB": 0.9,
+        "imageKB": 0,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 75,
+        "totalKB": 1800,
+        "htmlKB": 450,
+        "cssKB": 850,
+        "jsKB": 1200,
+        "imageKB": 2200,
+        "fontKB": 500,
+        "loadMs": 5500,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=1779822894-202108-1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/platform/login",
+          "type": "html",
+          "status": 200,
+          "kb": 8.5,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/login.js?v=1779822894-202108-1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 0.9,
+          "contentType": "text/javascript; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "key": "dashboard-locked-mobile",
+      "path": "/platform/dashboard",
+      "status": 403,
+      "timing": {
+        "loadMs": 27,
+        "domContentLoadedMs": 22
+      },
+      "summary": {
+        "requests": 2,
+        "totalKB": 202.7,
+        "htmlKB": 5.3,
+        "cssKB": 197.4,
+        "jsKB": 0,
+        "imageKB": 0,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 55,
+        "totalKB": 1400,
+        "htmlKB": 450,
+        "cssKB": 850,
+        "jsKB": 1200,
+        "imageKB": 2200,
+        "fontKB": 500,
+        "loadMs": 4500,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [
+        "console errors observed: Failed to load resource: the server responded with a status of 403 (FORBIDDEN)"
+      ],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=2",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/platform/dashboard",
+          "type": "html",
+          "status": 403,
+          "kb": 5.3,
+          "contentType": "text/html; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "key": "onboarding-mobile",
+      "path": "/platform/onboarding",
+      "status": 200,
+      "timing": {
+        "loadMs": 485,
+        "domContentLoadedMs": 30
+      },
+      "summary": {
+        "requests": 4,
+        "totalKB": 266.7,
+        "htmlKB": 18.5,
+        "cssKB": 238.8,
+        "jsKB": 9.4,
+        "imageKB": 0,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 90,
+        "totalKB": 2200,
+        "htmlKB": 450,
+        "cssKB": 850,
+        "jsKB": 1200,
+        "imageKB": 2200,
+        "fontKB": 500,
+        "loadMs": 6500,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=1779822894-202108-1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/css/onboarding.css?v=1779822894-202108-1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 41.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/platform/onboarding",
+          "type": "html",
+          "status": 200,
+          "kb": 18.5,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-launch-completion.js?v=1779822894-202108-1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 9.4,
+          "contentType": "text/javascript; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "key": "platform-desktop",
+      "path": "/platform/",
+      "status": 200,
+      "timing": {
+        "loadMs": 62,
+        "domContentLoadedMs": 30
+      },
+      "summary": {
+        "requests": 3,
+        "totalKB": 259.1,
+        "htmlKB": 15.7,
+        "cssKB": 197.4,
+        "jsKB": 46,
+        "imageKB": 0,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 90,
+        "totalKB": 2400,
+        "htmlKB": 450,
+        "cssKB": 950,
+        "jsKB": 1200,
+        "imageKB": 2200,
+        "fontKB": 500,
+        "loadMs": 6500,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [
+        "console errors observed: Applying inline style violates the following Content Security Policy directive 'style-src 'self' https:'. Either the 'unsafe-inline' keyword, a hash ('sha256-t0esl956mDzVzwKc5pfR4KE32BvFdoRCmvPWLBktoqM='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked."
+      ],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-app.js?v=1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 46,
+          "contentType": "text/javascript; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/platform/",
+          "type": "html",
+          "status": 200,
+          "kb": 15.7,
+          "contentType": "text/html; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "key": "campaign-desktop",
+      "path": "/c/connect-atx-elite",
+      "status": 200,
+      "timing": {
+        "loadMs": 217,
+        "domContentLoadedMs": 192
+      },
+      "summary": {
+        "requests": 12,
+        "totalKB": 2782,
+        "htmlKB": 47.2,
+        "cssKB": 303.6,
+        "jsKB": 111.4,
+        "imageKB": 2319.8,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 105,
+        "totalKB": 2800,
+        "htmlKB": 450,
+        "cssKB": 1100,
+        "jsKB": 1400,
+        "imageKB": 2600,
+        "fontKB": 500,
+        "loadMs": 7000,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [
+        "console errors observed: Executing inline script violates the following Content Security Policy directive 'script-src 'self' https://js.stripe.com https://www.paypal.com https://*.paypal.com https://static.cloudflareinsights.com'. Either the 'unsafe-inline' keyword, a hash ('sha256-xNlbosNiX81JFLnBe9S2TlVb59AzMgNhddzmmzwPkv8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+      ],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/images/7thBlack.png",
+          "type": "image",
+          "status": 200,
+          "kb": 2212.9,
+          "contentType": "image/png"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/css/campaign.css?v=1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 106.2,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/images/teams/connect-atx-elite/logo.jpg",
+          "type": "image",
+          "status": 200,
+          "kb": 101.3,
+          "contentType": "image/jpeg"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-campaign.js?v=1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 89.9,
+          "contentType": "text/javascript; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/c/connect-atx-elite",
+          "type": "html",
+          "status": 200,
+          "kb": 47.2,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-checkout-direct.js?v=1779822894-202108&checkout_direct=xhr-v2",
+          "type": "js",
+          "status": 200,
+          "kb": 16.7,
+          "contentType": "text/javascript; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-donation-payload-firewall.js?v=1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 4,
+          "contentType": "text/javascript; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/images/program-proof/6th-grade.svg",
+          "type": "image",
+          "status": 200,
+          "kb": 1.9,
+          "contentType": "image/svg+xml; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/images/program-proof/7th-grade.svg",
+          "type": "image",
+          "status": 200,
+          "kb": 1.9,
+          "contentType": "image/svg+xml; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/images/program-proof/8th-grade.svg",
+          "type": "image",
+          "status": 200,
+          "kb": 1.9,
+          "contentType": "image/svg+xml; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-embedded-checkout.js?v=1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 0.9,
+          "contentType": "text/javascript; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "key": "login-desktop",
+      "path": "/platform/login",
+      "status": 200,
+      "timing": {
+        "loadMs": 39,
+        "domContentLoadedMs": 29
+      },
+      "summary": {
+        "requests": 3,
+        "totalKB": 206.8,
+        "htmlKB": 8.5,
+        "cssKB": 197.4,
+        "jsKB": 0.9,
+        "imageKB": 0,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 75,
+        "totalKB": 1800,
+        "htmlKB": 450,
+        "cssKB": 850,
+        "jsKB": 1200,
+        "imageKB": 2200,
+        "fontKB": 500,
+        "loadMs": 5500,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=1779822894-202108-1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/platform/login",
+          "type": "html",
+          "status": 200,
+          "kb": 8.5,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/login.js?v=1779822894-202108-1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 0.9,
+          "contentType": "text/javascript; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "key": "dashboard-locked-desktop",
+      "path": "/platform/dashboard",
+      "status": 403,
+      "timing": {
+        "loadMs": 36,
+        "domContentLoadedMs": 25
+      },
+      "summary": {
+        "requests": 2,
+        "totalKB": 202.7,
+        "htmlKB": 5.3,
+        "cssKB": 197.4,
+        "jsKB": 0,
+        "imageKB": 0,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 55,
+        "totalKB": 1400,
+        "htmlKB": 450,
+        "cssKB": 850,
+        "jsKB": 1200,
+        "imageKB": 2200,
+        "fontKB": 500,
+        "loadMs": 4500,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [
+        "console errors observed: Failed to load resource: the server responded with a status of 403 (FORBIDDEN)"
+      ],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=2",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/platform/dashboard",
+          "type": "html",
+          "status": 403,
+          "kb": 5.3,
+          "contentType": "text/html; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "key": "onboarding-desktop",
+      "path": "/platform/onboarding",
+      "status": 200,
+      "timing": {
+        "loadMs": 113,
+        "domContentLoadedMs": 32
+      },
+      "summary": {
+        "requests": 4,
+        "totalKB": 266.7,
+        "htmlKB": 18.5,
+        "cssKB": 238.8,
+        "jsKB": 9.4,
+        "imageKB": 0,
+        "fontKB": 0,
+        "otherKB": 0
+      },
+      "budget": {
+        "requests": 90,
+        "totalKB": 2200,
+        "htmlKB": 450,
+        "cssKB": 850,
+        "jsKB": 1200,
+        "imageKB": 2200,
+        "fontKB": 500,
+        "loadMs": 6500,
+        "domContentLoadedMs": 3500
+      },
+      "pageErrors": [],
+      "pageWarnings": [],
+      "largestResources": [
+        {
+          "url": "http://127.0.0.1:5000/static/css/ff.css?v=1779822894-202108-1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 197.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/css/onboarding.css?v=1779822894-202108-1779822894-202108",
+          "type": "css",
+          "status": 200,
+          "kb": 41.4,
+          "contentType": "text/css; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/platform/onboarding",
+          "type": "html",
+          "status": 200,
+          "kb": 18.5,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "url": "http://127.0.0.1:5000/static/js/ff-launch-completion.js?v=1779822894-202108-1779822894-202108",
+          "type": "js",
+          "status": 200,
+          "kb": 9.4,
+          "contentType": "text/javascript; charset=utf-8"
+        }
+      ]
+    }
+  ]
+}

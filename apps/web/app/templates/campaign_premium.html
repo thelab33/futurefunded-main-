@@ -1,0 +1,10 @@
+{# FutureFunded Campaign Premium Compatibility Shim v1.0
+   Route compatibility only.
+
+   Canonical public campaign template:
+   apps/web/app/templates/campaign/index.html
+
+   Keep this file intentionally thin so campaign/index.html and
+   campaign_premium.html cannot drift into competing page systems.
+#}
+{% include "campaign/index.html" %}

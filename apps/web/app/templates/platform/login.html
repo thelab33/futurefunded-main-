@@ -1,0 +1,211 @@
+{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+{% set html_page = 'platform-login' %}
+{% set ff_page = 'platform-login' %}
+{% set _cfg = (config if config is defined and config is mapping else {}) %}
+{% set _requested_css_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else '')|string|trim %}
+{% set _asset_v = (_requested_css_v if _requested_css_v else asset_v|default(_cfg.get('ASSET_V'), true)|default('public-home-login-official-v1', true))|string|trim %}
+{% if not _asset_v %}
+  {% set _asset_v = 'public-home-login-official-v1' %}
+{% endif %}
+
+{% extends "_base/site_base.html" %}
+
+{% block html_class %}ff-root ff-loginRoot{% endblock %}
+{% block body_class %}ff-loginAuthorityBody ff-platformBrandBody{% endblock %}
+{% block page_title %}FutureFunded Organizer Access{% endblock %}
+
+{% block page_description %}
+Secure organizer access for campaign setup, donation records, sponsor review, and operator follow-up.
+{% endblock %}
+
+{% block head_meta %}
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff8ef">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#07111f">
+{% endblock %}
+
+{% block page_css %}
+{% endblock %}
+
+{% block body_attrs %}
+data-ff-surface="platform-login"
+data-ff-login-template="login-public-official-v2"
+{% endblock %}
+
+{% block content %}
+  {% set _platform_url = platform_url|default('/platform/', true)|string|trim %}
+  {% set _campaign_url = platform_campaign_url|default('/c/connect-atx-elite', true)|string|trim %}
+  {% set _support_email = support_email|default('support@getfuturefunded.com', true)|string|trim %}
+  {% set _next_url = next_url|default(request.args.get('next') if request is defined and request else '/platform/dashboard', true)|string|trim %}
+  {% if not _next_url or not _next_url.startswith('/') or _next_url.startswith('//') %}
+    {% set _next_url = '/platform/dashboard' %}
+  {% endif %}
+
+  <a class="ff-loginAuthority__skip" href="#login-form">Skip to organizer login</a>
+
+  <main class="ff-loginAuthority"
+        id="login-main"
+        data-ff-login-root
+        data-ff-login-authority="v3"
+        data-ff-login-premium-pass="hoi-9i">
+    <div class="ff-loginAuthority__shell">
+      {{ ff_shell_header(
+  mode='operator',
+  brand_name='FutureFunded',
+  context='Organizer access',
+  brand_href='/platform/',
+  nav_items=[
+    {'label':'Platform','href':'/platform/'},
+    {'label':'Fundraiser','href':'/c/connect-atx-elite'}
+  ],
+  actions=[]
+) }}
+
+      <section class="ff-loginAuthority__stage" aria-labelledby="login-title">
+        <article class="ff-loginAuthority__hero" data-ff-login-reveal>
+          <div class="ff-loginAuthority__pills" aria-label="Workspace scope">
+            <span>Protected access</span>
+            <span>Records-ready</span>
+            <span>Sponsor-ready</span>
+          </div>
+
+          <p class="ff-loginAuthority__eyebrow">Organizer workspace</p>
+
+          <h1 id="login-title">
+            Run the campaign with <span>clarity.</span>
+          </h1>
+
+          <p class="ff-loginAuthority__lede">
+            Sign in to manage readiness, donations, sponsor interest, offline support, and launch follow-up.
+          </p>
+
+          <div class="ff-loginAuthority__proofGrid" aria-label="Operator workspace includes">
+            <article>
+              <span>01</span>
+              <strong>Launch readiness</strong>
+              <p>Review the page before families, donors, and sponsors arrive.</p>
+            </article>
+
+            <article>
+              <span>02</span>
+              <strong>Donation records</strong>
+              <p>Keep confirmed gifts, offline support, and exports organized.</p>
+            </article>
+
+            <article>
+              <span>03</span>
+              <strong>Sponsor follow-up</strong>
+              <p>Track sponsor interest without cluttering the public page.</p>
+            </article>
+          </div>
+
+          <div class="ff-loginAuthority__trustStrip" aria-label="Platform assurance">
+            <span>Private dashboard</span>
+            <span>Secure access</span>
+            <span>Campaign records</span>
+          </div>
+        </article>
+
+        <section class="ff-loginAuthority__card"
+                 aria-labelledby="login-form-title"
+                 data-ff-login-card
+                 data-ff-login-reveal>
+          <div class="ff-loginAuthority__cardHead">
+            <p class="ff-loginAuthority__eyebrow">Secure sign in</p>
+            <h2 id="login-form-title">Access the workspace</h2>
+            <p id="login-help">Use the organizer credentials connected to this campaign.</p>
+          </div>
+
+          <form id="login-form"
+                class="ff-loginAuthority__form"
+                method="post"
+                action="{{ url_for('platform.platform_operator_login_submit') }}"
+                aria-describedby="login-help login-security-note{% if error is defined and error %} login-error{% endif %}"
+                data-ff-login-form>
+            {% if csrf_token is defined %}
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {% endif %}
+
+            <input type="hidden" name="next" value="{{ _next_url|e }}">
+
+            {% if error is defined and error %}
+              <p class="ff-loginAuthority__error" id="login-error" role="alert" data-ff-login-error>
+                <strong>We couldn’t sign you in.</strong>
+                <span>Check your email and password, then try again.</span>
+              </p>
+            {% endif %}
+
+            <label class="ff-loginAuthority__field" for="ff-login-email">
+              <span>Email</span>
+              <input id="ff-login-email"
+                     name="email"
+                     type="email"
+                     autocomplete="email"
+                     inputmode="email"
+                     autocapitalize="none"
+                     spellcheck="false"
+                     value="{{ email|default('', true)|e }}"
+                     placeholder="you@example.org"
+                     required
+                     data-ff-login-email>
+            </label>
+
+            <label class="ff-loginAuthority__field" for="ff-login-password">
+              <span>Password</span>
+              <span class="ff-loginAuthority__password">
+                <input id="ff-login-password"
+                       name="password"
+                       type="password"
+                       autocomplete="current-password"
+                       placeholder="Enter your password"
+                       required
+                       data-ff-login-password>
+
+                <button type="button"
+                        class="ff-loginAuthority__passwordToggle"
+                        data-ff-login-password-toggle
+                        aria-controls="ff-login-password"
+                        aria-label="Show password">
+                  Show
+                </button>
+              </span>
+            </label>
+
+            <button class="ff-loginAuthority__submit" type="submit" data-ff-login-submit>
+              <span>Sign in securely</span>
+            </button>
+
+            <div class="ff-loginAuthority__securityPills" aria-label="Security assurance">
+              <span>Protected access dashboard</span>
+              <span>Private records</span>
+              <span>Organizer-only</span>
+            </div>
+
+            <p class="ff-loginAuthority__securityNote" id="login-security-note">
+              Access is reserved for trusted campaign operators. Keep credentials private.
+            </p>
+
+            <div class="ff-loginAuthority__formFooter">
+              <a href="{{ _platform_url|e }}">Back to platform</a>
+              <a href="mailto:{{ _support_email|e }}">Need access?</a>
+            </div>
+          </form>
+        </section>
+      </section>
+
+      <footer class="ff-loginAuthority__footer" aria-label="FutureFunded login footer">
+        <span>Protected access organizer access · FutureFunded</span>
+
+        <nav aria-label="Footer links">
+          <a href="{{ _campaign_url|e }}">Live fundraiser</a>
+          <a href="{{ _platform_url|e }}">Platform</a>
+          <a href="mailto:{{ _support_email|e }}">Support</a>
+        </nav>
+      </footer>
+    </div>
+  </main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/login.js') }}?v={{ _asset_v|e }}" defer data-ff-login-js></script>
+{% endblock %}

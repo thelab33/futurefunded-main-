@@ -1,0 +1,219 @@
+{
+  "ok": true,
+  "checked_at": "2026-05-26T11:44:07-0500",
+  "errors": [],
+  "warnings": [
+    "working tree is dirty but FF_ALLOW_DIRTY_RELEASE=1"
+  ],
+  "checks": [
+    {
+      "name": "git clean",
+      "status": "WARN",
+      "message": "working tree is dirty but FF_ALLOW_DIRTY_RELEASE=1",
+      "details": "M scripts/release/launch_quality_gate.py\n?? docs/release-proof/launch-quality-baseline.json\n?? docs/release-proof/launch-quality-latest.md"
+    },
+    {
+      "name": "git recent commits",
+      "status": "PASS",
+      "details": "9c99c9a Add launch quality gate and baseline\n724aee3 Remove retired quarantined CSS artifacts\ne877b37 Restore extension initialization and guard SQLAlchemy session bind\n7fb5515 Bind platform setup repository to custom SQLAlchemy session\nb073806 Consolidate public CSS authority and stabilize campaign smoke gates"
+    },
+    {
+      "name": "expected files",
+      "status": "PASS",
+      "details": [
+        "apps/web/app/static/css/ff.css",
+        "apps/web/app/static/css/campaign.css",
+        "apps/web/app/static/js/ff-campaign.js",
+        "apps/web/app/templates/campaign/index.html",
+        "apps/web/app/templates/platform/index.html",
+        "apps/web/app/templates/platform/login.html",
+        "apps/web/app/templates/platform/dashboard.html",
+        "scripts/audit_active_frontend.py",
+        "scripts/campaign-payment-smoke.mjs"
+      ]
+    },
+    {
+      "name": "retired page CSS removed",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "ff.css tokens",
+      "status": "PASS",
+      "details": {
+        "lines": 6222,
+        "bytes": 199808,
+        "important": 979
+      }
+    },
+    {
+      "name": "campaign.css tokens",
+      "status": "PASS",
+      "details": {
+        "lines": 3657,
+        "bytes": 108797,
+        "important": 487
+      }
+    },
+    {
+      "name": "template retired asset references",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "Flask app import",
+      "status": "PASS",
+      "details": "create_app() loaded"
+    },
+    {
+      "name": "SQLAlchemy session bind",
+      "status": "PASS",
+      "details": "Engine(sqlite:////home/elCUCO/futurefunded-final/.data/futurefunded-dev.db)"
+    },
+    {
+      "name": "/platform/ CSS authority",
+      "status": "PASS",
+      "details": [
+        "apps/web/app/static/css/ff.css"
+      ]
+    },
+    {
+      "name": "/platform/ render",
+      "status": "PASS",
+      "details": {
+        "status": 200,
+        "css": [
+          "apps/web/app/static/css/ff.css"
+        ],
+        "js": [
+          "apps/web/app/static/js/ff-app.js"
+        ],
+        "html_bytes": 16014
+      }
+    },
+    {
+      "name": "/platform CSS authority",
+      "status": "PASS",
+      "details": [
+        "apps/web/app/static/css/ff.css"
+      ]
+    },
+    {
+      "name": "/platform render",
+      "status": "PASS",
+      "details": {
+        "status": 200,
+        "css": [
+          "apps/web/app/static/css/ff.css"
+        ],
+        "js": [
+          "apps/web/app/static/js/ff-app.js"
+        ],
+        "html_bytes": 16014
+      }
+    },
+    {
+      "name": "/c/connect-atx-elite CSS authority",
+      "status": "PASS",
+      "details": [
+        "apps/web/app/static/css/ff.css",
+        "apps/web/app/static/css/campaign.css"
+      ]
+    },
+    {
+      "name": "/c/connect-atx-elite render",
+      "status": "PASS",
+      "details": {
+        "status": 200,
+        "css": [
+          "apps/web/app/static/css/ff.css",
+          "apps/web/app/static/css/campaign.css"
+        ],
+        "js": [
+          "apps/web/app/static/js/ff-campaign.js",
+          "apps/web/app/static/js/ff-donation-payload-firewall.js",
+          "apps/web/app/static/js/ff-embedded-checkout.js",
+          "apps/web/app/static/js/ff-checkout-direct.js"
+        ],
+        "html_bytes": 48037
+      }
+    },
+    {
+      "name": "/platform/login CSS authority",
+      "status": "PASS",
+      "details": [
+        "apps/web/app/static/css/ff.css"
+      ]
+    },
+    {
+      "name": "/platform/login render",
+      "status": "PASS",
+      "details": {
+        "status": 200,
+        "css": [
+          "apps/web/app/static/css/ff.css"
+        ],
+        "js": [
+          "apps/web/app/static/js/login.js"
+        ],
+        "html_bytes": 8644
+      }
+    },
+    {
+      "name": "/platform/dashboard CSS authority",
+      "status": "PASS",
+      "details": [
+        "apps/web/app/static/css/ff.css"
+      ]
+    },
+    {
+      "name": "/platform/dashboard render",
+      "status": "PASS",
+      "details": {
+        "status": 403,
+        "css": [
+          "apps/web/app/static/css/ff.css"
+        ],
+        "js": [],
+        "html_bytes": 5439
+      }
+    },
+    {
+      "name": "/c/connect-atx-elite/payments/config payment route",
+      "status": "PASS",
+      "details": {
+        "status": 200,
+        "content_type": "application/json",
+        "body_preview": "{\n  \"campaignSlug\": \"connect-atx-elite\",\n  \"currency\": \"usd\",\n  \"endpoints\": {\n    \"paypalCaptureOrder\": \"/c/connect-atx-elite/paypal/orders/{order_id}/capture\",\n    \"paypalCreateOrder\": \"/c/connect-atx-elite/paypal/orders\",\n    \"stripeCheckout\": \"/c/connect-atx-elite/checkout/session\"\n  },\n  \"paypal\": {\n    \"clientId\": \"\",\n    \"enabled\": false,\n    \"env\": \"sandbox\",\n    \"sdkUrl\": \"https://www.sandbox.paypal.com/sdk/js?client-id=&currency=USD&components=buttons\"\n  },\n  \"stripe\": {\n    \"enabled\":"
+      }
+    },
+    {
+      "name": "/c/connect-atx-elite/ledger/summary payment route",
+      "status": "PASS",
+      "details": {
+        "status": 200,
+        "content_type": "application/json",
+        "body_preview": "{\n  \"campaignSlug\": \"connect-atx-elite\",\n  \"recentDonations\": [],\n  \"recentSponsors\": [],\n  \"totals\": {\n    \"campaign_slug\": \"connect-atx-elite\",\n    \"donation_count\": 0,\n    \"raised_amount_cents\": 0,\n    \"sponsor_count\": 0,\n    \"updated_at\": null\n  }\n}\n"
+      }
+    },
+    {
+      "name": "/c/connect-atx-elite/ledger/events payment route",
+      "status": "PASS",
+      "details": {
+        "status": 403,
+        "content_type": "application/json",
+        "body_preview": "{\n  \"code\": \"operator_access_required\",\n  \"error\": \"Operator access required.\"\n}\n"
+      }
+    },
+    {
+      "name": "active frontend audit",
+      "status": "PASS",
+      "details": "[2026-05-26 11:43:57,387] INFO in __init__: FutureFunded booted | env=development | public=http://127.0.0.1:5000 | api=http://127.0.0.1:8000 | instance=/home/elCUCO/futurefunded-final/apps/web/instance\nFutureFunded Frontend Contract Audit\n================================================\n\nRendered route CSS stacks:\n\n/platform/ -> 200\n  - apps/web/app/static/css/ff.css\n\n/platform -> 200\n  - apps/web/app/static/css/ff.css\n\n/c/connect-atx-elite -> 200\n  - apps/web/app/static/css/ff.css\n  - apps/web/app/static/css/campaign.css\n\n/platform/login -> 200\n  - apps/web/app/static/css/ff.css\n\n/platform/dashboard -> 403\n  - apps/web/app/static/css/ff.css\n\n/platform/dashboard?operator_token=<redacted> -> 200\n  - apps/web/app/static/css/ff.css\n\nCSS file health:\n  - apps/web/app/static/css/ff.css: 6222 lines, 199808 bytes, 979 !important\n  - apps/web/app/static/css/campaign.css: 3657 lines, 108797 bytes, 487 !important\n\nWarnings:\nWARN: ff.css may be missing merged surface marker/token: ff-operator\n\nErrors:\n  none\n"
+    },
+    {
+      "name": "campaign payment smoke",
+      "status": "PASS",
+      "details": "\u2705 mobile: campaign payment/sponsor/share smoke passed\n\u2705 desktop: campaign payment/sponsor/share smoke passed\n\nFutureFunded campaign smoke: PASS\nResults: /home/elCUCO/futurefunded-final/audit_outputs/campaign-payment-smoke/latest.json\n"
+    }
+  ]
+}

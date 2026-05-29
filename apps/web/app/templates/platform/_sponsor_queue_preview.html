@@ -1,0 +1,138 @@
+{# Sponsor pipeline preview powered by the campaign profile + sponsor lead route. #}
+{% set _ff_profile = ff_campaign_profile|default({}, true) %}
+{% set _ff_packages = _ff_profile.sponsor_packages|default([], true) %}
+{% set _campaign_url = ff_platform.campaign_url|default('/c/' ~ ff_platform.campaign_slug, true) %}
+
+<section class="ff-sponsorQueue" aria-labelledby="ff-sponsor-queue-title">
+  <div class="ff-sponsorQueue__header">
+    <div>
+      <p class="ff-eyebrow">Sponsor pipeline</p>
+      <h2 id="ff-sponsor-queue-title">Turn sponsor interest into clean next steps</h2>
+      <p>
+        FutureFunded now captures the selected package, validates it server-side,
+        prepares operator follow-up, and prepares sponsor confirmation copy without
+        breaking the campaign if mail is not configured yet.
+      </p>
+    </div>
+
+    <div class="ff-sponsorQueue__actions">
+      <a class="ff-button ff-button--primary" href="{{ _campaign_url }}#sponsors">
+        Open sponsor path
+      </a>
+      <a class="ff-button ff-button--secondary" href="/sponsors">
+        Sponsor center
+      </a>
+    </div>
+  </div>
+
+  <div class="ff-sponsorQueue__stats" role="list" aria-label="Sponsor pipeline readiness">
+    <article role="listitem">
+      <span>Lead intake</span>
+      <strong>Ready</strong>
+      <p>Accepted sponsor leads route through <code>/sponsors/lead</code>.</p>
+    </article>
+    <article role="listitem">
+      <span>Package validation</span>
+      <strong>Verified</strong>
+      <p>Package name and amount are normalized from the campaign profile.</p>
+    </article>
+    <article role="listitem">
+      <span>Follow-up</span>
+      <strong>Prepared</strong>
+      <p>Operator and sponsor confirmation payloads are ready for mail delivery.</p>
+    </article>
+  </div>
+
+  {% set _ff_leads = ff_sponsor_leads|default([], true) %}
+  {% if _ff_leads %}
+    <div class="ff-sponsorQueue__recent" aria-labelledby="ff-sponsor-recent-title">
+      <div class="ff-sponsorQueue__recentHeader">
+        <p class="ff-eyebrow">Recent sponsor leads</p>
+        <h3 id="ff-sponsor-recent-title">New sponsor opportunities</h3>
+      </div>
+
+      <div class="ff-sponsorQueue__leadList" role="list">
+        {% for lead in _ff_leads[:6] %}
+          <article class="ff-sponsorQueue__lead" role="listitem">
+            <div>
+              <p class="ff-sponsorQueue__status">{{ lead.status|default('new', true)|replace('_', ' ')|title }}</p>
+              <h4>{{ lead.business_name|default('New sponsor', true) }}</h4>
+              <p>{{ lead.contact_name|default('Primary contact', true) }}{% if lead.contact_email %} · {{ lead.contact_email }}{% endif %}</p>
+            </div>
+            <div class="ff-sponsorQueue__leadMeta">
+              <strong>{{ lead.summary|default(lead.package_name|default('Sponsor Package', true), true) }}</strong>
+              <span>{{ lead.stage|default('logo_needed', true)|replace('_', ' ')|title }}</span>
+
+              {% if lead.id %}
+                <form
+                  class="ff-sponsorQueue__stageForm"
+                  method="post"
+                  action="/sponsors/lead/{{ lead.id }}/stage"
+                >
+                  <input type="hidden" name="token" value="{{ request.args.get('token') or request.args.get('operator_token') or '' }}">
+                  <input type="hidden" name="campaign_slug" value="{{ ff_platform.campaign_slug }}">
+                  <input type="hidden" name="next" value="{{ request.full_path }}">
+                  <label class="sr-only" for="ff-stage-{{ lead.id }}">Update sponsor stage</label>
+                  <select id="ff-stage-{{ lead.id }}" name="stage">
+                    {% for value, label in [
+                      ('new', 'New'),
+                      ('logo_needed', 'Logo needed'),
+                      ('website_needed', 'Website needed'),
+                      ('message_needed', 'Message needed'),
+                      ('ready_for_approval', 'Ready for approval'),
+                      ('approved', 'Approved'),
+                      ('displayed', 'Displayed'),
+                      ('thank_you_sent', 'Thank-you sent')
+                    ] %}
+                      <option value="{{ value }}" {% if lead.stage|default('logo_needed', true) == value %}selected{% endif %}>
+                        {{ label }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                  <button class="ff-button ff-button--secondary ff-button--compact" type="submit">
+                    Update
+                  </button>
+                </form>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if _ff_packages %}
+    <div class="ff-sponsorQueue__list" role="list">
+      {% for package in _ff_packages %}
+        {% set _name = package.get('label') or package.get('name') or 'Sponsor Package' %}
+        {% set _key = package.get('key') or _name|lower|replace(' ', '-') %}
+        {% set _amount = package.get('amount') %}
+        {% set _price = package.get('price') or ('$' ~ _amount if _amount else '') %}
+
+        <article
+          class="ff-sponsorQueue__item"
+          role="listitem"
+          data-ff-sponsor-queue-package
+          data-ff-sponsor-package-key="{{ _key|e }}"
+        >
+          <div class="ff-sponsorQueue__itemTop">
+            <div>
+              <p class="ff-sponsorQueue__status">Package ready</p>
+              <h3>{{ _name }}</h3>
+            </div>
+            {% if _price %}
+              <strong>{{ _price }}</strong>
+            {% endif %}
+          </div>
+
+          <ol class="ff-sponsorQueue__steps">
+            <li>Lead accepted</li>
+            <li>Request logo + website</li>
+            <li>Collect sponsor message</li>
+            <li>Approve placement</li>
+          </ol>
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>

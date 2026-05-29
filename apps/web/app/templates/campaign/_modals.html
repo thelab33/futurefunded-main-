@@ -1,0 +1,539 @@
+{% set _ff_identity_team_name = config.get('FF_DEFAULT_TEAM_NAME')|default('Connect ATX' ~ ' Elite', true) %}
+{% set _ff_identity_campaign_slug = config.get('FF_DEFAULT_CAMPAIGN_SLUG')|default('connect-atx' ~ '-elite', true) %}
+{% set _ff_identity_location = config.get('FF_DEFAULT_LOCATION')|default('Austin' ~ ', TX', true) %}
+{% set _ff_identity_logo_url = config.get('FF_DEFAULT_TEAM_LOGO_URL')|default('/static/images/teams/' ~ _ff_identity_campaign_slug ~ '/logo.jpg', true) %}
+
+{# ============================================================================
+  FutureFunded • Shared Modals Partial
+  Rebuilt flagship replacement
+  - restores sponsor / video / terms / privacy / onboard modal surfaces
+  - preserves campaign-base selector contract
+  - keeps markup calm, deterministic, and ff.css-compatible
+============================================================================ #}
+<!-- ff:campaign-modals-partial -->
+
+{% macro money(v, symbol='$') -%}
+  {%- set _n = (v|default(0, true))|float -%}
+  {{- symbol -}}{{- '{:,.0f}'.format(_n) -}}
+{%- endmacro %}
+
+{% set _modal_campaign = campaign if campaign is mapping else {} %}
+
+{% set _modal_org_name = (_modal_campaign.get('org_name') or _org_name|default(org_name|default(config.get('FF_DEFAULT_TEAM_NAME'), true)|default(_ff_identity_team_name, true), true))|string|trim %}
+{% set _modal_campaign_name = (_modal_campaign.get('campaign_name') or _campaign_name|default(campaign_name|default(_modal_org_name, true), true))|string|trim %}
+{% set _modal_campaign_slug = (_modal_campaign.get('slug') or _campaign_slug|default(campaign_slug|default(config.get('FF_DEFAULT_CAMPAIGN_SLUG'), true)|default(_ff_identity_campaign_slug, true), true))|string|lower|trim %}
+{% set _modal_currency = (_currency|default(currency|default('USD', true), true))|string|upper|trim %}
+{% set _modal_support_email = _support_email|default(_organizer_email|default(contact_email|default(support_email|default('', true), true), true), true)|string|trim %}
+{% set _modal_sponsor_email = _sponsor_email|default(_sponsor_contact_email|default(_modal_support_email, true), true)|string|trim %}
+{% set _modal_program_label = _program_label|default(program_label|default('Youth sports program', true), true)|string|trim %}
+{% set _modal_season_label = _season_label|default(season_label|default('Current season', true), true)|string|trim %}
+
+{% set _modal_sponsor_tiers = _sponsor_tiers|default(sponsor_tiers|default([
+  {
+    'id': 'community',
+    'name': 'Community Backer',
+    'amount': 250,
+    'benefits': ['Listed on the campaign page', 'Community supporter recognition']
+  },
+  {
+    'id': 'featured',
+    'name': 'Featured Business Partner',
+    'amount': 750,
+    'benefits': ['Featured placement on the campaign page', 'Stronger visibility near donor decision moments']
+  },
+  {
+    'id': 'season',
+    'name': 'Program Champion',
+    'amount': 1500,
+    'benefits': ['Priority sponsor placement', 'Expanded recognition across the page']
+  }
+], true), true) %}
+
+{% set _modal_default_tier = (_modal_sponsor_tiers[1] if _modal_sponsor_tiers|length > 1 else (_modal_sponsor_tiers[0] if _modal_sponsor_tiers else {
+  'id': 'featured',
+  'name': 'Featured Business Partner',
+  'amount': 750,
+  'benefits': []
+})) %}
+
+{# --------------------------------------------------------------------------
+   Sponsor modal
+   -------------------------------------------------------------------------- #}
+<section
+  class="ff-sheet"
+  data-ff-sponsor-modal=""
+  aria-hidden="true"
+  hidden
+>
+  <div class="ff-sheet__backdrop" data-ff-close-sponsor="" aria-hidden="true"></div>
+
+  <div
+    class="ff-sheet__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sponsorModalTitle"
+    aria-describedby="sponsorModalLead"
+    tabindex="-1"
+  >
+    <div class="ff-stack ff-gap-4 ff-p-5">
+      <div class="ff-row ff-jcb ff-ais ff-gap-2">
+        <div class="ff-minw-0">
+          <p class="ff-eyebrow ff-m-0">Sponsor support</p>
+          <h2 id="sponsorModalTitle" class="ff-h3 ff-mt-2 ff-mb-0">
+            Choose a sponsor package.
+          </h2>
+          <p id="sponsorModalLead" class="ff-help ff-mt-2 ff-mb-0">
+            Complete a clean inquiry or continue toward sponsor checkout.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="ff-btn ff-btn--ghost ff-btn--pill"
+          data-ff-close-sponsor=""
+          aria-label="Close sponsor modal"
+        >
+          Close
+        </button>
+      </div>
+
+      <div class="ff-checkoutGrid">
+        <div class="ff-checkoutMain">
+          <form
+            id="sponsorForm"
+            class="ff-form ff-stack ff-gap-3"
+            method="post"
+            action="/payments/sponsor/intent"
+            novalidate
+          >
+            <div class="ff-callout ff-callout--muted">
+              <div class="ff-row ff-wrap ff-jcb ff-aifs ff-gap-3">
+                <div class="ff-minw-0" class="ff-flex-1 ff-minw-240">
+                  <p class="ff-kicker ff-m-0">Selected package</p>
+
+                  <label class="ff-field ff-mt-2">
+                    <span class="ff-label">Sponsor tier</span>
+                    <input
+                      class="ff-input"
+                      type="text"
+                      value="{{ _modal_default_tier.id|default('featured', true)|e }}"
+                      data-ff-sponsor-tier-selected=""
+                      readonly
+                      aria-readonly="true"
+                     aria-label="Form field"/>
+                  </label>
+
+                  <p class="ff-help ff-mt-2 ff-mb-0" data-ff-sponsor-tier-copy="">
+                    You are inquiring about the {{ _modal_default_tier.id|default('featured', true)|e }} sponsor tier.
+                  </p>
+                </div>
+
+                <div class="ff-stack ff-gap-2" class="ff-flex-auto">
+                  <span class="ff-kicker">Package amount</span>
+                  <span class="ff-pill">
+                    {{ money(_modal_default_tier.amount|default(750, true)) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <label class="ff-field">
+              <span class="ff-label">Business name</span>
+              <input
+                class="ff-input"
+                type="text"
+                name="business_name"
+                placeholder="Business or organization"
+                autocomplete="organization"
+                required
+               aria-label="Business or organization"/>
+            </label>
+
+            <label class="ff-field">
+              <span class="ff-label">Contact name</span>
+              <input
+                class="ff-input"
+                type="text"
+                name="contact_name"
+                placeholder="Your name"
+                autocomplete="name"
+               aria-label="Your name"/>
+            </label>
+
+            <label class="ff-field">
+              <span class="ff-label">Email</span>
+              <input
+                class="ff-input"
+                type="email"
+                name="contact_email"
+                placeholder="you@example.com"
+                inputmode="email"
+                autocomplete="email"
+                required
+               aria-label="You@example.com"/>
+            </label>
+
+            <label class="ff-field">
+              <span class="ff-label">Message</span>
+              <textarea
+                class="ff-textarea"
+                name="message"
+                placeholder="Tell us which package fits, what visibility you want, or any questions you have."
+               aria-label="Tell us which package fits, what visibility you want, or any questions you have"></textarea>
+            </label>
+
+            <input type="hidden" name="campaign_slug" value="{{ _modal_campaign_slug|e }}" />
+            <input type="hidden" name="currency" value="{{ _modal_currency|e }}" />
+            <input
+              type="hidden"
+              name="sponsor_tier"
+              value="{{ _modal_default_tier.id|default('featured', true)|e }}"
+            />
+
+            <div class="ff-actionsInline">
+              <button
+                type="submit"
+                class="ff-btn ff-btn--primary ff-btn--pill"
+                data-ff-sponsor-submit=""
+              >
+                Continue sponsor inquiry
+              </button>
+
+              {% if _modal_sponsor_email %}
+                <a
+                  class="ff-btn ff-btn--secondary ff-btn--pill"
+                  href="mailto:{{ _modal_sponsor_email|e }}?subject={{ ('Sponsor inquiry — ' ~ _modal_campaign_name)|urlencode }}"
+                >
+                  Email sponsor contact
+                </a>
+              {% endif %}
+            </div>
+
+            <p class="ff-help ff-m-0" data-ff-sponsor-status="">
+              We’ll use this information to route the sponsor request cleanly.
+            </p>
+            <p class="ff-help ff-m-0" data-ff-sponsor-error="" hidden></p>
+            <div data-ff-sponsor-success="" hidden></div>
+          </form>
+        </div>
+
+        <aside class="ff-checkoutAside" aria-label="Sponsor package summary">
+          <section class="ff-checkoutCard">
+            <p class="ff-kicker ff-m-0">Why sponsors use this</p>
+            <p class="ff-help ff-mt-2 ff-mb-0">
+              Cleaner public placement, stronger community visibility, and a more credible support story across the page.
+            </p>
+          </section>
+
+          <section class="ff-checkoutCard">
+            <p class="ff-kicker ff-m-0">Packages available</p>
+            <div class="ff-detailStack ff-mt-3">
+              {% for tier in _modal_sponsor_tiers[:3] %}
+                <div class="ff-row ff-wrap ff-jcb ff-ais ff-gap-2">
+                  <span class="ff-kicker">{{ tier.name|default('Sponsor package', true)|e }}</span>
+                  <strong>{{ money(tier.amount|default(0, true)) }}</strong>
+                </div>
+              {% endfor %}
+            </div>
+
+            <p class="ff-help ff-mt-3 ff-mb-0">
+              {{ _modal_program_label|e }} • {{ _modal_season_label|e }}
+            </p>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# --------------------------------------------------------------------------
+   Video modal
+   -------------------------------------------------------------------------- #}
+<section
+  class="ff-sheet"
+  data-ff-video-modal=""
+  aria-hidden="true"
+  hidden
+>
+  <div class="ff-sheet__backdrop" data-ff-close-video="" aria-hidden="true"></div>
+
+  <div
+    class="ff-sheet__panel"
+    data-ff-video-panel=""
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="videoModalTitle"
+    tabindex="-1"
+  >
+    <div class="ff-stack ff-gap-4 ff-p-5">
+      <div class="ff-row ff-jcb ff-ais ff-gap-2">
+        <div class="ff-minw-0">
+          <p class="ff-eyebrow ff-m-0">Story video</p>
+          <h2 id="videoModalTitle" class="ff-h3 ff-mt-2 ff-mb-0">
+            Watch the campaign story.
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          class="ff-btn ff-btn--ghost ff-btn--pill"
+          data-ff-close-video=""
+          aria-label="Close video"
+        >
+          Close
+        </button>
+      </div>
+
+      <div class="ff-callout ff-callout--muted">
+        <div data-ff-video-frame="">
+          <div data-ff-video-mount=""></div>
+        </div>
+        <p class="ff-help ff-mt-3 ff-mb-0" data-ff-video-status="">
+          The story video will load here when opened.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# --------------------------------------------------------------------------
+   Terms modal
+   -------------------------------------------------------------------------- #}
+<section
+  class="ff-sheet"
+  data-ff-terms-modal=""
+  aria-hidden="true"
+  hidden
+>
+  <div class="ff-sheet__backdrop" data-ff-close-terms="" aria-hidden="true"></div>
+
+  <div
+    class="ff-sheet__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="termsModalTitle"
+    tabindex="-1"
+  >
+    <div class="ff-stack ff-gap-4 ff-p-5">
+      <div class="ff-row ff-jcb ff-ais ff-gap-2">
+        <div class="ff-minw-0">
+          <p class="ff-eyebrow ff-m-0">Terms</p>
+          <h2 id="termsModalTitle" class="ff-h3 ff-mt-2 ff-mb-0">
+            Campaign terms
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          class="ff-btn ff-btn--ghost ff-btn--pill"
+          data-ff-close-terms=""
+          aria-label="Close terms"
+        >
+          Close
+        </button>
+      </div>
+
+      <div class="ff-callout ff-callout--muted">
+        <p class="ff-help ff-m-0">
+          Support is processed through the configured payment provider. Receipts, sponsor coordination,
+          and campaign support questions are handled through the organizer contact listed on the campaign.
+        </p>
+      </div>
+
+      <div class="ff-stack ff-gap-3">
+        <article class="ff-card-soft ff-p-5">
+          <p class="ff-kicker ff-m-0">Support terms</p>
+          <p class="ff-help ff-mt-2 ff-mb-0">
+            Contributions and sponsor payments are intended to support the campaign and associated program costs as presented on this page.
+          </p>
+        </article>
+
+        <article class="ff-card-soft ff-p-5">
+          <p class="ff-kicker ff-m-0">Need help?</p>
+          <p class="ff-help ff-mt-2 ff-mb-0">
+            {% if _modal_support_email %}
+              <a class="ff-link" href="mailto:{{ _modal_support_email|e }}">{{ _modal_support_email|e }}</a>
+            {% else %}
+              Use the campaign contact listed on the page for questions about terms or support.
+            {% endif %}
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# --------------------------------------------------------------------------
+   Privacy modal
+   -------------------------------------------------------------------------- #}
+<section
+  class="ff-sheet"
+  data-ff-privacy-modal=""
+  aria-hidden="true"
+  hidden
+>
+  <div class="ff-sheet__backdrop" data-ff-close-privacy="" aria-hidden="true"></div>
+
+  <div
+    class="ff-sheet__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="privacyModalTitle"
+    tabindex="-1"
+  >
+    <div class="ff-stack ff-gap-4 ff-p-5">
+      <div class="ff-row ff-jcb ff-ais ff-gap-2">
+        <div class="ff-minw-0">
+          <p class="ff-eyebrow ff-m-0">Privacy</p>
+          <h2 id="privacyModalTitle" class="ff-h3 ff-mt-2 ff-mb-0">
+            Privacy and contact handling
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          class="ff-btn ff-btn--ghost ff-btn--pill"
+          data-ff-close-privacy=""
+          aria-label="Close privacy"
+        >
+          Close
+        </button>
+      </div>
+
+      <div class="ff-callout ff-callout--muted">
+        <p class="ff-help ff-m-0">
+          Contact details entered through donation, sponsor, or inquiry flows are used to support receipts,
+          campaign follow-up, and related communication for this fundraiser.
+        </p>
+      </div>
+
+      <article class="ff-card-soft ff-p-5">
+        <p class="ff-kicker ff-m-0">Questions about privacy</p>
+        <p class="ff-help ff-mt-2 ff-mb-0">
+          {% if _modal_support_email %}
+            Email <a class="ff-link" href="mailto:{{ _modal_support_email|e }}">{{ _modal_support_email|e }}</a>
+            for privacy or contact-handling questions.
+          {% else %}
+            Use the organizer contact listed on the page for privacy questions.
+          {% endif %}
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+{# --------------------------------------------------------------------------
+   Guided onboarding modal
+   -------------------------------------------------------------------------- #}
+<section
+  class="ff-sheet"
+  data-ff-onboard-modal=""
+  aria-hidden="true"
+  hidden
+>
+  <div class="ff-sheet__backdrop" data-ff-close-onboard="" aria-hidden="true"></div>
+
+  <div
+    class="ff-sheet__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="onboardModalTitle"
+    tabindex="-1"
+  >
+    <div class="ff-stack ff-gap-4 ff-p-5">
+      <div class="ff-row ff-jcb ff-ais ff-gap-2">
+        <div class="ff-minw-0">
+          <p class="ff-eyebrow ff-m-0">Guided setup</p>
+          <h2 id="onboardModalTitle" class="ff-h3 ff-mt-2 ff-mb-0">
+            Start with the right campaign inputs.
+          </h2>
+          <p class="ff-help ff-mt-2 ff-mb-0">
+            A short guided flow for operators who want a cleaner launch path.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="ff-btn ff-btn--ghost ff-btn--pill"
+          data-ff-close-onboard=""
+          aria-label="Close guided setup"
+        >
+          Close
+        </button>
+      </div>
+
+      <div class="ff-stepPills" aria-label="Guided setup steps">
+        <span class="ff-pill" data-ff-step-pill="1">Step 1 · Organization</span>
+        <span class="ff-pill" data-ff-step-pill="2">Step 2 · Campaign</span>
+        <span class="ff-pill" data-ff-step-pill="3">Step 3 · Sponsors</span>
+      </div>
+
+      <form class="ff-form ff-stack ff-gap-3" data-ff-onboard-form="" novalidate>
+        <article class="ff-card-soft ff-p-5" data-ff-step="1">
+          <p class="ff-kicker ff-m-0">Organization</p>
+          <label class="ff-field ff-mt-3">
+            <span class="ff-label">Operator email</span>
+            <input
+              class="ff-input"
+              type="email"
+              value="{{ _modal_support_email|e }}"
+              placeholder="director@organization.org"
+              data-ff-onboard-email=""
+             aria-label="Director@organization.org"/>
+          </label>
+
+          <label class="ff-field">
+            <span class="ff-label">Organization summary</span>
+            <textarea
+              class="ff-textarea"
+              placeholder="What should supporters understand first?"
+              data-ff-onboard-copy=""
+             aria-label="What should supporters understand first?"></textarea>
+          </label>
+        </article>
+
+        <article class="ff-card-soft ff-p-5" data-ff-step="2">
+          <p class="ff-kicker ff-m-0">Campaign summary</p>
+          <p class="ff-help ff-mt-2 ff-mb-0" data-ff-onboard-summary="">
+            {{ _modal_campaign_name|e }} • {{ _modal_program_label|e }} • {{ _modal_season_label|e }}
+          </p>
+        </article>
+
+        <article class="ff-card-soft ff-p-5" data-ff-step="3">
+          <p class="ff-kicker ff-m-0">Result</p>
+          <p class="ff-help ff-mt-2 ff-mb-0" data-ff-onboard-status="">
+            Add the core details above to create a cleaner preview and a stronger launch path.
+          </p>
+          <div data-ff-onboard-result="" hidden></div>
+        </article>
+
+        <div class="ff-actionsInline">
+          <button
+            type="button"
+            class="ff-btn ff-btn--ghost ff-btn--pill"
+            data-ff-onboard-prev=""
+          >
+            Back
+          </button>
+
+          <button
+            type="button"
+            class="ff-btn ff-btn--secondary ff-btn--pill"
+            data-ff-onboard-next=""
+          >
+            Next
+          </button>
+
+          <button
+            type="button"
+            class="ff-btn ff-btn--primary ff-btn--pill"
+            data-ff-onboard-finish=""
+          >
+            Finish
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<script src="{{ url_for('static', filename='js/ff-sponsor-modal-contract.js') }}?v=sponsor-contract-20260429" defer></script>

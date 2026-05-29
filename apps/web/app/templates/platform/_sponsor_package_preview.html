@@ -1,0 +1,70 @@
+{# Sponsor package preview powered by ff_campaign_profile.sponsor_packages #}
+{% set _ff_profile = ff_campaign_profile|default({}, true) %}
+{% set _ff_packages = _ff_profile.sponsor_packages|default([], true) %}
+
+{% if _ff_packages %}
+<section class="ff-sponsorKit" aria-labelledby="ff-sponsor-kit-title">
+  <div class="ff-sponsorKit__header">
+    <div>
+      <p class="ff-eyebrow">Sponsor-ready package kit</p>
+      <h2 id="ff-sponsor-kit-title">Packages your sponsors can understand fast</h2>
+      <p>
+        FutureFunded turns sponsor support into clear business-friendly options with pricing,
+        recognition, and next steps already structured for outreach.
+      </p>
+    </div>
+
+    <a class="ff-button ff-button--secondary" href="{{ ff_platform.campaign_url|default('/c/' ~ ff_platform.campaign_slug, true) }}#sponsors">
+      Preview sponsor path
+    </a>
+  </div>
+
+  <div class="ff-sponsorKit__grid" role="list">
+    {% for package in _ff_packages %}
+      {% set _package_name = package.label|default(package.name|default('Sponsor Package', true), true) %}
+      {% set _package_key = package.key|default(_package_name|lower|replace(' ', '-'), true) %}
+      {% set _package_price = package.price|default('', true) %}
+      {% if not _package_price and package.amount is defined %}
+        {% set _package_price = '$' ~ package.amount %}
+      {% endif %}
+
+      <article
+        class="ff-sponsorKit__card"
+        role="listitem"
+        data-ff-sponsor-package-card
+        data-ff-sponsor-package-key="{{ _package_key|e }}"
+        data-ff-sponsor-package-name="{{ _package_name|e }}"
+        data-ff-sponsor-package-amount="{{ package.amount|default('', true)|e }}"
+      >
+        <div class="ff-sponsorKit__cardTop">
+          <p class="ff-sponsorKit__label">{{ _package_name }}</p>
+          <p class="ff-sponsorKit__price">{{ _package_price }}</p>
+        </div>
+
+        {% if package.best_for is defined and package.best_for %}
+          <p class="ff-sponsorKit__best">
+            <strong>Best for:</strong> {{ package.best_for }}
+          </p>
+        {% endif %}
+
+        {% if package.copy is defined and package.copy %}
+          <p class="ff-sponsorKit__copy">{{ package["copy"] }}</p>
+        {% endif %}
+
+        {% if package.recognition is defined and package.recognition %}
+          <ul class="ff-sponsorKit__list" aria-label="{{ _package_name }} recognition">
+            {% for item in package.recognition[:4] %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <div class="ff-sponsorKit__footer">
+          <span>Logo + website ready</span>
+          <span>Recognition path included</span>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

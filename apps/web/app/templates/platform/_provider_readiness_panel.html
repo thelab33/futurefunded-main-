@@ -1,0 +1,139 @@
+{# FutureFunded Provider Readiness v2
+   Internal/operator-facing launch control panel.
+   Never render on public campaign pages.
+#}
+
+{% set _stripe_ready =
+  (config.get('STRIPE_PUBLISHABLE_KEY') or config.get('STRIPE_PUBLIC_KEY'))
+  and config.get('STRIPE_SECRET_KEY')
+  and config.get('STRIPE_WEBHOOK_SECRET')
+%}
+{% set _paypal_ready = config.get('PAYPAL_CLIENT_ID') and config.get('PAYPAL_CLIENT_SECRET') %}
+{% set _mail_ready =
+  (config.get('MAIL_SERVER') or config.get('SMTP_HOST'))
+  and (config.get('MAIL_USERNAME') or config.get('SMTP_USERNAME'))
+  and (config.get('MAIL_PASSWORD') or config.get('SMTP_PASSWORD'))
+  and (config.get('MAIL_DEFAULT_SENDER') or config.get('DEFAULT_FROM_EMAIL') or config.get('MAIL_FROM'))
+%}
+{% set _public_ready =
+  config.get('PUBLIC_BASE_URL')
+  or config.get('FF_PUBLIC_BASE_URL')
+  or config.get('APP_BASE_URL')
+  or config.get('SERVER_NAME')
+%}
+
+{% set _launch_ready_count = 0 %}
+{% if _stripe_ready %}{% set _launch_ready_count = _launch_ready_count + 1 %}{% endif %}
+{% if _public_ready %}{% set _launch_ready_count = _launch_ready_count + 1 %}{% endif %}
+{% set _ops_ready_count = _launch_ready_count %}
+{% if _mail_ready %}{% set _ops_ready_count = _ops_ready_count + 1 %}{% endif %}
+{% if _paypal_ready %}{% set _ops_ready_count = _ops_ready_count + 1 %}{% endif %}
+
+<section class="ff-providerReadiness ff-providerReadiness--v2 ff-platformCard"
+         data-ff-provider-readiness
+         data-ff-provider-readiness-v2
+         aria-labelledby="provider-readiness-title">
+  <div class="ff-providerReadiness__head ff-providerReadinessV2__head">
+    <div>
+      <p class="ff-platformKicker">Launch controls</p>
+      <span class="sr-only">Launch readiness</span>
+      <h2 id="provider-readiness-title">Provider setup for a sellable fundraising OS.</h2>
+      <p>
+        Keep checkout, receipts, sponsor follow-up, and public links ready before campaigns go live.
+        Optional providers stay clearly marked so operators know what is blocking launch and what is not.
+      </p>
+    </div>
+
+    <div class="ff-providerReadiness__score ff-providerReadinessV2__score"
+         aria-label="{{ _launch_ready_count }} of 2 launch-critical providers ready">
+      <strong>{{ _launch_ready_count }}/2</strong>
+      <span>launch-critical ready</span>
+    </div>
+  </div>
+
+  <div class="ff-providerReadinessV2__summary" aria-label="Provider readiness summary">
+    <article data-provider-summary-state="{{ 'ready' if _stripe_ready and _public_ready else 'needs_setup' }}">
+      <strong>{{ 'Launch-ready' if _stripe_ready and _public_ready else 'Launch needs setup' }}</strong>
+      <span>Stripe + public URL are the critical launch gate.</span>
+    </article>
+
+    <article data-provider-summary-state="{{ 'ready' if _mail_ready else 'optional' }}">
+      <strong>{{ 'Receipts enabled' if _mail_ready else 'Receipts disabled' }}</strong>
+      <span>{{ 'Email is configured for confirmations and follow-up.' if _mail_ready else 'Configure SMTP before relying on email receipts.' }}</span>
+    </article>
+
+    <article data-provider-summary-state="{{ 'ready' if _paypal_ready else 'optional' }}">
+      <strong>{{ 'PayPal enabled' if _paypal_ready else 'PayPal optional' }}</strong>
+      <span>{{ 'Alternative payment rail is configured.' if _paypal_ready else 'Not enabled until client credentials are added.' }}</span>
+    </article>
+  </div>
+
+  <div class="ff-providerReadiness__grid ff-providerReadinessV2__grid" aria-label="Provider readiness checklist">
+    <article class="ff-providerReadiness__item ff-providerReadinessV2__item"
+             data-provider="stripe"
+             data-provider-state="{{ 'ready' if _stripe_ready else 'needs_setup' }}">
+      <span aria-hidden="true">{{ '✓' if _stripe_ready else '!' }}</span>
+      <div>
+        <strong>Stripe</strong>
+        <p>{{ 'Donation checkout is ready. Keep webhook signing secret current.' if _stripe_ready else 'Required for card checkout. Add publishable key, secret key, and webhook secret.' }}</p>
+        <small>{{ 'Next: verify webhook endpoint after deploy.' if _stripe_ready else 'Launch blocker until configured.' }}</small>
+      </div>
+    </article>
+
+    <article class="ff-providerReadiness__item ff-providerReadinessV2__item"
+             data-provider="paypal"
+             data-provider-state="{{ 'ready' if _paypal_ready else 'optional' }}">
+      <span aria-hidden="true">{{ '✓' if _paypal_ready else '○' }}</span>
+      <div>
+        <strong>PayPal</strong>
+        <p>{{ 'PayPal is enabled as an additional payment option.' if _paypal_ready else 'Optional / not enabled. Stripe can carry launch without PayPal.' }}</p>
+        <small>{{ 'Next: test order create + capture.' if _paypal_ready else 'Add PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET when ready.' }}</small>
+      </div>
+    </article>
+
+    <article class="ff-providerReadiness__item ff-providerReadinessV2__item"
+             data-provider="mail"
+             data-provider-state="{{ 'ready' if _mail_ready else 'disabled' }}">
+      <span aria-hidden="true">{{ '✓' if _mail_ready else '!' }}</span>
+      <div>
+        <strong>Email</strong>
+        <p>{{ 'Receipts and sponsor follow-up are configured.' if _mail_ready else 'Receipts disabled until SMTP is configured.' }}</p>
+        <small>{{ 'Next: send a test receipt before launch.' if _mail_ready else 'Add SMTP host, username, password, and default sender.' }}</small>
+      </div>
+    </article>
+
+    <article class="ff-providerReadiness__item ff-providerReadinessV2__item"
+             data-provider="public-url"
+             data-provider-state="{{ 'ready' if _public_ready else 'needs_setup' }}">
+      <span aria-hidden="true">{{ '✓' if _public_ready else '!' }}</span>
+      <div>
+        <strong>Public URL</strong>
+        <p>{{ 'Production links and callbacks have a base URL.' if _public_ready else 'Required for share links, callbacks, and receipt URLs.' }}</p>
+        <small>{{ 'Next: confirm canonical domain after deploy.' if _public_ready else 'Set PUBLIC_BASE_URL or FF_PUBLIC_BASE_URL.' }}</small>
+      </div>
+    </article>
+  </div>
+
+  <div class="ff-providerReadinessV2__actions" aria-label="Provider setup guidance">
+    <article>
+      <strong>Launch gate</strong>
+      <p>Stripe and Public URL should be green before taking live campaign traffic.</p>
+    </article>
+
+    <article>
+      <strong>Operator follow-up</strong>
+      <p>Email can be configured after visual demo, but before relying on receipts or sponsor notifications.</p>
+    </article>
+
+    <article>
+      <strong>Optional rails</strong>
+      <p>PayPal is additive. Keep it disabled until credentials and capture flow are verified.</p>
+    </article>
+  </div>
+
+  <div class="ff-providerReadiness__foot ff-providerReadinessV2__foot">
+    <p>
+      Operator-only launch controls. Public campaign pages stay donor-first and free of setup noise.
+    </p>
+  </div>
+</section>

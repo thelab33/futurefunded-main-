@@ -1,0 +1,15 @@
+Branch: main
+HEAD:   917613dbfa8304554a0b73e2f184fc688fbbc3cc
+
+Tags at HEAD:
+clean-room-clutter-cleaned-20260529015522
+
+Git status:
+?? docs/cleanup/post-cleanup-sanity-20260529015522.txt
+
+Tracked quarantine/deprecated/proof clutter remaining:
+
+Active CSS files:
+apps/web/app/static/css/campaign.css
+apps/web/app/static/css/ff.css
+apps/web/app/static/css/onboarding.css

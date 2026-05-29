@@ -1,0 +1,61 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-sqlite:////app/.data/futurefunded-dev.db}
+      API_BASE_URL: ${API_BASE_URL:-http://api:8000}
+      FLASK_ENV: ${FLASK_ENV:-development}
+    ports:
+      - "5000:5000"
+    depends_on:
+      api:
+        condition: service_started
+    volumes:
+      - futurefunded-data:/app/.data
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-sqlite:////app/.data/futurefunded-dev.db}
+      API_RUN_HOST: 0.0.0.0
+      API_RUN_PORT: 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - futurefunded-data:/app/.data
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:17-alpine
+    profiles: ["db"]
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-futurefunded}
+      POSTGRES_USER: ${POSTGRES_USER:-futurefunded}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-futurefunded}
+    ports:
+      - "5432:5432"
+    volumes:
+      - futurefunded-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U $${POSTGRES_USER:-futurefunded} -d $${POSTGRES_DB:-futurefunded}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  futurefunded-data:
+  futurefunded-postgres:

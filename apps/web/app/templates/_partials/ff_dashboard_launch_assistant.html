@@ -1,0 +1,57 @@
+{# FutureFunded P0 launch-completion partial: dashboard launch assistant #}
+{% set ff_team_name = team_name|default("Connect ATX Elite", true) %}
+{% if campaign is defined and campaign %}
+  {% set ff_team_name = campaign.team_name|default(ff_team_name, true) %}
+{% endif %}
+
+{% set ff_campaign_url = campaign_url|default("https://getfuturefunded.com/c/connect-atx-elite", true) %}
+{% if campaign is defined and campaign %}
+  {% set ff_campaign_url = campaign.public_url|default(ff_campaign_url, true) %}
+{% endif %}
+
+{% set ff_text_keyword = text_to_donate_keyword|default(config.get("FF_TEXT_TO_DONATE_KEYWORD", "ATX"), true) %}
+{% set ff_text_number = text_to_donate_number|default(config.get("FF_TEXT_TO_DONATE_NUMBER", ""), true) %}
+{% set ff_launch_mode = launch_mode|default(config.get("FF_LAUNCH_MODE", "preview"), true) %}
+
+<section class="ff-launchAssistant" data-ff-dashboard-launch-assistant="p0-launch-completion" aria-labelledby="ff-launch-assistant-title">
+  <div class="ff-launchAssistant__head">
+    <p class="ff-eyebrow">Launch assistant</p>
+    <h2 id="ff-launch-assistant-title">Ready-to-send campaign scripts</h2>
+    <p>Give the team one clean set of messages for parents, sponsors, and group chats.</p>
+  </div>
+
+  <div class="ff-launchAssistant__statusGrid">
+    <div>
+      <strong>Launch mode</strong>
+      <span>{{ ff_launch_mode|e }}</span>
+    </div>
+    <div>
+      <strong>Campaign link</strong>
+      <span>{{ ff_campaign_url|e }}</span>
+    </div>
+    <div>
+      <strong>Text lane</strong>
+      <span>{% if ff_text_number %}{{ ff_text_keyword|e }} → {{ ff_text_number|e }}{% else %}Provider details pending{% endif %}</span>
+    </div>
+  </div>
+
+  <div class="ff-launchAssistant__scripts">
+    <article>
+      <h3>Parent group chat</h3>
+      <textarea readonly data-ff-copy-source="parent-chat">Hi family — {{ ff_team_name }} is raising funds for the season. You can give securely here: {{ ff_campaign_url }}{% if ff_text_number %} or text {{ ff_text_keyword }} to {{ ff_text_number }}.{% endif %} Every gift helps cover travel, gear, and team costs.</textarea>
+      <button type="button" class="ff-button ff-button--ghost" data-ff-copy-button>Copy parent text</button>
+    </article>
+
+    <article>
+      <h3>Local sponsor ask</h3>
+      <textarea readonly data-ff-copy-source="sponsor-ask">Hi — {{ ff_team_name }} is looking for community sponsors for this season. Sponsor packages include public recognition on our campaign page and help support real team costs. You can view options here: {{ ff_campaign_url }}</textarea>
+      <button type="button" class="ff-button ff-button--ghost" data-ff-copy-button>Copy sponsor ask</button>
+    </article>
+
+    <article>
+      <h3>Text-to-Donate blast</h3>
+      <textarea readonly data-ff-copy-source="text-blast">{% if ff_text_number %}Support {{ ff_team_name }} today: text {{ ff_text_keyword }} to {{ ff_text_number }} or give online at {{ ff_campaign_url }}{% else %}Support {{ ff_team_name }} today: give securely at {{ ff_campaign_url }}. Text-to-Donate details can be added before public launch.{% endif %}</textarea>
+      <button type="button" class="ff-button ff-button--ghost" data-ff-copy-button>Copy text blast</button>
+    </article>
+  </div>
+</section>

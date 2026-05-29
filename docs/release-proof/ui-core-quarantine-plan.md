@@ -1,0 +1,106 @@
+# FutureFunded UI Core Quarantine Plan
+
+Generated from strict UI core manifest.
+
+## Active UI files
+
+- `apps/web/app/static/css/campaign.css`
+- `apps/web/app/static/css/dashboard.css`
+- `apps/web/app/static/css/ff.css`
+- `apps/web/app/static/css/login.css`
+- `apps/web/app/static/css/onboarding.css`
+- `apps/web/app/static/css/platform-home.css`
+- `apps/web/app/static/js/ff-app.js`
+- `apps/web/app/static/js/ff-campaign.js`
+- `apps/web/app/static/js/ff-checkout-direct.js`
+- `apps/web/app/static/js/ff-donation-payload-firewall.js`
+- `apps/web/app/static/js/ff-embedded-checkout.js`
+- `apps/web/app/static/js/ff-launch-completion.js`
+- `apps/web/app/static/js/ff-login.js`
+- `apps/web/app/static/js/ff-operator-dashboard.js`
+- `apps/web/app/static/js/ff-sponsor-modal-contract.js`
+- `apps/web/app/templates/_base/campaign_base.html`
+- `apps/web/app/templates/_base/site_base.html`
+- `apps/web/app/templates/_partials/ff_dashboard_launch_assistant.html`
+- `apps/web/app/templates/_partials/ff_onboarding_text_to_donate.html`
+- `apps/web/app/templates/campaign/_modals.html`
+- `apps/web/app/templates/campaign/index.html`
+- `apps/web/app/templates/legal/contact.html`
+- `apps/web/app/templates/platform/_provider_readiness_panel.html`
+- `apps/web/app/templates/platform/_sponsor_package_preview.html`
+- `apps/web/app/templates/platform/_sponsor_queue_preview.html`
+- `apps/web/app/templates/platform/dashboard.html`
+- `apps/web/app/templates/platform/dashboard_locked.html`
+- `apps/web/app/templates/platform/index.html`
+- `apps/web/app/templates/platform/login.html`
+- `apps/web/app/templates/platform/onboarding.html`
+
+## Candidate files to quarantine
+
+- `apps/web/app/static/css/campaign.bundle.css`
+- `apps/web/app/static/css/campaign.public.css`
+- `apps/web/app/static/css/dashboard.css.bak.locked-final-composition-20260522090718`
+- `apps/web/app/static/css/dashboard.css.bak.locked-real-design-20260522085405`
+- `apps/web/app/static/css/dashboard.css.bak.locked-tight-layout-20260522085940`
+- `apps/web/app/static/css/ff-checkout-csp.css`
+- `apps/web/app/static/css/ff.css.bak.global-foundation-closeout-20260522093246`
+- `apps/web/app/static/css/login.bundle.css`
+- `apps/web/app/static/css/onboarding.bundle.css`
+- `apps/web/app/static/css/onboarding.css.bak.workspace-polish-20260522092930`
+- `apps/web/app/static/js/csp-safe-init.js`
+- `apps/web/app/static/js/ff-analytics.js`
+- `apps/web/app/static/js/ff-campaign-actions-v1.js`
+- `apps/web/app/static/js/ff-campaign-amount-guard.js`
+- `apps/web/app/static/js/ff-campaign-enterprise.js`
+- `apps/web/app/static/js/ff-campaign-final-compression.js`
+- `apps/web/app/static/js/ff-campaign-flagship-enhance.js`
+- `apps/web/app/static/js/ff-campaign-intel.js`
+- `apps/web/app/static/js/ff-campaign-launch-guard-v2.js`
+- `apps/web/app/static/js/ff-campaign-live-fomo.js`
+- `apps/web/app/static/js/ff-cinematic-hero-v1.js`
+- `apps/web/app/static/js/ff-cinematic.js`
+- `apps/web/app/static/js/ff-distribution-v2.js`
+- `apps/web/app/static/js/ff-donation-modal-v2.js`
+- `apps/web/app/static/js/ff-homepage-executive.js`
+- `apps/web/app/static/js/ff-payment-provider-status.js`
+- `apps/web/app/static/js/ff-program-proof-v2.js`
+- `apps/web/app/static/js/ff-qr-modal.js`
+- `apps/web/app/static/js/ff-team-media-proof.js`
+- `apps/web/app/static/js/ff.momentum.js`
+- `apps/web/app/static/js/ff.sponsor-packages.js`
+- `apps/web/app/static/js/islands/donate.js`
+- `apps/web/app/static/js/islands/faq.js`
+- `apps/web/app/static/js/islands/onboarding.js`
+- `apps/web/app/static/js/islands/share.js`
+- `apps/web/app/static/js/islands/sponsor.js`
+- `apps/web/app/static/js/platform-nav.js`
+- `apps/web/app/templates/_base/platform_base.html`
+- `apps/web/app/templates/_partials/ff_mobile_donate_dock.html`
+- `apps/web/app/templates/_partials/ff_site_header.html`
+- `apps/web/app/templates/_partials/ff_support_methods_rail.html`
+- `apps/web/app/templates/_partials/ff_text_to_donate_card.html`
+- `apps/web/app/templates/campaign/_campaign_hero.html`
+- `apps/web/app/templates/campaign/_campaign_momentum_bar.html`
+- `apps/web/app/templates/campaign/_campaign_sponsor.html`
+- `apps/web/app/templates/campaign/_campaign_story.html`
+- `apps/web/app/templates/campaign/_campaign_trust_footer.html`
+- `apps/web/app/templates/campaign/_checkout_sheet.html`
+- `apps/web/app/templates/campaign/_hero.html`
+- `apps/web/app/templates/campaign/_public_sponsor_recognition.html`
+- `apps/web/app/templates/campaign/deprecated/README.md`
+- `apps/web/app/templates/campaign/deprecated/_chrome.html`
+- `apps/web/app/templates/campaign/deprecated/_close_band.html`
+- `apps/web/app/templates/campaign/deprecated/_distribution.html`
+- `apps/web/app/templates/campaign/deprecated/_donate_panel.html`
+- `apps/web/app/templates/campaign/deprecated/_faq.html`
+- `apps/web/app/templates/campaign/deprecated/_footer.html`
+- `apps/web/app/templates/campaign/deprecated/_hero.html`
+- `apps/web/app/templates/campaign/deprecated/_sponsor_lane.html`
+- `apps/web/app/templates/campaign/deprecated/_story.html`
+- `apps/web/app/templates/campaign/deprecated/_teams.html`
+- `apps/web/app/templates/campaign_premium.html`
+- `apps/web/app/templates/shared/_button.html`
+- `apps/web/app/templates/shared/_faq_item.html`
+- `apps/web/app/templates/shared/_pill.html`
+- `apps/web/app/templates/shared/_section_intro.html`
+- `apps/web/app/templates/shared/_stat_card.html`

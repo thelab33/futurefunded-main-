@@ -1,0 +1,73 @@
+{# FutureFunded onboarding authority partial: private Text-to-Donate setup #}
+<section class="ff-onboardTextDonate"
+         data-ff-onboarding-text-to-donate="p0-launch-completion"
+         data-ff-text-donate-setup
+         aria-labelledby="ff-onboard-text-title">
+  <div class="ff-onboardTextDonate__header">
+    <div>
+      <p class="ff-onboardKicker">Payment lane</p>
+      <h3 id="ff-onboard-text-title">Text-to-Donate setup</h3>
+      <p>Add SMS details here. The public campaign should only show this lane when it is enabled and complete.</p>
+    </div>
+
+    <span class="ff-onboardTextDonate__badge">Private setup</span>
+  </div>
+
+  <div class="ff-onboardTextDonate__grid">
+    <label>
+      <span>Provider</span>
+      <input name="text_to_donate_provider"
+             type="text"
+             autocomplete="organization"
+             value="Givebutter, Donorbox, Twilio, or Stripe link"
+             placeholder="Givebutter, Donorbox, Twilio, Stripe link...">
+    </label>
+
+    <label>
+      <span>Keyword</span>
+      <input name="text_to_donate_keyword"
+             type="text"
+             inputmode="latin"
+             autocomplete="off"
+             value="ATX"
+             placeholder="ATX">
+    </label>
+
+    <label>
+      <span>SMS number</span>
+      <input name="text_to_donate_number"
+             type="tel"
+             autocomplete="tel"
+             value="+1 512 000 0000"
+             placeholder="+1 512 000 0000">
+    </label>
+
+    <label>
+      <span>Fallback giving URL</span>
+      <input name="text_to_donate_fallback_url"
+             type="url"
+             autocomplete="url"
+             value="https://getfuturefunded.com/c/connect-atx-elite"
+             placeholder="https://getfuturefunded.com/c/connect-atx-elite">
+    </label>
+  </div>
+
+  <div class="ff-onboardTextDonate__copy">
+    <p>
+      Game-day message:
+      <strong data-ff-text-donate-preview>Text ATX to +1 512 000 0000 or give online at getfuturefunded.com/c/connect-atx-elite.</strong>
+    </p>
+
+    <button type="button"
+            class="ff-onboardButton ff-onboardButton--ghost"
+            data-ff-copy-button
+            data-ff-copy-text-donate>
+      Copy Text-to-Donate message
+    </button>
+  </div>
+
+  <label class="ff-onboardTextDonate__toggle">
+    <input name="text_to_donate_enabled" type="checkbox" value="1">
+    <span>Show Text-to-Donate as a public support option when this campaign goes live.</span>
+  </label>
+</section>

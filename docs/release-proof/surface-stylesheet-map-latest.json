@@ -1,0 +1,107 @@
+{
+  "platform_home": {
+    "exists": true,
+    "path": "apps/web/app/templates/platform/index.html",
+    "cssCount": 2,
+    "css": [
+      "platform.bundle.css",
+      "platform.bundle.css"
+    ],
+    "jsCount": 2,
+    "js": [
+      "ff-launch-completion.js",
+      "ff-homepage-executive.js"
+    ],
+    "includes": [],
+    "hasBundleCss": true
+  },
+  "campaign": {
+    "exists": true,
+    "path": "apps/web/app/templates/campaign/index.html",
+    "cssCount": 2,
+    "css": [
+      "campaign.bundle.css",
+      "campaign.bundle.css"
+    ],
+    "jsCount": 9,
+    "js": [
+      "ff-campaign.js",
+      "ff-donation-payload-firewall.js",
+      "ff-embedded-checkout.js",
+      "ff-checkout-direct.js",
+      "ff-campaign-enterprise.js",
+      "ff.sponsor-packages.js",
+      "ff.momentum.js",
+      "ff-launch-completion.js",
+      "ff-campaign-final-compression.js"
+    ],
+    "includes": [],
+    "hasBundleCss": true
+  },
+  "onboarding": {
+    "exists": true,
+    "path": "apps/web/app/templates/platform/onboarding.html",
+    "cssCount": 2,
+    "css": [
+      "onboarding.bundle.css",
+      "onboarding.bundle.css"
+    ],
+    "jsCount": 1,
+    "js": [
+      "ff-launch-completion.js"
+    ],
+    "includes": [
+      "_partials/ff_onboarding_text_to_donate.html"
+    ],
+    "hasBundleCss": true
+  },
+  "dashboard": {
+    "exists": true,
+    "path": "apps/web/app/templates/platform/dashboard.html",
+    "cssCount": 2,
+    "css": [
+      "dashboard.bundle.css",
+      "dashboard.bundle.css"
+    ],
+    "jsCount": 2,
+    "js": [
+      "ff-launch-completion.js",
+      "ff-dashboard-protected-exec.js"
+    ],
+    "includes": [
+      "_partials/ff_dashboard_launch_assistant.html",
+      "platform/_provider_readiness_panel.html",
+      "platform/_sponsor_queue_preview.html",
+      "platform/_sponsor_package_preview.html"
+    ],
+    "hasBundleCss": true
+  },
+  "dashboard_locked": {
+    "exists": true,
+    "path": "apps/web/app/templates/platform/dashboard_locked.html",
+    "cssCount": 2,
+    "css": [
+      "login.bundle.css",
+      "login.bundle.css"
+    ],
+    "jsCount": 0,
+    "js": [],
+    "includes": [],
+    "hasBundleCss": true
+  },
+  "login": {
+    "exists": true,
+    "path": "apps/web/app/templates/platform/login.html",
+    "cssCount": 2,
+    "css": [
+      "login.bundle.css",
+      "login.bundle.css"
+    ],
+    "jsCount": 1,
+    "js": [
+      "ff-login.js"
+    ],
+    "includes": [],
+    "hasBundleCss": true
+  }
+}

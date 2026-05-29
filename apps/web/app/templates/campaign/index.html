@@ -1,0 +1,1112 @@
+{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+{% macro nonce_attr() -%}
+  {%- set _n = (csp_nonce|default((g.csp_nonce if g is defined else ''), true))|string|trim -%}
+  {%- if _n -%}nonce="{{ _n|e }}"{%- endif -%}
+{%- endmacro %}
+
+{% macro ff_media_src(path) -%}
+  {%- set _path = (path|string|trim) if path else '' -%}
+  {%- if _path and (_path.startswith('http://') or _path.startswith('https://') or _path.startswith('/')) -%}
+    {{- _path|e -}}
+  {%- elif _path -%}
+    {{- url_for('static', filename=_path)|e -}}
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro money_label(value, fallback='$0') -%}
+  {%- set raw = value|default(fallback, true)|string|trim -%}
+  {%- set compact = raw|replace('$', '')|replace(',', '')|trim -%}
+  {%- if not raw -%}
+    {{- fallback -}}
+  {%- elif raw.startswith('$') -%}
+    {{- raw -}}
+  {%- elif compact|int > 0 -%}
+    ${{- "{:,}".format(compact|int) -}}
+  {%- else -%}
+    {{- raw -}}
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro donate_cta(label='Give securely', classes='ff-button ff-button--primary', href='#give') -%}
+  <a class="{{ classes }}"
+     href="{{ href|e }}"
+     data-ff-donate-cta
+     data-ff-open-checkout
+     data-ff-donate-trigger
+     data-ff-payment-trigger="true">{{ label|e }}</a>
+{%- endmacro %}
+
+{% macro share_button(label='Share campaign', classes='ff-button ff-button--ghost', full=false) -%}
+  <button class="{{ classes }}"
+          type="button"
+          data-ff-share
+          data-ff-share-trigger
+          data-ff-qr-trigger
+          data-ff-action="open-qr-modal"{% if full %}
+          data-ff-share-primary="true"{% endif %}>{{ label|e }}</button>
+{%- endmacro %}
+
+{% macro sponsor_cta(label='Sponsor the season', classes='ff-button ff-button--ghost', href='#sponsors', package='Season Sponsor') -%}
+  <a class="{{ classes }}"
+     href="{{ href|e }}"
+     data-ff-sponsor-package="{{ package|e }}"
+     data-ff-sponsor-cta
+     data-ff-open-sponsor
+     data-ff-sponsor-trigger
+     data-ff-action="open-sponsor-modal">{{ label|e }}</a>
+{%- endmacro %}
+
+{# FutureFunded Campaign Public Template — official-public-campaign-v5 / enterprise-dropin-2026-05 #}
+{% set _cfg = (config if config is defined and config is mapping else {}) %}
+{% set _team_config = (team_config if team_config is defined and team_config is mapping else {}) %}
+{% set _ff_identity_team_name = _cfg.get('FF_DEFAULT_TEAM_NAME')|default('Connect ATX Elite', true) %}
+{% set _ff_identity_campaign_slug = _cfg.get('FF_DEFAULT_CAMPAIGN_SLUG')|default('connect-atx-elite', true) %}
+{% set _ff_identity_location = _cfg.get('FF_DEFAULT_LOCATION')|default('Austin, TX', true) %}
+{% set _ff_identity_logo_url = _cfg.get('FF_DEFAULT_TEAM_LOGO_URL')|default('/static/images/teams/' ~ _ff_identity_campaign_slug ~ '/logo.jpg', true) %}
+{% set _requested_css_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else '')|string|trim %}
+{% set _default_asset_v = (campaign_css_rev|default(_cfg.get('FF_CAMPAIGN_CSS_REV'), true)|default(_cfg.get('FF_ASSET_V'), true)|default(_cfg.get('ASSET_V'), true)|default(_cfg.get('FF_BUILD_ID'), true)|default(_cfg.get('FF_VERSION'), true)|default('dev', true))|string|trim %}
+{% set _asset_v = (_requested_css_v if _requested_css_v else _default_asset_v)|string|trim %}
+{% if not _asset_v %}{% set _asset_v = 'dev' %}{% endif %}
+{% set _checkout_asset_v = checkout_asset_v|default(_cfg.get('FF_CHECKOUT_ASSET_REV'), true)|default(_asset_v, true)|string|trim %}
+{% set _theme = theme|default(_team_config.get('theme'), true)|default('light', true)|string|lower|trim %}
+{% if _theme not in ['light', 'dark'] %}{% set _theme = 'light' %}{% endif %}
+
+{% set _team_logo_url = team_logo_url|default(_team_config.get('team_logo_url'), true)|default(_ff_identity_logo_url, true)|string|trim %}
+{% set _team_name = team_name|default(_team_config.get('team_name'), true)|default(campaign.team_name if campaign is defined and campaign.team_name is defined else '', true)|default(campaign.name if campaign is defined and campaign.name is defined else '', true)|default(_cfg.get('FF_DEFAULT_TEAM_NAME'), true)|default(_ff_identity_team_name, true)|string|trim %}
+{% if not _team_name %}{% set _team_name = _ff_identity_team_name %}{% endif %}
+{% set _campaign_title = campaign_title|default(_team_config.get('campaign_title'), true)|default(campaign.title if campaign is defined and campaign.title is defined else '', true)|default('Fuel the season. Fund the future.', true)|string|trim %}
+{% if not _campaign_title %}{% set _campaign_title = 'Fuel the season. Fund the future.' %}{% endif %}
+{% set _campaign_accent = campaign_accent|default(_team_config.get('campaign_accent'), true)|default('Back the athletes.', true)|string|trim %}
+{% set _campaign_slug = campaign_slug|default(_team_config.get('campaign_slug'), true)|default(campaign.slug if campaign is defined and campaign.slug is defined else _cfg.get('FF_DEFAULT_CAMPAIGN_SLUG', _ff_identity_campaign_slug), true)|string|trim %}
+{% if not _campaign_slug %}{% set _campaign_slug = _ff_identity_campaign_slug %}{% endif %}
+{% set _campaign_url = campaign_url|default(_team_config.get('campaign_url'), true)|default('/c/' ~ _campaign_slug, true)|string|trim %}
+{% set _checkout_url = checkout_url|default(_team_config.get('checkout_url'), true)|default(_cfg.get('FF_CONNECT_ATX_ELITE_CHECKOUT_URL'), true)|default(_cfg.get('FF_DEFAULT_CHECKOUT_URL'), true)|default('', true)|string|trim %}
+{% set _hosted_checkout_url = _checkout_url %}
+{% set _donate_href = '#give' %}
+
+{% set _raised_raw = raised|default(_team_config.get('raised'), true)|default(campaign.raised_display if campaign is defined and campaign.raised_display is defined else '$11,850', true) %}
+{% set _goal_raw = goal|default(_team_config.get('goal'), true)|default(campaign.goal_display if campaign is defined and campaign.goal_display is defined else '$20,000', true) %}
+{% set _remaining_raw = remaining|default(_team_config.get('remaining'), true)|default(campaign.remaining_display if campaign is defined and campaign.remaining_display is defined else '$8,150', true) %}
+{% set _raised = money_label(_raised_raw, '$11,850')|string|trim %}
+{% set _goal = money_label(_goal_raw, '$20,000')|string|trim %}
+{% set _remaining = money_label(_remaining_raw, '$8,150')|string|trim %}
+{% set _supporters_raw = supporters|default(_team_config.get('supporters'), true)|default(campaign.supporters if campaign is defined and campaign.supporters is defined else 143, true) %}
+{% set _supporters_clean = (_supporters_raw|string|replace(',', '')|trim) %}
+{% set _supporters = _supporters_clean|int if _supporters_clean else 143 %}
+{% if _supporters <= 0 %}{% set _supporters = 143 %}{% endif %}
+{% set _supporters_display = "{:,}".format(_supporters|int) %}
+{% set _percent_raw = percent|default(_team_config.get('percent'), true)|default(campaign.percent if campaign is defined and campaign.percent is defined else '59%', true)|string|trim %}
+{% set _percent_int = (_percent_raw|replace('%', '')|replace(',', '')|int) %}
+{% if _percent_int < 0 %}{% set _percent_int = 0 %}{% elif _percent_int > 100 %}{% set _percent_int = 100 %}{% endif %}
+{% set _percent = _percent_int ~ '%' %}
+
+{% set _page_title = page_title|default(_team_config.get('page_title'), true)|default(_team_name ~ ' — ' ~ _campaign_title, true)|string|trim %}
+{% set _page_description = page_description|default(_team_config.get('page_description'), true)|default('Support ' ~ _team_name ~ ' with a secure donation or sponsor package. Gifts help cover travel, tournaments, meals, gym time, gear, and player essentials.', true)|string|trim %}
+{% if request is defined and request %}{% set _request_root = request.url_root|default('https://getfuturefunded.com/', true)|string %}{% else %}{% set _request_root = 'https://getfuturefunded.com/' %}{% endif %}
+{% set _canonical_url = canonical_url|default(_request_root.rstrip('/') ~ _campaign_url, true)|string|trim %}
+{% if _canonical_url and _canonical_url[:4] != 'http' %}{% set _canonical_url = _request_root.rstrip('/') ~ _canonical_url %}{% endif %}
+{% set _og_image_url = og_image_url|default(_team_config.get('og_image_url'), true)|default(url_for('static', filename='images/connect-atx-team.svg'), true)|string|trim %}
+{% set _qr_image_url = qr_image_url|default(_team_config.get('qr_image_url'), true)|default(url_for('static', filename=('images/qr-' ~ _ff_identity_campaign_slug ~ '.svg')), true)|string|trim %}
+{% set _story_video_url = story_video_url|default(_team_config.get('story_video_url'), true)|default(_team_config.get('team_video_url'), true)|default('', true)|string|trim %}
+{% set _story_image_url = story_image_url|default(_team_config.get('story_image_url'), true)|default(url_for('static', filename='images/connect-atx-team.svg'), true)|string|trim %}
+
+{% set _donation_amounts = donation_amounts|default(_team_config.get('donation_amounts'), true)|default([25, 50, 100, 250], true) %}
+{% set _impact_chips = impact_chips|default(_team_config.get('impact_chips'), true)|default([
+  {'amount': '$25', 'label': 'Meals + hydration', 'copy': 'Fuel athletes around practices and tournament days.'},
+  {'amount': '$50', 'label': 'Tournament support', 'copy': 'Offset entry fees, gym time, and weekend logistics.'},
+  {'amount': '$100', 'label': 'Player essentials', 'copy': 'Cover uniforms, gear, and season readiness.'},
+  {'amount': '$250', 'label': 'Team travel boost', 'copy': 'Reduce larger travel, lodging, and meal costs.'}
+], true) %}
+{% set _squad_cards = squad_cards|default(_team_config.get('squad_cards'), true)|default([
+  {'title': '6th Grade Gold', 'note': 'Travel + tournaments', 'image': 'images/program-proof/6th-grade.svg'},
+  {'title': '7th Grade Black', 'note': 'Entry fees + gear', 'image': 'images/7thBlack.png'},
+  {'title': '8th Grade Gold', 'note': 'Hotels + meals', 'image': 'images/program-proof/8th-grade.svg'},
+  {'title': '7th Grade Gold', 'note': 'Player development', 'image': 'images/program-proof/7th-grade.svg'}
+], true) %}
+{% set _team_cards = team_cards|default(_team_config.get('team_cards'), true)|default([
+  {'eyebrow': '6th Grade Gold', 'title': 'Elite kids. Big standards. Community.', 'cta': 'Support 6th Grade Gold', 'image': 'images/program-proof/6th-grade.svg'},
+  {'eyebrow': '7th Grade Gold', 'title': 'School, travel, gym, growth.', 'cta': 'Support 7th Grade Gold', 'image': 'images/program-proof/7th-grade.svg'}
+], true) %}
+{% set _sponsor_tiers = sponsor_tiers|default(_team_config.get('sponsor_tiers'), true)|default([
+  {'eyebrow': 'Community', 'title': 'Community Partner', 'price': '$300', 'copy': 'Family-safe recognition for local supporters who want to help.', 'benefits': ['Name or logo on campaign', 'Reviewed placement', 'Simple sponsor onboarding']},
+  {'eyebrow': 'Featured', 'title': 'Featured Sponsor', 'price': '$750', 'copy': 'Higher-visibility recognition for businesses backing the season.', 'benefits': ['Featured sponsor card', 'Thank-you moment', 'Sponsor-safe placement'], 'featured': true},
+  {'eyebrow': 'Season', 'title': 'Season Sponsor', 'price': '$1,500', 'copy': 'Premium season-level support for athletes, families, and community.', 'benefits': ['Premium placement', 'Custom sponsor spotlight', 'Season-level visibility']}
+], true) %}
+{% set _payment_return = request.args.get('payment', '') if request is defined and request else '' %}
+{% set _payment_session_id = request.args.get('session_id', '') if request is defined and request else '' %}
+{% set html_page = 'campaign' %}
+{% set ff_page = 'campaign' %}
+{% extends "_base/campaign_base.html" %}
+
+{% block html_class %}ff-root ff-no-js{% endblock %}
+{% block html_attrs %}
+data-theme="{{ _theme|e }}"
+      data-ff-theme="{{ _theme|e }}"
+      data-ff-page="campaign"
+      data-ff-template="campaign-official-v5"
+      data-ff-css-contract="ff-public-official-v5"
+      data-ff-polish-version="enterprise-dropin-v1"
+
+{% endblock %}
+{% block body_class %}ff-body ff-campaignBody{% endblock %}
+{% block body_attrs %}
+data-ff-mode="season" data-ff-surface="campaign" data-ff-system-loop="campaign-premium"
+data-ff-page="campaign"
+data-ff-template="campaign-index-on-campaign-base-v1"
+{% endblock %}
+
+{% block page_title %}{{ _page_title|striptags|e }}{% endblock %}
+{% block title %}{{ _page_title|striptags|e }}{% endblock %}
+
+{% block page_description %}
+{{ _page_description|striptags|e }}
+{% endblock %}
+
+{% block campaign_head_extras %}
+<script id="ffSponsorContract" type="application/json" data-ff-sponsor-contract data-ff-sponsor-contract-script {{ nonce_attr() }}>
+  {"surface":"campaign","contract":"sponsor-packages-v2","version":"campaign-official-v5","selectors":{"sponsorSection":"#sponsors","sponsorInterest":"[data-ff-sponsor-cta], [data-ff-open-sponsor], [data-ff-sponsor-trigger]","sponsorPackage":"[data-ff-sponsor-package]","sponsorForm":"[data-ff-sponsor-form]","sponsorModal":"[data-ff-sponsor-modal]"},"trust":{"reviewedPlacement":true,"familySafe":true,"sponsorSafe":true,"noLogoSpam":true}}
+  </script>
+<script id="ffCampaignConfig" type="application/json" {{ nonce_attr() }}>
+  {
+    "app": {
+      "name": "FutureFunded",
+      "surface": "campaign",
+      "template": "campaign-official-v5",
+      "assetVersion": {{ _asset_v|tojson }},
+      "theme": {{ _theme|tojson }}
+    },
+    "campaign": {
+      "name": {{ _team_name|tojson }},
+      "title": {{ _campaign_title|tojson }},
+      "accent": {{ _campaign_accent|tojson }},
+      "slug": {{ _campaign_slug|tojson }},
+      "url": {{ _campaign_url|tojson }},
+      "canonicalUrl": {{ _canonical_url|tojson }},
+      "checkoutUrl": {{ _checkout_url|tojson }},
+      "raised": {{ _raised|tojson }},
+      "goal": {{ _goal|tojson }},
+      "remaining": {{ _remaining|tojson }},
+      "percent": {{ _percent|tojson }},
+      "percentInt": {{ _percent_int|int }},
+      "supporters": {{ _supporters|int }}
+    },
+    "payments": {
+      "configUrl": {{ ('/c/' ~ _campaign_slug ~ '/payments/config')|tojson }},
+      "checkoutSessionUrl": {{ ('/c/' ~ _campaign_slug ~ '/checkout/session')|tojson }},
+      "paypalCreateUrl": {{ ('/c/' ~ _campaign_slug ~ '/paypal/orders')|tojson }},
+      "provider": "stripe"
+    }
+  }
+  </script>
+<script {{ nonce_attr() }}>document.documentElement.classList.remove('ff-no-js');</script>
+<meta name="format-detection" content="telephone=no,date=no,address=no,email=no" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<meta name="color-scheme" content="light dark" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+<link rel="canonical" href="{{ _canonical_url|e }}" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff8ef" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#07111f" />
+<meta property="og:site_name" content="FutureFunded" />
+<meta property="og:title" content="{{ _page_title|striptags|e }}" />
+<meta property="og:description" content="{{ _page_description|striptags|e }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ _canonical_url|e }}" />
+<meta property="og:image" content="{{ _request_root.rstrip('/') ~ _og_image_url if _og_image_url.startswith('/') else _og_image_url }}" />
+<meta property="og:image:alt" content="{{ _team_name|e }} team fundraising campaign story" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://js.stripe.com" crossorigin />
+{% endblock %}
+
+{% block campaign_styles %}
+<link rel="preload" as="style" href="{{ url_for('static', filename='css/campaign.css') }}?v={{ _asset_v|e }}" data-ff-page-css-preload="campaign.css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/campaign.css') }}?v={{ _asset_v|e }}" data-ff-page-css="campaign.css" data-ff-campaign-css-authority data-ff-checkout-css-contract />
+{% endblock %}
+
+{% block content %}
+  <a class="ff-skip" href="#campaign-main">Skip to campaign</a>
+
+    <div class="ff-page ff-campaignPage"
+         data-ff-page-root
+         data-ff-campaign-page
+         data-campaign-slug="{{ _campaign_slug|e }}"{% if _checkout_url %}
+         data-checkout-url="{{ _checkout_url|e }}"{% endif %}>
+
+      {% if _payment_return in ['success', 'cancelled', 'canceled'] %}
+        <section class="ff-paymentReturn" data-ff-payment-return="{{ _payment_return|e }}" data-ff-session-id="{{ _payment_session_id|e }}" aria-live="polite">
+          <div class="ff-paymentReturn__card">
+            <div class="ff-paymentReturn__icon" aria-hidden="true">{% if _payment_return == 'success' %}✓{% else %}!{% endif %}</div>
+            <div class="ff-paymentReturn__copy">
+              {% if _payment_return == 'success' %}
+                <p class="ff-eyebrow">Donation received</p>
+                <h2>Thank you for backing {{ _team_name }}.</h2>
+                <p data-ff-payment-return-status>Confirming your secure payment with Stripe…</p>
+              {% else %}
+                <p class="ff-eyebrow">Checkout not completed</p>
+                <h2>Your donation was not completed.</h2>
+                <p data-ff-payment-return-status>You can safely try again.</p>
+              {% endif %}
+            </div>
+            <div class="ff-paymentReturn__actions">
+              <a class="ff-button ff-button--primary" href="#impact">See impact</a>
+              {{ share_button('Share campaign') }}
+            </div>
+          </div>
+        </section>
+      {% endif %}
+
+      {{ ff_shell_header(
+    mode='campaign',
+    brand_name=_team_name|default('Connect ATX Elite', true),
+    context='Live season fund',
+    brand_href='/c/connect-atx-elite',
+    nav_items=[
+      {'label':'Impact','href':'#impact'},
+      {'label':'Sponsors','href':'#sponsors'},
+      {'label':'Team','href':'#team'},
+      {'label':'Help','href':'#faq'}
+    ],
+    actions=[
+      {'label':'Share','element':'button','tone':'ghost','attrs':'type="button" data-ff-share-trigger aria-label="Share campaign"'},
+      {'label':'Give securely','element':'button','tone':'primary','attrs':'type="button" data-ff-open-checkout aria-label="Give securely"'}
+    ],
+    extra_class='ffShellHeader--campaignPublic'
+  ) }}
+
+      <main id="campaign-main" class="ff-main ff-campaignMain" data-ff-campaign-main data-ff-surface-root="campaign">
+        <section class="ff-campaignHero" id="campaign-hero" data-ff-campaign-hero data-ff-legacy-story-anchor aria-labelledby="campaign-title">
+          <div class="ff-shell ff-campaignHero__grid">
+            <article class="ff-campaignHero__story ff-campaignHero__story--renderLocked ff-card ff-card--hero" data-ff-reveal>
+              <div class="ff-pillRow" aria-label="Campaign trust signals">
+                <span class="ff-pill ff-pill--hot">Live fundraiser</span>
+                <span class="ff-pill">Secure checkout</span>
+                <span class="ff-pill">Sponsor-ready</span>
+              </div>
+
+              <div class="ff-headingStack">
+                <p class="ff-eyebrow">{{ _team_name }} · {{ _ff_identity_location }}</p>
+                <h1 class="ff-heroTitle" id="campaign-title">{{ _campaign_title }} <span>{{ _campaign_accent }}</span></h1>
+                <p class="ff-lede">Give once. Share fast. Help athletes show up ready.</p>
+              </div>
+
+              <div class="ff-actions ff-heroActions" aria-label="Primary campaign actions">
+                {{ donate_cta('Give securely', 'ff-button ff-button--primary ff-button--xl', _donate_href) }}
+                {{ sponsor_cta('Sponsor the season', 'ff-button ff-button--ghost ff-button--xl', '#sponsors', 'Season Sponsor') }}
+              </div>
+
+              <div class="ff-statGrid ff-statGrid--hero" aria-label="Campaign summary">
+                <article><span>Raised</span><strong>{{ _raised }}</strong></article>
+                <article><span>Still needed</span><strong>{{ _remaining }}</strong></article>
+                <article><span>Progress</span><strong>{{ _percent }}</strong></article>
+              </div>
+
+              <div class="ff-assuranceBand">
+                <strong>Clear, trusted, season-ready.</strong>
+                <span>Secure giving, sponsor-safe recognition, and visible progress.</span>
+              </div>
+
+              <div class="ff-campaignTrustLine ff-campaignTrustLine--hero" aria-label="Campaign trust signals">
+                <span>Secure checkout</span>
+                <span>Receipts by email</span>
+                <span>Sponsor-safe</span>
+              </div>
+
+              <div class="ff-useOfFundsStrip" aria-label="Use of funds">
+                <span>Travel</span>
+                <span>Gym time</span>
+                <span>Uniforms</span>
+                <span>Tournament fees</span>
+              </div>
+            </article>
+
+            <aside class="ff-donatePanel ff-card" id="give" data-ff-donation-card aria-labelledby="donate-title" data-ff-reveal>
+              <div class="ff-donatePanel__header">
+                <p class="ff-eyebrow">Give securely</p>
+                <h2 id="donate-title">Back the season.</h2>
+                <p>Choose an amount. Complete checkout securely.</p>
+              </div>
+
+              <section class="ff-progressBox" data-ff-progress="{{ _percent_int }}" aria-label="Fundraising progress">
+                <div class="ff-progressBox__top">
+                  <span>Progress</span>
+                  <strong>{{ _raised }} / {{ _goal }}</strong>
+                </div>
+                <div class="ff-progressTrack" aria-hidden="true">
+                  <span class="ff-progressBar ff-progressBar--{{ _percent_int }}" data-ff-progress-bar data-ff-progress-value="{{ _percent_int }}"></span>
+                </div>
+                <div class="ff-progressBox__meta">
+                  <span>{{ _percent }} funded</span>
+                  <span>{{ _supporters_display }} supporters</span>
+                </div>
+              </section>
+
+              <form class="ff-donateForm" action="{{ _hosted_checkout_url if _hosted_checkout_url else _donate_href }}" method="post" data-ff-donation-form data-ff-checkout-form>
+                <div class="ff-donationAmounts" role="group" aria-label="Choose a donation amount">
+                  {% for amount in _donation_amounts %}
+                    {% set _amount = amount|int %}
+                    <button class="ff-donationAmount"
+                            type="button"
+                            data-ff-amount-button
+                            data-ff-amount="{{ _amount }}"
+                            data-ff-donation-amount="{{ _amount }}"
+                            data-ff-checkout-amount="{{ _amount }}"
+                            data-ff-amount-cents="{{ _amount * 100 }}"
+                            aria-pressed="{{ 'true' if _amount == 50 else 'false' }}"
+                            aria-label="Select ${{ _amount }} donation">${{ _amount }}</button>
+                  {% endfor %}
+                </div>
+
+                <label class="ff-formField" for="custom-amount">
+                  <span>Custom amount</span>
+                  <input class="ff-input" id="custom-amount" type="number" min="1" step="1" inputmode="numeric" name="custom_amount" value="50" placeholder="Enter amount" autocomplete="off" data-ff-custom-amount data-ff-checkout-custom-input />
+                </label>
+
+                <button class="ff-button ff-button--primary ff-button--full ff-donateSubmit"
+                        type="button"
+                        data-ff-open-checkout
+                        data-ff-donate-trigger
+                        data-ff-payment-trigger
+                        data-ff-donate-submit
+                        data-ff-checkout-amount="50">Continue securely</button>
+              </form>
+
+              <div class="ff-donorTrustStrip" aria-label="Donation trust signals">
+                <span>Stripe-ready</span>
+                <span>Receipt email</span>
+                <span>Team verified</span>
+              </div>
+              <div class="ff-donatePanel__proof ff-campaignTrustLine" aria-label="Giving trust details">
+                <span>Receipts by email</span>
+                <span>Protected checkout</span>
+                <span>Team verified</span>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="ff-campaignSection ff-proofMarquee" aria-labelledby="squad-title">
+          <div class="ff-shell">
+            <div class="ff-sectionPanel ff-card" data-ff-reveal>
+              <div class="ff-sectionHeader ff-sectionHeader--center">
+                <p class="ff-eyebrow">Meet the squad</p>
+                <h2 id="squad-title">Real players. Real season ahead.</h2>
+                <p>Real teams. Real costs. A season worth backing.</p>
+              </div>
+
+              <div class="ff-squadRail" aria-label="Team groups">
+                {% for card in _squad_cards %}
+                  {% set ff_squad_fallback_src = url_for('static', filename=loop.cycle('images/program-proof/6th-grade.svg', 'images/program-proof/7th-grade.svg', 'images/7thBlack.png', 'images/program-proof/8th-grade.svg', 'images/connect-atx-team.svg')) %}
+                  {% set ff_squad_media_src = ff_media_src(card.get('image')) if card.get('image') else ff_squad_fallback_src %}
+                  {% set _squad_title = card.get('title')|default('Program team', true) %}
+                  {% set _squad_note = card.get('note')|default('Season support', true) %}
+                  <article class="ff-squadCard" data-ff-squad-card>
+                    <div class="ff-squadCard__media" data-ff-media-bound="true">
+                      <img src="{{ ff_squad_media_src }}" alt="{{ _squad_title|e }} team photo" width="1200" height="800" loading="lazy" decoding="async" />
+                      <span>Support</span>
+                    </div>
+                    <div>
+                      <strong>{{ _squad_title }}</strong>
+                      <small>{{ _squad_note }}</small>
+                    </div>
+                  </article>
+                {% endfor %}
+              </div>
+
+              <div class="ff-sectionFooter">
+                <div>
+                  <strong>Back the full program.</strong>
+                  <span>Support travel, meals, gear, gym time, and tournament costs across the season.</span>
+                </div>
+                {{ share_button('Copy campaign link', 'ff-button ff-button--ghost') }}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ff-campaignSection" id="impact" aria-labelledby="impact-title">
+          <div class="ff-shell">
+            <div class="ff-sectionPanel ff-card" data-ff-reveal>
+              <div class="ff-sectionHeader">
+                <div>
+                  <p class="ff-eyebrow">Impact</p>
+                  <h2 id="impact-title">What support covers.</h2>
+                  <p>Every amount supports the season directly.</p>
+                </div>
+                <div class="ff-campaignTrustLine ff-campaignTrustLine--impact" aria-label="Impact giving assurance">
+                  <span>Pick an amount above</span>
+                  <span>Every gift supports season costs</span>
+                </div>
+              </div>
+
+              <div class="ff-impactGrid" aria-label="Donation impact options">
+                {% for chip in _impact_chips %}
+                  {% set _chip_amount = chip.get('amount')|default('$50', true)|replace('$', '')|replace(',', '')|int %}
+                  {# hoi-6m4-chip-amount-loop-static-v1 #}
+                  <article class="ff-impactChip ff-impactChip--static" aria-label="{{ chip.get('amount') }} impact: {{ chip.get('label') }}">
+                    <span>{{ chip.get('amount') }}</span>
+                    <strong>{{ chip.get('label') }}</strong>
+                    <p>{{ chip.get('copy')|default('Shows how this amount helps the season.', true) }}</p>
+                  </article>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ff-campaignSection" id="sponsors" aria-labelledby="sponsors-title">
+          <div class="ff-shell">
+            <div class="ff-sectionPanel ff-card" data-ff-reveal>
+              <div class="ff-sectionHeader ff-sectionHeader--center">
+                <p class="ff-eyebrow">Sponsor support</p>
+                <h2 id="sponsors-title">A cleaner way to back the season.</h2>
+                <p>Clean sponsor packages with reviewed public recognition.</p>
+              </div>
+
+              <div class="ff-sponsorGrid" aria-label="Sponsor packages">
+                {% for tier in _sponsor_tiers %}
+                  {% set _tier_title = tier.get('title') if tier.get('title') and tier.get('title') != 'None' else loop.cycle('Community Partner', 'Featured Sponsor', 'Season Sponsor') %}
+                  {% set _tier_eyebrow = tier.get('eyebrow') if tier.get('eyebrow') and tier.get('eyebrow') != 'None' else loop.cycle('Community', 'Featured', 'Season') %}
+                  {% set _tier_price = tier.get('price') if tier.get('price') and tier.get('price') != 'None' else loop.cycle('$300', '$750', '$1,500') %}
+                  {% set _tier_copy = tier.get('copy') if tier.get('copy') and tier.get('copy') != 'None' else 'Clean sponsor recognition for supporters and local businesses.' %}
+                  <article class="ff-sponsorCard ff-card" {% if tier.get('featured') %}data-featured="true"{% endif %} data-ff-sponsor-package="{{ _tier_title|e }}" data-ff-sponsor-tier>
+                    <div class="ff-sponsorCard__head">
+                      <span>{{ _tier_eyebrow }}</span>
+                      {% if tier.get('featured') %}<em>Popular</em>{% endif %}
+                    </div>
+                    <h3>{{ _tier_title }}</h3>
+                    <strong>{{ _tier_price }}</strong>
+                    <p>{{ _tier_copy }}</p>
+                    <ul>
+                      {% if tier.get('benefits') %}
+                        {% for benefit in tier.get('benefits', []) %}<li>{{ benefit }}</li>{% endfor %}
+                      {% else %}
+                        <li>Reviewed recognition</li>
+                        <li>Family-safe placement</li>
+                        <li>Simple sponsor onboarding</li>
+                      {% endif %}
+                    </ul>
+                    <a class="ff-button {% if tier.get('featured') %}ff-button--primary{% else %}ff-button--ghost{% endif %} ff-button--full"
+                       href="#sponsor-form"
+                       data-ff-sponsor-package="{{ _tier_title|e }}"
+                       data-ff-sponsor-cta
+                       data-ff-open-sponsor
+                       data-ff-sponsor-trigger
+                       data-ff-sponsor-tier="{{ _tier_title|e }}"
+                       data-ff-action="open-sponsor-modal">Choose {{ _tier_title }}</a>
+                  </article>
+                {% endfor %}
+              </div>
+
+              <form class="ff-sponsorForm ff-sponsorForm--contractOnly" id="sponsor-form" data-ff-sponsor-form aria-label="Sponsor interest form">
+                <input type="hidden" name="package" data-ff-sponsor-package-input />
+                <input type="hidden" name="package_key" data-ff-sponsor-package-key-input />
+                <input type="hidden" name="package_name" data-ff-sponsor-package-name-input />
+                <input type="hidden" name="package_amount" data-ff-sponsor-package-amount-input />
+                <input type="hidden" name="sponsor_intent" value="package" />
+                <button class="ff-sponsorForm__submit" type="submit" data-ff-sponsor-submit data-ff-open-sponsor-checkout tabindex="-1" aria-hidden="true">Continue sponsor package</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="ff-campaignSection" id="team" aria-labelledby="team-title">
+          <div class="ff-shell">
+            <div class="ff-sectionPanel ff-card" data-ff-reveal>
+              <div class="ff-sectionHeader ff-sectionHeader--center">
+                <p class="ff-eyebrow">Teams behind the campaign</p>
+                <h2 id="team-title">Support the athletes behind {{ _team_name }}.</h2>
+                <p>Support a team or the full program fund.</p>
+              </div>
+
+              <div class="ff-statGrid">
+                <article><strong>{{ _supporters_display }}</strong><span>Total backers</span></article>
+                <article><strong>{{ _raised }}</strong><span>Raised this season</span></article>
+                <article><strong>{{ _team_cards|length }}</strong><span>Featured teams</span></article>
+              </div>
+
+              <div class="ff-teamGrid">
+                {% for team in _team_cards %}
+                  {% set ff_team_fallback_src = url_for('static', filename=loop.cycle('images/program-proof/6th-grade.svg', 'images/program-proof/7th-grade.svg', 'images/program-proof/8th-grade.svg', 'images/connect-atx-team.svg')) %}
+                  {% set ff_team_media_src = ff_media_src(team.get('image')) if team.get('image') else ff_team_fallback_src %}
+                  {% set _team_label = team.get('eyebrow')|default('Program team', true) %}
+                  {% set _team_title = team.get('title')|default('Support this team', true) %}
+                  {% set _team_cta = team.get('cta')|default('Support this team', true) %}
+                  <article class="ff-teamCard ff-card" data-ff-team-card>
+                    <img src="{{ ff_team_media_src }}" alt="{{ _team_label|e }} team photo" width="1600" height="1000" loading="lazy" decoding="async" />
+                    <div class="ff-teamCard__body">
+                      <span>{{ _team_label }}</span>
+                      <h3>{{ _team_title }}</h3>
+                      <p>Help cover travel, meals, tournament fees, gym time, gear, and player development.</p>
+                      <ul>
+                        <li>Travel and tournament support</li>
+                        <li>Meals and hydration</li>
+                        <li>Gym time and gear</li>
+                      </ul>
+                      <div class="ff-actions ff-actions--stack ff-teamCard__actions">
+                        <a class="ff-button ff-button--primary" href="{{ _donate_href }}" data-ff-open-checkout data-ff-donate-trigger data-ff-payment-trigger data-ff-team-support="{{ _team_label|e }}">{{ _team_cta }}</a>
+                      </div>
+                    </div>
+                  </article>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ff-campaignSection" id="story" aria-labelledby="story-title">
+          <div class="ff-shell">
+            <div class="ff-storySplit ff-card" data-ff-reveal>
+              <div class="ff-storyMedia">
+                {% if _story_video_url %}
+                  <a class="ff-storyPoster" href="{{ _story_video_url|e }}" target="_blank" rel="noopener noreferrer" data-ff-story-video-link aria-label="Watch {{ _team_name|e }} story video">
+                {% else %}
+                  <div class="ff-storyPoster" data-ff-story-video-preview role="img" aria-label="{{ _team_name|e }} campaign story media">
+                {% endif %}
+                    <img src="{{ _story_image_url|e }}" alt="{{ _team_name|e }} campaign story image" width="1600" height="900" loading="lazy" decoding="async" />
+                    <span class="ff-storyPoster__play" aria-hidden="true">▶</span>
+                    <span class="ff-storyPoster__label">
+                      <small>Watch the clip</small>
+                      <strong>{{ _team_name }} season story</strong>
+                    </span>
+                {% if _story_video_url %}</a>{% else %}</div>{% endif %}
+              </div>
+
+              <div class="ff-storyCopy">
+                <p class="ff-eyebrow">Season story</p>
+                <h2 id="story-title">Built on reps, travel, and real support.</h2>
+                <p>Every weekend takes gym time, travel, meals, gear, coaches, and family support.</p>
+                <div class="ff-miniGrid">
+                  <article><span>01</span><strong>Gym time</strong><p>Practice space and skill work.</p></article>
+                  <article><span>02</span><strong>Travel weekends</strong><p>Hotels, rides, meals, hydration.</p></article>
+                  <article><span>03</span><strong>Player essentials</strong><p>Uniforms, gear, recovery items.</p></article>
+                </div>
+                <div class="ff-campaignTrustLine ff-campaignTrustLine--story" aria-label="Story support assurance">
+                  <span>Give from the secure panel</span>
+                  <span>Sponsor recognition is reviewed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ff-campaignSection" id="faq" aria-labelledby="faq-title" data-ff-faq-mini>
+          <div class="ff-shell ff-faqLayout">
+            <div class="ff-faqIntro">
+              <p class="ff-eyebrow">Quick answers</p>
+              <h2 id="faq-title">The essentials before you give.</h2>
+              <p>Quick clarity before giving.</p>
+            </div>
+            <div class="ff-faqList">
+              <details class="ff-faqItem">
+                <summary><span>Where does the money go?</span></summary>
+                <p>Contributions help cover tournament fees, travel, meals, hydration, uniforms, gym time, gear, and player essentials.</p>
+              </details>
+              <details class="ff-faqItem">
+                <summary><span>Is checkout secure?</span></summary>
+                <p>Yes. Payments are completed through secure checkout providers. FutureFunded does not store donor card numbers.</p>
+              </details>
+              <details class="ff-faqItem">
+                <summary><span>How do sponsors work?</span></summary>
+                <p>Sponsors choose a package, then recognition is reviewed before appearing publicly so the campaign stays clean and family-safe.</p>
+              </details>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="ff-campaignFooter ff-footer" data-ff-campaign-footer role="contentinfo">
+        <div class="ff-shell ff-campaignFooter__grid">
+          <section class="ff-campaignFooter__closing" aria-labelledby="final-title">
+            <p class="ff-eyebrow">Final push</p>
+            <h2 id="final-title">Help {{ _team_name }} finish strong.</h2>
+            <p>Give, share, or sponsor. Every action moves the season forward.</p>
+            <div class="ff-campaignFooter__meta">
+              <span><strong>{{ _percent }}</strong> funded</span>
+              <span><strong>{{ _raised }}</strong> raised</span>
+              <span><strong>{{ _supporters_display }}</strong> supporters</span>
+            </div>
+          </section>
+          <nav class="ff-campaignFooter__nav" aria-label="Campaign footer links">
+            <a href="#impact">Impact</a>
+            <a href="#team">Team</a>
+            <a href="#sponsors">Sponsors</a>
+            <a href="#faq">Help</a>
+          </nav>
+          <div class="ff-campaignFooter__actions">
+            {{ donate_cta('Support now', 'ff-button ff-button--primary', _donate_href) }}
+            {{ share_button('Share', 'ff-button ff-button--ghost') }}
+          </div>
+        </div>
+      </footer>
+
+      <div class="ff-mobileDonateBar" data-ff-mobile-rail data-ff-mobile-conversion-rail aria-label="Mobile donate bar">
+        <div>
+          <strong>{{ _raised }} raised</strong>
+          <span>{{ _percent }} of {{ _goal }} · {{ _supporters_display }} supporters</span>
+        </div>
+        {{ donate_cta('Give', 'ff-button ff-button--primary', _donate_href) }}
+      </div>
+
+      <span id="share-anchor" hidden></span>
+      <div class="ff-shareDrawer" id="qr-modal" data-ff-share-drawer data-ff-qr-modal data-ff-share-url="{{ _canonical_url|e }}" hidden aria-hidden="true">
+        <button class="ff-shareDrawer__backdrop" type="button" data-ff-share-close data-ff-close-qr-modal aria-label="Close share drawer"></button>
+        <div class="ff-shareDrawer__panel" role="dialog" aria-modal="true" aria-labelledby="ff-share-title">
+          <button class="ff-shareDrawer__close" type="button" data-ff-share-close data-ff-close-qr-modal aria-label="Close share drawer">×</button>
+          <div class="ff-shareDrawer__head">
+            <p class="ff-eyebrow">Share campaign</p>
+            <h2 id="ff-share-title">Send {{ _team_name }} to supporters.</h2>
+            <p>Copy the link or scan the QR code to bring in families, fans, alumni, and local sponsors.</p>
+          </div>
+          <div class="ff-shareDrawer__body">
+            <div class="ff-shareDrawer__qr" aria-label="Campaign QR code">
+              <img src="{{ _qr_image_url|e }}" alt="QR code for {{ _team_name|e }} fundraiser" width="180" height="180" loading="lazy" decoding="async" />
+            </div>
+            <div class="ff-shareDrawer__copyBlock">
+              <label class="ff-shareDrawer__field" for="qr-modal-share-url">
+                <span>Campaign link</span>
+                <input id="qr-modal-share-url" readonly value="{{ _canonical_url|e }}" data-ff-qr-share-url data-ff-share-url-input aria-label="Campaign link" />
+              </label>
+              <button class="ff-button ff-button--primary ff-button--full" type="button" data-ff-copy-share-url data-ff-copy-trigger data-ff-copy-target="#qr-modal-share-url" data-ff-copy-link>Copy link</button>
+              <p class="ff-secureNote">Sharing helps the campaign reach families, alumni, local businesses, and community supporters.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ff-sponsorModal" id="sponsor-modal" data-ff-sponsor-modal data-ff-sponsor-sheet hidden aria-hidden="true">
+        <button class="ff-sponsorModal__backdrop" type="button" data-ff-sponsor-close aria-label="Close sponsor options"></button>
+        <section class="ff-sponsorModal__panel" role="dialog" aria-modal="true" aria-labelledby="ff-sponsor-modal-title" tabindex="-1">
+          <button class="ff-sponsorModal__close" type="button" data-ff-sponsor-close aria-label="Close sponsor options">×</button>
+          <p class="ff-eyebrow">Sponsor interest</p>
+          <h2 id="ff-sponsor-modal-title">Choose a package. Keep it polished.</h2>
+          <p>Sponsor recognition is reviewed so the page stays clean, credible, and family-safe.</p>
+          <div class="ff-sponsorModal__summary" data-ff-sponsor-modal-summary>
+            <strong data-ff-sponsor-selected-package>Season Sponsor</strong>
+            <span>Send sponsor details, then review placement.</span>
+          </div>
+          <form class="ff-sponsorModal__form" data-ff-sponsor-modal-form>
+            <label class="ff-formField">
+              <span>Name or business</span>
+              <input class="ff-input" name="sponsor_name" autocomplete="organization" placeholder="Business or family name" />
+            </label>
+            <label class="ff-formField">
+              <span>Email</span>
+              <input class="ff-input" type="email" name="sponsor_email" autocomplete="email" placeholder="email@example.com" />
+            </label>
+            <button class="ff-button ff-button--primary ff-button--full" type="submit" data-ff-sponsor-modal-submit>Send sponsor interest</button>
+          </form>
+        </section>
+      </div>
+
+      {% set ff_checkout_team = _team_name|default(ff_team_name|default(_cfg.get('FF_DEFAULT_TEAM_NAME'), true)|default(_ff_identity_team_name, true), true) %}
+      {% set ff_checkout_default_amount = ff_default_amount|default(50, true)|int %}
+      <div class="ff-embeddedCheckout ff-checkoutModal" id="checkout" data-ff-embedded-checkout-shell data-ff-checkout-sheet data-ff-checkout-modal data-ff-donation-modal data-ff-state="closed" data-ff-modal-state="closed" data-ff-checkout-state="closed" aria-hidden="true" hidden>
+        <button class="ff-embeddedCheckout__backdrop" type="button" data-ff-close-embedded-checkout aria-label="Close checkout"></button>
+        <section class="ff-embeddedCheckout__panel ff-checkoutModal__panel" data-ff-embedded-checkout-panel role="dialog" aria-modal="true" aria-labelledby="ff-embedded-checkout-title" tabindex="-1" id="donate">
+          <header class="ff-embeddedCheckout__head ff-checkoutModal__head">
+            <div>
+              <p class="ff-eyebrow">Secure donation</p>
+              <h2 id="ff-embedded-checkout-title">Complete your donation</h2>
+              <p data-ff-embedded-checkout-status>Choose your amount, add your receipt email, then continue to secure payment.</p>
+            </div>
+            <button class="ff-button ff-button--ghost" type="button" data-ff-close-embedded-checkout aria-label="Close checkout">Close</button>
+          </header>
+
+          <div class="ff-embeddedCheckout__body ff-checkoutModal__body">
+            <div class="ff-embeddedCheckout__trust ff-checkoutTrust" aria-label="Checkout trust notes">
+              <span>Processed by Stripe</span>
+              <span>Email receipt</span>
+              <span>No FutureFunded account required</span>
+            </div>
+
+            <div class="ff-checkoutEnterprise" data-ff-checkout-enterprise>
+              <aside class="ff-checkoutPrep" data-ff-checkout-prep aria-label="Donation details">
+                <div class="ff-checkoutPrep__top">
+                  <span class="ff-eyebrow">Donation details</span>
+                  <h3>Choose how you want to help.</h3>
+                  <p>Pick an amount, review the impact, then complete your payment securely through Stripe.</p>
+                </div>
+
+                <div class="ff-checkoutAmountGrid" role="group" aria-label="Donation amount options">
+                  {% for amount in _donation_amounts %}
+                    {% set _amount = amount|int %}
+                    <button type="button"
+                            class="ff-checkoutAmount{% if _amount == ff_checkout_default_amount %} is-selected{% endif %}"
+                            data-ff-amount-button="checkout"
+                            data-ff-checkout-amount="{{ _amount }}"
+                            data-ff-donation-amount="{{ _amount }}"
+                            data-ff-amount-cents="{{ _amount * 100 }}"
+                            aria-pressed="{{ 'true' if _amount == ff_checkout_default_amount else 'false' }}">
+                      <strong>${{ _amount }}</strong>
+                      <span>{% if _amount == 25 %}Meals{% elif _amount == 50 %}Tournament fees{% elif _amount == 100 %}Player support{% else %}Team boost{% endif %}</span>
+                    </button>
+                  {% endfor %}
+                </div>
+
+                <label class="ff-checkoutField">
+                  <span>Custom amount</span>
+                  <input type="number" min="1" step="1" inputmode="numeric" placeholder="Enter amount" data-ff-checkout-custom-input aria-label="Enter amount" />
+                </label>
+
+                <div class="ff-checkoutImpact" data-ff-checkout-impact>
+                  <span aria-hidden="true">✓</span>
+                  <div>
+                    <strong data-ff-checkout-impact-title>$50 · Tournament fee support</strong>
+                    <p data-ff-checkout-impact-copy>Helps cover tournament, gym, travel, meals, gear, and player-development costs.</p>
+                  </div>
+                </div>
+
+                <div class="ff-checkoutDonorFields" aria-label="Donor receipt details">
+                  <label class="ff-checkoutField">
+                    <span>Name <small>optional</small></span>
+                    <input type="text" autocomplete="name" placeholder="Your name" data-ff-checkout-donor-name aria-label="Your name" />
+                  </label>
+                  <label class="ff-checkoutField">
+                    <span>Email <small>for receipt</small></span>
+                    <input type="email" autocomplete="email" placeholder="email@example.com" data-ff-checkout-donor-email aria-label="Email address for receipt" />
+                  </label>
+                </div>
+
+                <button class="ff-button ff-button--primary ff-button--full ff-checkoutContinue" type="button" data-ff-start-embedded-checkout data-ff-checkout-amount="{{ ff_checkout_default_amount }}">Continue with ${{ ff_checkout_default_amount }}</button>
+                <p class="ff-checkoutPrep__fineprint">Card details stay inside Stripe. FutureFunded never stores card numbers.</p>
+              </aside>
+
+              <section class="ff-checkoutStage" data-ff-checkout-stage aria-label="Secure payment form">
+                <div class="ff-checkoutStage__summary" data-ff-checkout-payment-summary>
+                  <span>Secure Stripe payment</span>
+                  <strong data-ff-checkout-payment-summary-amount>${{ ff_checkout_default_amount }} donation</strong>
+                  <p>Complete the protected payment form below.</p>
+                </div>
+                <div class="ff-embeddedCheckout__error" data-ff-embedded-checkout-error role="alert" hidden></div>
+                <div class="ff-checkoutStage__empty" data-ff-checkout-empty-state>
+                  <span>Ready when you are</span>
+                  <strong>Secure payment form appears here.</strong>
+                  <p>Choose an amount, add a receipt email, then continue to Stripe’s protected checkout.</p>
+                </div>
+                <div class="ff-embeddedCheckout__mount" id="ff-embedded-checkout-mount" data-ff-embedded-checkout-mount></div>
+                <p class="ff-secureNote"><strong>Protected payment.</strong> Stripe processes the payment securely. FutureFunded never stores card numbers.</p>
+                <a class="ff-button ff-button--ghost ff-button--full" href="{{ _hosted_checkout_url|e if _hosted_checkout_url else '#give' }}" data-ff-embedded-checkout-fallback hidden>Open hosted checkout instead</a>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+<script {{ nonce_attr() }}>
+/* FutureFunded campaign checkout state contract v2
+   Deterministic modal state bridge for campaign_base shell migration.
+   Keeps checkout compatible with accessibility, smoke tests, and UI state.
+*/
+(() => {
+  const CHECKOUT_SELECTOR = [
+    "#checkout",
+    "[data-ff-embedded-checkout-shell]",
+    "[data-ff-checkout-sheet]",
+    "[data-ff-checkout-modal]",
+    "[data-ff-donation-modal]",
+    ".ff-embeddedCheckout",
+    ".ff-checkoutModal"
+  ].join(",");
+
+  const OPEN_TRIGGER_SELECTOR = [
+    "[data-ff-open-checkout]",
+    "[data-ff-donate-trigger]",
+    "[data-ff-payment-trigger]",
+    "[data-ff-donate-submit]",
+    "[data-ff-start-embedded-checkout]"
+  ].join(",");
+
+  const CLOSE_TRIGGER_SELECTOR = [
+    "[data-ff-close-embedded-checkout]",
+    "[data-ff-checkout-close]",
+    "[data-ff-close-checkout]",
+    "[data-ff-modal-close]",
+    "[data-ff-close-modal]",
+    "[aria-label='Close checkout']"
+  ].join(",");
+
+  const getCheckout = () => document.querySelector(CHECKOUT_SELECTOR);
+
+  const isVisible = (node) => {
+    if (!node) return false;
+    if (node.hidden || node.getAttribute("aria-hidden") === "true") return false;
+    const style = window.getComputedStyle(node);
+    if (style.display === "none" || style.visibility === "hidden" || style.opacity === "0") return false;
+    const rect = node.getBoundingClientRect();
+    return rect.width > 8 && rect.height > 8;
+  };
+
+  const markOpen = (node) => {
+    if (!node) return;
+    node.hidden = false;
+    node.removeAttribute("hidden");
+    node.setAttribute("aria-hidden", "false");
+    node.setAttribute("data-ff-state", "open");
+    node.setAttribute("data-ff-checkout-state", "open");
+    node.setAttribute("data-ff-modal-state", "open");
+    node.classList.add("is-open", "ff-is-open");
+
+    document.documentElement.classList.add("ff-modal-open", "ff-checkout-open");
+    document.documentElement.setAttribute("data-ff-checkout-open", "true");
+
+    if (document.body) {
+      document.body.classList.add("ff-modal-open", "ff-checkout-open");
+      document.body.setAttribute("data-ff-checkout-open", "true");
+    }
+
+    const panel = node.querySelector("[role='dialog'], [data-ff-embedded-checkout-panel], .ff-checkoutModal__panel");
+    if (panel && !panel.hasAttribute("tabindex")) {
+      panel.setAttribute("tabindex", "-1");
+    }
+  };
+
+  const markClosed = (node) => {
+    if (!node) return;
+    node.setAttribute("aria-hidden", "true");
+    node.setAttribute("data-ff-state", "closed");
+    node.setAttribute("data-ff-checkout-state", "closed");
+    node.setAttribute("data-ff-modal-state", "closed");
+    node.classList.remove("is-open", "ff-is-open");
+
+    document.documentElement.classList.remove("ff-checkout-open");
+    document.documentElement.removeAttribute("data-ff-checkout-open");
+
+    if (document.body) {
+      document.body.classList.remove("ff-checkout-open");
+      document.body.removeAttribute("data-ff-checkout-open");
+    }
+  };
+
+  const syncOpenSoon = () => {
+    [0, 16, 40, 90, 180, 320].forEach((delay) => {
+      window.setTimeout(() => {
+        const checkout = getCheckout();
+        if (checkout) markOpen(checkout);
+      }, delay);
+    });
+  };
+
+  const syncIfVisible = () => {
+    const checkout = getCheckout();
+    if (checkout && isVisible(checkout)) markOpen(checkout);
+  };
+
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+
+    if (target.closest(OPEN_TRIGGER_SELECTOR)) {
+      syncOpenSoon();
+      return;
+    }
+
+    if (target.closest(CLOSE_TRIGGER_SELECTOR)) {
+      window.setTimeout(() => {
+        const checkout = getCheckout();
+        if (checkout && !isVisible(checkout)) markClosed(checkout);
+      }, 80);
+    }
+  }, true);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      window.setTimeout(() => {
+        const checkout = getCheckout();
+        if (checkout && !isVisible(checkout)) markClosed(checkout);
+      }, 80);
+    }
+  }, true);
+
+  const installObserver = () => {
+    const checkout = getCheckout();
+    if (!checkout || checkout.__ffCampaignCheckoutStateContractV2) return;
+
+    checkout.__ffCampaignCheckoutStateContractV2 = true;
+
+    const observer = new MutationObserver(() => {
+      if (isVisible(checkout)) markOpen(checkout);
+    });
+
+    observer.observe(checkout, {
+      attributes: true,
+      attributeFilter: ["hidden", "aria-hidden", "class", "style", "data-ff-state", "data-ff-checkout-state"]
+    });
+
+    syncIfVisible();
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", installObserver, { once: true });
+  } else {
+    installObserver();
+  }
+
+  window.setTimeout(installObserver, 120);
+  window.setTimeout(syncIfVisible, 260);
+})();
+</script>
+
+<script {{ nonce_attr() }}>
+/* FutureFunded campaign modal state contract v3
+   Stabilizes checkout, sponsor, and share modal open-state contracts
+   after campaign_base shell migration.
+*/
+(() => {
+  const configs = [
+    {
+      name: "checkout",
+      modal: "#checkout,[data-ff-embedded-checkout-shell],[data-ff-checkout-sheet],[data-ff-checkout-modal],[data-ff-donation-modal],.ff-embeddedCheckout,.ff-checkoutModal",
+      open: "[data-ff-open-checkout],[data-ff-donate-trigger],[data-ff-payment-trigger],[data-ff-donate-submit],[data-ff-start-embedded-checkout]",
+      close: "[data-ff-close-embedded-checkout],[data-ff-checkout-close],[data-ff-close-checkout],[aria-label='Close checkout']",
+      rootClass: "ff-checkout-open",
+      stateAttr: "data-ff-checkout-state"
+    },
+    {
+      name: "sponsor",
+      modal: "#sponsor-modal,[data-ff-sponsor-modal],.ff-sponsorModal",
+      open: "[data-ff-open-sponsor],[data-ff-sponsor-trigger],[data-ff-sponsor-cta]",
+      close: "[data-ff-sponsor-close],[data-ff-close-sponsor],[aria-label='Close sponsor options']",
+      rootClass: "ff-sponsor-open",
+      stateAttr: "data-ff-sponsor-state"
+    },
+    {
+      name: "share",
+      modal: "#qr-modal,[data-ff-share-drawer],[data-ff-qr-modal],.ff-shareDrawer",
+      open: "[data-ff-share-trigger],[data-ff-qr-trigger],[data-ff-share]",
+      close: "[data-ff-share-close],[data-ff-close-qr-modal],[aria-label='Close share drawer']",
+      rootClass: "ff-share-open",
+      stateAttr: "data-ff-share-state"
+    }
+  ]
+
+  const $ = (selector) => document.querySelector(selector)
+
+  const isVisible = (node) => {
+    if (!node) return false
+    if (node.hidden || node.getAttribute("aria-hidden") === "true") return false
+    const style = window.getComputedStyle(node)
+    if (style.display === "none" || style.visibility === "hidden" || style.opacity === "0") return false
+    const rect = node.getBoundingClientRect()
+    return rect.width > 8 && rect.height > 8
+  }
+
+  const markOpen = (config) => {
+    const node = $(config.modal)
+    if (!node) return
+
+    node.hidden = false
+    node.removeAttribute("hidden")
+    node.setAttribute("aria-hidden", "false")
+    node.setAttribute("data-ff-state", "open")
+    node.setAttribute(config.stateAttr, "open")
+    node.setAttribute("data-ff-modal-state", "open")
+    node.classList.add("is-open", "ff-is-open")
+
+    document.documentElement.classList.add("ff-modal-open", config.rootClass)
+    document.documentElement.setAttribute("data-ff-modal-open", "true")
+    document.documentElement.setAttribute(`data-${config.name}-open`, "true")
+
+    if (document.body) {
+      document.body.classList.add("ff-modal-open", config.rootClass)
+      document.body.setAttribute("data-ff-modal-open", "true")
+      document.body.setAttribute(`data-${config.name}-open`, "true")
+    }
+  }
+
+  const markClosed = (config) => {
+    const node = $(config.modal)
+    if (!node) return
+    if (isVisible(node)) return
+
+    node.setAttribute("aria-hidden", "true")
+    node.setAttribute("data-ff-state", "closed")
+    node.setAttribute(config.stateAttr, "closed")
+    node.setAttribute("data-ff-modal-state", "closed")
+    node.classList.remove("is-open", "ff-is-open")
+
+    document.documentElement.classList.remove(config.rootClass)
+    document.documentElement.removeAttribute(`data-${config.name}-open`)
+
+    if (document.body) {
+      document.body.classList.remove(config.rootClass)
+      document.body.removeAttribute(`data-${config.name}-open`)
+    }
+  }
+
+  const syncVisible = () => {
+    configs.forEach((config) => {
+      const node = $(config.modal)
+      if (node && isVisible(node)) markOpen(config)
+    })
+  }
+
+  const syncOpenSoon = (config) => {
+    ;[0, 16, 50, 120, 260, 420].forEach((delay) => {
+      window.setTimeout(() => markOpen(config), delay)
+    })
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null
+    if (!target) return
+
+    for (const config of configs) {
+      if (target.closest(config.open)) {
+        syncOpenSoon(config)
+        return
+      }
+
+      if (target.closest(config.close)) {
+        window.setTimeout(() => markClosed(config), 90)
+        return
+      }
+    }
+  }, true)
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return
+    window.setTimeout(() => configs.forEach(markClosed), 90)
+  }, true)
+
+  const installObservers = () => {
+    configs.forEach((config) => {
+      const node = $(config.modal)
+      if (!node || node.__ffModalStateContractV3) return
+
+      node.__ffModalStateContractV3 = true
+
+      const observer = new MutationObserver(() => {
+        if (isVisible(node)) markOpen(config)
+      })
+
+      observer.observe(node, {
+        attributes: true,
+        attributeFilter: ["hidden", "aria-hidden", "class", "style", "data-ff-state"]
+      })
+    })
+
+    syncVisible()
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", installObservers, { once: true })
+  } else {
+    installObservers()
+  }
+
+  window.setTimeout(installObservers, 120)
+  window.setTimeout(syncVisible, 300)
+})()
+</script>
+
+<script
+  defer
+  src="{{ url_for('static', filename='js/ff-campaign-enterprise-contract.js') }}?v={{ _asset_v|e }}"
+  data-ff-enterprise-contract-script
+></script>
+
+{% endblock %}

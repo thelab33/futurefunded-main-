@@ -1,0 +1,350 @@
+{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+{% macro nonce_attr() -%}
+  {%- set _n = (csp_nonce|default((g.csp_nonce if g is defined else ''), true))|string|trim -%}
+  {%- if _n -%}nonce="{{ _n|e }}"{%- endif -%}
+{%- endmacro %}
+
+{% macro static_url(path) -%}
+  {{- url_for('static', filename=path) -}}
+{%- endmacro %}
+
+{% set _cfg = (config if config is defined and config is mapping else {}) %}
+{% set _requested_css_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else '')|string|trim %}
+{% set _default_asset_v = (
+  asset_v|default(_cfg.get('FF_ASSET_V'), true)
+  |default(_cfg.get('ASSET_V'), true)
+  |default(_cfg.get('FF_BUILD_ID'), true)
+  |default(_cfg.get('FF_VERSION'), true)
+  |default('public-home-login-official-v1', true)
+)|string|trim %}
+{% set _asset_v = (_requested_css_v if _requested_css_v else _default_asset_v)|string|trim %}
+{% if not _asset_v %}{% set _asset_v = 'public-home-login-official-v1' %}{% endif %}
+
+{% set _theme = theme|default('light', true)|string|lower|trim %}
+{% if _theme not in ['light', 'dark'] %}{% set _theme = 'light' %}{% endif %}
+
+{% set _campaign_slug = campaign_slug|default(_cfg.get('FF_DEFAULT_CAMPAIGN_SLUG'), true)|default('connect-atx-elite', true)|string|trim %}
+{% set _team_name = team_name|default(_cfg.get('FF_DEFAULT_TEAM_NAME'), true)|default('Connect ATX Elite', true)|string|trim %}
+{% set _platform_url = platform_url|default('/platform/', true)|string|trim %}
+{% set _campaign_url = campaign_url|default('/c/' ~ _campaign_slug, true)|string|trim %}
+{% set _onboarding_url = onboarding_url|default('/platform/onboarding', true)|string|trim %}
+{% set _dashboard_url = dashboard_url|default('/platform/dashboard', true)|string|trim %}
+{% set _login_url = login_url|default('/platform/login', true)|string|trim %}
+{% set _contact_url = contact_url|default('mailto:hello@getfuturefunded.com', true)|string|trim %}
+{% set _raised = raised|default('$11,850', true)|string|trim %}
+{% set _goal = goal|default('$20,000', true)|string|trim %}
+{% set _remaining = remaining|default('$8,150', true)|string|trim %}
+{% set _supporters = supporters|default(143, true) %}
+{% set _percent = percent|default('59%', true)|string|trim %}
+{% set _page_title = page_title|default('FutureFunded — Premium fundraising pages teams can launch today', true)|string|trim %}
+{% set _page_description = page_description|default('Launch premium fundraising pages with secure donations, sponsor packages, QR sharing, and operator follow-up for teams, schools, clubs, and nonprofits.', true)|string|trim %}
+{% if request is defined and request %}{% set _request_root = request.url_root|default('https://getfuturefunded.com/', true)|string %}{% else %}{% set _request_root = 'https://getfuturefunded.com/' %}{% endif %}
+{% set _canonical_url = canonical_url|default(_request_root.rstrip('/') ~ _platform_url, true)|string|trim %}
+{% set _og_image_url = og_image_url|default(static_url('images/connect-atx-team.jpg'), true)|string|trim %}
+{% set html_page = 'platform' %}
+{% set ff_page = 'platform' %}
+{% extends "_base/site_base.html" %}
+
+{% block html_class %}ff-root ff-platformRoot{% endblock %}
+{% block html_attrs %}
+data-theme="{{ _theme|e }}"
+      data-ff-theme="{{ _theme|e }}"
+      data-ff-page="platform"
+      data-ff-template="platform-public-official-v6"
+      data-ff-css-contract="ff-public-official-v6"
+data-ff-shell="site-base-v1"
+{% endblock %}
+{% block body_class %}ff-body ff-platformBody{% endblock %}
+{% block title %}{{ _page_title|striptags|e }}{% endblock %}
+
+{% block page_description %}
+{{ _page_description|striptags|e }}
+{% endblock %}
+
+{% block head_meta %}
+<meta name="format-detection" content="telephone=no,date=no,address=no,email=no" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<meta name="color-scheme" content="light dark" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+<link rel="canonical" href="{{ _canonical_url|e }}" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff8ef" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#07111f" />
+<meta property="og:site_name" content="FutureFunded" />
+<meta property="og:title" content="{{ _page_title|striptags|e }}" />
+<meta property="og:description" content="{{ _page_description|striptags|e }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ _canonical_url|e }}" />
+<meta property="og:image" content="{{ _request_root.rstrip('/') ~ _og_image_url if _og_image_url.startswith('/') else _og_image_url }}" />
+<meta property="og:image:alt" content="FutureFunded fundraising platform for secure team fundraising" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://js.stripe.com" crossorigin />
+{% endblock %}
+
+{% block page_css %}
+{% endblock %}
+
+{% block body_attrs %}
+data-ff-surface="platform"
+data-ff-page="platform"
+data-ff-platform-template="site-shell-v1"
+{% endblock %}
+
+{% block content %}
+  <a class="ff-skip" href="#platform-main">Skip to content</a>
+
+    <div class="ff-page ff-platformPage" data-ff-page-root data-ff-home-root>
+      {{ ff_shell_header(
+    mode='marketing',
+    brand_name='FutureFunded',
+    context='Fundraising platform',
+    brand_href='/platform/',
+    nav_items=[
+      {'label':'Product','href':'#product'},
+      {'label':'Campaigns','href':'#campaigns'},
+      {'label':'Sponsors','href':'#sponsors'},
+      {'label':'Proof','href':'#proof'},
+      {'label':'FAQ','href':'#faq'}
+    ],
+    actions=[
+      {'label':'View fundraiser','href':'/c/connect-atx-elite','tone':'ghost'},
+      {'label':'Start campaign','href':'/platform/onboarding','tone':'primary'}
+    ]
+  ) }}
+
+      <main id="platform-main" class="ff-main ff-platformMain">
+        <p class="ff-sr-only" data-ff-home-copy-contract="Launch a premium fundraising page">Launch a premium fundraising page</p>
+
+        <section class="ff-platformHero" aria-labelledby="platform-title">
+          <div class="ff-shell ff-platformHero__grid">
+            <article class="ff-platformHero__copy ff-card ff-card--hero" data-ff-reveal>
+              <div class="ff-pillRow" aria-label="FutureFunded trust signals">
+                <span class="ff-pill ff-pill--hot">Live donations</span>
+                <span class="ff-pill">Sponsor-ready</span>
+                <span class="ff-pill">QR sharing</span>
+                <span class="ff-pill">Operator-ready</span>
+              </div>
+
+              <div class="ff-headingStack">
+                <p class="ff-eyebrow">Premium fundraising pages</p>
+                <h1 id="platform-title" class="ff-platformHeroTitle ff-platformHeroTitle--accented">
+                  <span>Launch a</span>
+                  <span><em>fundraiser</em></span>
+                  <span>donors <strong>trust.</strong></span>
+                </h1>
+                <p class="ff-lede">
+                  One polished page for donations, sponsors, QR sharing, and follow-up.
+                </p>
+              </div>
+
+              <div class="ff-actions" aria-label="Hero actions">
+                <a class="ff-button ff-button--primary ff-button--xl" href="{{ _onboarding_url|e }}">Start a campaign</a>
+                <a class="ff-button ff-button--ghost ff-button--xl" href="{{ _campaign_url|e }}">View live fundraiser</a>
+              </div>
+
+              <div class="ff-trustGrid ff-trustGrid--compact" aria-label="Platform promises">
+                <article>
+                  <strong>Built for trust</strong>
+                  <span>Story, progress, gifts, sponsors, and FAQ.</span>
+                </article>
+                <article>
+                  <strong>Built to share</strong>
+                  <span>Mobile links, QR sharing, and sponsor-safe asks.</span>
+                </article>
+                <article>
+                  <strong>Ready to run</strong>
+                  <span>Dashboard access, records, sponsor interest, and exports.</span>
+                </article>
+              </div>
+            </article>
+
+            <aside class="ff-launchCard ff-card" aria-label="Live campaign proof" data-ff-reveal>
+              <div class="ff-launchCard__head">
+                <p class="ff-eyebrow">Live proof</p>
+                <h2 class="ff-platformReadinessTitle">
+                  <span>A campaign page</span>
+                  <span>people can <em>act on.</em></span>
+                </h2>
+                <p>One clean path for gifts, sponsors, shares, and follow-up.</p>
+              </div>
+
+              <div class="ff-readinessList" aria-label="Launch checklist">
+                <article><span>01</span><strong>Story</strong><em>Clear cause, goal, and impact.</em><b>Ready</b></article>
+                <article><span>02</span><strong>Giving</strong><em>Secure checkout and suggested gifts.</em><b>Live</b></article>
+                <article><span>03</span><strong>Sponsors</strong><em>Clean packages for local businesses.</em><b>Ready</b></article>
+                <article><span>04</span><strong>Share kit</strong><em>Links, QR, and mobile CTAs.</em><b>Ready</b></article>
+              </div>
+
+              <a class="ff-previewStrip" href="{{ _campaign_url|e }}" aria-label="Open featured fundraiser">
+                <span>Featured fundraiser</span>
+                <strong>{{ _team_name }}</strong>
+                <em>{{ _raised }} raised · {{ _percent }} funded</em>
+              </a>
+            </aside>
+          </div>
+        </section>
+
+        <section class="ff-platformSection" id="product" aria-labelledby="product-title">
+          <div class="ff-shell">
+            <div class="ff-sectionHeader ff-sectionHeader--center">
+              <p class="ff-eyebrow">The product</p>
+              <h2 id="product-title">Everything ready before the first share.</h2>
+              <p>Replace scattered links, sponsor PDFs, and text threads with one trusted page.</p>
+            </div>
+
+            <div class="ff-featureGrid ff-featureGrid--four">
+              <article class="ff-featureCard ff-card">
+                <span>01</span>
+                <h3>Campaign page</h3>
+                <p>Story, proof, progress, FAQ, giving CTAs, and sponsor-safe recognition.</p>
+              </article>
+              <article class="ff-featureCard ff-card">
+                <span>02</span>
+                <h3>Secure donations</h3>
+                <p>Suggested gifts, custom amounts, checkout trust, and receipt-ready flows.</p>
+              </article>
+              <article class="ff-featureCard ff-card">
+                <span>03</span>
+                <h3>Sponsor packages</h3>
+                <p>Simple tiers that help local businesses support the mission cleanly.</p>
+              </article>
+              <article class="ff-featureCard ff-card">
+                <span>04</span>
+                <h3>Operator dashboard</h3>
+                <p>Track readiness, supporter records, sponsor interest, and handoff tasks.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="ff-platformSection" id="campaigns" aria-labelledby="campaigns-title">
+          <div class="ff-shell ff-proofSplit">
+            <article class="ff-card ff-proofSplit__copy" data-ff-reveal>
+              <p class="ff-eyebrow">Flagship campaign surface</p>
+              <h2 id="campaigns-title">A donor page that earns trust fast.</h2>
+              <p>Supporters see the goal, story, proof, impact, and secure giving path immediately.</p>
+              <div class="ff-actions">
+                <a class="ff-button ff-button--primary" href="{{ _campaign_url|e }}">Open fundraiser</a>
+                <a class="ff-button ff-button--ghost" href="{{ _onboarding_url|e }}">Build one</a>
+              </div>
+            </article>
+
+            <aside class="ff-card ff-campaignPreview" aria-label="Featured campaign summary">
+              <div class="ff-campaignPreview__top">
+                <span>Live season fund</span>
+                <strong>{{ _team_name }}</strong>
+              </div>
+              <div class="ff-campaignPreview__meter">
+                <div><strong>{{ _raised }}</strong><span>raised</span></div>
+                <div><strong>{{ _remaining }}</strong><span>still needed</span></div>
+              </div>
+              <div class="ff-progressTrack" aria-hidden="true">
+                <span class="ff-progressBar ff-progressBar--59" style="width: {{ _percent|e }}"></span>
+              </div>
+              <p>{{ _supporters }} supporters · {{ _goal }} goal</p>
+              <div class="ff-actions ff-actions--stack">
+                <a class="ff-button ff-button--primary ff-button--full" href="{{ _campaign_url|e }}#give">Give securely</a>
+                <a class="ff-button ff-button--ghost ff-button--full" href="{{ _campaign_url|e }}#sponsors">Sponsor options</a>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="ff-platformSection" id="sponsors" aria-labelledby="sponsors-title">
+          <div class="ff-shell">
+            <div class="ff-sectionHeader">
+              <div>
+                <p class="ff-eyebrow">Sponsors</p>
+                <h2 id="sponsors-title">Clean sponsor support, clear recognition.</h2>
+                <p>Give sponsors a clean path to help without cluttering the page.</p>
+              </div>
+              <a class="ff-button ff-button--ghost" href="{{ _campaign_url|e }}#sponsors">See packages</a>
+            </div>
+
+            <div class="ff-featureGrid ff-featureGrid--three">
+              <article class="ff-featureCard ff-card"><span>$300</span><h3>Community Partner</h3><p>Name or logo placement for families, fans, and local supporters.</p></article>
+              <article class="ff-featureCard ff-card"><span>$750</span><h3>Featured Sponsor</h3><p>Higher-visibility sponsor card with reviewed recognition.</p></article>
+              <article class="ff-featureCard ff-card"><span>$1.5k</span><h3>Season Sponsor</h3><p>Premium season-level support tied to the team’s mission.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="ff-platformSection" id="proof" aria-labelledby="proof-title">
+          <div class="ff-shell ff-proofSplit ff-proofSplit--reverse">
+            <article class="ff-card ff-proofSplit__copy" data-ff-reveal>
+              <p class="ff-eyebrow">Why it works</p>
+              <h2 id="proof-title">Donors move faster when giving feels safe and organized.</h2>
+              <p>Show what donations fund, how to give, how to sponsor, and how to share.</p>
+            </article>
+
+            <div class="ff-trustGrid ff-trustGrid--stack">
+              <article><strong>Trust</strong><span>Verified campaign details, secure checkout cues, and transparent progress.</span></article>
+              <article><strong>Conversion</strong><span>Mobile-first CTAs, preset gift amounts, and fewer distractions.</span></article>
+              <article><strong>Operations</strong><span>Organizer access for records, sponsor follow-up, and launch readiness.</span></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="ff-platformSection" id="launch" aria-labelledby="launch-title">
+          <div class="ff-shell">
+            <div class="ff-sectionHeader ff-sectionHeader--center">
+              <p class="ff-eyebrow">Launch path</p>
+              <h2 id="launch-title">Go from scattered asks to a campaign ready to share.</h2>
+              <p>Add the story, connect giving, add sponsors, and share with confidence.</p>
+            </div>
+
+            <div class="ff-featureGrid ff-featureGrid--four">
+              <article class="ff-featureCard ff-card"><span>01</span><h3>Build</h3><p>Add story, goal, photos, impact, and campaign details.</p></article>
+              <article class="ff-featureCard ff-card"><span>02</span><h3>Connect</h3><p>Prepare secure donations and sponsor interest flows.</p></article>
+              <article class="ff-featureCard ff-card"><span>03</span><h3>Share</h3><p>Use the campaign link, QR code, and mobile-ready CTAs.</p></article>
+              <article class="ff-featureCard ff-card"><span>04</span><h3>Follow up</h3><p>Track records, sponsors, exports, and next actions.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="ff-platformSection" id="faq" aria-labelledby="faq-title">
+          <div class="ff-shell">
+            <div class="ff-sectionHeader ff-sectionHeader--center">
+              <p class="ff-eyebrow">FAQ</p>
+              <h2 id="faq-title">Simple answers before launch.</h2>
+            </div>
+
+            <div class="ff-faqGrid">
+              <details class="ff-card">
+                <summary>Who is FutureFunded for?</summary>
+                <p>Teams, schools, clubs, nonprofits, and community groups that need a polished donation and sponsor page.</p>
+              </details>
+              <details class="ff-card">
+                <summary>Can businesses sponsor a campaign?</summary>
+                <p>Yes. Campaigns can include sponsor tiers, reviewed recognition, and a clean sponsor interest path.</p>
+              </details>
+              <details class="ff-card">
+                <summary>Is this ready for real donations?</summary>
+                <p>The public page is designed for live giving. Production readiness still depends on live payment keys, webhook health, and final smoke tests.</p>
+              </details>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="ff-platformFooter" aria-label="FutureFunded footer">
+        <div class="ff-shell ff-platformFooter__inner">
+          <div>
+            <strong>FutureFunded</strong>
+            <span>Premium fundraising pages for teams, schools, clubs, and nonprofits.</span>
+          </div>
+          <nav aria-label="Footer navigation">
+            <a href="{{ _campaign_url|e }}">Live fundraiser</a>
+            <a href="{{ _onboarding_url|e }}">Start campaign</a>
+            <a href="{{ _login_url|e }}">Organizer login</a>
+            <a href="{{ _contact_url|e }}">Contact</a>
+          </nav>
+        </div>
+      </footer>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+<script defer src="{{ static_url('js/ff-app.js') }}?v={{ _asset_v|e }}" data-ff-app-js="ff-app.js"></script>
+{% endblock %}

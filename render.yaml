@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: futurefunded-web
+    runtime: python
+    plan: free
+    buildCommand: |
+      python -m pip install --upgrade pip setuptools wheel
+      python -m pip install -r requirements.txt
+      if [ -f package-lock.json ]; then npm ci; elif [ -f package.json ]; then npm install; fi
+      if [ -f package.json ]; then npm run format:check; fi
+      if [ -f package.json ]; then npm run lint:js; fi
+    startCommand: gunicorn apps.web.wsgi:app --config gunicorn.conf.py
+    healthCheckPath: /platform/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.12
+      - key: PYTHONPATH
+        value: .
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: WEB_CONCURRENCY
+        value: "2"
+      - key: PAYPAL_ENV
+        value: sandbox
+      - key: SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: FF_PUBLIC_BASE_URL
+        sync: false
+      - key: FF_OPERATOR_ACCESS_TOKEN
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: PAYPAL_CLIENT_ID
+        sync: false
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false

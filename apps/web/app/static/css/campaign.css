@@ -1,0 +1,6783 @@
+/*
+  FutureFunded Campaign CSS Authority
+  File: apps/web/app/static/css/campaign.css
+  Version: campaign-authority-v6
+  Purpose:
+  - Official premium donor/sponsor campaign skin
+  - Aligns /c/<slug> with homepage-authority-v8.1
+  - Preserves checkout, sponsor, share, modal, and progress contracts
+*/
+
+@layer campaign, checkout, utilities;
+
+@layer campaign {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-radius: clamp(24px, 3vw, 36px);
+    --ff-campaign-pad: clamp(18px, 3.2vw, 42px);
+    --ff-campaign-section: clamp(30px, 4vw, 58px);
+    --ff-campaign-line: rgba(72, 44, 25, .108);
+    --ff-campaign-line-strong: rgba(72, 44, 25, .17);
+    --ff-campaign-glass: rgba(255,255,255,.72);
+    --ff-campaign-cream: #fff8ef;
+    --ff-campaign-sand: #f6e8d4;
+    --ff-campaign-sand-2: #efd9bd;
+    --ff-campaign-dark: #21140d;
+    --ff-campaign-dark-2: #3a2113;
+    --ff-campaign-orange: #f35f16;
+    --ff-campaign-orange-2: #ff8a2b;
+    --ff-campaign-teal: #127c6f;
+    --ff-campaign-shadow: 0 34px 90px rgba(55, 36, 20, .14);
+    --ff-campaign-shadow-soft: 0 18px 48px rgba(55, 36, 20, .09);
+    --ff-campaign-shadow-hover: 0 24px 64px rgba(55, 36, 20, .13);
+  }
+
+  body.ff-campaignBody {
+    color: var(--ff-ink);
+    background:
+      radial-gradient(circle at 8% -7%, rgba(255,122,26,.245), transparent 31rem),
+      radial-gradient(circle at 94% 2%, rgba(18,124,111,.155), transparent 34rem),
+      radial-gradient(circle at 54% 22%, rgba(255,255,255,.54), transparent 30rem),
+      linear-gradient(180deg, var(--ff-campaign-cream) 0%, var(--ff-campaign-sand) 50%, var(--ff-campaign-sand-2) 100%);
+  }
+
+  .ff-campaignPage::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      linear-gradient(rgba(72,41,15,.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(72,41,15,.018) 1px, transparent 1px);
+    background-size: 38px 38px;
+    content: "";
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.68), transparent 72%);
+  }
+
+  .ff-campaignHeader .ff-siteHeader__shell {
+    min-height: 58px;
+    border-color: rgba(72,44,25,.12);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,250,242,.90));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.74) inset,
+      0 14px 38px rgba(55,36,20,.10);
+  }
+
+  .ff-campaignHeader .ff-brandMark__logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+  }
+
+  .ff-campaignHeader .ff-brandMark__copy strong {
+    font-size: .9rem;
+    letter-spacing: -.03em;
+  }
+
+  .ff-campaignHeader .ff-brandMark__copy small {
+    color: rgba(56,42,31,.58);
+    font-size: .63rem;
+    letter-spacing: .105em;
+  }
+
+  .ff-campaignHeader__nav a {
+    font-weight: 900;
+  }
+
+  .ff-campaignHeader .ff-button {
+    min-height: 38px;
+  }
+
+  /* Hero */
+
+  .ff-campaignHero {
+    padding-block: clamp(12px, 2vw, 24px) var(--ff-campaign-section);
+  }
+
+  .ff-campaignHero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(340px, .78fr);
+    align-items: stretch;
+    gap: clamp(14px, 2.4vw, 28px);
+  }
+
+  .ff-campaignHero__story,
+  .ff-donatePanel {
+    border-radius: var(--ff-campaign-radius);
+  }
+
+  .ff-campaignHero__story {
+    min-height: min(680px, calc(100svh - 112px));
+    display: grid;
+    align-content: center;
+    gap: clamp(15px, 2vw, 23px);
+    padding: clamp(22px, 4.4vw, 58px);
+    background:
+      radial-gradient(circle at 4% 0%, rgba(255,255,255,.96), transparent 17rem),
+      radial-gradient(circle at 92% 0%, rgba(255,122,26,.20), transparent 25rem),
+      radial-gradient(circle at 78% 92%, rgba(18,124,111,.09), transparent 24rem),
+      linear-gradient(145deg, rgba(255,255,255,.985), rgba(255,247,237,.92));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.92) inset,
+      var(--ff-campaign-shadow);
+  }
+
+  .ff-campaignHero__story::after {
+    position: absolute;
+    right: clamp(18px, 4vw, 54px);
+    bottom: clamp(16px, 3vw, 36px);
+    width: clamp(130px, 18vw, 260px);
+    height: clamp(130px, 18vw, 260px);
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(255,138,43,.16), transparent 64%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .ff-campaignHero__story > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ff-heroTitle {
+    max-width: 10.25ch;
+    font-size: clamp(3.55rem, 7.75vw, 7.1rem);
+    font-weight: 980;
+    letter-spacing: -.081em;
+    line-height: .865;
+    text-rendering: geometricPrecision;
+  }
+
+  .ff-heroTitle span {
+    display: block;
+    background: linear-gradient(135deg, var(--ff-campaign-orange), var(--ff-campaign-orange-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: italic;
+  }
+
+  .ff-campaignHero .ff-lede {
+    max-width: 62ch;
+    color: rgba(56,42,31,.72);
+    font-size: clamp(1rem, 1.34vw, 1.16rem);
+    font-weight: 510;
+    line-height: 1.53;
+  }
+
+  .ff-heroActions {
+    gap: 10px;
+  }
+
+  .ff-heroActions .ff-button {
+    min-width: 148px;
+  }
+
+  .ff-campaignHero .ff-button--xl {
+    min-height: 52px;
+    padding-inline: clamp(19px, 2.2vw, 28px);
+    font-size: .94rem;
+  }
+
+  .ff-campaignHero .ff-button--primary,
+  .ff-donateSubmit,
+  .ff-mobileDonateBar .ff-button--primary {
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.24) inset,
+      0 16px 34px rgba(243,95,22,.25),
+      0 22px 54px rgba(243,95,22,.14);
+  }
+
+  .ff-statGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 10px;
+  }
+
+  .ff-statGrid article {
+    min-height: 86px;
+    display: grid;
+    align-content: center;
+    border: 1px solid rgba(72,44,25,.095);
+    border-radius: 20px;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,122,26,.045), transparent 12rem),
+      rgba(255,255,255,.66);
+    box-shadow: 0 1px 0 rgba(255,255,255,.78) inset;
+    padding: 14px;
+  }
+
+  .ff-statGrid span {
+    display: block;
+    color: rgba(56,42,31,.58);
+    font-size: .7rem;
+    font-weight: 950;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .ff-statGrid strong {
+    display: block;
+    margin-top: 5px;
+    font-size: clamp(1.05rem, 1.55vw, 1.34rem);
+    line-height: 1;
+  }
+
+  .ff-assuranceBand {
+    display: grid;
+    gap: 5px;
+    border: 1px solid rgba(243,95,22,.18);
+    border-radius: 20px;
+    background:
+      linear-gradient(180deg, rgba(255,237,213,.76), rgba(255,247,237,.72));
+    box-shadow: 0 1px 0 rgba(255,255,255,.74) inset;
+    padding: 13px;
+  }
+
+  .ff-assuranceBand strong {
+    font-size: .95rem;
+    letter-spacing: -.02em;
+  }
+
+  .ff-assuranceBand span {
+    color: rgba(56,42,31,.70);
+    font-size: .84rem;
+    line-height: 1.4;
+  }
+
+  /* Donation panel */
+
+  .ff-donatePanel {
+    position: sticky;
+    top: calc(var(--ff-header-h) + 18px);
+    align-self: start;
+    justify-self: end;
+    width: min(100%, 430px);
+    display: grid;
+    gap: 14px;
+    padding: clamp(18px, 2.7vw, 30px);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(18,124,111,.09), transparent 18rem),
+      linear-gradient(180deg, rgba(255,255,255,.97), rgba(255,250,244,.91));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.86) inset,
+      0 28px 72px rgba(55,36,20,.13);
+  }
+
+  .ff-donatePanel__header {
+    display: grid;
+    gap: 8px;
+  }
+
+  .ff-donatePanel__header h2 {
+    max-width: 12ch;
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
+    line-height: .94;
+    letter-spacing: -.064em;
+  }
+
+  .ff-donatePanel__header p {
+    max-width: 34ch;
+    color: rgba(56,42,31,.70);
+    font-size: .91rem;
+    line-height: 1.42;
+  }
+
+  .ff-progressBox {
+    display: grid;
+    gap: 10px;
+    border: 1px solid rgba(72,44,25,.095);
+    border-radius: 22px;
+    background: rgba(255,255,255,.68);
+    padding: 14px;
+  }
+
+  .ff-progressBox__top,
+  .ff-progressBox__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .ff-progressBox__top span,
+  .ff-progressBox__meta span {
+    color: rgba(56,42,31,.60);
+    font-size: .74rem;
+    font-weight: 900;
+  }
+
+  .ff-progressBox__top strong {
+    font-size: .9rem;
+  }
+
+  .ff-progressTrack {
+    height: 11px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(72,44,25,.10);
+    box-shadow: inset 0 1px 1px rgba(72,44,25,.08);
+  }
+
+  .ff-progressBar,
+  [data-ff-progress-bar] {
+    display: block;
+    height: 100%;
+    min-width: 8px;
+    max-width: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--ff-campaign-orange), var(--ff-campaign-orange-2), var(--ff-campaign-teal));
+    box-shadow: 0 8px 18px rgba(243,95,22,.22);
+  }
+
+  .ff-donateForm {
+    display: grid;
+    gap: 11px;
+  }
+
+  .ff-donationAmounts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 8px;
+  }
+
+  .ff-donationAmount,
+  .ff-checkoutAmount,
+  button[data-ff-amount] {
+    min-height: 44px;
+    border: 1px solid rgba(72,44,25,.105);
+    border-radius: 15px;
+    background: rgba(255,255,255,.82);
+    color: var(--ff-ink-strong);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.8) inset,
+      0 8px 18px rgba(55,36,20,.055);
+    font-weight: 950;
+    transition:
+      transform var(--ff-speed) var(--ff-ease),
+      border-color var(--ff-speed) var(--ff-ease),
+      background var(--ff-speed) var(--ff-ease),
+      box-shadow var(--ff-speed) var(--ff-ease);
+  }
+
+  .ff-donationAmount:hover,
+  .ff-donationAmount[aria-pressed="true"],
+  .ff-checkoutAmount:hover,
+  .ff-checkoutAmount.is-selected,
+  button[data-ff-amount]:hover,
+  button[data-ff-amount][aria-pressed="true"] {
+    transform: translateY(-1px);
+    border-color: rgba(243,95,22,.42);
+    background: linear-gradient(180deg, #fff7ed, #ffedd5);
+    color: #8f350d;
+    box-shadow:
+      0 0 0 3px rgba(243,95,22,.10),
+      0 12px 26px rgba(243,95,22,.13);
+  }
+
+  .ff-donorTrustStrip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 7px;
+  }
+
+  .ff-donorTrustStrip span {
+    min-height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(72,44,25,.10);
+    border-radius: var(--ff-radius-pill);
+    background: rgba(255,255,255,.72);
+    color: rgba(56,42,31,.62);
+    font-size: .7rem;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  /* Sections */
+
+  .ff-campaignSection {
+    padding-block: var(--ff-campaign-section);
+  }
+
+  .ff-sectionPanel {
+    border-radius: var(--ff-campaign-radius);
+    padding: clamp(18px, 3.2vw, 38px);
+    background:
+      radial-gradient(circle at 96% 4%, rgba(255,122,26,.065), transparent 18rem),
+      linear-gradient(180deg, rgba(255,255,255,.965), rgba(255,250,244,.90));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.86) inset,
+      var(--ff-campaign-shadow-soft);
+  }
+
+  .ff-sectionHeader {
+    margin-bottom: clamp(16px, 2.25vw, 28px);
+  }
+
+  .ff-sectionHeader h2 {
+    letter-spacing: -.065em;
+  }
+
+  .ff-sectionHeader--center {
+    max-width: 840px;
+  }
+
+  .ff-sectionHeader--center h2 {
+    max-width: 14ch;
+  }
+
+  .ff-sectionHeader p {
+    color: rgba(56,42,31,.72);
+  }
+
+  .ff-squadRail,
+  .ff-impactGrid,
+  .ff-sponsorGrid,
+  .ff-teamGrid,
+  .ff-miniGrid {
+    display: grid;
+    gap: clamp(10px, 1.5vw, 16px);
+  }
+
+  .ff-squadRail {
+    grid-template-columns: repeat(4, minmax(0,1fr));
+  }
+
+  .ff-impactGrid {
+    grid-template-columns: repeat(4, minmax(0,1fr));
+  }
+
+  .ff-sponsorGrid {
+    grid-template-columns: repeat(3, minmax(0,1fr));
+  }
+
+  .ff-teamGrid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    margin-top: 14px;
+  }
+
+  .ff-miniGrid {
+    grid-template-columns: repeat(3, minmax(0,1fr));
+  }
+
+  .ff-squadCard,
+  .ff-impactCard,
+  .ff-sponsorCard,
+  .ff-teamCard,
+  .ff-miniGrid article,
+  .ff-sectionFooter,
+  .ff-campaignFooter__grid {
+    border: 1px solid rgba(72,44,25,.105);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,122,26,.045), transparent 14rem),
+      linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,250,244,.88));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.82) inset,
+      0 16px 40px rgba(55,36,20,.075);
+  }
+
+  .ff-impactCard,
+  .ff-sponsorCard,
+  .ff-teamCard,
+  .ff-miniGrid article {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    border-radius: 24px;
+    padding: clamp(16px, 2vw, 23px);
+    transition:
+      transform 180ms var(--ff-ease),
+      box-shadow 180ms var(--ff-ease),
+      border-color 180ms var(--ff-ease);
+  }
+
+  .ff-impactCard:hover,
+  .ff-sponsorCard:hover,
+  .ff-teamCard:hover,
+  .ff-miniGrid article:hover,
+  .ff-squadCard:hover {
+    transform: translateY(-2px);
+    border-color: rgba(72,44,25,.17);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.86) inset,
+      var(--ff-campaign-shadow-hover);
+  }
+
+  .ff-impactCard {
+    min-height: 168px;
+    text-align: left;
+  }
+
+  .ff-impactCard span,
+  .ff-sponsorCard__head span,
+  .ff-teamCard__body > span,
+  .ff-miniGrid span {
+    color: #a84310;
+    font-size: .72rem;
+    font-weight: 950;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+  }
+
+  .ff-impactCard p,
+  .ff-sponsorCard li,
+  .ff-teamCard li,
+  .ff-miniGrid p {
+    color: rgba(56,42,31,.68);
+    font-size: .86rem;
+    line-height: 1.43;
+  }
+
+  .ff-squadCard {
+    overflow: hidden;
+    border-radius: 22px;
+    transition:
+      transform 180ms var(--ff-ease),
+      box-shadow 180ms var(--ff-ease),
+      border-color 180ms var(--ff-ease);
+  }
+
+  .ff-squadCard__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: rgba(72,44,25,.05);
+  }
+
+  .ff-squadCard__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms var(--ff-ease-soft);
+  }
+
+  .ff-squadCard:hover .ff-squadCard__media img {
+    transform: scale(1.035);
+  }
+
+  .ff-squadCard__media span {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    border-radius: var(--ff-radius-pill);
+    background: rgba(255,255,255,.88);
+    color: #a84310;
+    font-size: .62rem;
+    font-weight: 950;
+    letter-spacing: .06em;
+    padding: 5px 8px;
+    text-transform: uppercase;
+  }
+
+  .ff-squadCard > div:last-child {
+    display: grid;
+    gap: 3px;
+    padding: 12px;
+  }
+
+  .ff-squadCard small {
+    color: rgba(56,42,31,.64);
+    font-size: .76rem;
+    font-weight: 800;
+  }
+
+  .ff-sectionFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 14px;
+    border-radius: 20px;
+    padding: 13px;
+  }
+
+  .ff-sectionFooter > div {
+    display: grid;
+    gap: 4px;
+  }
+
+  .ff-sectionFooter span {
+    color: rgba(56,42,31,.68);
+    font-size: .84rem;
+  }
+
+  /* Sponsors */
+
+  .ff-sponsorCard {
+    min-height: 300px;
+  }
+
+  .ff-sponsorCard[data-featured],
+  .ff-sponsorCard:has([data-ff-sponsor-package*="Featured"]) {
+    border-color: rgba(243,95,22,.24);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,122,26,.10), transparent 18rem),
+      linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,247,237,.92));
+  }
+
+  .ff-sponsorCard__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .ff-sponsorCard__head em {
+    border-radius: var(--ff-radius-pill);
+    background: rgba(18,124,111,.10);
+    color: var(--ff-campaign-teal);
+    font-size: .66rem;
+    font-style: normal;
+    font-weight: 950;
+    padding: 5px 8px;
+    text-transform: uppercase;
+  }
+
+  .ff-sponsorCard h3 {
+    margin-top: 2px;
+  }
+
+  .ff-sponsorCard > strong {
+    font-size: clamp(1.45rem, 2.4vw, 2rem);
+    letter-spacing: -.045em;
+  }
+
+  .ff-sponsorCard ul,
+  .ff-teamCard ul {
+    display: grid;
+    gap: 7px;
+    list-style: none;
+  }
+
+  .ff-sponsorCard li,
+  .ff-teamCard li {
+    position: relative;
+    font-weight: 780;
+    padding-left: 16px;
+  }
+
+  .ff-sponsorCard li::before,
+  .ff-teamCard li::before {
+    position: absolute;
+    left: 0;
+    top: .58em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ff-campaign-teal);
+    content: "";
+  }
+
+  .ff-sponsorForm--contractOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Team/story/footer */
+
+  .ff-teamCard {
+    overflow: hidden;
+    grid-template-rows: auto 1fr;
+    padding: 0;
+  }
+
+  .ff-teamCard > img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .ff-teamCard__body {
+    display: grid;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .ff-storySplit {
+    display: grid;
+    grid-template-columns: minmax(0, .95fr) minmax(320px, .72fr);
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .ff-storyPoster {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height: 100%;
+    min-height: 360px;
+    border-radius: 24px;
+    background: #1b130e;
+  }
+
+  .ff-storyPoster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .84;
+  }
+
+  .ff-storyPoster__play {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    display: grid;
+    width: 60px;
+    height: 60px;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ff-campaign-orange), var(--ff-campaign-orange-2));
+    color: white;
+    box-shadow: 0 20px 44px rgba(0,0,0,.22);
+  }
+
+  .ff-storyPoster__label {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    display: grid;
+    gap: 2px;
+    color: white;
+  }
+
+  .ff-storyPoster__label small {
+    color: rgba(255,255,255,.76);
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .ff-storyPoster__label strong {
+    color: white;
+  }
+
+  .ff-storyCopy {
+    display: grid;
+    align-content: center;
+    gap: 14px;
+    padding: clamp(18px, 3vw, 30px);
+  }
+
+  .ff-campaignFooter__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 16px;
+    align-items: center;
+    border-radius: var(--ff-campaign-radius);
+    padding: clamp(16px, 2.6vw, 24px);
+  }
+
+  .ff-campaignFooter__closing {
+    display: grid;
+    gap: 10px;
+  }
+
+  .ff-campaignFooter__closing h2 {
+    font-size: clamp(1.45rem, 2.4vw, 2.2rem);
+  }
+
+  .ff-campaignFooter__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ff-campaignFooter__meta span {
+    border: 1px solid rgba(72,44,25,.10);
+    border-radius: var(--ff-radius-pill);
+    background: rgba(255,255,255,.72);
+    color: rgba(56,42,31,.62);
+    font-size: .75rem;
+    font-weight: 850;
+    padding: 6px 9px;
+  }
+
+  .ff-campaignFooter__nav,
+  .ff-campaignFooter__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ff-campaignFooter__nav a {
+    color: rgba(56,42,31,.70);
+    font-size: .78rem;
+    font-weight: 900;
+  }
+
+  /* Mobile donate bar */
+
+  .ff-mobileDonateBar {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    z-index: 90;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border: 1px solid rgba(72,44,25,.12);
+    border-radius: 22px;
+    background: rgba(255,250,242,.94);
+    box-shadow: 0 16px 42px rgba(55,36,20,.16);
+    backdrop-filter: blur(14px) saturate(130%);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    padding: 8px;
+  }
+
+  .ff-mobileDonateBar > div {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+    padding-left: 6px;
+  }
+
+  .ff-mobileDonateBar span {
+    overflow: hidden;
+    color: rgba(56,42,31,.62);
+    font-size: .72rem;
+    font-weight: 850;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ff-mobileDonateBar .ff-button {
+    min-height: 38px;
+    padding-inline: 15px;
+  }
+
+  /* Payment return */
+
+  .ff-paymentReturn {
+    position: fixed;
+    top: calc(var(--ff-header-h) + 20px);
+    left: 50%;
+    z-index: 200;
+    width: min(100% - 24px, 760px);
+    transform: translateX(-50%);
+  }
+
+  .ff-paymentReturn__card {
+    display: grid;
+    grid-template-columns: auto minmax(0,1fr) auto;
+    gap: 14px;
+    align-items: center;
+    border: 1px solid rgba(72,44,25,.12);
+    border-radius: 24px;
+    background: rgba(255,255,255,.95);
+    box-shadow: var(--ff-campaign-shadow);
+    padding: 14px;
+  }
+
+  .ff-paymentReturn__icon {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(18,124,111,.12);
+    color: var(--ff-campaign-teal);
+    font-weight: 950;
+  }
+
+  .ff-paymentReturn__copy {
+    display: grid;
+    gap: 4px;
+  }
+
+  .ff-paymentReturn__copy h2 {
+    font-size: 1.25rem;
+  }
+
+  .ff-paymentReturn__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Dark theme */
+
+  :root[data-theme="dark"] body.ff-campaignBody,
+  [data-theme="dark"] body.ff-campaignBody {
+    background:
+      radial-gradient(circle at 10% -8%, rgba(249,115,22,.26), transparent 30rem),
+      radial-gradient(circle at 88% 0%, rgba(37,99,235,.25), transparent 34rem),
+      linear-gradient(145deg, #07111f, #0b1220 58%, #050814 100%);
+  }
+
+  :root[data-theme="dark"] .ff-campaignHero__story,
+  [data-theme="dark"] .ff-campaignHero__story,
+  :root[data-theme="dark"] .ff-donatePanel,
+  [data-theme="dark"] .ff-donatePanel,
+  :root[data-theme="dark"] .ff-sectionPanel,
+  [data-theme="dark"] .ff-sectionPanel,
+  :root[data-theme="dark"] .ff-squadCard,
+  [data-theme="dark"] .ff-squadCard,
+  :root[data-theme="dark"] .ff-impactCard,
+  [data-theme="dark"] .ff-impactCard,
+  :root[data-theme="dark"] .ff-sponsorCard,
+  [data-theme="dark"] .ff-sponsorCard,
+  :root[data-theme="dark"] .ff-teamCard,
+  [data-theme="dark"] .ff-teamCard,
+  :root[data-theme="dark"] .ff-miniGrid article,
+  [data-theme="dark"] .ff-miniGrid article,
+  :root[data-theme="dark"] .ff-campaignFooter__grid,
+  [data-theme="dark"] .ff-campaignFooter__grid {
+    background: linear-gradient(140deg, rgba(255,255,255,.10), rgba(255,255,255,.035)), var(--ff-surface);
+    border-color: rgba(255,255,255,.12);
+  }
+
+  :root[data-theme="dark"] .ff-campaignHero .ff-lede,
+  [data-theme="dark"] .ff-campaignHero .ff-lede,
+  :root[data-theme="dark"] .ff-sectionHeader p,
+  [data-theme="dark"] .ff-sectionHeader p,
+  :root[data-theme="dark"] .ff-impactCard p,
+  [data-theme="dark"] .ff-impactCard p,
+  :root[data-theme="dark"] .ff-sponsorCard li,
+  [data-theme="dark"] .ff-sponsorCard li,
+  :root[data-theme="dark"] .ff-teamCard li,
+  [data-theme="dark"] .ff-teamCard li {
+    color: rgba(226,232,240,.72);
+  }
+
+  /* Responsive */
+
+  @media (max-width: 1080px) {
+    .ff-campaignHero__grid,
+    .ff-storySplit {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-campaignHero__story {
+      min-height: auto;
+    }
+
+    .ff-donatePanel {
+      position: relative;
+      top: auto;
+      width: 100%;
+      max-width: none;
+      justify-self: stretch;
+    }
+
+    .ff-storyPoster {
+      min-height: 300px;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .ff-squadRail,
+    .ff-impactGrid {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .ff-sponsorGrid,
+    .ff-teamGrid,
+    .ff-miniGrid,
+    .ff-campaignFooter__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-campaignFooter__nav,
+    .ff-campaignFooter__actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .ff-campaignHero {
+      padding-top: 8px;
+    }
+
+    .ff-campaignHero__grid {
+      gap: 12px;
+    }
+
+    .ff-campaignHero__story,
+    .ff-donatePanel,
+    .ff-sectionPanel,
+    .ff-storyPoster {
+      border-radius: 24px;
+    }
+
+    .ff-campaignHero__story {
+      padding: 20px;
+    }
+
+    .ff-heroTitle {
+      max-width: 10.25ch;
+      font-size: clamp(2.74rem, 15vw, 4.35rem);
+      letter-spacing: -.072em;
+      line-height: .885;
+    }
+
+    .ff-campaignHero .ff-lede {
+      font-size: .98rem;
+      line-height: 1.5;
+    }
+
+    .ff-heroActions,
+    .ff-actions--tight {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .ff-heroActions .ff-button,
+    .ff-actions--tight .ff-button {
+      width: 100%;
+    }
+
+    .ff-statGrid,
+    .ff-donorTrustStrip {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-statGrid article {
+      min-height: auto;
+      padding: 13px;
+    }
+
+    .ff-donatePanel {
+      padding: 18px;
+    }
+
+    .ff-squadRail {
+      display: flex;
+      gap: 10px;
+      margin-inline: -4px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scroll-snap-type: x proximity;
+      padding: 2px 4px 10px;
+    }
+
+    .ff-squadCard {
+      min-width: 198px;
+      scroll-snap-align: start;
+    }
+
+    .ff-impactGrid {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-sectionFooter {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .ff-mobileDonateBar {
+      display: flex;
+    }
+
+    body.ff-campaignBody {
+      padding-bottom: 74px;
+    }
+
+    .ff-campaignHeader .ff-siteHeader__actions .ff-button--ghost {
+      display: none;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .ff-heroTitle {
+      font-size: clamp(2.55rem, 15.8vw, 3.7rem);
+    }
+
+    .ff-campaignHero .ff-pill:nth-child(n + 4) {
+      display: none;
+    }
+
+    .ff-donationAmounts {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .ff-donatePanel,
+    .ff-sectionPanel {
+      padding: 14px;
+    }
+
+    .ff-impactCard,
+    .ff-sponsorCard,
+    .ff-teamCard__body,
+    .ff-miniGrid article {
+      padding: 15px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ff-donationAmount,
+    .ff-checkoutAmount,
+    button[data-ff-amount],
+    .ff-impactCard,
+    .ff-sponsorCard,
+    .ff-teamCard,
+    .ff-miniGrid article,
+    .ff-squadCard,
+    .ff-squadCard__media img {
+      transition: none;
+    }
+
+    .ff-donationAmount:hover,
+    .ff-checkoutAmount:hover,
+    button[data-ff-amount]:hover,
+    .ff-impactCard:hover,
+    .ff-sponsorCard:hover,
+    .ff-teamCard:hover,
+    .ff-miniGrid article:hover,
+    .ff-squadCard:hover {
+      transform: none;
+    }
+  }
+}
+
+@layer checkout {
+  .ff-shareDrawer,
+  .ff-sponsorModal,
+  .ff-checkoutModal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    background: rgba(20,13,8,.48);
+    padding: 18px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .ff-shareDrawer[hidden],
+  .ff-sponsorModal[hidden],
+  .ff-checkoutModal[hidden] {
+    display: none !important;
+  }
+
+  .ff-shareDrawer__backdrop,
+  .ff-sponsorModal__backdrop,
+  .ff-embeddedCheckout__backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    cursor: default;
+  }
+
+  .ff-shareDrawer__panel,
+  .ff-sponsorModal__panel,
+  .ff-embeddedCheckout__panel {
+    position: relative;
+    width: min(100%, 760px);
+    max-height: min(820px, calc(100vh - 36px));
+    overflow: auto;
+    border: 1px solid rgba(255,255,255,.52);
+    border-radius: 30px;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255,106,26,.13), transparent 34%),
+      linear-gradient(135deg, rgba(255,255,255,.98), rgba(255,248,238,.95));
+    box-shadow: 0 34px 90px rgba(0,0,0,.24);
+    padding: clamp(18px, 3vw, 28px);
+  }
+
+  :root[data-theme="dark"] .ff-shareDrawer__panel,
+  :root[data-theme="dark"] .ff-sponsorModal__panel,
+  :root[data-theme="dark"] .ff-embeddedCheckout__panel {
+    background: linear-gradient(145deg, rgba(20,28,44,.98), rgba(8,14,25,.96));
+    border-color: rgba(255,255,255,.16);
+  }
+
+  .ff-shareDrawer__close,
+  .ff-sponsorModal__close,
+  .ff-embeddedCheckout__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid rgba(72,44,25,.12);
+    border-radius: 50%;
+    background: rgba(255,255,255,.88);
+    color: var(--ff-ink-strong);
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+
+  .ff-shareDrawer__head {
+    display: grid;
+    gap: 9px;
+    padding-right: 42px;
+  }
+
+  .ff-shareDrawer__body {
+    display: grid;
+    grid-template-columns: 220px minmax(0,1fr);
+    gap: 18px;
+    align-items: center;
+    margin-top: 18px;
+  }
+
+  .ff-shareDrawer__qr {
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(72,44,25,.12);
+    border-radius: 22px;
+    background: white;
+    padding: 18px;
+    box-shadow: var(--ff-campaign-shadow-soft);
+  }
+
+  .ff-shareDrawer__qr img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+  }
+
+  .ff-shareDrawer__copyBlock,
+  .ff-shareDrawer__field,
+  .ff-sponsorModal__form,
+  .ff-sponsorModal__summary {
+    display: grid;
+    gap: 10px;
+  }
+
+  .ff-shareDrawer__field span {
+    color: rgba(56,42,31,.62);
+    font-size: .75rem;
+    font-weight: 850;
+  }
+
+  .ff-sponsorModal__panel {
+    width: min(100%, 560px);
+    display: grid;
+    gap: 12px;
+  }
+
+  .ff-sponsorModal__summary {
+    border: 1px solid rgba(72,44,25,.12);
+    border-radius: 20px;
+    background: rgba(255,255,255,.72);
+    padding: 13px;
+  }
+
+  .ff-sponsorModal__summary span {
+    color: rgba(56,42,31,.68);
+    font-size: .88rem;
+  }
+
+  .ff-embeddedCheckout__panel {
+    width: min(100%, 980px);
+    padding: 0;
+  }
+
+  .ff-embeddedCheckout__head {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid rgba(72,44,25,.105);
+    padding: clamp(18px, 3vw, 26px);
+  }
+
+  .ff-embeddedCheckout__head > div {
+    display: grid;
+    gap: 8px;
+  }
+
+  .ff-embeddedCheckout__head h2 {
+    font-size: clamp(1.65rem, 3vw, 2.6rem);
+  }
+
+  .ff-embeddedCheckout__body {
+    display: grid;
+    gap: 14px;
+    padding: clamp(18px, 3vw, 26px);
+  }
+
+  .ff-checkoutTrust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    color: rgba(56,42,31,.68);
+    font-size: .78rem;
+    font-weight: 850;
+  }
+
+  .ff-checkoutTrust span {
+    min-height: 28px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(72,44,25,.105);
+    border-radius: var(--ff-radius-pill);
+    background: rgba(255,255,255,.74);
+    padding: 5px 10px;
+  }
+
+  .ff-checkoutEnterprise {
+    display: grid;
+    grid-template-columns: minmax(280px, .72fr) minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+  }
+
+  .ff-checkoutPrep,
+  .ff-checkoutStage {
+    display: grid;
+    gap: 13px;
+    border: 1px solid rgba(72,44,25,.105);
+    border-radius: 24px;
+    background: rgba(255,255,255,.72);
+    padding: clamp(14px, 2.2vw, 20px);
+  }
+
+  .ff-checkoutPrep__top {
+    display: grid;
+    gap: 8px;
+  }
+
+  .ff-checkoutAmountGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 8px;
+  }
+
+  .ff-checkoutAmount {
+    display: grid;
+    align-content: center;
+    gap: 3px;
+    text-align: left;
+    padding: 10px;
+  }
+
+  .ff-checkoutAmount span {
+    color: rgba(56,42,31,.62);
+    font-size: .74rem;
+    font-weight: 800;
+  }
+
+  .ff-checkoutImpact {
+    display: grid;
+    grid-template-columns: auto minmax(0,1fr);
+    gap: 10px;
+    align-items: start;
+    border: 1px solid rgba(18,124,111,.16);
+    border-radius: 20px;
+    background: rgba(232,250,244,.74);
+    padding: 12px;
+  }
+
+  .ff-checkoutImpact > span {
+    display: grid;
+    width: 26px;
+    height: 26px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--ff-campaign-teal);
+    color: white;
+    font-weight: 950;
+  }
+
+  .ff-checkoutImpact p,
+  .ff-checkoutPrep__fineprint,
+  .ff-secureNote {
+    color: rgba(56,42,31,.68);
+    font-size: .82rem;
+  }
+
+  .ff-checkoutDonorFields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 10px;
+  }
+
+  .ff-checkoutStage__summary,
+  .ff-checkoutStage__empty {
+    display: grid;
+    gap: 6px;
+    border: 1px solid rgba(72,44,25,.105);
+    border-radius: 20px;
+    background: rgba(255,255,255,.68);
+    padding: 13px;
+  }
+
+  .ff-checkoutStage__summary span,
+  .ff-checkoutStage__empty span {
+    color: #a84310;
+    font-size: .72rem;
+    font-weight: 950;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+  }
+
+  .ff-embeddedCheckout__mount {
+    min-height: 52px;
+    border-radius: 16px;
+  }
+
+  .ff-embeddedCheckout__error {
+    border: 1px solid rgba(186,45,29,.18);
+    border-radius: 16px;
+    background: rgba(255,239,235,.86);
+    color: #ba2d1d;
+    font-size: .86rem;
+    font-weight: 800;
+    padding: 12px 14px;
+  }
+
+  @media (max-width: 780px) {
+    .ff-shareDrawer__body,
+    .ff-checkoutEnterprise,
+    .ff-checkoutDonorFields {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-shareDrawer__qr {
+      width: fit-content;
+      margin-inline: auto;
+    }
+
+    .ff-embeddedCheckout__head {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .ff-paymentReturn__card {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-paymentReturn__actions {
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ff-shareDrawer,
+    .ff-sponsorModal,
+    .ff-checkoutModal {
+      padding: 10px;
+    }
+
+    .ff-shareDrawer__panel,
+    .ff-sponsorModal__panel,
+    .ff-embeddedCheckout__panel {
+      border-radius: 22px;
+      max-height: calc(100vh - 20px);
+    }
+
+    .ff-checkoutAmountGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@layer utilities {
+  .ff-progressBar--59 {
+    width: 59%;
+  }
+}
+
+/* FF_CAMPAIGN_CSP_SAFE_PROGRESS_BUCKETS_V2_START */
+@layer utilities {
+  [data-ff-progress-bar][data-ff-progress-value] { display: block; height: 100%; min-width: 8px; max-width: 100%; border-radius: inherit; }
+  [data-ff-progress-bar][data-ff-progress-value="0"] { width: 0% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="1"] { width: 1% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="2"] { width: 2% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="3"] { width: 3% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="4"] { width: 4% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="5"] { width: 5% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="6"] { width: 6% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="7"] { width: 7% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="8"] { width: 8% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="9"] { width: 9% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="10"] { width: 10% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="11"] { width: 11% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="12"] { width: 12% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="13"] { width: 13% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="14"] { width: 14% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="15"] { width: 15% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="16"] { width: 16% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="17"] { width: 17% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="18"] { width: 18% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="19"] { width: 19% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="20"] { width: 20% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="21"] { width: 21% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="22"] { width: 22% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="23"] { width: 23% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="24"] { width: 24% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="25"] { width: 25% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="26"] { width: 26% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="27"] { width: 27% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="28"] { width: 28% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="29"] { width: 29% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="30"] { width: 30% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="31"] { width: 31% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="32"] { width: 32% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="33"] { width: 33% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="34"] { width: 34% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="35"] { width: 35% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="36"] { width: 36% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="37"] { width: 37% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="38"] { width: 38% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="39"] { width: 39% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="40"] { width: 40% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="41"] { width: 41% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="42"] { width: 42% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="43"] { width: 43% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="44"] { width: 44% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="45"] { width: 45% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="46"] { width: 46% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="47"] { width: 47% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="48"] { width: 48% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="49"] { width: 49% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="50"] { width: 50% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="51"] { width: 51% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="52"] { width: 52% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="53"] { width: 53% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="54"] { width: 54% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="55"] { width: 55% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="56"] { width: 56% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="57"] { width: 57% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="58"] { width: 58% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="59"] { width: 59% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="60"] { width: 60% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="61"] { width: 61% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="62"] { width: 62% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="63"] { width: 63% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="64"] { width: 64% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="65"] { width: 65% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="66"] { width: 66% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="67"] { width: 67% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="68"] { width: 68% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="69"] { width: 69% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="70"] { width: 70% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="71"] { width: 71% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="72"] { width: 72% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="73"] { width: 73% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="74"] { width: 74% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="75"] { width: 75% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="76"] { width: 76% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="77"] { width: 77% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="78"] { width: 78% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="79"] { width: 79% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="80"] { width: 80% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="81"] { width: 81% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="82"] { width: 82% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="83"] { width: 83% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="84"] { width: 84% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="85"] { width: 85% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="86"] { width: 86% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="87"] { width: 87% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="88"] { width: 88% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="89"] { width: 89% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="90"] { width: 90% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="91"] { width: 91% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="92"] { width: 92% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="93"] { width: 93% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="94"] { width: 94% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="95"] { width: 95% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="96"] { width: 96% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="97"] { width: 97% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="98"] { width: 98% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="99"] { width: 99% !important; }
+  [data-ff-progress-bar][data-ff-progress-value="100"] { width: 100% !important; }
+}
+/* FF_CAMPAIGN_CSP_SAFE_PROGRESS_BUCKETS_V2_END */
+
+/* ==========================================================================
+   FutureFunded Campaign Typography Alignment v1
+   ========================================================================== */
+
+@layer campaign {
+  html[data-ff-page="campaign"] body.ff-campaignBody {
+    font-family: var(--ff-type-sans);
+  }
+
+  .ff-heroTitle {
+    max-width: 10.45ch;
+    font-family: var(--ff-type-display);
+    font-size: var(--ff-type-hero);
+    font-weight: var(--ff-type-weight-display);
+    letter-spacing: var(--ff-type-hero-tracking);
+    line-height: var(--ff-type-hero-leading);
+  }
+
+  .ff-sectionHeader h2,
+  .ff-storyCopy h2,
+  .ff-campaignFooter__closing h2,
+  .ff-donatePanel__header h2 {
+    font-family: var(--ff-type-display);
+    font-weight: var(--ff-type-weight-heading);
+    letter-spacing: var(--ff-type-section-tracking);
+    line-height: var(--ff-type-section-leading);
+  }
+
+  .ff-sectionHeader h2,
+  .ff-storyCopy h2 {
+    font-size: var(--ff-type-section);
+  }
+
+  .ff-donatePanel__header h2 {
+    font-size: clamp(1.65rem, 2.8vw, 2.55rem);
+  }
+
+  .ff-impactCard h3,
+  .ff-sponsorCard h3,
+  .ff-teamCard h3,
+  .ff-miniGrid h3,
+  .ff-squadCard strong,
+  .ff-progressBox__top strong {
+    font-family: var(--ff-type-display);
+    font-weight: var(--ff-type-weight-title);
+    letter-spacing: var(--ff-type-title-tracking);
+    line-height: var(--ff-type-title-leading);
+  }
+
+  .ff-campaignHero .ff-lede,
+  .ff-donatePanel__header p,
+  .ff-sectionHeader p,
+  .ff-impactCard p,
+  .ff-sponsorCard li,
+  .ff-teamCard li,
+  .ff-miniGrid p,
+  .ff-sectionFooter span,
+  .ff-campaignFooter__closing p {
+    color: var(--ff-type-muted);
+    font-size: var(--ff-type-body);
+    font-weight: var(--ff-type-weight-body);
+    line-height: var(--ff-type-body-leading);
+  }
+
+  .ff-eyebrow,
+  .ff-campaignHero .ff-pill,
+  .ff-impactCard span,
+  .ff-sponsorCard__head span,
+  .ff-teamCard__body > span,
+  .ff-miniGrid span,
+  .ff-squadCard__media span {
+    font-weight: 850;
+    letter-spacing: var(--ff-type-eyebrow-tracking);
+  }
+
+  .ff-button,
+  .ff-donateSubmit,
+  .ff-donationAmount,
+  .ff-checkoutAmount,
+  button[data-ff-amount],
+  .ff-campaignHeader__nav a {
+    font-weight: 820;
+    letter-spacing: -.012em;
+  }
+
+  @media (max-width: 680px) {
+    .ff-heroTitle {
+      font-size: var(--ff-type-hero-mobile);
+      letter-spacing: -.066em;
+      line-height: .9;
+    }
+
+    .ff-sectionHeader h2,
+    .ff-storyCopy h2 {
+      font-size: var(--ff-type-section-mobile);
+    }
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Typography Alignment v1
+   ========================================================================== */
+
+@layer campaign {
+  html[data-ff-page="campaign"] body.ff-campaignBody {
+    font-family: var(--ff-type-sans);
+  }
+
+  .ff-heroTitle {
+    max-width: 10.45ch;
+    font-family: var(--ff-type-display);
+    font-size: var(--ff-type-hero);
+    font-weight: var(--ff-type-weight-display);
+    letter-spacing: var(--ff-type-hero-tracking);
+    line-height: var(--ff-type-hero-leading);
+  }
+
+  .ff-sectionHeader h2,
+  .ff-storyCopy h2,
+  .ff-campaignFooter__closing h2,
+  .ff-donatePanel__header h2 {
+    font-family: var(--ff-type-display);
+    font-weight: var(--ff-type-weight-heading);
+    letter-spacing: var(--ff-type-section-tracking);
+    line-height: var(--ff-type-section-leading);
+  }
+
+  .ff-sectionHeader h2,
+  .ff-storyCopy h2 {
+    font-size: var(--ff-type-section);
+  }
+
+  .ff-donatePanel__header h2 {
+    font-size: clamp(1.65rem, 2.8vw, 2.55rem);
+  }
+
+  .ff-impactCard h3,
+  .ff-sponsorCard h3,
+  .ff-teamCard h3,
+  .ff-miniGrid h3,
+  .ff-squadCard strong,
+  .ff-progressBox__top strong {
+    font-family: var(--ff-type-display);
+    font-weight: var(--ff-type-weight-title);
+    letter-spacing: var(--ff-type-title-tracking);
+    line-height: var(--ff-type-title-leading);
+  }
+
+  .ff-campaignHero .ff-lede,
+  .ff-donatePanel__header p,
+  .ff-sectionHeader p,
+  .ff-impactCard p,
+  .ff-sponsorCard li,
+  .ff-teamCard li,
+  .ff-miniGrid p,
+  .ff-sectionFooter span,
+  .ff-campaignFooter__closing p {
+    color: var(--ff-type-muted);
+    font-size: var(--ff-type-body);
+    font-weight: var(--ff-type-weight-body);
+    line-height: var(--ff-type-body-leading);
+  }
+
+  .ff-eyebrow,
+  .ff-campaignHero .ff-pill,
+  .ff-impactCard span,
+  .ff-sponsorCard__head span,
+  .ff-teamCard__body > span,
+  .ff-miniGrid span,
+  .ff-squadCard__media span {
+    font-weight: 850;
+    letter-spacing: var(--ff-type-eyebrow-tracking);
+  }
+
+  .ff-button,
+  .ff-donateSubmit,
+  .ff-donationAmount,
+  .ff-checkoutAmount,
+  button[data-ff-amount],
+  .ff-campaignHeader__nav a {
+    font-weight: 820;
+    letter-spacing: -.012em;
+  }
+
+  @media (max-width: 680px) {
+    .ff-heroTitle {
+      font-size: var(--ff-type-hero-mobile);
+      letter-spacing: -.066em;
+      line-height: .9;
+    }
+
+    .ff-sectionHeader h2,
+    .ff-storyCopy h2 {
+      font-size: var(--ff-type-section-mobile);
+    }
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Hero Typography Calm Pass v1.1
+   ========================================================================== */
+
+@layer campaign {
+  .ff-heroTitle {
+    max-width: 11.1ch;
+    font-size: var(--ff-type-hero);
+    font-weight: var(--ff-type-weight-display);
+    letter-spacing: var(--ff-type-hero-tracking);
+    line-height: var(--ff-type-hero-leading);
+  }
+
+  .ff-campaignHero .ff-lede {
+    max-width: 60ch;
+    font-size: clamp(.96rem, 1.03vw, 1.06rem);
+    line-height: 1.54;
+  }
+
+  .ff-donatePanel__header h2 {
+    max-width: 13ch;
+    font-size: clamp(1.5rem, 2.35vw, 2.25rem);
+    font-weight: 850;
+    letter-spacing: -.052em;
+    line-height: .96;
+  }
+
+  @media (max-width: 680px) {
+    .ff-heroTitle {
+      max-width: 10.8ch;
+      font-size: var(--ff-type-hero-mobile);
+      letter-spacing: -.048em;
+      line-height: .95;
+    }
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Accent Harmonization v1.2
+   ========================================================================== */
+
+@layer campaign {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-orange: var(--ff-accent-warm);
+    --ff-campaign-orange-2: var(--ff-accent-warm-2);
+  }
+
+  body.ff-campaignBody {
+    background:
+      radial-gradient(circle at 8% -7%, rgba(255,148,66,.17), transparent 31rem),
+      radial-gradient(circle at 94% 2%, rgba(18,124,111,.13), transparent 34rem),
+      radial-gradient(circle at 54% 22%, rgba(255,255,255,.58), transparent 30rem),
+      linear-gradient(180deg, #fff9f1 0%, #f7ead7 50%, #efd9bd 100%);
+  }
+
+  .ff-campaignHero__story {
+    background: var(--ff-hero-surface-neutral);
+  }
+
+  .ff-campaignHero__story::after {
+    opacity: .58;
+    background: radial-gradient(circle, rgba(255,148,66,.11), transparent 64%);
+  }
+
+  .ff-heroTitle span {
+    background: linear-gradient(135deg, var(--ff-accent-warm), var(--ff-accent-warm-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .ff-campaignHero .ff-button--primary,
+  .ff-donateSubmit,
+  .ff-mobileDonateBar .ff-button--primary {
+    background:
+      radial-gradient(circle at 30% 0%, rgba(255,255,255,.28), transparent 42%),
+      linear-gradient(135deg, var(--ff-accent-warm), var(--ff-accent-warm-2));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.26) inset,
+      0 14px 30px rgba(255,107,26,.21),
+      0 20px 48px rgba(255,107,26,.12);
+  }
+
+  .ff-progressBar,
+  [data-ff-progress-bar] {
+    background: linear-gradient(90deg, var(--ff-accent-warm), var(--ff-accent-warm-2), var(--ff-campaign-teal));
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Hero Background Harmony v1.3
+   ========================================================================== */
+
+@layer campaign {
+  .ff-campaignHero__story {
+    background: var(--ff-hero-surface-warm-strong);
+  }
+
+  .ff-campaignHero__story::after {
+    opacity: .48;
+    background:
+      radial-gradient(circle, rgba(255,196,137,.17), transparent 64%);
+  }
+
+  .ff-donatePanel {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,196,137,.18), transparent 20rem),
+      radial-gradient(circle at 0% 100%, rgba(18,124,111,.07), transparent 18rem),
+      linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,248,238,.94));
+  }
+}
+
+/* FutureFunded Campaign Hero Background Harmony v1.3 */
+@layer campaign {
+  .ff-campaignHero__story {
+    background: var(--ff-hero-surface-warm-strong);
+  }
+
+  .ff-campaignHero__story::after {
+    opacity: .48;
+    background: radial-gradient(circle, rgba(255,196,137,.17), transparent 64%);
+  }
+
+  .ff-donatePanel {
+    background: var(--ff-hero-surface-warm-panel);
+  }
+}
+
+/* FutureFunded Hero Visible Wash v1.4 */
+@layer campaign {
+  .ff-campaignHero__story {
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255,255,255,.98), transparent 18rem),
+      radial-gradient(circle at 14% 18%, rgba(255,232,196,.36), transparent 24rem),
+      radial-gradient(circle at 92% 4%, rgba(255,205,155,.42), transparent 31rem),
+      radial-gradient(circle at 82% 92%, rgba(18,124,111,.09), transparent 24rem),
+      linear-gradient(145deg, rgba(255,255,255,.992), rgba(255,244,226,.955)) !important;
+  }
+
+  .ff-donatePanel {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,205,155,.30), transparent 20rem),
+      radial-gradient(circle at 0% 100%, rgba(18,124,111,.08), transparent 18rem),
+      linear-gradient(180deg, rgba(255,255,255,.985), rgba(255,246,232,.96)) !important;
+  }
+}
+
+/* FutureFunded Hero Section Visible Band v1.5 */
+@layer campaign {
+  .ff-campaignHero {
+    position: relative;
+    border-radius: clamp(26px, 3vw, 42px);
+    background: var(--ff-hero-band-visible) !important;
+  }
+
+  .ff-campaignHero__story {
+    background: var(--ff-hero-panel-visible) !important;
+  }
+
+  .ff-donatePanel {
+    background: var(--ff-hero-side-panel-visible) !important;
+  }
+}
+
+/* === FutureFunded visual-rhythm-authority-v16 START === */
+@layer campaign {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-section: clamp(22px, 3.1vw, 44px);
+    --ff-campaign-pad: clamp(16px, 2.45vw, 32px);
+    --ff-campaign-radius: clamp(22px, 2.6vw, 30px);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero {
+    padding-block: clamp(8px, 1.25vw, 14px) clamp(24px, 3vw, 40px);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__grid {
+    gap: clamp(12px, 1.8vw, 22px);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__story {
+    min-height: clamp(430px, 58svh, 575px);
+    gap: clamp(12px, 1.45vw, 18px);
+    padding: clamp(24px, 3.7vw, 46px);
+  }
+
+  html[data-ff-page="campaign"] .ff-heroTitle {
+    max-width: 10.4ch;
+    font-size: clamp(3.15rem, 7vw, 6.45rem);
+    line-height: .855;
+    letter-spacing: -.084em;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero .ff-lede {
+    max-width: 58ch;
+    font-size: clamp(.96rem, 1.14vw, 1.08rem);
+    line-height: 1.48;
+  }
+
+  html[data-ff-page="campaign"] .ff-statGrid {
+    gap: 8px;
+  }
+
+  html[data-ff-page="campaign"] .ff-statGrid article {
+    min-height: 74px;
+    padding: 12px;
+    border-radius: 17px;
+  }
+
+  html[data-ff-page="campaign"] .ff-assuranceBand {
+    padding: 11px 12px;
+    border-radius: 18px;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel {
+    top: calc(var(--ff-header-h) + 10px);
+    gap: 12px;
+    padding: clamp(16px, 2.2vw, 24px);
+    border-radius: clamp(22px, 2.6vw, 30px);
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel__header h2 {
+    font-size: clamp(1.55rem, 2.55vw, 2.25rem);
+    letter-spacing: -.058em;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection {
+    padding-block: clamp(24px, 3.2vw, 46px);
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader {
+    margin-bottom: clamp(14px, 2vw, 24px);
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader h2 {
+    font-size: clamp(2.15rem, 4.3vw, 4rem);
+    line-height: .88;
+    letter-spacing: -.074em;
+  }
+
+  html[data-ff-page="campaign"] .ff-card,
+  html[data-ff-page="campaign"] .ff-storyCard,
+  html[data-ff-page="campaign"] .ff-impactCard,
+  html[data-ff-page="campaign"] .ff-sponsorTier,
+  html[data-ff-page="campaign"] .ff-teamCard {
+    border-radius: clamp(18px, 2.2vw, 26px);
+  }
+
+  @media (max-width: 860px) {
+    html[data-ff-page="campaign"] .ff-campaignHero__story {
+      min-height: auto;
+    }
+
+    html[data-ff-page="campaign"] .ff-heroTitle {
+      font-size: clamp(3rem, 15vw, 4.8rem);
+    }
+
+    html[data-ff-page="campaign"] .ff-donatePanel {
+      position: relative;
+      top: auto;
+      width: 100%;
+    }
+  }
+}
+/* === FutureFunded visual-rhythm-authority-v16 END === */
+
+/* === FutureFunded campaign-safe-premium-authority-v18 START === */
+@layer campaign {
+  /*
+    FutureFunded campaign-safe-premium-authority-v18
+    Safe campaign polish:
+    - no generic [data-ff-open-checkout] card styling
+    - no broad "all descendants become buttons" selectors
+    - keeps campaign warm/premium while preserving card readability
+  */
+
+  html[data-ff-page="campaign"] {
+    --ff-campaign-section: clamp(22px, 3vw, 42px);
+    --ff-campaign-radius: clamp(22px, 2.6vw, 30px);
+    --ff-campaign-cream: #fff8ef;
+    --ff-campaign-sand: #f7ead8;
+    --ff-campaign-sand-2: #efd9bd;
+    --ff-campaign-ink: #120b07;
+    --ff-campaign-muted: rgba(56, 42, 31, .74);
+    --ff-campaign-soft: rgba(74, 55, 39, .58);
+    --ff-campaign-line: rgba(72, 44, 25, .115);
+    --ff-campaign-orange: #f35f16;
+    --ff-campaign-orange-2: #ff7a1a;
+    --ff-campaign-teal: #127c6f;
+    --ff-campaign-card: rgba(255, 253, 248, .92);
+    --ff-campaign-card-soft: rgba(255, 250, 244, .86);
+    --ff-campaign-shadow-soft: 0 14px 38px rgba(55, 36, 20, .085);
+    --ff-campaign-shadow-panel: 0 26px 72px rgba(55, 36, 20, .13);
+  }
+
+  body.ff-campaignBody {
+    background:
+      radial-gradient(circle at 8% -6%, rgba(255,122,26,.20), transparent 31rem),
+      radial-gradient(circle at 94% 0%, rgba(18,124,111,.12), transparent 34rem),
+      radial-gradient(circle at 50% 18%, rgba(255,255,255,.50), transparent 34rem),
+      linear-gradient(180deg, var(--ff-campaign-cream) 0%, var(--ff-campaign-sand) 54%, var(--ff-campaign-sand-2) 100%) !important;
+  }
+
+  .ff-campaignHero {
+    padding-block: clamp(8px, 1.25vw, 14px) clamp(22px, 3vw, 38px) !important;
+  }
+
+  .ff-campaignHero__grid {
+    gap: clamp(12px, 1.75vw, 22px) !important;
+  }
+
+  .ff-campaignHero__story {
+    min-height: clamp(430px, 58svh, 565px) !important;
+    gap: clamp(12px, 1.45vw, 18px) !important;
+    border: 1px solid var(--ff-campaign-line) !important;
+    background:
+      radial-gradient(circle at 4% 0%, rgba(255,255,255,.96), transparent 18rem),
+      radial-gradient(circle at 86% 4%, rgba(255,122,26,.18), transparent 24rem),
+      radial-gradient(circle at 88% 96%, rgba(18,124,111,.085), transparent 24rem),
+      linear-gradient(145deg, rgba(255,255,255,.98), rgba(255,248,237,.92)) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.86) inset,
+      var(--ff-campaign-shadow-panel) !important;
+  }
+
+  .ff-heroTitle {
+    font-size: clamp(3.05rem, 6.85vw, 6.25rem) !important;
+    line-height: .86 !important;
+    letter-spacing: -.082em !important;
+  }
+
+  .ff-campaignHero .ff-lede {
+    font-size: clamp(.95rem, 1.12vw, 1.06rem) !important;
+    line-height: 1.48 !important;
+  }
+
+  .ff-statGrid article,
+  .ff-assuranceBand {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,250,244,.70)) !important;
+    border-color: rgba(72,44,25,.10) !important;
+  }
+
+  .ff-donatePanel {
+    border: 1px solid var(--ff-campaign-line) !important;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,122,26,.13), transparent 18rem),
+      radial-gradient(circle at 0% 100%, rgba(18,124,111,.08), transparent 20rem),
+      linear-gradient(180deg, rgba(255,255,255,.97), rgba(255,249,240,.92)) !important;
+    color: var(--ff-campaign-ink) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.84) inset,
+      var(--ff-campaign-shadow-panel) !important;
+  }
+
+  .ff-donatePanel :where(h1, h2, h3, strong) {
+    color: var(--ff-campaign-ink) !important;
+  }
+
+  .ff-donatePanel :where(p, span, small, li, label) {
+    color: var(--ff-campaign-muted) !important;
+  }
+
+  .ff-donatePanel__header h2 {
+    max-width: 11ch;
+    font-size: clamp(1.5rem, 2.45vw, 2.2rem) !important;
+  }
+
+  .ff-donatePanel input,
+  .ff-checkoutField input {
+    background: rgba(255,255,255,.82) !important;
+    border-color: rgba(72,44,25,.12) !important;
+    color: var(--ff-campaign-ink) !important;
+  }
+
+  .ff-donateSubmit,
+  .ff-donatePanel button[type="submit"],
+  .ff-donatePanel .ff-button--primary,
+  .ff-campaignSection .ff-button--primary,
+  .ff-mobileDonateBar .ff-button--primary {
+    background:
+      radial-gradient(circle at 30% 0%, rgba(255,255,255,.26), transparent 42%),
+      linear-gradient(135deg, var(--ff-campaign-orange), var(--ff-campaign-orange-2)) !important;
+    border-color: rgba(243,95,22,.34) !important;
+    color: #fffaf4 !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.24) inset,
+      0 14px 30px rgba(243,95,22,.23) !important;
+  }
+
+  .ff-donatePanel .ff-button:not(.ff-button--primary),
+  .ff-campaignSection .ff-button:not(.ff-button--primary) {
+    background: rgba(255,255,255,.78) !important;
+    border-color: var(--ff-campaign-line) !important;
+    color: var(--ff-campaign-ink) !important;
+  }
+
+  .ff-campaignSection {
+    padding-block: clamp(22px, 3vw, 42px) !important;
+  }
+
+  .ff-campaignSection .ff-shell,
+  .ff-campaignSection .ff-shellWide {
+    width: min(100% - 28px, 1180px) !important;
+  }
+
+  .ff-sectionHeader {
+    margin-bottom: clamp(12px, 1.8vw, 22px) !important;
+  }
+
+  .ff-sectionHeader h2 {
+    max-width: 14ch;
+    font-size: clamp(2.05rem, 4.05vw, 3.8rem) !important;
+    line-height: .89 !important;
+    letter-spacing: -.072em !important;
+  }
+
+  .ff-campaignSection :where(.ff-card, .ff-card--hero, .ff-storyCard, .ff-impactCard, .ff-sponsorTier, .ff-teamCard, .ff-featureCard) {
+    border: 1px solid var(--ff-campaign-line) !important;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,122,26,.04), transparent 18rem),
+      linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,250,244,.86)) !important;
+    color: var(--ff-campaign-ink) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.78) inset,
+      var(--ff-campaign-shadow-soft) !important;
+  }
+
+  .ff-campaignSection :where(.ff-card, .ff-card--hero, .ff-storyCard, .ff-impactCard, .ff-sponsorTier, .ff-teamCard, .ff-featureCard) :where(h1, h2, h3, strong) {
+    color: var(--ff-campaign-ink) !important;
+  }
+
+  .ff-campaignSection :where(.ff-card, .ff-card--hero, .ff-storyCard, .ff-impactCard, .ff-sponsorTier, .ff-teamCard, .ff-featureCard) :where(p, span, small, li) {
+    color: var(--ff-campaign-muted) !important;
+  }
+
+  .ff-campaignSection :where(.ff-eyebrow, [class*="eyebrow"], [class*="kicker"]) {
+    color: #a84310 !important;
+  }
+
+  .ff-impactCard,
+  .ff-impactCard * {
+    color: inherit;
+  }
+
+  .ff-impactCard {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,122,26,.045), transparent 14rem),
+      linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,250,244,.86)) !important;
+  }
+
+  .ff-impactCard :where(h3, strong) {
+    color: var(--ff-campaign-ink) !important;
+  }
+
+  .ff-impactCard :where(p, span, small) {
+    color: var(--ff-campaign-muted) !important;
+  }
+
+  @media (max-width: 860px) {
+    .ff-campaignHero__grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .ff-campaignHero__story {
+      min-height: auto !important;
+    }
+
+    .ff-donatePanel {
+      position: relative !important;
+      top: auto !important;
+      width: 100% !important;
+    }
+  }
+}
+/* === FutureFunded campaign-safe-premium-authority-v18 END === */
+
+/* === FutureFunded campaign-donate-panel-warm-v19 START === */
+@layer campaign {
+  /*
+    FutureFunded campaign-donate-panel-warm-v19
+    Purpose:
+    - make the right-side giving card visibly warm instead of white
+    - keep all lower cards readable
+    - do not style hook-only wrappers as buttons
+  */
+
+  html[data-ff-page="campaign"] .ff-donatePanel {
+    background:
+      radial-gradient(circle at 12% 0%, rgba(255, 255, 255, .60), transparent 18rem),
+      radial-gradient(circle at 100% 4%, rgba(255, 122, 26, .24), transparent 20rem),
+      radial-gradient(circle at 0% 100%, rgba(18, 124, 111, .115), transparent 22rem),
+      linear-gradient(145deg, rgba(255, 244, 226, .96), rgba(248, 224, 191, .88)) !important;
+    border-color: rgba(134, 81, 36, .18) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.82) inset,
+      0 26px 70px rgba(87, 52, 24, .16),
+      0 12px 30px rgba(87, 52, 24, .08) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel::before {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.46), transparent 44%),
+      radial-gradient(circle at 80% 0%, rgba(255,122,26,.18), transparent 18rem) !important;
+    opacity: .9 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel__header,
+  html[data-ff-page="campaign"] .ff-donatePanel__progress,
+  html[data-ff-page="campaign"] .ff-checkoutAmountGrid,
+  html[data-ff-page="campaign"] .ff-checkoutDonorFields,
+  html[data-ff-page="campaign"] .ff-checkoutPrep {
+    position: relative;
+    z-index: 1;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel__header h2,
+  html[data-ff-page="campaign"] .ff-donatePanel strong {
+    color: #120b07 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel__header p,
+  html[data-ff-page="campaign"] .ff-donatePanel :where(label, span, small, p) {
+    color: rgba(56, 42, 31, .76) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel .ff-eyebrow {
+    color: #9a3412 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel .ff-progressTrack {
+    background: rgba(85, 53, 30, .16) !important;
+    box-shadow: 0 1px 0 rgba(255,255,255,.62) inset !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel .ff-progressBar {
+    background:
+      linear-gradient(90deg, #f35f16 0%, #f59e0b 46%, #127c6f 100%) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-checkoutAmount {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,250,244,.54)) !important;
+    border-color: rgba(91, 55, 28, .12) !important;
+    color: #120b07 !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.72) inset,
+      0 8px 18px rgba(55,36,20,.045) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-checkoutAmount[aria-pressed="true"],
+  html[data-ff-page="campaign"] .ff-checkoutAmount.is-active,
+  html[data-ff-page="campaign"] .ff-checkoutAmount:hover {
+    background:
+      linear-gradient(180deg, rgba(255,237,213,.88), rgba(255,247,237,.72)) !important;
+    border-color: rgba(243,95,22,.30) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.80) inset,
+      0 10px 22px rgba(243,95,22,.12) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel input,
+  html[data-ff-page="campaign"] .ff-donatePanel textarea,
+  html[data-ff-page="campaign"] .ff-donatePanel select {
+    background: rgba(255,255,255,.72) !important;
+    border-color: rgba(91, 55, 28, .14) !important;
+    color: #120b07 !important;
+    box-shadow: 0 1px 0 rgba(255,255,255,.70) inset !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel .ff-donateSubmit,
+  html[data-ff-page="campaign"] .ff-donatePanel button[type="submit"] {
+    background:
+      radial-gradient(circle at 30% 0%, rgba(255,255,255,.26), transparent 42%),
+      linear-gradient(135deg, #f35f16, #ff7a1a) !important;
+    color: #fffaf4 !important;
+    border-color: rgba(243,95,22,.34) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel .ff-button:not(.ff-button--primary),
+  html[data-ff-page="campaign"] .ff-donatePanel button:not([type="submit"]):not(.ff-donateSubmit):not(.ff-checkoutAmount) {
+    background: rgba(255,255,255,.68) !important;
+    color: #120b07 !important;
+    border-color: rgba(91, 55, 28, .12) !important;
+  }
+}
+/* === FutureFunded campaign-donate-panel-warm-v19 END === */
+
+/* === FutureFunded campaign-readability-conversion-v32 START === */
+@layer campaign {
+  /*
+    FutureFunded campaign-readability-conversion-v32
+
+    Goal:
+    - donor-first readability
+    - tighter campaign density
+    - stronger card contrast
+    - premium Apple/Nike light surfaces with warm donor trust
+    - preserve checkout, sponsor, share, QR, modal, and progress contracts
+  */
+
+  html[data-ff-page="campaign"] {
+    --ff-c32-black: #090806;
+    --ff-c32-ink: #181410;
+    --ff-c32-copy: rgba(26, 22, 18, .82);
+    --ff-c32-muted: rgba(38, 32, 27, .72);
+    --ff-c32-soft: rgba(50, 42, 35, .62);
+    --ff-c32-card: #fffefd;
+    --ff-c32-card-2: #f8f4ed;
+    --ff-c32-panel: rgba(246, 240, 231, .94);
+    --ff-c32-line: rgba(18, 14, 10, .16);
+    --ff-c32-line-soft: rgba(18, 14, 10, .10);
+    --ff-c32-line-strong: rgba(18, 14, 10, .24);
+    --ff-c32-orange: #ff5f1f;
+    --ff-c32-orange-2: #ff7a1a;
+    --ff-c32-orange-dark: #9a3412;
+    --ff-c32-teal: #127c6f;
+    --ff-c32-panel-shadow:
+      0 1px 0 rgba(255,255,255,.88) inset,
+      0 22px 62px rgba(14,12,10,.085),
+      0 7px 20px rgba(14,12,10,.042);
+    --ff-c32-card-shadow:
+      0 1px 0 rgba(255,255,255,.92) inset,
+      0 14px 34px rgba(14,12,10,.082),
+      0 4px 12px rgba(14,12,10,.040);
+  }
+
+  body.ff-campaignBody {
+    background:
+      radial-gradient(circle at 82% -8%, rgba(255,95,31,.12), transparent 30rem),
+      radial-gradient(circle at 8% 0%, rgba(255,255,255,.86), transparent 31rem),
+      radial-gradient(circle at 88% 28%, rgba(18,124,111,.055), transparent 32rem),
+      linear-gradient(180deg, #fffdf9 0%, #f5eee3 48%, #e8ddcc 100%) !important;
+    color: var(--ff-c32-ink) !important;
+  }
+
+  /*
+    Hero: keep emotional sports impact, but improve scan + density.
+  */
+  html[data-ff-page="campaign"] .ff-campaignHero {
+    padding-block: clamp(8px, 1.3vw, 16px) clamp(22px, 3vw, 38px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__grid {
+    gap: clamp(12px, 1.8vw, 22px) !important;
+    align-items: stretch !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__story,
+  html[data-ff-page="campaign"] .ff-donatePanel {
+    border: 1px solid var(--ff-c32-line-soft) !important;
+    border-radius: clamp(24px, 2.8vw, 34px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__story {
+    min-height: clamp(500px, 64svh, 640px) !important;
+    gap: clamp(12px, 1.55vw, 19px) !important;
+    padding: clamp(24px, 4vw, 50px) !important;
+    background:
+      radial-gradient(circle at 92% 0%, rgba(255,95,31,.18), transparent 23rem),
+      radial-gradient(circle at 0% 0%, rgba(255,255,255,.96), transparent 19rem),
+      radial-gradient(circle at 84% 92%, rgba(18,124,111,.070), transparent 23rem),
+      linear-gradient(145deg, rgba(255,255,255,.985), rgba(255,249,241,.925)) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.92) inset,
+      0 28px 78px rgba(14,12,10,.105) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-heroTitle {
+    max-width: 10.25ch !important;
+    font-size: clamp(3.25rem, 7.15vw, 6.65rem) !important;
+    line-height: .865 !important;
+    letter-spacing: -.082em !important;
+    color: var(--ff-c32-black) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero .ff-lede {
+    max-width: 58ch !important;
+    color: var(--ff-c32-copy) !important;
+    font-size: clamp(.96rem, 1.12vw, 1.08rem) !important;
+    line-height: 1.48 !important;
+    font-weight: 560 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-pill {
+    border-color: rgba(18,14,10,.11) !important;
+    background: rgba(255,255,255,.80) !important;
+    color: rgba(31,27,23,.74) !important;
+    font-weight: 950 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-pill--hot {
+    border-color: rgba(255,95,31,.22) !important;
+    background: rgba(255,95,31,.085) !important;
+    color: var(--ff-c32-orange-dark) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-statGrid {
+    gap: 8px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-statGrid article {
+    min-height: 78px !important;
+    padding: 12px !important;
+    border-color: rgba(18,14,10,.12) !important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.88), rgba(248,244,237,.76)) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-statGrid span {
+    color: rgba(36,31,26,.66) !important;
+    font-size: .68rem !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-statGrid strong {
+    color: var(--ff-c32-black) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-assuranceBand {
+    border-color: rgba(255,95,31,.22) !important;
+    background:
+      linear-gradient(180deg, rgba(255,95,31,.105), rgba(255,247,237,.78)) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-assuranceBand span {
+    color: var(--ff-c32-copy) !important;
+    font-size: .86rem !important;
+  }
+
+  /*
+    Donation panel: this is the money moment.
+    More readable, tighter, warmer, clear CTA stack.
+  */
+  html[data-ff-page="campaign"] .ff-donatePanel {
+    top: calc(var(--ff-header-h) + 12px) !important;
+    width: min(100%, 430px) !important;
+    gap: 12px !important;
+    padding: clamp(18px, 2.35vw, 28px) !important;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,95,31,.22), transparent 19rem),
+      radial-gradient(circle at 0% 100%, rgba(18,124,111,.10), transparent 20rem),
+      linear-gradient(145deg, rgba(255,244,226,.965), rgba(248,224,191,.89)) !important;
+    border-color: rgba(134,81,36,.19) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.84) inset,
+      0 26px 70px rgba(87,52,24,.16),
+      0 10px 28px rgba(87,52,24,.080) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel__header {
+    gap: 7px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel__header h2 {
+    max-width: 11ch !important;
+    color: var(--ff-c32-black) !important;
+    font-size: clamp(1.62rem, 2.55vw, 2.35rem) !important;
+    line-height: .92 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel__header p {
+    max-width: 35ch !important;
+    color: var(--ff-c32-copy) !important;
+    font-size: .94rem !important;
+    line-height: 1.44 !important;
+    font-weight: 560 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-progressBox {
+    gap: 9px !important;
+    padding: 13px !important;
+    border-color: rgba(91,55,28,.15) !important;
+    background: rgba(255,255,255,.64) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-progressBox__top span,
+  html[data-ff-page="campaign"] .ff-progressBox__meta span {
+    color: rgba(39,31,24,.72) !important;
+    font-size: .76rem !important;
+    font-weight: 950 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-progressBox__top strong {
+    color: var(--ff-c32-black) !important;
+    font-size: .96rem !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-progressTrack {
+    height: 10px !important;
+    background: rgba(85,53,30,.17) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-progressBar,
+  html[data-ff-page="campaign"] [data-ff-progress-bar] {
+    background:
+      linear-gradient(90deg, var(--ff-c32-orange) 0%, var(--ff-c32-orange-2) 44%, var(--ff-c32-teal) 100%) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donateForm {
+    gap: 10px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donationAmounts,
+  html[data-ff-page="campaign"] .ff-checkoutAmountGrid {
+    gap: 8px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donationAmount,
+  html[data-ff-page="campaign"] .ff-checkoutAmount,
+  html[data-ff-page="campaign"] button[data-ff-amount] {
+    min-height: 42px !important;
+    border-color: rgba(91,55,28,.14) !important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,250,244,.58)) !important;
+    color: var(--ff-c32-black) !important;
+    font-size: .92rem !important;
+    font-weight: 1000 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donationAmount:hover,
+  html[data-ff-page="campaign"] .ff-donationAmount[aria-pressed="true"],
+  html[data-ff-page="campaign"] .ff-checkoutAmount:hover,
+  html[data-ff-page="campaign"] .ff-checkoutAmount.is-selected,
+  html[data-ff-page="campaign"] button[data-ff-amount]:hover,
+  html[data-ff-page="campaign"] button[data-ff-amount][aria-pressed="true"] {
+    border-color: rgba(255,95,31,.34) !important;
+    background:
+      linear-gradient(180deg, rgba(255,237,213,.94), rgba(255,247,237,.72)) !important;
+    color: #7c2d12 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel input,
+  html[data-ff-page="campaign"] .ff-donatePanel textarea,
+  html[data-ff-page="campaign"] .ff-donatePanel select {
+    min-height: 43px !important;
+    border-color: rgba(91,55,28,.16) !important;
+    background: rgba(255,255,255,.72) !important;
+    color: var(--ff-c32-black) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donorTrustStrip {
+    gap: 6px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-donorTrustStrip span {
+    min-height: 28px !important;
+    color: rgba(31,27,23,.72) !important;
+    font-size: .70rem !important;
+    background: rgba(255,255,255,.66) !important;
+  }
+
+  /*
+    Campaign sections: less scroll fatigue, better module contrast.
+  */
+  html[data-ff-page="campaign"] .ff-campaignSection {
+    padding-block: clamp(24px, 3.2vw, 46px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionPanel {
+    border: 1px solid rgba(18,14,10,.12) !important;
+    border-radius: clamp(24px, 2.8vw, 34px) !important;
+    padding: clamp(20px, 2.8vw, 34px) !important;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,95,31,.040), transparent 18rem),
+      radial-gradient(circle at 0% 100%, rgba(18,124,111,.024), transparent 20rem),
+      linear-gradient(180deg, rgba(255,255,255,.960), rgba(246,240,231,.930)) !important;
+    box-shadow: var(--ff-c32-panel-shadow) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader {
+    margin-bottom: clamp(14px, 2vw, 24px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader h2 {
+    color: var(--ff-c32-black) !important;
+    font-size: clamp(2rem, 4vw, 3.8rem) !important;
+    line-height: .90 !important;
+    letter-spacing: -.074em !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader p {
+    color: var(--ff-c32-copy) !important;
+    font-size: clamp(.92rem, 1vw, .99rem) !important;
+    line-height: 1.48 !important;
+    font-weight: 560 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-eyebrow {
+    color: var(--ff-c32-orange-dark) !important;
+    font-size: .70rem !important;
+    font-weight: 1000 !important;
+    letter-spacing: .155em !important;
+  }
+
+  /*
+    Cards: stronger readable surfaces.
+  */
+  html[data-ff-page="campaign"] .ff-squadCard,
+  html[data-ff-page="campaign"] .ff-impactCard,
+  html[data-ff-page="campaign"] .ff-sponsorCard,
+  html[data-ff-page="campaign"] .ff-teamCard,
+  html[data-ff-page="campaign"] .ff-miniGrid article,
+  html[data-ff-page="campaign"] .ff-sectionFooter,
+  html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+    border-color: var(--ff-c32-line) !important;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,95,31,.032), transparent 14rem),
+      linear-gradient(180deg, var(--ff-c32-card), var(--ff-c32-card-2)) !important;
+    color: var(--ff-c32-ink) !important;
+    box-shadow: var(--ff-c32-card-shadow) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard,
+  html[data-ff-page="campaign"] .ff-sponsorCard,
+  html[data-ff-page="campaign"] .ff-teamCard,
+  html[data-ff-page="campaign"] .ff-miniGrid article {
+    gap: 9px !important;
+    padding: clamp(15px, 1.8vw, 22px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard {
+    min-height: 142px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard {
+    min-height: 260px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard h3,
+  html[data-ff-page="campaign"] .ff-sponsorCard h3,
+  html[data-ff-page="campaign"] .ff-teamCard h3,
+  html[data-ff-page="campaign"] .ff-miniGrid h3,
+  html[data-ff-page="campaign"] .ff-sectionFooter strong {
+    color: var(--ff-c32-black) !important;
+    font-weight: 1000 !important;
+    letter-spacing: -.030em !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard p,
+  html[data-ff-page="campaign"] .ff-sponsorCard p,
+  html[data-ff-page="campaign"] .ff-sponsorCard li,
+  html[data-ff-page="campaign"] .ff-teamCard p,
+  html[data-ff-page="campaign"] .ff-teamCard li,
+  html[data-ff-page="campaign"] .ff-miniGrid p,
+  html[data-ff-page="campaign"] .ff-sectionFooter span {
+    color: var(--ff-c32-copy) !important;
+    font-size: .91rem !important;
+    line-height: 1.46 !important;
+    font-weight: 560 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard span,
+  html[data-ff-page="campaign"] .ff-sponsorCard__head span,
+  html[data-ff-page="campaign"] .ff-teamCard__body > span,
+  html[data-ff-page="campaign"] .ff-miniGrid span {
+    color: var(--ff-c32-orange-dark) !important;
+    font-size: .70rem !important;
+    font-weight: 1000 !important;
+  }
+
+  /*
+    Squad rail and team image cards:
+    make photos feel premium, not pasted in.
+  */
+  html[data-ff-page="campaign"] .ff-squadRail,
+  html[data-ff-page="campaign"] .ff-impactGrid,
+  html[data-ff-page="campaign"] .ff-sponsorGrid,
+  html[data-ff-page="campaign"] .ff-teamGrid,
+  html[data-ff-page="campaign"] .ff-miniGrid {
+    gap: clamp(10px, 1.35vw, 15px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media span {
+    background: rgba(255,255,255,.90) !important;
+    color: var(--ff-c32-orange-dark) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard > div:last-child {
+    padding: 11px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard small {
+    color: var(--ff-c32-muted) !important;
+    font-size: .78rem !important;
+  }
+
+  /*
+    Sponsor packages: increase sponsor-safe clarity.
+  */
+  html[data-ff-page="campaign"] .ff-sponsorCard > strong {
+    color: var(--ff-c32-black) !important;
+    font-size: clamp(1.35rem, 2.1vw, 1.8rem) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard li::before,
+  html[data-ff-page="campaign"] .ff-teamCard li::before {
+    background: var(--ff-c32-teal) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard[data-featured],
+  html[data-ff-page="campaign"] .ff-sponsorCard:has([data-ff-sponsor-package*="Featured"]) {
+    border-color: rgba(255,95,31,.26) !important;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,95,31,.080), transparent 17rem),
+      linear-gradient(180deg, #fffefd, #fff4e8) !important;
+  }
+
+  /*
+    Story/video split: improve contrast and density.
+  */
+  html[data-ff-page="campaign"] .ff-storySplit {
+    gap: 12px !important;
+    padding: 10px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    min-height: 340px !important;
+    border-radius: 22px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyCopy {
+    gap: 12px !important;
+    padding: clamp(18px, 2.6vw, 28px) !important;
+  }
+
+  /*
+    Footer push: make final CTA readable and compact.
+  */
+  html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+    gap: 12px !important;
+    padding: clamp(15px, 2.2vw, 22px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__closing h2 {
+    color: var(--ff-c32-black) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__meta span,
+  html[data-ff-page="campaign"] .ff-campaignFooter__nav a {
+    color: var(--ff-c32-muted) !important;
+  }
+
+  @media (max-width: 900px) {
+    html[data-ff-page="campaign"] .ff-campaignHero__grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-campaignHero__story {
+      min-height: auto !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-donatePanel {
+      position: relative !important;
+      top: auto !important;
+      justify-self: stretch !important;
+      width: 100% !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-squadRail,
+    html[data-ff-page="campaign"] .ff-impactGrid,
+    html[data-ff-page="campaign"] .ff-sponsorGrid,
+    html[data-ff-page="campaign"] .ff-teamGrid,
+    html[data-ff-page="campaign"] .ff-miniGrid {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    html[data-ff-page="campaign"] .ff-campaignSection {
+      padding-block: 24px !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-sectionPanel {
+      padding: 16px !important;
+      border-radius: 22px !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-heroTitle {
+      font-size: clamp(3rem, 14vw, 4.75rem) !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-statGrid,
+    html[data-ff-page="campaign"] .ff-squadRail,
+    html[data-ff-page="campaign"] .ff-impactGrid,
+    html[data-ff-page="campaign"] .ff-sponsorGrid,
+    html[data-ff-page="campaign"] .ff-teamGrid,
+    html[data-ff-page="campaign"] .ff-miniGrid {
+      grid-template-columns: 1fr !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-impactCard,
+    html[data-ff-page="campaign"] .ff-sponsorCard,
+    html[data-ff-page="campaign"] .ff-teamCard,
+    html[data-ff-page="campaign"] .ff-miniGrid article {
+      min-height: auto !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-storySplit {
+      grid-template-columns: 1fr !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-storyPoster {
+      min-height: 260px !important;
+    }
+  }
+}
+/* === FutureFunded campaign-readability-conversion-v32 END === */
+
+/* === FutureFunded campaign-conversion-finish-v33 START === */
+@layer campaign {
+  /*
+    FutureFunded campaign-conversion-finish-v33
+
+    Purpose:
+    - finish the donor-facing campaign page after v32
+    - improve lower-section hierarchy, card contrast, and sponsor trust
+    - make the page feel conversion-ready, not just visually cleaned
+    - preserve checkout/sponsor/share/QR/modal hooks
+  */
+
+  html[data-ff-page="campaign"] {
+    --ff-c33-black: #080706;
+    --ff-c33-ink: #18130f;
+    --ff-c33-copy: rgba(25, 21, 17, .84);
+    --ff-c33-muted: rgba(37, 31, 25, .74);
+    --ff-c33-soft: rgba(49, 41, 34, .64);
+    --ff-c33-card: #fffefd;
+    --ff-c33-card-2: #f7f3ec;
+    --ff-c33-panel: rgba(245, 239, 229, .95);
+    --ff-c33-line: rgba(16, 13, 10, .17);
+    --ff-c33-line-soft: rgba(16, 13, 10, .11);
+    --ff-c33-line-strong: rgba(16, 13, 10, .25);
+    --ff-c33-orange: #ff5f1f;
+    --ff-c33-orange-2: #ff7a1a;
+    --ff-c33-orange-dark: #9a3412;
+    --ff-c33-teal: #127c6f;
+    --ff-c33-shadow-panel:
+      0 1px 0 rgba(255,255,255,.88) inset,
+      0 22px 62px rgba(14,12,10,.09),
+      0 7px 20px rgba(14,12,10,.045);
+    --ff-c33-shadow-card:
+      0 1px 0 rgba(255,255,255,.92) inset,
+      0 14px 34px rgba(14,12,10,.086),
+      0 4px 12px rgba(14,12,10,.042);
+  }
+
+  /*
+    Page rhythm: less scroll fatigue.
+  */
+  html[data-ff-page="campaign"] .ff-campaignSection {
+    padding-block: clamp(22px, 3vw, 42px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection + .ff-campaignSection {
+    padding-top: clamp(16px, 2.25vw, 30px) !important;
+  }
+
+  /*
+    Section panels: stronger module structure.
+  */
+  html[data-ff-page="campaign"] .ff-sectionPanel {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid var(--ff-c33-line-soft) !important;
+    border-radius: clamp(24px, 2.8vw, 34px) !important;
+    background:
+      radial-gradient(circle at 96% 0%, rgba(255,95,31,.050), transparent 18rem),
+      radial-gradient(circle at 0% 100%, rgba(18,124,111,.025), transparent 20rem),
+      linear-gradient(180deg, rgba(255,255,255,.965), var(--ff-c33-panel)) !important;
+    box-shadow: var(--ff-c33-shadow-panel) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionPanel::before {
+    position: absolute;
+    top: 0;
+    left: clamp(18px, 3vw, 34px);
+    z-index: 0;
+    width: min(340px, 42%);
+    height: 2px;
+    border-radius: 999px;
+    background:
+      linear-gradient(90deg, var(--ff-c33-orange), rgba(255,95,31,.34), transparent);
+    content: "";
+    pointer-events: none;
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionPanel > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /*
+    Section headers: sharper, more donor-readable.
+  */
+  html[data-ff-page="campaign"] .ff-sectionHeader {
+    margin-bottom: clamp(14px, 1.9vw, 23px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader--center {
+    max-width: 760px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader h2 {
+    color: var(--ff-c33-black) !important;
+    font-size: clamp(2.05rem, 3.85vw, 3.7rem) !important;
+    line-height: .90 !important;
+    letter-spacing: -.074em !important;
+    text-shadow: 0 1px 0 rgba(255,255,255,.62);
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader p {
+    color: var(--ff-c33-copy) !important;
+    font-size: clamp(.92rem, 1vw, .99rem) !important;
+    line-height: 1.48 !important;
+    font-weight: 560 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-eyebrow {
+    color: var(--ff-c33-orange-dark) !important;
+    font-size: .70rem !important;
+    font-weight: 1000 !important;
+    letter-spacing: .155em !important;
+  }
+
+  /*
+    Cards: no more washed-out white-on-white.
+  */
+  html[data-ff-page="campaign"] .ff-squadCard,
+  html[data-ff-page="campaign"] .ff-impactCard,
+  html[data-ff-page="campaign"] .ff-sponsorCard,
+  html[data-ff-page="campaign"] .ff-teamCard,
+  html[data-ff-page="campaign"] .ff-miniGrid article,
+  html[data-ff-page="campaign"] .ff-sectionFooter,
+  html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+    position: relative;
+    overflow: hidden;
+    border-color: var(--ff-c33-line) !important;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,95,31,.030), transparent 14rem),
+      linear-gradient(180deg, var(--ff-c33-card), var(--ff-c33-card-2)) !important;
+    box-shadow: var(--ff-c33-shadow-card) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard::before,
+  html[data-ff-page="campaign"] .ff-sponsorCard::before,
+  html[data-ff-page="campaign"] .ff-teamCard::before,
+  html[data-ff-page="campaign"] .ff-miniGrid article::before,
+  html[data-ff-page="campaign"] .ff-sectionFooter::before {
+    position: absolute;
+    top: 0;
+    left: 16px;
+    right: 16px;
+    height: 2px;
+    border-radius: 999px;
+    background:
+      linear-gradient(90deg, rgba(255,95,31,.55), rgba(18,14,10,.14), transparent);
+    content: "";
+    opacity: .9;
+    pointer-events: none;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard h3,
+  html[data-ff-page="campaign"] .ff-sponsorCard h3,
+  html[data-ff-page="campaign"] .ff-teamCard h3,
+  html[data-ff-page="campaign"] .ff-miniGrid h3,
+  html[data-ff-page="campaign"] .ff-sectionFooter strong {
+    color: var(--ff-c33-black) !important;
+    font-size: clamp(1rem, 1.2vw, 1.18rem) !important;
+    font-weight: 1000 !important;
+    line-height: 1.08 !important;
+    letter-spacing: -.03em !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard p,
+  html[data-ff-page="campaign"] .ff-sponsorCard p,
+  html[data-ff-page="campaign"] .ff-sponsorCard li,
+  html[data-ff-page="campaign"] .ff-teamCard p,
+  html[data-ff-page="campaign"] .ff-teamCard li,
+  html[data-ff-page="campaign"] .ff-miniGrid p,
+  html[data-ff-page="campaign"] .ff-sectionFooter span {
+    color: var(--ff-c33-copy) !important;
+    font-size: .92rem !important;
+    line-height: 1.48 !important;
+    font-weight: 560 !important;
+  }
+
+  /*
+    Meet the squad: make photo rail more premium and readable.
+  */
+  html[data-ff-page="campaign"] .ff-squadRail {
+    gap: clamp(9px, 1.25vw, 14px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard {
+    border-radius: 20px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media {
+    background: rgba(18,14,10,.07) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media img {
+    filter: saturate(1.04) contrast(1.02);
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media span {
+    border: 1px solid rgba(255,95,31,.18);
+    background: rgba(255,255,255,.92) !important;
+    color: var(--ff-c33-orange-dark) !important;
+    box-shadow: 0 6px 16px rgba(14,12,10,.10);
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard > div:last-child {
+    padding: 12px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard strong {
+    color: var(--ff-c33-black) !important;
+    font-size: .95rem !important;
+    line-height: 1.08 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard small {
+    color: var(--ff-c33-muted) !important;
+    font-size: .80rem !important;
+    font-weight: 820 !important;
+  }
+
+  /*
+    Impact section: clearer donation-use cards.
+  */
+  html[data-ff-page="campaign"] .ff-impactGrid {
+    gap: clamp(10px, 1.35vw, 15px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard {
+    min-height: 136px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard span {
+    width: fit-content;
+    min-height: 23px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255,95,31,.18);
+    border-radius: 999px;
+    background: rgba(255,95,31,.08);
+    color: var(--ff-c33-orange-dark) !important;
+    padding-inline: 8px;
+  }
+
+  /*
+    Sponsor packages: this is the business conversion area.
+  */
+  html[data-ff-page="campaign"] .ff-sponsorGrid {
+    gap: clamp(12px, 1.6vw, 18px) !important;
+    align-items: stretch !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard {
+    min-height: 250px !important;
+    padding: clamp(16px, 1.85vw, 22px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard__head span {
+    width: fit-content;
+    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255,95,31,.18);
+    border-radius: 999px;
+    background: rgba(255,95,31,.08);
+    color: var(--ff-c33-orange-dark) !important;
+    padding-inline: 8px;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard__head em {
+    background: rgba(18,124,111,.105) !important;
+    color: var(--ff-c33-teal) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard > strong {
+    color: var(--ff-c33-black) !important;
+    font-size: clamp(1.38rem, 2.1vw, 1.86rem) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard li {
+    font-size: .90rem !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard .ff-button,
+  html[data-ff-page="campaign"] .ff-teamCard .ff-button {
+    min-height: 39px !important;
+    font-size: .82rem !important;
+  }
+
+  /*
+    Teams behind campaign: image hierarchy and proof metrics.
+  */
+  html[data-ff-page="campaign"] .ff-teamGrid {
+    gap: clamp(12px, 1.7vw, 20px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard {
+    border-radius: 24px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard > img {
+    filter: saturate(1.04) contrast(1.02);
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard__body {
+    gap: 9px !important;
+    padding: clamp(15px, 1.8vw, 21px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard__body > span {
+    color: var(--ff-c33-orange-dark) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard ul {
+    gap: 6px !important;
+  }
+
+  /*
+    Season story: strengthen video/story section.
+  */
+  html[data-ff-page="campaign"] .ff-storySplit {
+    gap: 12px !important;
+    padding: 10px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    min-height: 340px !important;
+    border-radius: 24px !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.08) inset,
+      0 18px 44px rgba(14,12,10,.14) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster img {
+    filter: saturate(1.04) contrast(1.04);
+  }
+
+  html[data-ff-page="campaign"] .ff-storyCopy {
+    gap: 12px !important;
+    padding: clamp(18px, 2.6vw, 28px) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-miniGrid article {
+    min-height: 116px !important;
+  }
+
+  /*
+    Quick answers + final push: reduce bottom weakness.
+  */
+  html[data-ff-page="campaign"] .ff-sectionFooter {
+    margin-top: 12px !important;
+    padding: 12px !important;
+    border-radius: 18px !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+    border-color: var(--ff-c33-line) !important;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,95,31,.045), transparent 16rem),
+      linear-gradient(180deg, var(--ff-c33-card), var(--ff-c33-card-2)) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__closing h2 {
+    color: var(--ff-c33-black) !important;
+    font-size: clamp(1.35rem, 2.15vw, 2rem) !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__meta span {
+    border-color: rgba(18,14,10,.12) !important;
+    background: rgba(255,255,255,.76) !important;
+    color: var(--ff-c33-muted) !important;
+  }
+
+  /*
+    Buttons: tighter, conversion-forward.
+    Only target actual button classes, not hook wrappers.
+  */
+  html[data-ff-page="campaign"] .ff-button {
+    font-weight: 950 !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-button--primary,
+  html[data-ff-page="campaign"] .ff-donateSubmit {
+    background:
+      radial-gradient(circle at 30% 0%, rgba(255,255,255,.28), transparent 42%),
+      linear-gradient(135deg, var(--ff-c33-orange), var(--ff-c33-orange-2)) !important;
+    border-color: rgba(255,95,31,.32) !important;
+    color: #fffefd !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-button--ghost {
+    border-color: rgba(18,14,10,.14) !important;
+    background: rgba(255,255,255,.84) !important;
+    color: var(--ff-c33-black) !important;
+  }
+
+  @media (hover: hover) {
+    html[data-ff-page="campaign"] .ff-impactCard:hover,
+    html[data-ff-page="campaign"] .ff-sponsorCard:hover,
+    html[data-ff-page="campaign"] .ff-teamCard:hover,
+    html[data-ff-page="campaign"] .ff-miniGrid article:hover,
+    html[data-ff-page="campaign"] .ff-squadCard:hover {
+      transform: translateY(-2px) !important;
+      border-color: var(--ff-c33-line-strong) !important;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,.92) inset,
+        0 22px 58px rgba(14,12,10,.11),
+        0 6px 16px rgba(14,12,10,.050) !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    html[data-ff-page="campaign"] .ff-campaignHero__story,
+    html[data-ff-page="campaign"] .ff-donatePanel {
+      border-radius: 24px !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-storyPoster {
+      min-height: 300px !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    html[data-ff-page="campaign"] .ff-campaignSection {
+      padding-block: 22px !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-sectionPanel {
+      padding: 15px !important;
+      border-radius: 22px !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-sectionHeader h2 {
+      font-size: clamp(2rem, 9.6vw, 3.1rem) !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-impactCard,
+    html[data-ff-page="campaign"] .ff-sponsorCard,
+    html[data-ff-page="campaign"] .ff-teamCard,
+    html[data-ff-page="campaign"] .ff-miniGrid article {
+      min-height: auto !important;
+    }
+
+    html[data-ff-page="campaign"] .ff-storyPoster {
+      min-height: 250px !important;
+    }
+  }
+}
+/* === FutureFunded campaign-conversion-finish-v33 END === */
+
+/* === FutureFunded campaign-interaction-selector-compat-v40 START === */
+@layer campaign {
+  /*
+    FutureFunded campaign-interaction-selector-compat-v40
+    Final selector-compatible owner for checkout, sponsor, copy/share overlays.
+  */
+
+  html.ff-modal-open,
+  body.ff-modal-open {
+    overflow: hidden;
+  }
+
+  html[data-ff-page="campaign"] #checkout[data-ff-single-owner="v40"],
+  html[data-ff-page="campaign"] #sponsor-modal[data-ff-single-owner="v40"] {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 10040 !important;
+    display: none;
+    place-items: center;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    padding: clamp(16px, 4vw, 32px);
+    background: rgba(9, 7, 5, .54);
+    backdrop-filter: blur(18px) saturate(1.05);
+  }
+
+  html[data-ff-page="campaign"] #checkout[data-ff-single-owner="v40"].is-open,
+  html[data-ff-page="campaign"] #checkout[data-ff-single-owner="v40"][data-ff-state="open"],
+  html[data-ff-page="campaign"] #sponsor-modal[data-ff-single-owner="v40"].is-open,
+  html[data-ff-page="campaign"] #sponsor-modal[data-ff-single-owner="v40"][data-ff-state="open"] {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner__card,
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner__card {
+    width: min(100%, 460px);
+    max-height: min(760px, 92vh);
+    overflow: auto;
+    border: 1px solid rgba(134, 81, 36, .22);
+    border-radius: 28px;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,95,31,.20), transparent 18rem),
+      linear-gradient(145deg, rgba(255,244,226,.98), rgba(248,224,191,.94));
+    color: #120b07;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.84) inset,
+      0 32px 90px rgba(0,0,0,.30);
+    padding: clamp(18px, 3vw, 28px);
+  }
+
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner__close,
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner__close {
+    float: right;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(91,55,28,.16);
+    border-radius: 999px;
+    background: rgba(255,255,255,.76);
+    color: #120b07;
+    font-weight: 1000;
+    cursor: pointer;
+  }
+
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner__card h2,
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner__card h2 {
+    margin: 4px 0 8px;
+    color: #120b07;
+    font-size: clamp(1.8rem, 4vw, 2.45rem);
+    line-height: .92;
+    letter-spacing: -.06em;
+  }
+
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner__card p,
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner__card p {
+    color: rgba(38, 30, 23, .78);
+    font-weight: 620;
+    line-height: 1.45;
+  }
+
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner__amounts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 14px 0;
+  }
+
+  html[data-ff-page="campaign"] #checkout[data-ff-single-owner="v40"] :where(
+    [data-ff-amount],
+    [data-amount],
+    [data-quick-amount],
+    [data-donation-amount],
+    [data-preset-amount],
+    [data-ff-checkout-amount],
+    [data-ff-quick-amount],
+    [data-ff-donation-amount],
+    [data-ff-preset-amount],
+    .ff-checkoutAmount,
+    .ff-donationAmount,
+    .ff-quickAmount,
+    .ff-amountButton,
+    .ff-donationPreset
+  ) {
+    min-height: 44px;
+    border: 1px solid rgba(91,55,28,.16);
+    border-radius: 14px;
+    background: rgba(255,255,255,.76);
+    color: #120b07;
+    font-weight: 1000;
+    cursor: pointer;
+  }
+
+  html[data-ff-page="campaign"] #checkout[data-ff-single-owner="v40"] [aria-pressed="true"] {
+    border-color: rgba(255,95,31,.40);
+    background: rgba(255,237,213,.94);
+    color: #7c2d12;
+  }
+
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner__field,
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner__field {
+    display: grid;
+    gap: 7px;
+    margin: 10px 0 14px;
+    color: rgba(38, 30, 23, .78);
+    font-weight: 900;
+  }
+
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner__field input,
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner__field input {
+    min-height: 44px;
+    border: 1px solid rgba(91,55,28,.16);
+    border-radius: 14px;
+    background: rgba(255,255,255,.78);
+    color: #120b07;
+    padding-inline: 12px;
+    font: inherit;
+  }
+
+  html[data-ff-page="campaign"] [data-ff-sponsor-selected-tier],
+  html[data-ff-page="campaign"] [data-sponsor-tier-label] {
+    border: 1px solid rgba(255,95,31,.20);
+    border-radius: 18px;
+    background: rgba(255,95,31,.09);
+    color: #9a3412 !important;
+    padding: 10px 12px;
+    font-weight: 950 !important;
+    margin: 12px 0 16px;
+  }
+
+  html[data-ff-page="campaign"] .ff-toast {
+    position: fixed;
+    left: 50%;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    z-index: 10080;
+    transform: translateX(-50%) translateY(8px);
+    max-width: min(92vw, 420px);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 999px;
+    background: rgba(17, 13, 10, .95);
+    color: #fffaf3;
+    box-shadow: 0 18px 48px rgba(0,0,0,.22);
+    padding: 11px 15px;
+    font-size: .88rem;
+    font-weight: 850;
+    opacity: 0;
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  html[data-ff-page="campaign"] .ff-toast.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+/* === FutureFunded campaign-interaction-selector-compat-v40 END === */
+
+/* === FutureFunded closed-overlay-pointer-fix-v43 START === */
+@layer campaign {
+  /*
+    Fix: closed checkout/sponsor single-owner overlays must never intercept page clicks.
+    This intentionally supports v40/v42/v43 owners and legacy selector aliases.
+  */
+
+  html[data-ff-page="campaign"] #checkout[data-ff-state="closed"],
+  html[data-ff-page="campaign"] #checkout[aria-hidden="true"]:not(.is-open),
+  html[data-ff-page="campaign"] #checkout[hidden],
+  html[data-ff-page="campaign"] #sponsor-modal[data-ff-state="closed"],
+  html[data-ff-page="campaign"] #sponsor-modal[aria-hidden="true"]:not(.is-open),
+  html[data-ff-page="campaign"] #sponsor-modal[hidden],
+  html[data-ff-page="campaign"] [data-ff-checkout-sheet][data-ff-state="closed"],
+  html[data-ff-page="campaign"] [data-ff-checkout-modal][data-ff-state="closed"],
+  html[data-ff-page="campaign"] [data-ff-donation-modal][data-ff-state="closed"],
+  html[data-ff-page="campaign"] [data-ff-sponsor-sheet][data-ff-state="closed"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  html[data-ff-page="campaign"] #checkout.is-open,
+  html[data-ff-page="campaign"] #checkout[data-ff-state="open"],
+  html[data-ff-page="campaign"] #checkout[aria-hidden="false"],
+  html[data-ff-page="campaign"] #sponsor-modal.is-open,
+  html[data-ff-page="campaign"] #sponsor-modal[data-ff-state="open"],
+  html[data-ff-page="campaign"] #sponsor-modal[aria-hidden="false"] {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+/* === FutureFunded closed-overlay-pointer-fix-v43 END === */
+
+/* === FutureFunded legacy-closed-overlay-hard-stop-v44 START === */
+@layer campaign {
+  /*
+    Hard stop for every closed checkout/sponsor overlay variant.
+    Fixes hidden legacy checkout intercepting clicks while aria-hidden=true.
+  */
+
+  html[data-ff-page="campaign"] #ff-legacy-checkout,
+  html[data-ff-page="campaign"] #ff-legacy-checkout[hidden],
+  html[data-ff-page="campaign"] #ff-legacy-checkout[data-ff-state="closed"],
+  html[data-ff-page="campaign"] #ff-legacy-checkout[aria-hidden="true"],
+  html[data-ff-page="campaign"] [data-ff-legacy-checkout][hidden],
+  html[data-ff-page="campaign"] [data-ff-legacy-checkout][data-ff-state="closed"],
+  html[data-ff-page="campaign"] [data-ff-legacy-checkout][aria-hidden="true"],
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner[hidden],
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner[data-ff-state="closed"],
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner[aria-hidden="true"],
+  html[data-ff-page="campaign"] .ff-checkoutModal[hidden],
+  html[data-ff-page="campaign"] .ff-checkoutModal[data-ff-state="closed"],
+  html[data-ff-page="campaign"] .ff-checkoutModal[aria-hidden="true"]:not(.is-open),
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner[hidden],
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner[data-ff-state="closed"],
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner[aria-hidden="true"],
+  html[data-ff-page="campaign"] .ff-sponsorModal[hidden],
+  html[data-ff-page="campaign"] .ff-sponsorModal[data-ff-state="closed"],
+  html[data-ff-page="campaign"] .ff-sponsorModal[aria-hidden="true"]:not(.is-open) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(8px) scale(.98) !important;
+  }
+
+  html[data-ff-page="campaign"] #ff-legacy-checkout.is-open,
+  html[data-ff-page="campaign"] #ff-legacy-checkout[data-ff-state="open"],
+  html[data-ff-page="campaign"] #ff-legacy-checkout[aria-hidden="false"],
+  html[data-ff-page="campaign"] [data-ff-legacy-checkout].is-open,
+  html[data-ff-page="campaign"] [data-ff-legacy-checkout][data-ff-state="open"],
+  html[data-ff-page="campaign"] [data-ff-legacy-checkout][aria-hidden="false"],
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner.is-open,
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner[data-ff-state="open"],
+  html[data-ff-page="campaign"] .ff-checkoutSingleOwner[aria-hidden="false"],
+  html[data-ff-page="campaign"] .ff-checkoutModal.is-open,
+  html[data-ff-page="campaign"] .ff-checkoutModal[data-ff-state="open"],
+  html[data-ff-page="campaign"] .ff-checkoutModal[aria-hidden="false"],
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner.is-open,
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner[data-ff-state="open"],
+  html[data-ff-page="campaign"] .ff-sponsorSingleOwner[aria-hidden="false"],
+  html[data-ff-page="campaign"] .ff-sponsorModal.is-open,
+  html[data-ff-page="campaign"] .ff-sponsorModal[data-ff-state="open"],
+  html[data-ff-page="campaign"] .ff-sponsorModal[aria-hidden="false"] {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+}
+/* === FutureFunded legacy-closed-overlay-hard-stop-v44 END === */
+
+/* === FutureFunded share-drawer-open-state-v45 START === */
+@layer campaign {
+  html[data-ff-page="campaign"] #qr-modal.is-open,
+  html[data-ff-page="campaign"] #qr-modal.ff-is-open,
+  html[data-ff-page="campaign"] #qr-modal[data-ff-state="open"],
+  html[data-ff-page="campaign"] #qr-modal[aria-hidden="false"],
+  html[data-ff-page="campaign"] [data-ff-share-drawer].is-open,
+  html[data-ff-page="campaign"] [data-ff-share-drawer][data-ff-state="open"],
+  html[data-ff-page="campaign"] [data-ff-qr-modal].is-open,
+  html[data-ff-page="campaign"] [data-ff-qr-modal][data-ff-state="open"],
+  html[data-ff-page="campaign"] .ff-shareDrawer.is-open,
+  html[data-ff-page="campaign"] .ff-shareDrawer.ff-is-open,
+  html[data-ff-page="campaign"] .ff-shareDrawer[data-ff-state="open"],
+  html[data-ff-page="campaign"] .ff-shareDrawer[aria-hidden="false"] {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  html[data-ff-page="campaign"] #qr-modal[hidden],
+  html[data-ff-page="campaign"] #qr-modal[aria-hidden="true"]:not(.is-open):not(.ff-is-open),
+  html[data-ff-page="campaign"] .ff-shareDrawer[hidden],
+  html[data-ff-page="campaign"] .ff-shareDrawer[aria-hidden="true"]:not(.is-open):not(.ff-is-open) {
+    display: none !important;
+    pointer-events: none !important;
+  }
+}
+/* === FutureFunded share-drawer-open-state-v45 END === */
+/* ==========================================================================
+   FutureFunded HOI 6B — Campaign Mobile CTA Authority
+   Marker: hoi-6b-campaign-mobile-cta-authority-v1
+
+   Purpose:
+   - make donation the unmistakable primary action on mobile
+   - keep sponsor/share visible but secondary
+   - preserve all data-ff hooks and checkout behavior
+========================================================================== */
+
+@layer campaign {
+  [data-ff-page-root] :is(
+    [data-ff-open-checkout],
+    [data-ff-donate-trigger],
+    [data-ff-payment-trigger]
+  ) {
+    isolation: isolate;
+  }
+
+  @media (max-width: 720px) {
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      align-items: stretch;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) :is(
+      [data-ff-open-checkout],
+      [data-ff-donate-trigger],
+      [data-ff-payment-trigger]
+    ) {
+      width: 100%;
+      min-height: 54px;
+      justify-content: center;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 850;
+      box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.16),
+        0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+      transform: translateZ(0);
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) :is(
+      [data-ff-open-sponsor],
+      [data-ff-sponsor-trigger],
+      [data-ff-share],
+      [data-ff-share-trigger],
+      [data-ff-qr-trigger]
+    ) {
+      width: 100%;
+      min-height: 46px;
+      justify-content: center;
+      border-radius: 999px;
+      font-size: 0.94rem;
+      font-weight: 760;
+      box-shadow: none;
+      opacity: 0.86;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) :is(
+      [data-ff-share],
+      [data-ff-share-trigger],
+      [data-ff-qr-trigger]
+    ) {
+      min-height: 42px;
+      font-size: 0.9rem;
+      opacity: 0.76;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-donatePanel,
+      .ff-donationPanel,
+      .ff-givePanel,
+      .ff-checkoutPanel,
+      [data-ff-donation-panel]
+    ) {
+      border-radius: 30px;
+      box-shadow:
+        0 26px 80px rgba(15, 23, 42, 0.13),
+        0 0 0 1px rgba(148, 163, 184, 0.2) inset;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-donatePanel,
+      .ff-donationPanel,
+      .ff-givePanel,
+      .ff-checkoutPanel,
+      [data-ff-donation-panel]
+    ) :is(
+      [data-ff-open-checkout],
+      [data-ff-donate-trigger],
+      [data-ff-payment-trigger],
+      [data-ff-donate-submit]
+    ) {
+      min-height: 56px;
+      width: 100%;
+      border-radius: 999px;
+      font-weight: 900;
+      letter-spacing: -0.018em;
+    }
+
+    [data-ff-page-root] :is(
+      [data-ff-amount-button],
+      .ff-amountButton,
+      .ff-quickAmount,
+      .ff-donationAmount
+    ) {
+      min-height: 48px;
+      border-radius: 18px;
+      font-weight: 820;
+      letter-spacing: -0.015em;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-stickyDonate,
+      .ff-mobileDonateBar,
+      .ff-donateRail,
+      [data-ff-sticky-donate]
+    ) {
+      border-radius: 24px 24px 0 0;
+      box-shadow:
+        0 -18px 50px rgba(15, 23, 42, 0.16),
+        0 -1px 0 rgba(148, 163, 184, 0.18);
+      backdrop-filter: blur(18px) saturate(1.2);
+      -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    }
+
+    [data-ff-page-root] :is(
+      .ff-stickyDonate,
+      .ff-mobileDonateBar,
+      .ff-donateRail,
+      [data-ff-sticky-donate]
+    ) :is(
+      [data-ff-open-checkout],
+      [data-ff-donate-trigger],
+      [data-ff-payment-trigger]
+    ) {
+      min-height: 52px;
+      border-radius: 999px;
+      font-weight: 900;
+    }
+  }
+
+  @media (max-width: 520px) {
+    [data-ff-page-root] :is(h1, .ff-campaignHero__title, .ff-heroTitle) {
+      max-width: 10.8ch;
+      letter-spacing: -0.068em;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__lede,
+      .ff-heroLead,
+      .ff-campaignHero p,
+      .ff-hero p
+    ) {
+      max-width: 34rem;
+      font-size: clamp(1rem, 3.8vw, 1.08rem);
+      line-height: 1.52;
+    }
+  }
+}
+/* ==========================================================================
+   FutureFunded HOI 6C — Campaign Fold Compression + Donor Clarity
+   Marker: hoi-6c-campaign-fold-compression-v1
+
+   Purpose:
+   - tighten mobile fold rhythm
+   - keep donate dominant
+   - calm secondary sponsor/share CTAs
+   - improve donor copy scan speed without changing markup/hooks
+========================================================================== */
+
+@layer campaign {
+  [data-ff-page-root] :is(
+    .ff-campaignHero,
+    .ff-hero,
+    .ff-campaignTop,
+    .ff-campaignHeader
+  ) {
+    text-wrap: balance;
+  }
+
+  [data-ff-page-root] :is(
+    .ff-campaignHero__title,
+    .ff-heroTitle,
+    h1
+  ) {
+    text-wrap: balance;
+  }
+
+  [data-ff-page-root] :is(
+    .ff-campaignHero__lede,
+    .ff-heroLead,
+    .ff-campaignHero p,
+    .ff-hero p
+  ) {
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 720px) {
+    [data-ff-page-root] :is(
+      .ff-campaignHero,
+      .ff-hero,
+      .ff-campaignTop,
+      .ff-campaignHeader
+    ) {
+      padding-block-start: clamp(1.35rem, 5vw, 2.45rem);
+      padding-block-end: clamp(1.55rem, 5.8vw, 2.75rem);
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__title,
+      .ff-heroTitle,
+      h1
+    ) {
+      margin-block-end: 0.78rem;
+      max-width: 11.25ch;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__lede,
+      .ff-heroLead,
+      .ff-campaignHero p,
+      .ff-hero p
+    ) {
+      margin-block-end: 1rem;
+      max-width: 33rem;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) {
+      margin-block-start: 1rem;
+      max-width: 34rem;
+      margin-inline: auto;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) :is(
+      [data-ff-open-checkout],
+      [data-ff-donate-trigger],
+      [data-ff-payment-trigger]
+    ) {
+      order: -2;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) :is(
+      [data-ff-open-sponsor],
+      [data-ff-sponsor-trigger]
+    ) {
+      order: -1;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) :is(
+      [data-ff-share],
+      [data-ff-share-trigger],
+      [data-ff-qr-trigger]
+    ) {
+      order: 2;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-donatePanel,
+      .ff-donationPanel,
+      .ff-givePanel,
+      .ff-checkoutPanel,
+      [data-ff-donation-panel]
+    ) {
+      padding: clamp(1.08rem, 4.8vw, 1.45rem);
+    }
+
+    [data-ff-page-root] :is(
+      .ff-donatePanel,
+      .ff-donationPanel,
+      .ff-givePanel,
+      .ff-checkoutPanel,
+      [data-ff-donation-panel]
+    ) :is(h2, h3, .ff-cardTitle, .ff-panelTitle) {
+      max-width: 14ch;
+      text-wrap: balance;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-donatePanel,
+      .ff-donationPanel,
+      .ff-givePanel,
+      .ff-checkoutPanel,
+      [data-ff-donation-panel]
+    ) :is(p, .ff-copy, .ff-muted, .ff-panelText) {
+      max-width: 42ch;
+      line-height: 1.5;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-amountGrid,
+      .ff-quickAmounts,
+      [data-ff-amount-grid]
+    ) {
+      gap: 0.62rem;
+    }
+
+    [data-ff-page-root] :is(
+      [data-ff-amount-button],
+      .ff-amountButton,
+      .ff-quickAmount,
+      .ff-donationAmount
+    ) {
+      min-height: 46px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) {
+      gap: 0.58rem;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) :is(
+      [data-ff-open-sponsor],
+      [data-ff-sponsor-trigger],
+      [data-ff-share],
+      [data-ff-share-trigger],
+      [data-ff-qr-trigger]
+    ) {
+      min-height: 42px;
+    }
+  }
+}
+/* ==========================================================================
+   FutureFunded HOI 6E — Campaign Command Hero Governor
+   Marker: hoi-6e-campaign-command-hero-governor-v1
+
+   Intent:
+   - keep campaign emotionally bold
+   - prevent hero typography from feeling oversized or shouty
+   - keep mobile fold donor-first and scannable
+========================================================================== */
+
+@layer campaign {
+  [data-ff-page-root] :is(
+    .ff-campaignHero__title,
+    .ff-heroTitle,
+    h1
+  ) {
+    max-width: 12.4ch;
+    font-size: clamp(2.05rem, 5.2vw, 3.9rem);
+    line-height: 0.98;
+    letter-spacing: -0.052em;
+    text-wrap: balance;
+  }
+
+  [data-ff-page-root] :is(
+    .ff-campaignHero__lede,
+    .ff-heroLead,
+    .ff-campaignHero p,
+    .ff-hero p
+  ) {
+    max-width: 56ch;
+    font-size: clamp(1rem, 0.55vw + 0.92rem, 1.14rem);
+    line-height: 1.5;
+  }
+
+  [data-ff-page-root] :is(
+    .ff-donatePanel h2,
+    .ff-donationPanel h2,
+    .ff-givePanel h2,
+    .ff-checkoutPanel h2,
+    [data-ff-donation-panel] h2
+  ) {
+    font-size: clamp(1.32rem, 2.7vw, 2.12rem);
+    line-height: 1.04;
+    letter-spacing: -0.038em;
+  }
+
+  @media (max-width: 720px) {
+    [data-ff-page-root] :is(
+      .ff-campaignHero__title,
+      .ff-heroTitle,
+      h1
+    ) {
+      max-width: 11ch;
+      font-size: clamp(2.02rem, 10.2vw, 3.1rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__lede,
+      .ff-heroLead,
+      .ff-campaignHero p,
+      .ff-hero p
+    ) {
+      max-width: 34rem;
+      font-size: clamp(0.98rem, 3.4vw, 1.06rem);
+      line-height: 1.48;
+    }
+  }
+}
+/* ==========================================================================
+   FutureFunded HOI 6F.1 — Campaign Header + Hero Command Polish
+   Marker: hoi-6f1-campaign-header-hero-governor-v1
+
+   Intent:
+   - keep campaign emotionally strong
+   - reduce mobile header crowding
+   - keep hero premium, controlled, and donor-first
+========================================================================== */
+
+@layer campaign {
+  [data-ff-page-root] :is(
+    .ff-campaignHero__title,
+    .ff-heroTitle,
+    h1
+  ) {
+    font-size: clamp(2.02rem, 4.85vw, 3.65rem);
+    max-width: 12.6ch;
+    line-height: 0.99;
+    letter-spacing: -0.05em;
+  }
+
+  [data-ff-page-root] :is(
+    .ff-campaignHero__lede,
+    .ff-heroLead,
+    .ff-campaignHero p,
+    .ff-hero p
+  ) {
+    font-size: clamp(0.98rem, 0.46vw + 0.92rem, 1.1rem);
+    line-height: 1.5;
+    max-width: 54ch;
+  }
+
+  @media (max-width: 720px) {
+    [data-ff-page-root] :is(
+      .ff-campaignHero__title,
+      .ff-heroTitle,
+      h1
+    ) {
+      font-size: clamp(2rem, 9.4vw, 2.94rem);
+      max-width: 11.15ch;
+      line-height: 0.99;
+      letter-spacing: -0.052em;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__lede,
+      .ff-heroLead,
+      .ff-campaignHero p,
+      .ff-hero p
+    ) {
+      font-size: clamp(0.96rem, 3.2vw, 1.04rem);
+      line-height: 1.48;
+      max-width: 34rem;
+    }
+
+    [data-ff-page-root] :is(
+      .ff-campaignHero__actions,
+      .ff-heroActions,
+      .ff-actions,
+      .ff-ctaRow,
+      .ff-donateActions,
+      .ff-campaignActions
+    ) {
+      gap: 0.6rem;
+    }
+
+    [data-ff-page-root] :is(
+      [data-ff-open-checkout],
+      [data-ff-donate-trigger],
+      [data-ff-payment-trigger]
+    ) {
+      min-height: 52px;
+    }
+
+    [data-ff-page-root] :is(
+      [data-ff-open-sponsor],
+      [data-ff-sponsor-trigger],
+      [data-ff-share],
+      [data-ff-share-trigger],
+      [data-ff-qr-trigger]
+    ) {
+      min-height: 42px;
+    }
+  }
+}
+/* ==========================================================================
+   FutureFunded HOI 6I — Campaign Theme Contract Preview
+   Marker: hoi-6i-brand-kit-contract-v1
+
+   Applies saved onboarding preset to campaign preview using static tokens.
+   This is frontend preview only; backend persistence can later render the same
+   data-ff-brand-preset attribute server-side.
+========================================================================== */
+
+@layer campaign {
+  [data-ff-page-root][data-ff-brand-preset],
+  .ff-campaign[data-ff-brand-preset],
+  body[data-ff-brand-preset] {
+    --ff-campaign-primary: var(--ff-brand-primary);
+    --ff-campaign-accent: var(--ff-brand-accent);
+    --ff-campaign-soft: var(--ff-brand-soft);
+  }
+
+  [data-ff-page-root][data-ff-brand-preset] :is(
+    [data-ff-open-checkout],
+    [data-ff-donate-trigger],
+    [data-ff-payment-trigger],
+    .ff-btn-primary,
+    .ff-button--primary
+  ) {
+    background: linear-gradient(
+      135deg,
+      var(--ff-campaign-primary),
+      color-mix(in srgb, var(--ff-campaign-primary) 74%, white)
+    );
+    border-color: color-mix(in srgb, var(--ff-campaign-primary) 82%, black);
+  }
+
+  [data-ff-page-root][data-ff-brand-preset] :is(
+    .ff-progress__bar,
+    .ff-meter__bar,
+    .ff-campaignProgress__bar,
+    [data-ff-progress-bar]
+  ) {
+    background: linear-gradient(90deg, var(--ff-campaign-primary), var(--ff-campaign-accent));
+  }
+
+  [data-ff-page-root][data-ff-brand-preset] :is(
+    .ff-badge,
+    .ff-pill,
+    .ff-eyebrow,
+    .ff-kicker
+  ) {
+    border-color: color-mix(in srgb, var(--ff-campaign-primary) 28%, transparent);
+  }
+
+  [data-ff-page-root][data-ff-brand-preset] :is(
+    .ff-campaignHero,
+    .ff-hero,
+    .ff-donatePanel,
+    .ff-donationPanel,
+    .ff-sponsorCard
+  ) {
+    --ff-theme-wash: var(--ff-campaign-soft);
+  }
+}
+/* ==========================================================================
+   FutureFunded HOI 6J — Campaign Header Brand Shell Tuning
+   Marker: hoi-6j-unified-brand-shell-v1
+========================================================================== */
+
+@layer campaign {
+  .ff-campaignHeader[data-ff-header] > .ff-siteHeader__shell {
+    max-width: min(1180px, calc(100% - 1rem));
+  }
+
+  @media (max-width: 560px) {
+    .ff-campaignHeader[data-ff-header] .ff-siteHeader__brand {
+      max-width: 46vw;
+    }
+
+    .ff-campaignHeader[data-ff-header] .ff-brandMark__copy strong {
+      max-width: 7.2rem;
+    }
+
+    .ff-campaignHeader[data-ff-header] .ff-siteHeader__nav {
+      display: none;
+    }
+  }
+}
+/* ==========================================================================
+   FutureFunded HOI 6M — Campaign CTA Compression + Premium Hierarchy
+   Marker: hoi-6m-campaign-cta-compression-v1
+
+   Goal:
+   - Make Give securely unmistakably dominant.
+   - Keep sponsor/share paths available but secondary.
+   - Reduce repeated visible CTA clusters.
+   - Improve premium section rhythm without breaking hooks.
+========================================================================== */
+
+@layer campaign {
+  .ff-campaignTrustLine {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.9rem;
+  }
+
+  .ff-campaignTrustLine span {
+    min-height: 30px;
+    padding: 0.42rem 0.68rem;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid color-mix(in srgb, var(--ff-border, #d6c7b5) 70%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--ff-surface, #fffaf3) 78%, transparent);
+    color: color-mix(in srgb, var(--ff-ink, #201610) 66%, transparent);
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .ff-campaignTrustLine--hero {
+    margin-top: 0.85rem;
+  }
+
+  .ff-donatePanel__proof {
+    margin-top: 1rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid color-mix(in srgb, var(--ff-border, #d6c7b5) 68%, transparent);
+  }
+
+  .ff-impactChip--static {
+    cursor: default;
+  }
+
+  .ff-impactChip--static:hover {
+    transform: none;
+  }
+
+  .ff-impactChip--static p {
+    max-width: 26ch;
+  }
+
+  .ff-heroActions {
+    align-items: stretch;
+  }
+
+  .ff-heroActions .ff-button--primary,
+  .ff-donateSubmit,
+  .ff-mobileDonateBar .ff-button--primary,
+  .ffShellHeader--campaignPublic .ffShellHeader__action--primary {
+    box-shadow:
+      0 18px 44px rgba(255, 90, 31, 0.26),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .ff-heroActions .ff-button--ghost,
+  .ffShellHeader--campaignPublic .ffShellHeader__action--ghost {
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .ff-teamCard__actions .ff-button {
+    width: 100%;
+  }
+
+  .ff-campaignFooter__actions {
+    align-items: center;
+  }
+
+  @media (max-width: 760px) {
+    .ff-heroActions {
+      gap: 0.55rem;
+    }
+
+    .ff-heroActions .ff-button--primary {
+      min-height: 52px;
+      flex: 1 1 100%;
+      font-size: 0.98rem;
+    }
+
+    .ff-heroActions .ff-button--ghost {
+      min-height: 44px;
+      flex: 1 1 100%;
+      opacity: 0.88;
+    }
+
+    .ff-campaignTrustLine {
+      gap: 0.38rem;
+    }
+
+    .ff-campaignTrustLine span {
+      min-height: 28px;
+      padding: 0.38rem 0.58rem;
+      font-size: 0.71rem;
+    }
+
+    .ff-campaignTrustLine--hero span:nth-child(n + 3) {
+      display: none;
+    }
+
+    .ff-donatePanel__proof span:nth-child(n + 3) {
+      display: none;
+    }
+
+    .ff-impactChip--static {
+      padding-block: 0.92rem;
+    }
+
+    .ff-campaignFooter__actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+    }
+
+    .ff-campaignFooter__actions .ff-button {
+      width: 100%;
+    }
+
+    .ff-mobileDonateBar {
+      isolation: isolate;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ff-heroActions .ff-button--ghost {
+      font-size: 0.86rem;
+    }
+
+    .ff-campaignTrustLine {
+      margin-top: 0.7rem;
+    }
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Visual Polish v1
+   Marker: ff-campaign-visual-polish-v1
+
+   Scope:
+   - campaign page only
+   - CSS-only donor/sponsor polish
+   - no campaign runtime, checkout JS, base shell, or data-ff hook changes
+========================================================================== */
+
+@layer campaign {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-polish-copy: clamp(0.94rem, 0.28vw + 0.88rem, 1.04rem);
+    --ff-campaign-polish-muted: color-mix(in srgb, var(--ff-ink, #17120e) 64%, transparent);
+    --ff-campaign-polish-border: color-mix(in srgb, var(--ff-ink, #17120e) 10%, transparent);
+    --ff-campaign-polish-shadow: 0 18px 54px rgba(43, 28, 16, 0.09);
+    --ff-campaign-polish-shadow-soft: 0 12px 34px rgba(43, 28, 16, 0.07);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(h1, h2, h3) {
+    text-wrap: balance;
+    font-kerning: normal;
+    font-synthesis-weight: none;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) h1 {
+    line-height: 0.98;
+    letter-spacing: -0.048em;
+    max-width: 11.6ch;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) h2 {
+    line-height: 1.07;
+    letter-spacing: -0.036em;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) h3 {
+    line-height: 1.1;
+    letter-spacing: -0.028em;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(p, li) {
+    color: var(--ff-campaign-polish-muted);
+    font-size: var(--ff-campaign-polish-copy);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(.ff-card, article, aside) {
+    border-color: var(--ff-campaign-polish-border);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(.ff-card, article) {
+    box-shadow: var(--ff-campaign-polish-shadow-soft);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(
+    [data-ff-open-checkout],
+    [data-ff-donate-trigger],
+    [data-ff-payment-trigger],
+    [data-ff-open-sponsor],
+    [data-ff-sponsor-trigger],
+    .ff-button,
+    button,
+    a[role="button"]
+  ) {
+    min-height: 2.7rem;
+    font-weight: 850;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(
+    [data-ff-open-checkout],
+    [data-ff-donate-trigger],
+    [data-ff-payment-trigger]
+  ) {
+    box-shadow: 0 14px 34px rgba(243, 95, 22, 0.2);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(
+    input,
+    select,
+    textarea
+  ) {
+    min-height: 2.65rem;
+    border-radius: 0.9rem;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(
+    [data-ff-sponsor-card],
+    .ff-sponsorCard,
+    .ff-sponsor-card
+  ) {
+    box-shadow: var(--ff-campaign-polish-shadow-soft);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(
+    [data-ff-donation-panel],
+    [data-ff-checkout-panel],
+    .ff-donationPanel,
+    .ff-checkoutPanel,
+    .ff-givingPanel
+  ) {
+    box-shadow: var(--ff-campaign-polish-shadow);
+  }
+
+  @media (max-width: 720px) {
+    html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) h1 {
+      line-height: 1;
+      letter-spacing: -0.04em;
+      max-width: 10.8ch;
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) h2 {
+      line-height: 1.09;
+      letter-spacing: -0.032em;
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(
+      [data-ff-open-checkout],
+      [data-ff-donate-trigger],
+      [data-ff-payment-trigger],
+      [data-ff-open-sponsor],
+      [data-ff-sponsor-trigger],
+      .ff-button,
+      button,
+      a[role="button"]
+    ) {
+      min-height: 2.9rem;
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-campaignPage, [data-ff-page-root]) :where(.ff-card, article) {
+      box-shadow: 0 12px 32px rgba(43, 28, 16, 0.07);
+    }
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Layout Authority v2
+   Marker: ff-campaign-layout-authority-v2
+
+   Goal:
+   - restore premium campaign proportions after safe runtime recovery
+   - reduce oversized whitespace and stretched section panels
+   - tighten donor/sponsor hierarchy without touching JS/templates/hooks
+========================================================================== */
+
+@layer campaign {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-shell: min(100% - clamp(1.25rem, 4vw, 3.25rem), 1240px);
+    --ff-campaign-wide: min(100% - clamp(1.25rem, 4vw, 3.25rem), 1340px);
+    --ff-campaign-section-y: clamp(2.5rem, 4.2vw, 5.2rem);
+    --ff-campaign-panel-pad: clamp(1.15rem, 2.4vw, 2.25rem);
+    --ff-campaign-card-pad: clamp(1rem, 1.8vw, 1.55rem);
+    --ff-campaign-radius: clamp(1.35rem, 2.4vw, 2rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-shell) {
+    width: var(--ff-campaign-shell);
+    max-width: var(--ff-campaign-shell);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignMain) {
+    padding-top: calc(var(--ff-header-h, 66px) + clamp(0.75rem, 1.6vw, 1.25rem));
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignSection) {
+    padding-block: var(--ff-campaign-section-y);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignSection + .ff-campaignSection) {
+    padding-top: clamp(1.5rem, 2.8vw, 3.5rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-sectionPanel) {
+    border-radius: var(--ff-campaign-radius);
+    padding: var(--ff-campaign-panel-pad);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-sectionHeader) {
+    margin-bottom: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-sectionHeader h2) {
+    max-width: 13.5ch;
+    margin-inline: auto;
+    line-height: 1.03;
+    letter-spacing: -0.043em;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-sectionHeader p:not(.ff-eyebrow)) {
+    max-width: 58ch;
+    margin-inline: auto;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignHero__grid) {
+    align-items: stretch;
+    gap: clamp(1rem, 2.4vw, 2rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignHero__story) {
+    min-height: auto;
+    align-content: center;
+    padding: clamp(1.5rem, 3.2vw, 3rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-heroTitle) {
+    max-width: 10.75ch;
+    line-height: 0.94;
+    letter-spacing: -0.056em;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-lede) {
+    max-width: 54ch;
+    font-size: clamp(0.98rem, 0.35vw + 0.9rem, 1.08rem);
+    line-height: 1.5;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-donatePanel) {
+    align-self: stretch;
+    top: calc(var(--ff-header-h, 66px) + 1rem);
+    max-width: 410px;
+    gap: clamp(0.8rem, 1.5vw, 1.15rem);
+    padding: clamp(1.15rem, 2vw, 1.75rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-donationAmounts) {
+    gap: 0.55rem;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-donationAmount) {
+    min-height: 2.55rem;
+    border-radius: 0.8rem;
+    font-weight: 900;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-impactGrid) {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.75rem, 1.4vw, 1rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-impactChip) {
+    min-height: auto;
+    padding: var(--ff-campaign-card-pad);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-sponsorGrid) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.85rem, 1.6vw, 1.15rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-sponsorCard) {
+    min-height: auto;
+    padding: var(--ff-campaign-card-pad);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-teamGrid) {
+    gap: clamp(1rem, 2vw, 1.35rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-teamCard) {
+    padding: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-teamCard__media, .ff-squadCard__media) {
+    border-radius: clamp(1rem, 2vw, 1.4rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-storyGrid) {
+    align-items: stretch;
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-storyVideo, .ff-storyCopy) {
+    min-height: auto;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-campaignFooter__closing) {
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  @media (min-width: 980px) {
+    html[data-ff-page="campaign"] :where(.ff-campaignHero) {
+      padding-block: clamp(1rem, 2vw, 1.5rem) clamp(2.25rem, 4vw, 4rem);
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-campaignHero__grid) {
+      grid-template-columns: minmax(0, 1.02fr) minmax(340px, 0.58fr);
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-proofMarquee .ff-sectionPanel) {
+      padding-bottom: clamp(1.2rem, 2vw, 1.8rem);
+    }
+  }
+
+  @media (max-width: 920px) {
+    html[data-ff-page="campaign"] :where(.ff-campaignHero__grid) {
+      grid-template-columns: 1fr;
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-donatePanel) {
+      position: relative;
+      top: auto;
+      max-width: none;
+      justify-self: stretch;
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-impactGrid, .ff-sponsorGrid) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    html[data-ff-page="campaign"] {
+      --ff-campaign-section-y: clamp(2rem, 8vw, 3rem);
+      --ff-campaign-panel-pad: clamp(1rem, 5vw, 1.35rem);
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-campaignMain) {
+      padding-top: calc(var(--ff-header-h, 62px) + 0.4rem);
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-campaignHero__story) {
+      padding: clamp(1.15rem, 5.5vw, 1.6rem);
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-heroTitle) {
+      max-width: 10.3ch;
+      line-height: 0.98;
+      letter-spacing: -0.044em;
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-sectionHeader h2) {
+      max-width: 12.75ch;
+      line-height: 1.06;
+    }
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Shell + Layout Authority v3
+   Marker: ff-campaign-shell-layout-authority-v3
+
+   Purpose:
+   - repair selector drift between ffShellHeader macro and campaign CSS
+   - restore flagship donor/sponsor proportions without touching JS/templates
+   - preserve checkout, sponsor, share, QR, modal, and progress contracts
+========================================================================== */
+
+@layer campaign {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-shell-v3: min(100% - clamp(1.1rem, 4vw, 3rem), 1240px);
+    --ff-campaign-wide-v3: min(100% - clamp(1.1rem, 4vw, 3rem), 1360px);
+    --ff-campaign-section-v3: clamp(2.25rem, 4vw, 4.75rem);
+    --ff-campaign-section-tight-v3: clamp(1.35rem, 2.5vw, 3rem);
+    --ff-campaign-panel-pad-v3: clamp(1.15rem, 2.7vw, 2.5rem);
+    --ff-campaign-card-pad-v3: clamp(1rem, 1.8vw, 1.5rem);
+    --ff-campaign-radius-v3: clamp(1.35rem, 2.5vw, 2.25rem);
+    --ff-campaign-line-v3: rgba(72, 44, 25, 0.105);
+    --ff-campaign-shadow-v3: 0 22px 64px rgba(55, 36, 20, 0.105);
+    --ff-campaign-shadow-soft-v3: 0 14px 38px rgba(55, 36, 20, 0.075);
+  }
+
+  /* Shared shell header compatibility */
+  html[data-ff-page="campaign"] .ffShellHeader--campaign {
+    position: fixed;
+    top: max(0.5rem, env(safe-area-inset-top));
+    left: 0;
+    z-index: 120;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader--campaign .ffShellHeader__shell {
+    width: min(100% - 1rem, 1240px);
+    min-height: 3.45rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(0.5rem, 1.2vw, 1rem);
+    margin-inline: auto;
+    border: 1px solid rgba(72, 44, 25, 0.11);
+    border-radius: 1.35rem;
+    background: rgba(255, 250, 242, 0.92);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.74) inset, 0 12px 34px rgba(55, 36, 20, 0.095);
+    backdrop-filter: blur(14px) saturate(128%);
+    -webkit-backdrop-filter: blur(14px) saturate(128%);
+    padding: 0.42rem;
+    pointer-events: auto;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__brand {
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-radius: 999px;
+    padding: 0.22rem 0.6rem 0.22rem 0.22rem;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__mark {
+    width: 2.15rem;
+    height: 2.15rem;
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid rgba(72, 44, 25, 0.12);
+    border-radius: 0.72rem;
+    background: #20130d;
+    color: #fffaf4;
+    box-shadow: 0 7px 18px rgba(55, 36, 20, 0.14);
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: -0.05em;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__copy {
+    min-width: 0;
+    display: grid;
+    gap: 0.05rem;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__copy strong {
+    max-width: min(34vw, 14rem);
+    overflow: hidden;
+    color: #1a1009;
+    font-size: 0.88rem;
+    font-weight: 950;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__copy small {
+    overflow: hidden;
+    color: rgba(56, 42, 31, 0.58);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.105em;
+    line-height: 1;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    border: 1px solid rgba(72, 44, 25, 0.08);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.58);
+    padding: 0.22rem;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__nav a {
+    min-height: 2.15rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    color: rgba(56, 42, 31, 0.72);
+    font-size: 0.74rem;
+    font-weight: 900;
+    padding: 0 0.7rem;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__nav a:hover {
+    background: rgba(255, 237, 213, 0.78);
+    color: #a84310;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__action {
+    min-height: 2.25rem;
+    padding-inline: 0.85rem;
+    font-size: 0.74rem;
+    font-weight: 900;
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__action--primary {
+    background: linear-gradient(135deg, var(--ff-campaign-orange, #f35f16), var(--ff-campaign-orange-2, #ff8a2b));
+    color: #fffaf4;
+    box-shadow: 0 1px 0 rgba(255,255,255,.24) inset, 0 12px 26px rgba(243,95,22,.24);
+  }
+
+  html[data-ff-page="campaign"] .ffShellHeader__action--ghost {
+    background: rgba(255, 255, 255, 0.78);
+  }
+
+  /* Main campaign rhythm */
+  html[data-ff-page="campaign"] .ff-shell {
+    width: var(--ff-campaign-shell-v3);
+    max-width: var(--ff-campaign-shell-v3);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignMain {
+    padding-top: calc(var(--ff-header-h, 70px) + 1rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection {
+    padding-block: var(--ff-campaign-section-v3);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection + .ff-campaignSection {
+    padding-top: var(--ff-campaign-section-tight-v3);
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionPanel {
+    border: 1px solid var(--ff-campaign-line-v3);
+    border-radius: var(--ff-campaign-radius-v3);
+    padding: var(--ff-campaign-panel-pad-v3);
+    box-shadow: 0 1px 0 rgba(255,255,255,.86) inset, var(--ff-campaign-shadow-soft-v3);
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader {
+    margin-bottom: clamp(1rem, 2vw, 1.65rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader h2 {
+    max-width: 13.25ch;
+    margin-inline: auto;
+    line-height: 1.04;
+    letter-spacing: -0.044em;
+  }
+
+  html[data-ff-page="campaign"] .ff-sectionHeader p:not(.ff-eyebrow) {
+    max-width: 58ch;
+    margin-inline: auto;
+    line-height: 1.48;
+  }
+
+  /* Hero */
+  html[data-ff-page="campaign"] .ff-campaignHero {
+    padding-block: clamp(0.65rem, 1.5vw, 1.25rem) clamp(2rem, 4vw, 4rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.62fr);
+    align-items: stretch;
+    gap: clamp(1rem, 2.4vw, 2rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__story {
+    min-height: auto;
+    display: grid;
+    align-content: center;
+    gap: clamp(0.9rem, 1.8vw, 1.45rem);
+    border-radius: var(--ff-campaign-radius-v3);
+    padding: clamp(1.45rem, 3.3vw, 3.1rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-heroTitle {
+    max-width: 10.65ch;
+    font-size: clamp(3.2rem, 6.65vw, 6.25rem);
+    line-height: 0.93;
+    letter-spacing: -0.058em;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero .ff-lede {
+    max-width: 54ch;
+    font-size: clamp(0.98rem, 0.32vw + 0.92rem, 1.08rem);
+    line-height: 1.48;
+  }
+
+  html[data-ff-page="campaign"] .ff-heroActions {
+    gap: 0.65rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-heroActions .ff-button {
+    min-width: 9rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-statGrid {
+    gap: 0.65rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-statGrid article {
+    min-height: 4.9rem;
+    border-radius: 1.05rem;
+    padding: 0.85rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-assuranceBand {
+    border-radius: 1.1rem;
+    padding: 0.85rem;
+  }
+
+  /* Donation panel */
+  html[data-ff-page="campaign"] .ff-donatePanel {
+    width: min(100%, 410px);
+    max-width: 410px;
+    align-self: start;
+    justify-self: end;
+    gap: clamp(0.75rem, 1.4vw, 1rem);
+    border-radius: var(--ff-campaign-radius-v3);
+    padding: clamp(1.05rem, 2.1vw, 1.65rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel__header h2 {
+    max-width: 11.5ch;
+    font-size: clamp(1.35rem, 2.1vw, 2.15rem);
+    line-height: 0.98;
+    letter-spacing: -0.052em;
+  }
+
+  html[data-ff-page="campaign"] .ff-progressBox {
+    border-radius: 1.15rem;
+    padding: 0.82rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-donationAmounts {
+    gap: 0.5rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-donationAmount {
+    min-height: 2.55rem;
+    border-radius: 0.82rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-donorTrustStrip,
+  html[data-ff-page="campaign"] .ff-campaignTrustLine {
+    gap: 0.45rem;
+  }
+
+  /* Cards and content grids */
+  html[data-ff-page="campaign"] .ff-squadRail,
+  html[data-ff-page="campaign"] .ff-impactGrid,
+  html[data-ff-page="campaign"] .ff-sponsorGrid,
+  html[data-ff-page="campaign"] .ff-teamGrid,
+  html[data-ff-page="campaign"] .ff-miniGrid {
+    gap: clamp(0.75rem, 1.45vw, 1.1rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-impactGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="campaign"] .ff-impactChip,
+  html[data-ff-page="campaign"] .ff-impactCard,
+  html[data-ff-page="campaign"] .ff-sponsorCard,
+  html[data-ff-page="campaign"] .ff-teamCard__body,
+  html[data-ff-page="campaign"] .ff-miniGrid article {
+    padding: var(--ff-campaign-card-pad-v3);
+  }
+
+  html[data-ff-page="campaign"] .ff-impactChip,
+  html[data-ff-page="campaign"] .ff-impactCard {
+    min-height: auto;
+    border-radius: 1.15rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactChip p,
+  html[data-ff-page="campaign"] .ff-impactCard p,
+  html[data-ff-page="campaign"] .ff-sponsorCard p,
+  html[data-ff-page="campaign"] .ff-teamCard p {
+    line-height: 1.45;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard {
+    min-height: auto;
+    border-radius: 1.25rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard > strong {
+    font-size: clamp(1.35rem, 2vw, 1.85rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-teamGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard {
+    border-radius: 1.4rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard > img {
+    aspect-ratio: 16 / 9;
+  }
+
+  html[data-ff-page="campaign"] .ff-storySplit {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.68fr);
+    gap: clamp(0.8rem, 1.7vw, 1.25rem);
+    padding: clamp(0.7rem, 1.4vw, 1rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    min-height: clamp(19rem, 38vw, 28rem);
+    border-radius: 1.35rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyCopy {
+    padding: clamp(1rem, 2.4vw, 1.8rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+    border-radius: var(--ff-campaign-radius-v3);
+    padding: clamp(1.1rem, 2.4vw, 1.75rem);
+  }
+
+  /* Responsive */
+  @media (max-width: 1080px) {
+    html[data-ff-page="campaign"] .ff-campaignHero__grid,
+    html[data-ff-page="campaign"] .ff-storySplit {
+      grid-template-columns: 1fr;
+    }
+
+    html[data-ff-page="campaign"] .ff-donatePanel {
+      position: relative;
+      top: auto;
+      width: 100%;
+      max-width: none;
+      justify-self: stretch;
+    }
+
+    html[data-ff-page="campaign"] .ffShellHeader__nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 860px) {
+    html[data-ff-page="campaign"] .ff-squadRail,
+    html[data-ff-page="campaign"] .ff-impactGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    html[data-ff-page="campaign"] .ff-sponsorGrid,
+    html[data-ff-page="campaign"] .ff-teamGrid,
+    html[data-ff-page="campaign"] .ff-miniGrid,
+    html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 680px) {
+    html[data-ff-page="campaign"] {
+      --ff-campaign-section-v3: clamp(2rem, 8vw, 3rem);
+      --ff-campaign-section-tight-v3: clamp(1.1rem, 5vw, 2rem);
+      --ff-campaign-panel-pad-v3: clamp(0.95rem, 4.8vw, 1.25rem);
+    }
+
+    html[data-ff-page="campaign"] .ffShellHeader--campaign {
+      top: max(0.38rem, env(safe-area-inset-top));
+    }
+
+    html[data-ff-page="campaign"] .ffShellHeader--campaign .ffShellHeader__shell {
+      width: min(100% - 0.7rem, 40rem);
+      min-height: 3.25rem;
+      border-radius: 1.15rem;
+    }
+
+    html[data-ff-page="campaign"] .ffShellHeader__copy small,
+    html[data-ff-page="campaign"] .ffShellHeader__actions .ffShellHeader__action--ghost {
+      display: none;
+    }
+
+    html[data-ff-page="campaign"] .ffShellHeader__copy strong {
+      max-width: 43vw;
+    }
+
+    html[data-ff-page="campaign"] .ff-campaignMain {
+      padding-top: calc(var(--ff-header-h, 64px) + 0.55rem);
+    }
+
+    html[data-ff-page="campaign"] .ff-campaignHero {
+      padding-top: 0.45rem;
+    }
+
+    html[data-ff-page="campaign"] .ff-campaignHero__story,
+    html[data-ff-page="campaign"] .ff-donatePanel,
+    html[data-ff-page="campaign"] .ff-sectionPanel,
+    html[data-ff-page="campaign"] .ff-storyPoster {
+      border-radius: 1.35rem;
+    }
+
+    html[data-ff-page="campaign"] .ff-campaignHero__story {
+      padding: clamp(1rem, 5vw, 1.45rem);
+    }
+
+    html[data-ff-page="campaign"] .ff-heroTitle {
+      max-width: 10.2ch;
+      font-size: clamp(2.62rem, 14.2vw, 4.05rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    html[data-ff-page="campaign"] .ff-heroActions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    html[data-ff-page="campaign"] .ff-heroActions .ff-button,
+    html[data-ff-page="campaign"] .ff-donateSubmit {
+      width: 100%;
+    }
+
+    html[data-ff-page="campaign"] .ff-statGrid,
+    html[data-ff-page="campaign"] .ff-donorTrustStrip,
+    html[data-ff-page="campaign"] .ff-impactGrid {
+      grid-template-columns: 1fr;
+    }
+
+    html[data-ff-page="campaign"] .ff-squadRail {
+      display: flex;
+      gap: 0.65rem;
+      margin-inline: -0.25rem;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scroll-snap-type: x proximity;
+      padding: 0.1rem 0.25rem 0.7rem;
+    }
+
+    html[data-ff-page="campaign"] .ff-squadCard {
+      min-width: 12.5rem;
+      scroll-snap-align: start;
+    }
+
+    html[data-ff-page="campaign"] .ff-sectionFooter {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 460px) {
+    html[data-ff-page="campaign"] .ff-heroTitle {
+      font-size: clamp(2.45rem, 15vw, 3.55rem);
+    }
+
+    html[data-ff-page="campaign"] .ff-pillRow .ff-pill:nth-child(n + 4) {
+      display: none;
+    }
+
+    html[data-ff-page="campaign"] .ff-donatePanel,
+    html[data-ff-page="campaign"] .ff-sectionPanel {
+      padding: 0.9rem;
+    }
+
+    html[data-ff-page="campaign"] .ff-impactChip,
+    html[data-ff-page="campaign"] .ff-impactCard,
+    html[data-ff-page="campaign"] .ff-sponsorCard,
+    html[data-ff-page="campaign"] .ff-teamCard__body,
+    html[data-ff-page="campaign"] .ff-miniGrid article {
+      padding: 0.95rem;
+    }
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Card System v4
+   Marker: ff-campaign-card-system-v4
+
+   Scope:
+   - campaign.css only
+   - upgrades impact, sponsor, team, mini, and squad card presentation
+   - preserves checkout, sponsor, share, QR, runtime, and template contracts
+========================================================================== */
+
+@layer campaign {
+  html[data-ff-page="campaign"] {
+    --ff-card-v4-bg:
+      radial-gradient(circle at 100% 0%, rgba(255, 122, 26, 0.075), transparent 12rem),
+      linear-gradient(180deg, rgba(255,255,255,0.97), rgba(255,250,244,0.91));
+    --ff-card-v4-bg-strong:
+      radial-gradient(circle at 0% 0%, rgba(255, 122, 26, 0.12), transparent 13rem),
+      radial-gradient(circle at 100% 8%, rgba(18, 124, 111, 0.055), transparent 14rem),
+      linear-gradient(180deg, rgba(255,255,255,0.985), rgba(255,248,239,0.925));
+    --ff-card-v4-line: rgba(72, 44, 25, 0.11);
+    --ff-card-v4-line-strong: rgba(72, 44, 25, 0.18);
+    --ff-card-v4-muted: rgba(56, 42, 31, 0.67);
+    --ff-card-v4-shadow: 0 16px 42px rgba(55, 36, 20, 0.085);
+    --ff-card-v4-shadow-hover: 0 24px 62px rgba(55, 36, 20, 0.13);
+  }
+
+  /* Shared premium card baseline */
+  html[data-ff-page="campaign"] :where(
+    .ff-impactChip,
+    .ff-impactCard,
+    .ff-sponsorCard,
+    .ff-teamCard,
+    .ff-miniGrid article,
+    .ff-squadCard
+  ) {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--ff-card-v4-line);
+    background: var(--ff-card-v4-bg);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.84) inset,
+      var(--ff-card-v4-shadow);
+  }
+
+  html[data-ff-page="campaign"] :where(
+    .ff-impactChip,
+    .ff-impactCard,
+    .ff-sponsorCard,
+    .ff-teamCard,
+    .ff-miniGrid article
+  )::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      rgba(243, 95, 22, 0.78),
+      rgba(255, 138, 43, 0.38),
+      rgba(18, 124, 111, 0.24)
+    );
+    content: "";
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  html[data-ff-page="campaign"] :where(
+    .ff-impactChip,
+    .ff-impactCard,
+    .ff-sponsorCard,
+    .ff-teamCard,
+    .ff-miniGrid article,
+    .ff-squadCard
+  ):hover {
+    transform: translateY(-2px);
+    border-color: var(--ff-card-v4-line-strong);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.9) inset,
+      var(--ff-card-v4-shadow-hover);
+  }
+
+  /* Impact section: make cards feel intentional, not tabular */
+  html[data-ff-page="campaign"] .ff-impactGrid {
+    align-items: stretch;
+    gap: clamp(0.85rem, 1.7vw, 1.25rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-impactChip, .ff-impactCard) {
+    min-height: clamp(9rem, 11vw, 11.5rem);
+    display: grid;
+    align-content: start;
+    gap: 0.72rem;
+    border-radius: clamp(1.15rem, 1.8vw, 1.45rem);
+    padding: clamp(1rem, 1.9vw, 1.45rem);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-impactChip, .ff-impactCard) > :where(span, small):first-child {
+    width: fit-content;
+    min-height: 1.7rem;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(243, 95, 22, 0.18);
+    border-radius: 999px;
+    background: rgba(255, 237, 213, 0.68);
+    color: #a84310;
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: 0.045em;
+    line-height: 1;
+    padding: 0.38rem 0.55rem;
+    text-transform: none;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-impactChip, .ff-impactCard) :where(strong, h3) {
+    color: #17110d;
+    font-size: clamp(1rem, 0.55vw + 0.9rem, 1.22rem);
+    font-weight: 950;
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-impactChip, .ff-impactCard) p {
+    max-width: 28ch;
+    color: var(--ff-card-v4-muted);
+    font-size: clamp(0.86rem, 0.15vw + 0.82rem, 0.95rem);
+    font-weight: 560;
+    line-height: 1.5;
+  }
+
+  /* Sponsor cards: cleaner package cards */
+  html[data-ff-page="campaign"] .ff-sponsorGrid {
+    align-items: stretch;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard {
+    min-height: clamp(17rem, 22vw, 20.5rem);
+    gap: 0.75rem;
+    border-radius: clamp(1.2rem, 1.8vw, 1.55rem);
+    padding: clamp(1.1rem, 2vw, 1.55rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard[data-featured],
+  html[data-ff-page="campaign"] .ff-sponsorCard:has([data-ff-sponsor-package*="Featured"]) {
+    background: var(--ff-card-v4-bg-strong);
+    border-color: rgba(243, 95, 22, 0.23);
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard__head {
+    align-items: start;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard__head span {
+    width: fit-content;
+    border-radius: 999px;
+    background: rgba(255, 237, 213, 0.68);
+    color: #a84310;
+    padding: 0.36rem 0.5rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard h3 {
+    font-size: clamp(1rem, 0.35vw + 0.96rem, 1.22rem);
+    letter-spacing: -0.035em;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard > strong {
+    margin-top: -0.2rem;
+    color: #17110d;
+    font-size: clamp(1.55rem, 1.6vw, 2rem);
+    line-height: 1;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard li {
+    color: rgba(56, 42, 31, 0.72);
+    line-height: 1.42;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard .ff-button,
+  html[data-ff-page="campaign"] .ff-sponsorCard :where(button, a[role="button"], [data-ff-open-sponsor], [data-ff-sponsor-trigger]) {
+    margin-top: auto;
+  }
+
+  /* Team cards: more premium fundraiser cards */
+  html[data-ff-page="campaign"] .ff-teamCard {
+    border-radius: clamp(1.25rem, 2vw, 1.7rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard > img,
+  html[data-ff-page="campaign"] .ff-teamCard__media {
+    border-bottom: 1px solid rgba(72, 44, 25, 0.09);
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard__body {
+    gap: 0.75rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard__body > span {
+    width: fit-content;
+    border-radius: 999px;
+    background: rgba(255, 237, 213, 0.58);
+    padding: 0.34rem 0.5rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-teamCard h3 {
+    font-size: clamp(1.1rem, 0.7vw + 0.95rem, 1.45rem);
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+
+  /* Mini/FAQ cards */
+  html[data-ff-page="campaign"] .ff-miniGrid article {
+    min-height: clamp(8.5rem, 10vw, 10rem);
+    border-radius: clamp(1rem, 1.8vw, 1.35rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-miniGrid span {
+    width: fit-content;
+    border-radius: 999px;
+    background: rgba(255, 237, 213, 0.58);
+    padding: 0.34rem 0.5rem;
+  }
+
+  /* Section footers should feel like polished command strips */
+  html[data-ff-page="campaign"] .ff-sectionFooter {
+    border-color: rgba(72, 44, 25, 0.1);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(18, 124, 111, 0.045), transparent 15rem),
+      rgba(255,255,255,0.76);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.84) inset,
+      0 10px 28px rgba(55, 36, 20, 0.07);
+  }
+
+  @media (min-width: 861px) {
+    html[data-ff-page="campaign"] .ff-impactGrid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    html[data-ff-page="campaign"] .ff-sponsorGrid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 860px) {
+    html[data-ff-page="campaign"] .ff-impactGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-impactChip, .ff-impactCard) {
+      min-height: 8.4rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    html[data-ff-page="campaign"] .ff-impactGrid,
+    html[data-ff-page="campaign"] .ff-sponsorGrid {
+      grid-template-columns: 1fr;
+    }
+
+    html[data-ff-page="campaign"] :where(.ff-impactChip, .ff-impactCard) {
+      min-height: auto;
+      gap: 0.55rem;
+      padding: 1rem;
+    }
+
+    html[data-ff-page="campaign"] .ff-sponsorCard {
+      min-height: auto;
+    }
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Enterprise Closeout
+   Marker: hoi-9a-campaign-enterprise-closeout-v1
+   Purpose:
+   - premium donor/sponsor visual authority
+   - shorter, tighter page rhythm
+   - deterministic checkout/sponsor/share modal visibility
+   - mobile-first campaign conversion hardening
+========================================================================== */
+
+@layer campaign {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-radius: clamp(22px, 2.55vw, 34px);
+    --ff-campaign-pad: clamp(18px, 3vw, 38px);
+    --ff-campaign-section: clamp(28px, 3.7vw, 54px);
+    --ff-campaign-copy: rgba(50, 38, 28, .72);
+    --ff-campaign-muted: rgba(50, 38, 28, .58);
+    --ff-campaign-card: rgba(255, 255, 255, .82);
+    --ff-campaign-card-strong: rgba(255, 255, 255, .94);
+    --ff-campaign-border: rgba(72, 44, 25, .115);
+    --ff-campaign-border-strong: rgba(72, 44, 25, .18);
+  }
+
+  body.ff-campaignBody {
+    background:
+      radial-gradient(circle at 12% -10%, rgba(255, 122, 26, .22), transparent 34rem),
+      radial-gradient(circle at 92% 4%, rgba(18, 124, 111, .13), transparent 36rem),
+      radial-gradient(circle at 48% 20%, rgba(255, 255, 255, .58), transparent 35rem),
+      linear-gradient(180deg, #fff8ef 0%, #f7ead8 54%, #ead7bd 100%);
+  }
+
+  .ff-campaignMain {
+    padding-top: clamp(74px, 8vw, 96px);
+  }
+
+  .ff-campaignSection {
+    padding-block: var(--ff-campaign-section);
+  }
+
+  .ff-campaignSection + .ff-campaignSection {
+    padding-top: clamp(14px, 2.4vw, 32px);
+  }
+
+  .ff-campaignHero {
+    padding-block: clamp(10px, 1.8vw, 22px) clamp(22px, 3.3vw, 42px);
+  }
+
+  .ff-campaignHero__grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(330px, .66fr);
+    gap: clamp(14px, 2vw, 24px);
+    align-items: start;
+  }
+
+  .ff-campaignHero__story,
+  .ff-donatePanel,
+  .ff-sectionPanel,
+  .ff-storySplit,
+  .ff-campaignFooter__grid {
+    border: 1px solid var(--ff-campaign-border);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, .82) inset,
+      0 22px 60px rgba(55, 36, 20, .105);
+  }
+
+  .ff-campaignHero__story {
+    min-height: clamp(520px, calc(100svh - 128px), 660px);
+    padding: clamp(24px, 4.4vw, 58px);
+    background:
+      radial-gradient(circle at 12% 0%, rgba(255, 255, 255, .95), transparent 18rem),
+      radial-gradient(circle at 94% 6%, rgba(255, 122, 26, .18), transparent 24rem),
+      linear-gradient(145deg, rgba(255, 255, 255, .97), rgba(255, 248, 239, .88));
+  }
+
+  .ff-heroTitle {
+    max-width: 9.8ch;
+    font-size: clamp(3.35rem, 7.25vw, 6.75rem);
+    letter-spacing: -.078em;
+    line-height: .87;
+  }
+
+  .ff-heroTitle span {
+    display: block;
+    margin-top: .02em;
+    line-height: .88;
+  }
+
+  .ff-campaignHero .ff-lede {
+    max-width: 42rem;
+    color: var(--ff-campaign-copy);
+    font-size: clamp(1rem, 1.24vw, 1.12rem);
+    line-height: 1.45;
+  }
+
+  .ff-headingStack {
+    gap: clamp(11px, 1.5vw, 16px);
+  }
+
+  .ff-pillRow,
+  .ff-heroActions,
+  .ff-campaignTrustLine,
+  .ff-useOfFundsStrip {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ff-useOfFundsStrip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .ff-useOfFundsStrip span {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(72, 44, 25, .095);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .66);
+    color: rgba(58, 38, 24, .74);
+    font-size: .74rem;
+    font-weight: 900;
+    text-align: center;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .72) inset;
+  }
+
+  .ff-statGrid {
+    gap: 9px;
+  }
+
+  .ff-statGrid article {
+    min-height: 76px;
+    padding: 13px;
+  }
+
+  .ff-assuranceBand {
+    border-color: rgba(243, 95, 22, .16);
+    background:
+      linear-gradient(180deg, rgba(255, 244, 229, .86), rgba(255, 250, 244, .72));
+  }
+
+  .ff-donatePanel {
+    top: calc(var(--ff-header-h) + 16px);
+    width: min(100%, 405px);
+    gap: 13px;
+    padding: clamp(18px, 2.3vw, 26px);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 122, 26, .10), transparent 18rem),
+      linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(255, 250, 244, .9));
+  }
+
+  .ff-donatePanel__header {
+    gap: 7px;
+  }
+
+  .ff-donatePanel__header h2 {
+    max-width: 10ch;
+    font-size: clamp(1.85rem, 2.8vw, 2.55rem);
+    letter-spacing: -.064em;
+  }
+
+  .ff-donatePanel__header p {
+    max-width: 30ch;
+    color: var(--ff-campaign-copy);
+  }
+
+  .ff-progressBox {
+    gap: 9px;
+    border-radius: 20px;
+    padding: 13px;
+  }
+
+  .ff-progressTrack {
+    height: 12px;
+    background: rgba(72, 44, 25, .105);
+  }
+
+  .ff-progressBar,
+  [data-ff-progress-bar] {
+    min-width: 10px;
+    background: linear-gradient(90deg, #f35f16, #ff8a2b 68%, #127c6f);
+  }
+
+  .ff-donationAmounts {
+    gap: 9px;
+  }
+
+  .ff-donationAmount,
+  .ff-checkoutAmount,
+  button[data-ff-amount] {
+    min-height: 46px;
+    border-radius: 15px;
+  }
+
+  .ff-donationAmount[aria-pressed="true"],
+  .ff-checkoutAmount[aria-pressed="true"],
+  .ff-checkoutAmount.is-selected,
+  button[data-ff-amount][aria-pressed="true"] {
+    border-color: rgba(243, 95, 22, .48);
+    background: linear-gradient(180deg, #fff3e7, #ffdfbd);
+    color: #7d2f0b;
+  }
+
+  .ff-donateSubmit,
+  .ff-checkoutContinue {
+    min-height: 50px;
+  }
+
+  .ff-donorTrustStrip span,
+  .ff-donatePanel__proof span,
+  .ff-campaignTrustLine span {
+    font-weight: 900;
+  }
+
+  .ff-sectionPanel {
+    padding: clamp(18px, 2.9vw, 34px);
+    background:
+      radial-gradient(circle at 98% 0%, rgba(255, 122, 26, .055), transparent 19rem),
+      linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(255, 250, 244, .88));
+  }
+
+  .ff-sectionHeader {
+    margin-bottom: clamp(16px, 2.1vw, 24px);
+  }
+
+  .ff-sectionHeader h2 {
+    max-width: 13.2ch;
+    font-size: clamp(2rem, 4vw, 3.85rem);
+    line-height: .92;
+  }
+
+  .ff-sectionHeader p {
+    color: var(--ff-campaign-copy);
+  }
+
+  .ff-squadRail {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(10px, 1.3vw, 14px);
+  }
+
+  .ff-squadCard {
+    min-width: 0;
+    border: 1px solid rgba(72, 44, 25, .1);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .76);
+    box-shadow: 0 12px 30px rgba(55, 36, 20, .075);
+  }
+
+  .ff-squadCard__media {
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .ff-squadCard__media img,
+  .ff-teamCard > img,
+  .ff-storyPoster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ff-impactGrid,
+  .ff-sponsorGrid,
+  .ff-teamGrid {
+    gap: clamp(10px, 1.45vw, 16px);
+  }
+
+  .ff-impactChip,
+  .ff-sponsorCard,
+  .ff-teamCard {
+    border: 1px solid rgba(72, 44, 25, .1);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 122, 26, .045), transparent 15rem),
+      rgba(255, 255, 255, .76);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, .78) inset,
+      0 14px 34px rgba(55, 36, 20, .075);
+  }
+
+  .ff-impactChip {
+    min-height: 150px;
+  }
+
+  .ff-impactChip strong,
+  .ff-sponsorCard h3,
+  .ff-teamCard h3 {
+    letter-spacing: -.035em;
+  }
+
+  .ff-sponsorCard[data-featured="true"] {
+    border-color: rgba(243, 95, 22, .24);
+    background:
+      radial-gradient(circle at 92% 4%, rgba(255, 122, 26, .12), transparent 18rem),
+      linear-gradient(180deg, rgba(255, 248, 239, .94), rgba(255, 255, 255, .86));
+    box-shadow:
+      0 0 0 1px rgba(243, 95, 22, .08),
+      0 22px 52px rgba(243, 95, 22, .12);
+  }
+
+  .ff-teamCard {
+    overflow: hidden;
+  }
+
+  .ff-teamCard > img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .ff-storySplit {
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, .94), rgba(255, 250, 244, .84));
+  }
+
+  .ff-storyPoster {
+    min-height: clamp(320px, 42vw, 520px);
+    background:
+      radial-gradient(circle at 50% 45%, rgba(255, 122, 26, .18), transparent 10rem),
+      linear-gradient(135deg, #180f0a, #2c1a10);
+  }
+
+  .ff-faqItem {
+    border-color: rgba(72, 44, 25, .1);
+    background: rgba(255, 255, 255, .72);
+  }
+
+  .ff-campaignFooter__grid {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 122, 26, .08), transparent 20rem),
+      rgba(255, 255, 255, .84);
+  }
+
+  .ff-mobileDonateBar {
+    border: 1px solid rgba(72, 44, 25, .12);
+    background: rgba(255, 250, 244, .94);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, .78) inset,
+      0 -18px 48px rgba(55, 36, 20, .16);
+    backdrop-filter: blur(18px) saturate(132%);
+    -webkit-backdrop-filter: blur(18px) saturate(132%);
+  }
+
+  .ff-mobileDonateBar strong {
+    letter-spacing: -.025em;
+  }
+
+  .ff-mobileDonateBar span {
+    color: var(--ff-campaign-muted);
+    font-weight: 750;
+  }
+
+  @media (min-width: 981px) {
+    .ff-donatePanel {
+      max-height: calc(100svh - var(--ff-header-h) - 36px);
+      overflow: auto;
+      overscroll-behavior: contain;
+    }
+
+    .ff-donatePanel::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .ff-donatePanel::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: rgba(72, 44, 25, .16);
+    }
+  }
+
+  @media (max-width: 980px) {
+    .ff-campaignHero__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-campaignHero__story {
+      min-height: auto;
+    }
+
+    .ff-donatePanel {
+      position: relative;
+      top: auto;
+      width: 100%;
+      justify-self: stretch;
+    }
+
+    .ff-squadRail {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .ff-squadRail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ff-squadCard {
+      min-width: min(78vw, 270px);
+      scroll-snap-align: start;
+    }
+  }
+
+  @media (max-width: 720px) {
+    html[data-ff-page="campaign"] {
+      --ff-campaign-section: 30px;
+    }
+
+    .ff-campaignMain {
+      padding-top: 72px;
+      padding-bottom: 88px;
+    }
+
+    .ff-campaignHero {
+      padding-bottom: 18px;
+    }
+
+    .ff-campaignHero__story,
+    .ff-donatePanel,
+    .ff-sectionPanel,
+    .ff-storySplit {
+      border-radius: 24px;
+    }
+
+    .ff-campaignHero__story {
+      gap: 15px;
+      padding: 22px;
+    }
+
+    .ff-heroTitle {
+      max-width: 9.2ch;
+      font-size: clamp(3.05rem, 16vw, 4.55rem);
+      line-height: .88;
+      letter-spacing: -.076em;
+    }
+
+    .ff-campaignHero .ff-lede {
+      font-size: .98rem;
+      line-height: 1.44;
+    }
+
+    .ff-heroActions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .ff-heroActions .ff-button {
+      width: 100%;
+    }
+
+    .ff-statGrid,
+    .ff-donorTrustStrip,
+    .ff-useOfFundsStrip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ff-statGrid article {
+      min-height: 72px;
+    }
+
+    .ff-sectionHeader,
+    .ff-sectionHeader--center {
+      text-align: left;
+      justify-items: start;
+    }
+
+    .ff-sectionHeader h2,
+    .ff-sectionHeader--center h2 {
+      max-width: 11.5ch;
+      font-size: clamp(2.05rem, 11vw, 3rem);
+      line-height: .93;
+    }
+
+    .ff-impactGrid,
+    .ff-sponsorGrid,
+    .ff-teamGrid,
+    .ff-miniGrid {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-impactChip {
+      min-height: 126px;
+    }
+
+    .ff-storySplit {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-storyPoster {
+      min-height: 260px;
+    }
+
+    .ff-campaignFooter__grid {
+      display: grid;
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .ff-campaignFooter__nav {
+      justify-content: flex-start;
+    }
+
+    .ff-campaignFooter__actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .ff-campaignHero__story,
+    .ff-donatePanel,
+    .ff-sectionPanel {
+      padding: 18px;
+    }
+
+    .ff-heroTitle {
+      font-size: clamp(2.85rem, 15.2vw, 4rem);
+    }
+
+    .ff-pillRow {
+      gap: 6px;
+    }
+
+    .ff-pill {
+      min-height: 28px;
+      padding-inline: 9px;
+      font-size: .68rem;
+    }
+
+    .ff-donationAmounts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ff-mobileDonateBar {
+      left: 8px;
+      right: 8px;
+      bottom: max(8px, env(safe-area-inset-bottom));
+      width: auto;
+      border-radius: 22px;
+      padding: 9px;
+    }
+
+    .ff-mobileDonateBar .ff-button {
+      min-height: 42px;
+      padding-inline: 15px;
+    }
+  }
+}
+
+@layer checkout {
+  #checkout,
+  [data-ff-embedded-checkout-shell],
+  [data-ff-checkout-sheet],
+  [data-ff-checkout-modal],
+  [data-ff-donation-modal],
+  .ff-embeddedCheckout,
+  .ff-checkoutModal {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+  }
+
+  #checkout[hidden],
+  #checkout[aria-hidden="true"],
+  [data-ff-embedded-checkout-shell][hidden],
+  [data-ff-embedded-checkout-shell][aria-hidden="true"],
+  [data-ff-checkout-sheet][hidden],
+  [data-ff-checkout-sheet][aria-hidden="true"],
+  [data-ff-checkout-modal][hidden],
+  [data-ff-checkout-modal][aria-hidden="true"],
+  [data-ff-donation-modal][hidden],
+  [data-ff-donation-modal][aria-hidden="true"],
+  .ff-embeddedCheckout[hidden],
+  .ff-embeddedCheckout[aria-hidden="true"],
+  .ff-checkoutModal[hidden],
+  .ff-checkoutModal[aria-hidden="true"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  #checkout:not([hidden])[aria-hidden="false"],
+  #checkout[data-ff-state="open"],
+  #checkout[data-ff-checkout-state="open"],
+  #checkout.is-open,
+  #checkout.ff-is-open,
+  [data-ff-embedded-checkout-shell]:not([hidden])[aria-hidden="false"],
+  [data-ff-checkout-sheet]:not([hidden])[aria-hidden="false"],
+  [data-ff-checkout-modal]:not([hidden])[aria-hidden="false"],
+  [data-ff-donation-modal]:not([hidden])[aria-hidden="false"],
+  .ff-embeddedCheckout:not([hidden])[aria-hidden="false"],
+  .ff-checkoutModal:not([hidden])[aria-hidden="false"],
+  .ff-checkoutModal.is-open,
+  .ff-checkoutModal.ff-is-open {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .ff-embeddedCheckout__backdrop,
+  .ff-shareDrawer__backdrop,
+  .ff-sponsorModal__backdrop {
+    background:
+      radial-gradient(circle at 50% 8%, rgba(255, 122, 26, .13), transparent 30rem),
+      rgba(22, 14, 9, .46);
+    backdrop-filter: blur(18px) saturate(126%);
+    -webkit-backdrop-filter: blur(18px) saturate(126%);
+  }
+
+  .ff-embeddedCheckout__panel,
+  .ff-checkoutModal__panel {
+    width: min(100% - 24px, 1040px);
+    max-height: min(88svh, 860px);
+    margin: auto;
+    border: 1px solid rgba(255, 255, 255, .38);
+    border-radius: clamp(24px, 3vw, 34px);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 122, 26, .10), transparent 22rem),
+      linear-gradient(180deg, rgba(255, 255, 255, .98), rgba(255, 249, 242, .94));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, .78) inset,
+      0 34px 100px rgba(22, 14, 9, .28);
+    overflow: auto;
+  }
+
+  .ff-checkoutEnterprise {
+    gap: clamp(14px, 2vw, 22px);
+  }
+
+  .ff-checkoutPrep,
+  .ff-checkoutStage {
+    border: 1px solid rgba(72, 44, 25, .105);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .74);
+    box-shadow: 0 12px 30px rgba(55, 36, 20, .075);
+  }
+
+  .ff-checkoutAmountGrid {
+    gap: 9px;
+  }
+
+  .ff-checkoutStage__summary {
+    border-radius: 18px;
+    background: rgba(255, 244, 229, .7);
+  }
+
+  .ff-embeddedCheckout__mount {
+    min-height: 240px;
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, .8), rgba(255, 250, 244, .62));
+  }
+
+  @media (max-width: 760px) {
+    .ff-embeddedCheckout__panel,
+    .ff-checkoutModal__panel {
+      width: 100%;
+      max-height: 92svh;
+      align-self: end;
+      margin: auto 0 0;
+      border-radius: 26px 26px 0 0;
+    }
+
+    .ff-checkoutEnterprise {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@layer campaign {
+  #qr-modal:not([hidden])[aria-hidden="false"],
+  #qr-modal[data-ff-state="open"],
+  #qr-modal.is-open,
+  #sponsor-modal:not([hidden])[aria-hidden="false"],
+  #sponsor-modal[data-ff-state="open"],
+  #sponsor-modal.is-open {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  #qr-modal[hidden],
+  #qr-modal[aria-hidden="true"],
+  #sponsor-modal[hidden],
+  #sponsor-modal[aria-hidden="true"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Campaign Mobile Overflow Contract
+   Marker: hoi-9b-campaign-mobile-overflow-contract-v1
+========================================================================== */
+
+@layer campaign {
+  html[data-ff-page="campaign"],
+  html[data-ff-page="campaign"] body,
+  body.ff-campaignBody {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body.ff-campaignBody .ff-campaignPage,
+  body.ff-campaignBody .ff-campaignMain,
+  body.ff-campaignBody .ff-shell,
+  body.ff-campaignBody .ff-shellWide,
+  body.ff-campaignBody .ff-campaignHero,
+  body.ff-campaignBody .ff-campaignHero__grid,
+  body.ff-campaignBody .ff-campaignHero__story,
+  body.ff-campaignBody .ff-donatePanel,
+  body.ff-campaignBody .ff-sectionPanel,
+  body.ff-campaignBody .ff-storySplit,
+  body.ff-campaignBody .ff-campaignFooter__grid {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body.ff-campaignBody .ff-campaignPage *,
+  body.ff-campaignBody .ff-campaignPage *::before,
+  body.ff-campaignBody .ff-campaignPage *::after {
+    min-width: 0;
+  }
+
+  body.ff-campaignBody .ff-heroTitle,
+  body.ff-campaignBody .ff-sectionHeader h2,
+  body.ff-campaignBody .ff-donatePanel__header h2 {
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  body.ff-campaignBody .ff-button,
+  body.ff-campaignBody .ff-pill,
+  body.ff-campaignBody .ff-useOfFundsStrip span,
+  body.ff-campaignBody .ff-donorTrustStrip span,
+  body.ff-campaignBody .ff-campaignTrustLine span {
+    max-width: 100%;
+  }
+
+  body.ff-campaignBody .ff-useOfFundsStrip span,
+  body.ff-campaignBody .ff-donorTrustStrip span,
+  body.ff-campaignBody .ff-campaignTrustLine span {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  body.ff-campaignBody .ff-mobileDonateBar {
+    max-width: calc(100vw - 16px);
+  }
+
+  body.ff-campaignBody .ff-campaignHeader .ff-siteHeader__shell,
+  body.ff-campaignBody .ff-campaignHeader .ffShellHeader__shell {
+    width: min(calc(100vw - 16px), 1180px);
+    max-width: calc(100vw - 16px);
+    margin-inline: auto;
+  }
+
+  @media (max-width: 760px) {
+    body.ff-campaignBody .ff-campaignHero__grid {
+      overflow: hidden;
+    }
+
+    body.ff-campaignBody .ff-useOfFundsStrip,
+    body.ff-campaignBody .ff-donorTrustStrip,
+    body.ff-campaignBody .ff-campaignTrustLine {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.ff-campaignBody .ff-campaignHeader .ff-siteHeader__actions,
+    body.ff-campaignBody .ff-campaignHeader .ffShellHeader__actions {
+      flex: 0 0 auto;
+    }
+
+    body.ff-campaignBody .ff-campaignHeader .ff-button {
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 430px) {
+    body.ff-campaignBody .ff-useOfFundsStrip,
+    body.ff-campaignBody .ff-donorTrustStrip,
+    body.ff-campaignBody .ff-campaignTrustLine {
+      gap: 7px;
+    }
+
+    body.ff-campaignBody .ff-useOfFundsStrip span,
+    body.ff-campaignBody .ff-donorTrustStrip span,
+    body.ff-campaignBody .ff-campaignTrustLine span {
+      min-height: 32px;
+      padding-inline: 8px;
+      font-size: .68rem;
+      line-height: 1.15;
+    }
+  }
+}
+
+/* ==========================================================================
+   FutureFunded Sponsor Modal Fallback Contract
+   Marker: hoi-9c-sponsor-modal-fallback-styles-v1
+========================================================================== */
+
+@layer campaign {
+  #sponsor-modal.ff-sponsorModal {
+    position: fixed;
+    inset: 0;
+    z-index: 1120;
+    place-items: center;
+    padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  }
+
+  #sponsor-modal.ff-sponsorModal[hidden],
+  #sponsor-modal.ff-sponsorModal[aria-hidden="true"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  #sponsor-modal.ff-sponsorModal:not([hidden])[aria-hidden="false"],
+  #sponsor-modal.ff-sponsorModal[data-ff-state="open"],
+  #sponsor-modal.ff-sponsorModal.is-open,
+  #sponsor-modal.ff-sponsorModal.ff-is-open {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  #sponsor-modal .ff-sponsorModal__backdrop {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 8%, rgba(255, 122, 26, .14), transparent 28rem),
+      rgba(22, 14, 9, .48);
+    backdrop-filter: blur(18px) saturate(126%);
+    -webkit-backdrop-filter: blur(18px) saturate(126%);
+  }
+
+  #sponsor-modal .ff-sponsorModal__panel {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 980px);
+    max-height: min(88svh, 820px);
+    overflow: auto;
+    border: 1px solid rgba(255, 255, 255, .38);
+    border-radius: clamp(24px, 3vw, 34px);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 122, 26, .1), transparent 22rem),
+      linear-gradient(180deg, rgba(255, 255, 255, .98), rgba(255, 249, 242, .94));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, .78) inset,
+      0 34px 100px rgba(22, 14, 9, .28);
+    padding: clamp(18px, 3vw, 34px);
+  }
+
+  #sponsor-modal .ff-sponsorModal__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(72, 44, 25, .12);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .8);
+    color: var(--ff-ink-strong);
+    box-shadow: 0 8px 20px rgba(55, 36, 20, .1);
+    font-size: 1.25rem;
+    font-weight: 900;
+  }
+
+  #sponsor-modal .ff-sponsorModal__header {
+    display: grid;
+    gap: 10px;
+    max-width: 720px;
+    padding-right: 46px;
+  }
+
+  #sponsor-modal .ff-sponsorModal__header h2 {
+    max-width: 12ch;
+    font-size: clamp(2rem, 4.4vw, 4.1rem);
+    line-height: .92;
+    letter-spacing: -.065em;
+  }
+
+  #sponsor-modal .ff-sponsorModal__header p,
+  #sponsor-modal .ff-sponsorModal__card p,
+  #sponsor-modal .ff-sponsorModal__fineprint {
+    color: rgba(50, 38, 28, .68);
+  }
+
+  #sponsor-modal .ff-sponsorModal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: clamp(16px, 2.2vw, 24px);
+  }
+
+  #sponsor-modal .ff-sponsorModal__card {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    border: 1px solid rgba(72, 44, 25, .105);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .74);
+    box-shadow: 0 14px 34px rgba(55, 36, 20, .075);
+    padding: 16px;
+  }
+
+  #sponsor-modal .ff-sponsorModal__card--featured {
+    border-color: rgba(243, 95, 22, .28);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 122, 26, .13), transparent 16rem),
+      rgba(255, 248, 239, .88);
+  }
+
+  #sponsor-modal .ff-sponsorModal__card span {
+    color: #a84310;
+    font-size: .72rem;
+    font-weight: 950;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  #sponsor-modal .ff-sponsorModal__card strong {
+    font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+    line-height: 1;
+  }
+
+  #sponsor-modal .ff-sponsorModal__form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    gap: 10px;
+    align-items: end;
+    margin-top: clamp(14px, 2vw, 22px);
+    border: 1px solid rgba(72, 44, 25, .1);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .68);
+    padding: 14px;
+  }
+
+  #sponsor-modal .ff-sponsorModal__fineprint {
+    grid-column: 1 / -1;
+    font-size: .78rem;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 820px) {
+    #sponsor-modal.ff-sponsorModal {
+      align-items: end;
+      padding: 0;
+    }
+
+    #sponsor-modal .ff-sponsorModal__panel {
+      width: 100%;
+      max-height: 92svh;
+      border-radius: 26px 26px 0 0;
+    }
+
+    #sponsor-modal .ff-sponsorModal__grid,
+    #sponsor-modal .ff-sponsorModal__form {
+      grid-template-columns: 1fr;
+    }
+
+    #sponsor-modal .ff-sponsorModal__header h2 {
+      max-width: 11ch;
+      font-size: clamp(2.05rem, 11vw, 3rem);
+    }
+  }
+}
+
+/* === FutureFunded Phase 2 Campaign Hero Density Tune START === */
+/*
+  Marker: hoi-phase2-campaign-hero-density-v1
+  Scope: /c/<slug> campaign hero only.
+  Evidence:
+  - mobile hero was 1903px
+  - mobile story card was 1173px
+  - desktop hero was 1202px
+  No template edits. No checkout/sponsor/share/QR hook edits.
+*/
+@layer campaign {
+  .ff-campaignBody .ff-campaignHero {
+    padding-block: clamp(0.25rem, 1.2vw, 0.875rem) clamp(1rem, 2.6vw, 2.25rem) !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__grid {
+    gap: clamp(0.625rem, 1.45vw, 1.125rem) !important;
+    align-items: start !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__story.ff-card--hero {
+    gap: clamp(0.55rem, 1.1vw, 0.95rem) !important;
+    padding: clamp(1rem, 2.5vw, 2.25rem) !important;
+    min-height: unset !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__story .ff-headingStack {
+    gap: clamp(0.45rem, 0.95vw, 0.8rem) !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__story .ff-heroTitle {
+    font-size: clamp(3rem, 6.25vw, 5.75rem) !important;
+    line-height: 0.88 !important;
+    letter-spacing: -0.075em !important;
+    text-wrap: balance !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__story .ff-lede {
+    max-inline-size: 42rem !important;
+    font-size: clamp(1rem, 1.35vw, 1.16rem) !important;
+    line-height: 1.45 !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__story .ff-heroActions {
+    gap: clamp(0.5rem, 1vw, 0.8rem) !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__story .ff-statGrid--hero {
+    gap: clamp(0.45rem, 1vw, 0.75rem) !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__story .ff-statGrid--hero > article {
+    min-height: 68px !important;
+    padding: clamp(0.6rem, 1vw, 0.9rem) !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__story .ff-assuranceBand {
+    min-height: 0 !important;
+    padding: clamp(0.7rem, 1.15vw, 1rem) !important;
+  }
+
+  .ff-campaignBody .ff-campaignHero__story .ff-useOfFundsStrip,
+  .ff-campaignBody .ff-campaignHero__story .ff-campaignTrustLine--hero {
+    gap: 0.45rem !important;
+  }
+
+  .ff-campaignBody .ff-donatePanel {
+    gap: clamp(0.65rem, 1vw, 0.9rem) !important;
+    padding: clamp(1rem, 1.9vw, 1.4rem) !important;
+  }
+
+  .ff-campaignBody .ff-donatePanel__header {
+    gap: 0.4rem !important;
+  }
+
+  .ff-campaignBody .ff-donatePanel__header #donate-title {
+    font-size: clamp(1.55rem, 2.2vw, 2.2rem) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  .ff-campaignBody .ff-donateForm {
+    gap: 0.65rem !important;
+  }
+
+  .ff-campaignBody .ff-donationAmounts {
+    gap: 0.5rem !important;
+  }
+
+  .ff-campaignBody .ff-donationAmount {
+    min-height: 40px !important;
+  }
+
+  @media (max-width: 767px) {
+    .ff-campaignBody .ff-campaignHero {
+      padding-block: 0.25rem 1rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__grid {
+      gap: 0.65rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story.ff-card--hero {
+      padding: 1rem !important;
+      gap: 0.65rem !important;
+      border-radius: 24px !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-pillRow {
+      gap: 0.4rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-pill {
+      min-height: 25px !important;
+      padding: 0.32rem 0.5rem !important;
+      font-size: 0.7rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-heroTitle {
+      font-size: clamp(2.65rem, 12vw, 3.25rem) !important;
+      line-height: 0.88 !important;
+      letter-spacing: -0.075em !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-lede {
+      font-size: 0.98rem !important;
+      line-height: 1.4 !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-heroActions {
+      margin-top: 0.55rem !important;
+      gap: 0.5rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-heroActions .ff-button--xl {
+      min-height: 42px !important;
+      padding-block: 0.68rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-statGrid--hero {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 0.45rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-statGrid--hero > article {
+      min-height: 66px !important;
+      padding: 0.55rem 0.45rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-statGrid--hero > article :is(strong, b) {
+      font-size: clamp(1rem, 4.5vw, 1.16rem) !important;
+      letter-spacing: -0.035em !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-assuranceBand {
+      padding: 0.72rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-useOfFundsStrip {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 0.42rem !important;
+    }
+
+    .ff-campaignBody .ff-campaignHero__story .ff-useOfFundsStrip > span,
+    .ff-campaignBody .ff-campaignHero__story .ff-campaignTrustLine--hero > span {
+      min-height: 28px !important;
+      padding-block: 0.35rem !important;
+      font-size: 0.75rem !important;
+    }
+
+    .ff-campaignBody .ff-donatePanel {
+      padding: 1rem !important;
+      gap: 0.65rem !important;
+      border-radius: 24px !important;
+    }
+
+    .ff-campaignBody .ff-donatePanel__header {
+      gap: 0.3rem !important;
+    }
+
+    .ff-campaignBody .ff-donatePanel__header p:not(.ff-eyebrow) {
+      line-height: 1.35 !important;
+    }
+
+    .ff-campaignBody .ff-progressBox {
+      padding: 0.7rem !important;
+    }
+
+    .ff-campaignBody .ff-donationAmounts {
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      gap: 0.4rem !important;
+    }
+
+    .ff-campaignBody .ff-donationAmount {
+      min-height: 38px !important;
+      padding-inline: 0.25rem !important;
+    }
+
+    .ff-campaignBody .ff-donorTrustStrip {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 0.4rem !important;
+    }
+
+    .ff-campaignBody .ff-donorTrustStrip > span {
+      min-height: 26px !important;
+      padding-inline: 0.3rem !important;
+      font-size: 0.68rem !important;
+    }
+  }
+}
+/* === FutureFunded Phase 2 Campaign Hero Density Tune END === */
+
+/* === FutureFunded Phase 2B Mobile Sticky Rail Safe Disable START === */
+/*
+  Marker: hoi-phase2b-mobile-sticky-rail-safe-disable-v1
+  Scope: public campaign mobile fixed conversion rail only.
+  Reason:
+  - Audit showed .ff-mobileDonateBar as 374x64 fixed at viewport bottom on mobile.
+  - It visually overlays the hero/content in full-page review captures.
+  - Main donation paths remain available via hero panel, header CTA, and section CTAs.
+  No template edits. No checkout/sponsor/share/QR hook edits.
+*/
+@layer campaign {
+  @media (max-width: 767px) {
+    body.ff-campaignBody .ff-mobileDonateBar,
+    body.ff-campaignBody [data-ff-mobile-rail],
+    body.ff-campaignBody [data-ff-mobile-conversion-rail] {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+  }
+}
+/* === FutureFunded Phase 2B Mobile Sticky Rail Safe Disable END === */

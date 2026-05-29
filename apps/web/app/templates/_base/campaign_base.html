@@ -1,0 +1,668 @@
+{% extends "_base/site_base.html" %}
+{% from "_base/site_base.html" import nonce_attr %}
+{# ============================================================================
+  FutureFunded • Campaign Base Shell V1
+  Premium public fundraising shell for donor + sponsor traffic
+
+  Role:
+  - extends _base/site_base.html; does not own <!DOCTYPE html>
+  - owns campaign metadata, canonical/share state, schemas, config payloads
+  - keeps exactly one ffConfig and one ffSelectors payload
+  - preserves checkout, sponsor, video, terms, privacy, toast, and live hooks
+  - adds V1 hooks for cinematic hero, action dock, QR, text-to-donate, and sharing
+  - keeps ff.css as the single visual authority
+============================================================================ #}
+
+{% set _cfg = (config if config is mapping else {}) %}
+
+{% set _asset_v = (
+  asset_v
+    |default(FF_ASSET_V|default(_cfg.get('FF_ASSET_V'), true), true)
+    |default(_cfg.get('ASSET_V'), true)
+    |default(_cfg.get('FF_BUILD_ID'), true)
+    |default('1', true)
+)|string|trim %}
+{% if not _asset_v or _asset_v|lower in ['none', 'null', 'dev'] %}
+  {% set _asset_v = '1' %}
+{% endif %}
+
+{% set _theme = (theme|default('light', true))|string|lower|trim %}
+{% if _theme not in ['light', 'dark'] %}
+  {% set _theme = 'light' %}
+{% endif %}
+
+{% set _density = (density|default('compact', true))|string|lower|trim %}
+{% if _density not in ['compact', 'comfortable'] %}
+  {% set _density = 'compact' %}
+{% endif %}
+
+{% set _public_base = (
+  ff_public_base_url
+    |default(_cfg.get('FF_PUBLIC_BASE_URL'), true)
+    |default(_cfg.get('PUBLIC_BASE_URL'), true)
+    |default((request.url_root[:-1] if request is defined and request.url_root and request.url_root.endswith('/') else request.url_root), true)
+    |default('', true)
+)|string|trim %}
+{% if _public_base.endswith('/') %}
+  {% set _public_base = _public_base[:-1] %}
+{% endif %}
+
+{% set _path = (request.path if request is defined else '')|string %}
+{% set _canonical = (canonical_url|default((_public_base ~ _path if _public_base else ''), true))|string|trim %}
+{% set _share_url = (share_url|default(_canonical, true))|string|trim %}
+{% if not _share_url %}
+  {% set _share_url = _canonical %}
+{% endif %}
+
+{% set _theme_color = (theme_color|default('#f97316', true))|string|trim %}
+{% set _theme_color_dark = (theme_color_dark|default('#0b0f17', true))|string|trim %}
+
+{% set _org_name = (org_name|default('FutureFunded Campaign', true))|string|trim %}
+{% set _campaign_name = (campaign_name|default(_org_name ~ ' Fundraiser', true))|string|trim %}
+{% set _campaign_slug = (campaign_slug|default('', true))|string|lower|trim %}
+{% set _currency = (currency|default('USD', true))|string|upper|trim %}
+
+{% set _page_title = (page_title|default(_org_name ~ ' • Fundraiser', true))|string|trim %}
+{% set _page_description = (
+  page_description
+    |default('Support ' ~ _org_name ~ ' through a premium fundraising page with visible progress, secure checkout, QR sharing, text-to-donate, sponsor options, and organizer contact information.', true)
+)|string|trim %}
+
+{% set _terms_url = (terms_url|default('/terms', true))|string|trim %}
+{% set _privacy_url = (privacy_url|default('/privacy', true))|string|trim %}
+
+{% set _ff_data_mode = (ff_data_mode|default('preview', true))|string|lower|trim %}
+{% if _ff_data_mode not in ['live', 'preview', 'demo'] %}
+  {% set _ff_data_mode = 'preview' %}
+{% endif %}
+
+{% set _hero_image = (hero_image|default('', true))|string|trim %}
+{% if _hero_image and _hero_image.startswith('/') and _public_base %}
+  {% set _hero_image = _public_base ~ _hero_image %}
+{% endif %}
+
+{% set _platform_logo = (platform_logo|default(url_for('static', filename='images/ff-logo-mark.svg'), true))|string|trim %}
+{% set _og_image = (og_image_url|default(_hero_image, true)|default(_platform_logo, true)|default('', true))|string|trim %}
+{% if _og_image and _og_image.startswith('/') and _public_base %}
+  {% set _og_image = _public_base ~ _og_image %}
+{% endif %}
+
+{% set _support_email = organizer_email|default(contact_email|default(support_email|default('', true), true), true)|string|trim %}
+{% set _sponsor_email = sponsor_contact_email|default(_support_email, true)|string|trim %}
+{% set _og_locale = og_locale|default('en_US', true)|string|trim %}
+
+{% set _robots = 'index,follow,max-image-preview:large' if _ff_data_mode == 'live' else 'noindex,nofollow,noarchive,max-image-preview:none' %}
+{% set _manifest_url = manifest_url|default(url_for('static', filename='site.webmanifest'), true)|string|trim %}
+
+{# Bridge root-shell inputs for _base/site_base.html. #}
+{% set theme = theme|default(_theme, true) %}
+{% set density = density|default(_density, true) %}
+{% set manifest_url = manifest_url|default(_manifest_url, true) %}
+{% set _schema_blocks = schema_blocks|default([], true) %}
+{% set _hero_preload = _hero_image|default(_og_image, true)|string|trim %}
+
+{% set _stripe_pk = (
+  stripe_pk
+    |default(STRIPE_PUBLISHABLE_KEY|default('', true), true)
+    |default(_cfg.get('STRIPE_PUBLISHABLE_KEY'), true)
+    |default(_cfg.get('STRIPE_PUBLIC_KEY'), true)
+    |default('', true)
+)|string|trim %}
+
+{% set _paypal_client_id = (
+  paypal_client_id
+    |default(PAYPAL_CLIENT_ID|default('', true), true)
+    |default(_cfg.get('PAYPAL_CLIENT_ID'), true)
+    |default('', true)
+)|string|trim %}
+
+{% set _stripe_js_url = 'https://js.stripe.com/v3/' %}
+
+{% set _qr_value = (
+  campaign_qr_value
+    |default(qr_value, true)
+    |default(_share_url, true)
+)|string|trim %}
+
+{% set _qr_image_url = (
+  campaign_qr_image_url
+    |default(qr_image_url, true)
+    |default('', true)
+)|string|trim %}
+
+{% set _text_keyword = (
+  text_to_donate_keyword
+    |default(sms_keyword, true)
+    |default('ELITE', true)
+)|string|upper|trim %}
+
+{% set _text_number = (
+  text_to_donate_number
+    |default(sms_number, true)
+    |default('', true)
+)|string|trim %}
+
+{% set _sms_href = '' %}
+{% if _text_number %}
+  {% set _sms_href = 'sms:' ~ _text_number ~ '?&body=' ~ (_text_keyword|urlencode) %}
+{% endif %}
+
+{% set _ff_config_src = (ff_config if ff_config is mapping else {}) %}
+{% set _ff_config_payload = {
+  'app': (_ff_config_src.get('app') if _ff_config_src is mapping else '') or 'futurefunded',
+  'page': (_ff_config_src.get('page') if _ff_config_src is mapping else '') or 'campaign',
+  'surface': 'campaign-v1',
+  'mode': (_ff_config_src.get('mode') if _ff_config_src is mapping else '') or _ff_data_mode,
+  'shareUrl': (_ff_config_src.get('shareUrl') if _ff_config_src is mapping else '') or _share_url,
+  'canonicalUrl': (_ff_config_src.get('canonicalUrl') if _ff_config_src is mapping else '') or _canonical,
+  'stripePublishableKey': (_ff_config_src.get('stripePublishableKey') if _ff_config_src is mapping else '') or _stripe_pk,
+  'paypalClientId': (_ff_config_src.get('paypalClientId') if _ff_config_src is mapping else '') or _paypal_client_id,
+  'termsUrl': (_ff_config_src.get('termsUrl') if _ff_config_src is mapping else '') or _terms_url,
+  'privacyUrl': (_ff_config_src.get('privacyUrl') if _ff_config_src is mapping else '') or _privacy_url,
+  'theme': (_ff_config_src.get('theme') if _ff_config_src is mapping else '') or _theme,
+  'density': (_ff_config_src.get('density') if _ff_config_src is mapping else '') or _density,
+  'campaignSlug': (_ff_config_src.get('campaignSlug') if _ff_config_src is mapping else '') or _campaign_slug,
+  'orgName': (_ff_config_src.get('orgName') if _ff_config_src is mapping else '') or _org_name,
+  'campaignName': (_ff_config_src.get('campaignName') if _ff_config_src is mapping else '') or _campaign_name,
+  'currency': (_ff_config_src.get('currency') if _ff_config_src is mapping else '') or _currency,
+  'supportEmail': (_ff_config_src.get('supportEmail') if _ff_config_src is mapping else '') or _support_email,
+  'sponsorEmail': (_ff_config_src.get('sponsorEmail') if _ff_config_src is mapping else '') or _sponsor_email,
+  'assetVersion': (_ff_config_src.get('assetVersion') if _ff_config_src is mapping else '') or _asset_v,
+  'qr': {
+    'value': _qr_value,
+    'imageUrl': _qr_image_url
+  },
+  'textToDonate': {
+    'keyword': _text_keyword,
+    'number': _text_number,
+    'href': _sms_href
+  },
+  'features': {
+    'cinematicHero': true,
+    'actionDock': true,
+    'qrToolkit': true,
+    'textToDonate': true,
+    'sponsorLane': true,
+    'campaignIntelligence': true
+  }
+} %}
+
+{% set _default_ff_selectors = {
+  'hooks': {
+    'openCheckout': '[data-ff-open-checkout]',
+    'closeCheckout': '[data-ff-close-checkout]',
+    'checkoutSheet': '[data-ff-checkout-sheet]',
+    'checkoutViewport': '[data-ff-checkout-viewport]',
+    'checkoutContent': '[data-ff-checkout-content]',
+    'checkoutScroll': '[data-ff-checkout-scroll]',
+    'checkoutShell': '[data-ff-checkout-shell]',
+    'checkoutSuccess': '[data-ff-checkout-success]',
+    'checkoutError': '[data-ff-checkout-error]',
+    'checkoutStatus': '[data-ff-checkout-status]',
+    'donationForm': '#donationForm',
+    'amountInput': '[data-ff-amount-input]',
+    'amountChip': '[data-ff-amount]',
+    'teamId': 'input[data-ff-team-id][name="team_id"]',
+    'donorName': '[data-ff-donor-name]',
+    'donorEmail': '[data-ff-email]',
+    'donorMessage': '[data-ff-message]',
+    'summaryAmount': '[data-ff-summary-amount]',
+    'paymentMount': '[data-ff-payment-element]',
+    'stripeMount': '[data-ff-stripe-mount]',
+    'paypalMount': '[data-ff-paypal-mount]',
+    'toasts': '[data-ff-toasts]',
+    'live': '[data-ff-live]',
+    'share': '[data-ff-share]',
+    'themeToggle': '[data-ff-theme-toggle]',
+    'openDrawer': '[data-ff-open-drawer]',
+    'closeDrawer': '[data-ff-close-drawer]',
+    'drawer': '[data-ff-drawer]',
+    'openSponsor': '[data-ff-open-sponsor]',
+    'closeSponsor': '[data-ff-close-sponsor]',
+    'sponsorModal': '[data-ff-sponsor-modal]',
+    'sponsorForm': '#sponsorForm',
+    'sponsorTier': '[data-ff-sponsor-tier]',
+    'sponsorTierGrid': '[data-ff-sponsor-tier-grid]',
+    'sponsorTierSelected': '[data-ff-sponsor-tier-selected]',
+    'sponsorSubmit': '[data-ff-sponsor-submit]',
+    'sponsorStatus': '[data-ff-sponsor-status]',
+    'sponsorError': '[data-ff-sponsor-error]',
+    'sponsorSuccess': '[data-ff-sponsor-success]',
+    'openVideo': '[data-ff-open-video]',
+    'closeVideo': '[data-ff-close-video]',
+    'videoModal': '[data-ff-video-modal]',
+    'videoFrame': '[data-ff-video-frame]',
+    'videoMount': '[data-ff-video-mount]',
+    'videoPanel': '[data-ff-video-panel]',
+    'videoStatus': '[data-ff-video-status]',
+    'openTerms': '[data-ff-open-terms]',
+    'closeTerms': '[data-ff-close-terms]',
+    'termsModal': '[data-ff-terms-modal]',
+    'openPrivacy': '[data-ff-open-privacy]',
+    'closePrivacy': '[data-ff-close-privacy]',
+    'privacyModal': '[data-ff-privacy-modal]',
+    'floatingDonate': '[data-ff-floating-donate]',
+    'backToTop': '[data-ff-backtotop]',
+    'tabs': '[data-ff-tabs]',
+    'story': '[data-ff-story]',
+
+    'actionDock': '[data-ff-action-dock]',
+    'commandCard': '[data-ff-command-card]',
+    'impactLedger': '[data-ff-impact-ledger]',
+    'distributionToolkit': '[data-ff-distribution-toolkit]',
+    'qrCard': '[data-ff-qr-card]',
+    'qrImage': '[data-ff-qr-image]',
+    'qrCanvas': '[data-ff-qr-canvas]',
+    'qrValue': '[data-ff-qr-value]',
+    'copyQr': '[data-ff-copy-qr]',
+    'downloadQr': '[data-ff-download-qr]',
+    'printQr': '[data-ff-print-qr]',
+    'copyTextDonate': '[data-ff-copy-text-donate]',
+    'smsLink': '[data-ff-sms-link]',
+    'copyShareUrl': '[data-ff-copy-share-url]'
+  }
+} %}
+{% set _ff_selectors_payload = (ff_selectors if ff_selectors is mapping else _default_ff_selectors) %}
+
+{% block page_title %}{{ _page_title|e }}{% endblock %}
+{% block page_description %}{{ _page_description|e }}{% endblock %}
+
+{% block head_meta %}
+  {{ super() }}
+
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+  <meta name="robots" content="{{ _robots|e }}" />
+  <meta name="application-name" content="{{ _org_name|e }}" />
+  <meta name="apple-mobile-web-app-title" content="{{ _org_name|e }}" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="{{ _theme_color|e }}" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="{{ _theme_color_dark|e }}" />
+
+  {% if _canonical %}
+    <link rel="canonical" href="{{ _canonical|e }}" />
+    <link rel="alternate" href="{{ _canonical|e }}" hreflang="x-default" />
+    <meta property="og:url" content="{{ _canonical|e }}" />
+    <meta name="twitter:url" content="{{ _canonical|e }}" />
+  {% endif %}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="{{ _org_name|e }}" />
+  <meta property="og:locale" content="{{ _og_locale|e }}" />
+  <meta property="og:title" content="{{ _page_title|e }}" />
+  <meta property="og:description" content="{{ _page_description|e }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ _page_title|e }}" />
+  <meta name="twitter:description" content="{{ _page_description|e }}" />
+
+  {% if _og_image %}
+    <meta property="og:image" content="{{ _og_image|e }}" />
+    <meta property="og:image:alt" content="{{ _org_name|e }} campaign preview" />
+    <meta name="twitter:image" content="{{ _og_image|e }}" />
+    <meta name="twitter:image:alt" content="{{ _org_name|e }} campaign preview" />
+    <link rel="preload" as="image" href="{{ _og_image|e }}" />
+  {% endif %}
+
+  {% if _hero_preload %}
+    <link rel="preload" as="image" href="{{ _hero_preload|e }}" fetchpriority="high" />
+  {% endif %}
+
+  <meta name="ff:page" content="campaign" />
+  <meta name="ff:surface" content="campaign-v1" />
+  <meta name="ff:data-mode" content="{{ _ff_data_mode|e }}" />
+  <meta name="ff:share-url" content="{{ _share_url|e }}" />
+  <meta name="ff:terms-url" content="{{ _terms_url|e }}" />
+  <meta name="ff:privacy-url" content="{{ _privacy_url|e }}" />
+  {% if _campaign_slug %}
+    <meta name="ff:campaign-slug" content="{{ _campaign_slug|e }}" />
+  {% endif %}
+  {% if _qr_value %}
+    <meta name="ff:qr-value" content="{{ _qr_value|e }}" />
+  {% endif %}
+  {% if _text_keyword %}
+    <meta name="ff:text-keyword" content="{{ _text_keyword|e }}" />
+  {% endif %}
+  {% if _text_number %}
+    <meta name="ff:text-number" content="{{ _text_number|e }}" />
+  {% endif %}
+
+  <link rel="preconnect" href="https://js.stripe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://js.stripe.com" />
+  {% if _paypal_client_id %}
+    <link rel="preconnect" href="https://www.paypal.com" crossorigin />
+    <link rel="preconnect" href="https://www.paypalobjects.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.paypal.com" />
+    <link rel="dns-prefetch" href="https://www.paypalobjects.com" />
+  {% endif %}
+
+  <script type="application/ld+json" {{ nonce_attr() }}>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": {{ _page_title|tojson }},
+      "description": {{ _page_description|tojson }},
+      "inLanguage": "en"{% if _canonical %},
+      "url": {{ _canonical|tojson }}{% endif %}{% if _og_image %},
+      "image": {{ _og_image|tojson }}{% endif %}
+    }
+  </script>
+
+  <script type="application/ld+json" {{ nonce_attr() }}>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "FutureFunded"{% if _public_base %},
+      "url": {{ _public_base|tojson }}{% endif %}
+    }
+  </script>
+
+  <script type="application/ld+json" {{ nonce_attr() }}>
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": {{ _org_name|tojson }}{% if _public_base %},
+      "url": {{ _public_base|tojson }}{% endif %}{% if _support_email %},
+      "email": {{ _support_email|tojson }},
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": {{ _support_email|tojson }}
+        }{% if _sponsor_email and _sponsor_email != _support_email %},
+        {
+          "@type": "ContactPoint",
+          "contactType": "sponsor support",
+          "email": {{ _sponsor_email|tojson }}
+        }{% endif %}
+      ]{% endif %}
+    }
+  </script>
+
+  {% for _schema_block in _schema_blocks %}
+    <script type="application/ld+json" {{ nonce_attr() }}>{{ _schema_block|tojson }}</script>
+  {% endfor %}
+
+  {% block campaign_head_extras %}{% endblock %}
+{% endblock %}
+
+{% block styles %}
+  <link rel="preload" as="style" href="{{ url_for('static', filename='css/ff.css') }}?v={{ _asset_v|e }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/ff.css') }}?v={{ _asset_v|e }}" />
+  {% block campaign_styles %}{% endblock %}
+{% endblock %}
+
+{% block body_class %}ff-body ff-campaignBody ff-campaignBody--v1{% endblock %}
+
+{% block body_attrs %}
+  data-ff-body=""
+  data-ff-page="campaign"
+  data-ff-template="campaign-base-v1"
+  data-ff-surface="campaign-v1"
+  data-ff-data-mode="{{ _ff_data_mode|e }}"
+  data-ff-canonical="{{ _canonical|e }}"
+  data-ff-share-url="{{ _share_url|e }}"
+  data-ff-org-name="{{ _org_name|e }}"
+  data-ff-campaign-name="{{ _campaign_name|e }}"
+  data-ff-currency="{{ _currency|e }}"
+  data-ff-asset-version="{{ _asset_v|e }}"
+  data-ff-qr-value="{{ _qr_value|e }}"
+  data-ff-text-keyword="{{ _text_keyword|e }}"
+  data-ff-text-number="{{ _text_number|e }}"
+  {% if _campaign_slug %}data-ff-campaign-slug="{{ _campaign_slug|e }}"{% endif %}
+{% endblock %}
+
+{% block content %}
+  <nav class="ff-skiplinks" aria-label="Skip links">
+    <a href="#content" class="ff-skip">Skip to content</a>
+    <a href="#donate" class="ff-skip">Skip to donate</a>
+    <a href="#distribution" class="ff-skip">Skip to QR and text-to-donate</a>
+    <a href="#sponsors" class="ff-skip">Skip to sponsors</a>
+    <a href="#faq" class="ff-skip">Skip to FAQ</a>
+  </nav>
+
+  <div id="ffLive" class="ff-sr" data-ff-live="" aria-live="polite" aria-atomic="true">
+    Live updates appear here.
+  </div>
+
+  <div
+    class="ff-toasts"
+    data-ff-toasts=""
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    aria-relevant="additions removals"
+  ></div>
+
+  <noscript>
+    <div class="ff-container">
+      <section class="ff-card ff-card-soft ff-p-4 ff-mt-3" role="note" aria-label="JavaScript fallback">
+        <p class="ff-help ff-m-0">
+          <strong>JavaScript is off.</strong>
+          You can still read the campaign story, review sponsor details, scan any visible QR code, text the campaign keyword, and use direct support links presented on the page.
+          {% if _support_email %}
+            For help, email <a class="ff-link" href="mailto:{{ _support_email|e }}">{{ _support_email|e }}</a>.
+          {% endif %}
+        </p>
+      </section>
+    </div>
+  </noscript>
+
+  <div
+    class="ff-shell ff-shell--campaign ff-shell--campaignV1"
+    data-ff-shell=""
+    data-ff-surface="campaign-v1"
+  >
+    <div class="ff-shellBg ff-shellBg--cinematic" aria-hidden="true"></div>
+
+    {% block chrome %}{% endblock %}
+
+    <main
+      id="content"
+      class="ff-main ff-main--campaign ff-main--campaignV1"
+      data-ff-page-surface="campaign"
+      data-ff-surface="flagship-20260427-sponsor-direct"
+      tabindex="-1"
+    >
+      {% block campaign_content %}{% endblock %}
+    </main>
+
+    {% block overlays %}{% endblock %}
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+
+  <script id="ffConfig" data-ff-config="" type="application/json" {{ nonce_attr() }}>{{ _ff_config_payload|tojson }}</script>
+  <script id="ffSelectors" type="application/json" {{ nonce_attr() }}>{{ _ff_selectors_payload|tojson }}</script>
+
+  {% if _stripe_pk %}
+    <script defer src="{{ _stripe_js_url|e }}" {{ nonce_attr() }}></script>
+  {% endif %}
+
+  <script defer src="{{ url_for('static', filename='js/ff-app.js') }}?v={{ _asset_v|e }}" {{ nonce_attr() }}></script>
+
+  <script
+    defer
+    src="{{ url_for('static', filename='js/ff-sponsor-modal-contract.js') }}?v=sponsor-contract-20260429"
+    {{ nonce_attr() }}
+    data-ff-sponsor-modal-contract-js></script>
+
+  <script
+    defer
+    src="{{ url_for('static', filename='js/ff-donation-payload-firewall.js') }}?v={{ _asset_v|e }}"
+    {{ nonce_attr() }}
+    data-ff-donation-payload-firewall-js></script>
+
+  <script
+    defer
+    src="{{ url_for('static', filename='js/ff-embedded-checkout.js') }}?v={{ _checkout_asset_v|default(_asset_v, true)|e }}"
+    {{ nonce_attr() }}
+    data-ff-checkout-js-contract></script>
+
+  <script
+    defer
+    src="{{ url_for('static', filename='js/ff-checkout-direct.js') }}?v={{ _asset_v|e }}&checkout_direct=xhr-v2"
+    {{ nonce_attr() }}
+    data-ff-checkout-direct-js></script>
+
+  {# FutureFunded campaign-bridge-template-load-v36: required for checkout/sponsor/share smoke contracts #}
+  <script
+    defer
+    src="{{ url_for('static', filename='js/ff-campaign.js') }}?v={{ _asset_v|e }}"
+    {{ nonce_attr() }}
+    data-ff-campaign-js
+    data-ff-campaign-bridge-script="campaign-bridge-template-load-v36"></script>
+
+
+  <script {{ nonce_attr() }} data-ff-modal-state-contract="v3">
+  /* FutureFunded campaign modal state contract v3 rendered
+     Base-shell owned fallback so campaign audits never depend on child block rendering.
+  */
+  (() => {
+    const configs = [
+      {
+        name: "checkout",
+        modal: "#checkout,[data-ff-checkout-modal],[data-ff-embedded-checkout-shell],.ff-checkoutModal,.ff-embeddedCheckout",
+        open: "[data-ff-open-checkout],[data-ff-donate-trigger],[data-ff-payment-trigger],[data-ff-donate-submit],[data-ff-start-embedded-checkout]",
+        close: "[data-ff-close-embedded-checkout],[data-ff-checkout-close],[data-ff-close-checkout],[aria-label='Close checkout']",
+        state: "data-ff-checkout-state",
+        rootClass: "ff-checkout-open"
+      },
+      {
+        name: "sponsor",
+        modal: "#sponsor-modal,[data-ff-sponsor-modal],.ff-sponsorModal",
+        open: "[data-ff-open-sponsor],[data-ff-sponsor-trigger],[data-ff-sponsor-cta]",
+        close: "[data-ff-sponsor-close],[data-ff-close-sponsor],[aria-label='Close sponsor options']",
+        state: "data-ff-sponsor-state",
+        rootClass: "ff-sponsor-open"
+      },
+      {
+        name: "share",
+        modal: "#qr-modal,[data-ff-qr-modal],[data-ff-share-drawer],.ff-shareDrawer",
+        open: "[data-ff-share-trigger],[data-ff-qr-trigger],[data-ff-share]",
+        close: "[data-ff-share-close],[data-ff-close-qr-modal],[aria-label='Close share drawer']",
+        state: "data-ff-share-state",
+        rootClass: "ff-share-open"
+      }
+    ];
+
+    const get = (selector) => document.querySelector(selector);
+
+    const isVisible = (node) => {
+      if (!node) return false;
+      if (node.hidden || node.getAttribute("aria-hidden") === "true") return false;
+      const style = window.getComputedStyle(node);
+      const rect = node.getBoundingClientRect();
+      return style.display !== "none" &&
+        style.visibility !== "hidden" &&
+        style.opacity !== "0" &&
+        rect.width > 8 &&
+        rect.height > 8;
+    };
+
+    const markOpen = (config) => {
+      const node = get(config.modal);
+      if (!node) return;
+
+      node.hidden = false;
+      node.removeAttribute("hidden");
+      node.setAttribute("aria-hidden", "false");
+      node.setAttribute("data-ff-state", "open");
+      node.setAttribute(config.state, "open");
+      node.setAttribute("data-ff-modal-state", "open");
+      node.classList.add("is-open", "ff-is-open");
+
+      document.documentElement.classList.add("ff-modal-open", config.rootClass);
+      document.documentElement.setAttribute("data-ff-modal-open", "true");
+      document.documentElement.setAttribute(`data-${config.name}-open`, "true");
+
+      if (document.body) {
+        document.body.classList.add("ff-modal-open", config.rootClass);
+        document.body.setAttribute("data-ff-modal-open", "true");
+        document.body.setAttribute(`data-${config.name}-open`, "true");
+      }
+    };
+
+    const markClosed = (config) => {
+      const node = get(config.modal);
+      if (!node || isVisible(node)) return;
+
+      node.setAttribute("aria-hidden", "true");
+      node.setAttribute("data-ff-state", "closed");
+      node.setAttribute(config.state, "closed");
+      node.setAttribute("data-ff-modal-state", "closed");
+      node.classList.remove("is-open", "ff-is-open");
+
+      document.documentElement.classList.remove(config.rootClass);
+      document.documentElement.removeAttribute(`data-${config.name}-open`);
+      document.body?.classList.remove(config.rootClass);
+      document.body?.removeAttribute(`data-${config.name}-open`);
+    };
+
+    const syncVisible = () => {
+      configs.forEach((config) => {
+        const node = get(config.modal);
+        if (node && isVisible(node)) markOpen(config);
+      });
+    };
+
+    const syncOpenSoon = (config) => {
+      [0, 16, 50, 120, 260, 420].forEach((delay) => {
+        window.setTimeout(() => markOpen(config), delay);
+      });
+    };
+
+    document.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (!target) return;
+
+      for (const config of configs) {
+        if (target.closest(config.open)) {
+          syncOpenSoon(config);
+          return;
+        }
+
+        if (target.closest(config.close)) {
+          window.setTimeout(() => markClosed(config), 90);
+          return;
+        }
+      }
+    }, true);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        window.setTimeout(() => configs.forEach(markClosed), 90);
+      }
+    }, true);
+
+    const installObservers = () => {
+      configs.forEach((config) => {
+        const node = get(config.modal);
+        if (!node || node.__ffModalStateContractV3) return;
+
+        node.__ffModalStateContractV3 = true;
+        new MutationObserver(() => {
+          if (isVisible(node)) markOpen(config);
+        }).observe(node, {
+          attributes: true,
+          attributeFilter: ["hidden", "aria-hidden", "class", "style", "data-ff-state"]
+        });
+      });
+
+      syncVisible();
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", installObservers, { once: true });
+    } else {
+      installObservers();
+    }
+
+    window.setTimeout(installObservers, 120);
+    window.setTimeout(syncVisible, 300);
+  })();
+  </script>
+
+  {% block campaign_scripts %}{% endblock %}
+{% endblock %}

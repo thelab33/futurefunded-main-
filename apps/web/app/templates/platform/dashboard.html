@@ -1,0 +1,565 @@
+{% from "_partials/ff_shell_header.html" import ff_shell_header %}
+{% set _cfg = (config if config is mapping else {}) %}
+{% set _requested_css_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else '')|string|trim %}
+{% set _asset_v = (_requested_css_v if _requested_css_v else asset_v|default(_cfg.get('ASSET_V'), true)|default('dashboard-operator-v4', true))|string|trim %}
+{% if not _asset_v %}{% set _asset_v = 'dashboard-operator-v4' %}{% endif %}
+{% set _operator_token = (request.args.get('operator_token') or request.args.get('token') or request.args.get('access_token') or '') if request is defined else '' %}
+{% set _auth_qs = '?access_token=' ~ _operator_token if _operator_token else '' %}
+{% set _platform = ff_platform|default({}, true) %}
+{% set _dashboard_campaign_slug = campaign_slug|default(_platform.campaign_slug|default('connect-atx-elite', true), true)|string|trim %}
+{% if not _dashboard_campaign_slug %}{% set _dashboard_campaign_slug = 'connect-atx-elite' %}{% endif %}
+{% set _brand_name = platform_name|default('FutureFunded', true)|string|trim %}
+{% if not _brand_name %}{% set _brand_name = 'FutureFunded' %}{% endif %}
+{% set _team_name = _platform.team_name|default(campaign_name|default('Connect ATX Elite', true), true)|string|trim %}
+{% if not _team_name %}{% set _team_name = 'Connect ATX Elite' %}{% endif %}
+{% set _location = _platform.location|default('Austin, TX', true)|string|trim %}
+{% if not _location %}{% set _location = 'Austin, TX' %}{% endif %}
+{% set _campaign_title = campaign_title|default('Spring Fundraiser', true)|string|trim %}
+{% if not _campaign_title %}{% set _campaign_title = 'Spring Fundraiser' %}{% endif %}
+{% set _public_url = _platform.campaign_url|default('/c/' ~ _dashboard_campaign_slug, true) %}
+{% set _setup_url = '/platform/onboarding' ~ _auth_qs %}
+{% set _dashboard_url = '/platform/dashboard' ~ _auth_qs %}
+{% set _dashboard_ledger_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/summary' %}
+{% set _dashboard_events_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/events' %}
+{% set _dashboard_export_url = '/c/' ~ _dashboard_campaign_slug ~ '/ledger/export.csv' %}
+{% set _dashboard_operator_token = '' %}
+{% if request is defined and request.args is defined %}
+{% set _dashboard_operator_token = request.args.get('operator_token') or request.args.get('access_token') or request.args.get('token') or '' %}
+{% endif %}
+{% set _dashboard_export_href = _dashboard_export_url %}
+{% if _dashboard_operator_token %}
+{% set _dashboard_export_href = _dashboard_export_url ~ '?operator_token=' ~ _dashboard_operator_token %}
+{% endif %}
+{% set _raised_label = raised_label|default('$11,850', true) %}
+{% set _goal_label = goal_label|default('$20,000', true) %}
+{% set _supporters_label = supporters_label|default('148', true) %}
+{% set _percent_label = percent_label|default('59%', true) %}
+{% set _percent_width = percent_width|default(_percent_label, true) %}
+{% set _average_gift_label = average_gift_label|default('$80', true) %}
+{% set _sponsor_count_label = sponsor_count_label|default('8', true) %}
+{% set _pending_count_label = pending_count_label|default('3', true) %}
+{% set _sponsor_review_queue = sponsor_review_queue|default(ff_sponsor_review_queue|default([], true), true) %}
+{% set _review_count = _sponsor_review_queue|length %}
+{% set html_page = 'platform-dashboard' %}
+{% set ff_page = 'platform-dashboard' %}
+{% extends "_base/site_base.html" %}
+
+{% block html_class %}ff-root ff-dashboardRoot{% endblock %}
+{% block body_class %}ff-dashboardBody ff-dashboardOperatorBody ff-dashboardModernBody{% endblock %}
+{% block title %}{{ _brand_name }} Dashboard · {{ _team_name }}{% endblock %}
+
+{% block page_description %}
+Protected {{ _brand_name }} operator dashboard for launch readiness, payment checks, sponsor review, donor follow-up, and campaign records.
+{% endblock %}
+
+{% block head_meta %}
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#fff7ed">
+{% endblock %}
+
+{% block page_css %}
+{% endblock %}
+
+{% block body_attrs %}
+data-ff-system-loop="platform-dashboard"
+  data-ff-page-body="platform-dashboard"
+  data-ff-surface="dashboard"
+  data-ff-operator-root
+  data-ff-brand-contract="futurefunded-platform-v1"
+  data-ff-ledger-url="{{ _dashboard_ledger_url }}"
+  data-ff-events-url="{{ _dashboard_events_url }}"
+  data-ff-export-url="{{ _dashboard_export_url }}"
+  data-ff-export-href="{{ _dashboard_export_href }}"
+  data-ff-operator-token="{{ _operator_token|e }}"
+data-ff-dashboard-template="site-shell-v1"
+{% endblock %}
+
+{% block content %}
+  <a class="ff-skipLink" href="#dashboard-main">Skip to dashboard</a>
+
+    <main
+      id="dashboard-main"
+      class="ff-dashboardSaas ff-dashboardModern"
+      data-ff-dashboard-root
+      data-ff-dashboard-layout="operator-v2"
+      data-ff-dashboard-main-layout="operator-command-center-v4"
+      data-ff-dashboard-server-layout="exec-assistant-template-v7"
+      data-ff-surface-root="dashboard"
+      aria-labelledby="dashboard-title"
+    >
+      {{ ff_shell_header(
+    mode='operator',
+    brand_name=_brand_name|default('FutureFunded', true),
+    context='Operator command center',
+    brand_href='/platform/dashboard',
+    nav_items=[
+      {'label':'Setup','href':'/platform/onboarding'},
+      {'label':'Public page','href':'/c/connect-atx-elite'},
+      {'label':'Sponsors','href':'#sponsors'}
+    ],
+    actions=[]
+  ) }}
+
+      <section class="ff-dashboardModern__hero ff-dashboardModern__hero--operator" aria-labelledby="dashboard-title">
+        <div class="ff-dashboardModern__heroMain">
+          <div class="ff-dashboardModern__pills" aria-label="Campaign status">
+            <span>Protected workspace</span>
+            <span>Live campaign</span>
+            <span>Sponsor review active</span>
+          </div>
+
+          <p class="ff-dashboardModern__eyebrow">Operator command center</p>
+
+          <h1 id="dashboard-title">{{ _team_name }}</h1>
+
+          <p class="ff-dashboardModern__lede">
+            Run the campaign from one private workspace: launch readiness, payment verification,
+            donor follow-up, sponsor review, and exportable records.
+          </p>
+
+          <div class="ff-dashboardModern__heroActions" aria-label="Primary dashboard actions">
+            <a class="ff-dashboardModern__button ff-dashboardModern__button--primary" href="{{ _public_url|e }}">
+              Open public campaign
+            </a>
+            <a class="ff-dashboardModern__button" href="{{ _setup_url|e }}">
+              Edit setup
+            </a>
+            <a class="ff-dashboardModern__button" href="{{ _dashboard_export_href|e }}">
+              Export ledger
+            </a>
+          </div>
+        </div>
+
+        <aside class="ff-dashboardModern__summary" aria-label="Campaign funding summary">
+          <div class="ff-dashboardModern__summaryHeader">
+            <span>{{ _campaign_title }}</span>
+            <strong>{{ _percent_label }}</strong>
+          </div>
+
+          <div class="ff-dashboardModern__meter" aria-label="{{ _percent_label }} funded">
+            <span class="ff-dashboardProgressBar ff-dashboardProgressBar--{{ _percent_int|default(59, true)|int }}" data-ff-progress-bar data-ff-progress-value="{{ _percent_int|default(59, true)|int }}"></span>
+          </div>
+
+          <dl class="ff-dashboardModern__summaryStats">
+            <div>
+              <dt>Raised</dt>
+              <dd>{{ _raised_label }}</dd>
+            </div>
+            <div>
+              <dt>Goal</dt>
+              <dd>{{ _goal_label }}</dd>
+            </div>
+            <div>
+              <dt>Supporters</dt>
+              <dd>{{ _supporters_label }}</dd>
+            </div>
+          </dl>
+
+          <p>
+            Campaign is ready to share. Verify payment readiness, sponsor follow-up,
+            and public proof before the next major push.
+          </p>
+        </aside>
+      </section>
+
+      <section class="ff-dashboardModern__kpis" aria-label="Operator health snapshot">
+        <article>
+          <span>Launch status</span>
+          <strong>Ready</strong>
+          <p>Campaign page, story, and share path are prepared.</p>
+        </article>
+
+        <article>
+          <span>Payment check</span>
+          <strong>Verify</strong>
+          <p>Confirm live provider readiness before the next sponsor push.</p>
+        </article>
+
+        <article>
+          <span>Sponsor reviews</span>
+          <strong>{{ _review_count }}</strong>
+          <p>Pending recognition decisions stay private until approved.</p>
+        </article>
+
+        <article>
+          <span>Follow-ups</span>
+          <strong>Today</strong>
+          <p>Keep donors, families, and sponsors moving while interest is warm.</p>
+        </article>
+      </section>
+
+      {# FF_DASHBOARD_EXEC_ASSISTANT_TEMPLATE_V7_START #}
+      <section
+        class="ff-dashboardModern__execAssistantSlot"
+        data-ff-dashboard-exec-assistant-slot
+        aria-label="Launch assistant"
+      ></section>
+
+      <template data-ff-dashboard-exec-assistant-template>
+        {% include "_partials/ff_dashboard_launch_assistant.html" %}
+      </template>
+      {# FF_DASHBOARD_EXEC_ASSISTANT_TEMPLATE_V7_END #}
+
+      <section class="ff-dashboardModern__board" aria-label="Operator command board">
+        <div class="ff-dashboardModern__mainStack">
+          <article class="ff-dashboardModern__panel ff-dashboardModern__panel--priority">
+            <div class="ff-dashboardModern__panelHead">
+              <div>
+                <p class="ff-dashboardModern__eyebrow">Today’s priority</p>
+                <h2>Run the next clean push</h2>
+              </div>
+              <span class="ff-dashboardModern__status">Healthy</span>
+            </div>
+
+            <div class="ff-dashboardModern__priorityGrid">
+              <div>
+                <span>01</span>
+                <strong>Share the public page</strong>
+                <p>Send one clear link to families, warm donors, and local supporters.</p>
+              </div>
+
+              <div>
+                <span>02</span>
+                <strong>Verify payment readiness</strong>
+                <p>Check Stripe and PayPal before a larger donor or sponsor push.</p>
+              </div>
+
+              <div>
+                <span>03</span>
+                <strong>Review sponsor movement</strong>
+                <p>Approve sponsor recognition before public placement appears.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="ff-dashboardModern__panel ff-dashboardModern__panel--performance">
+            <div class="ff-dashboardModern__panelHead">
+              <div>
+                <p class="ff-dashboardModern__eyebrow">Funding pace</p>
+                <h2>Campaign performance</h2>
+              </div>
+            </div>
+
+            <div class="ff-dashboardModern__performance">
+              <div class="ff-dashboardModern__progressLabels">
+                <strong>{{ _raised_label }} raised</strong>
+                <span>{{ _goal_label }} goal</span>
+              </div>
+
+              <div class="ff-dashboardModern__meter" aria-label="{{ _percent_label }} funded">
+                <span class="ff-dashboardProgressBar ff-dashboardProgressBar--{{ _percent_int|default(59, true)|int }}" data-ff-progress-bar data-ff-progress-value="{{ _percent_int|default(59, true)|int }}"></span>
+              </div>
+
+              <p>
+                Keep the public page active with fresh proof, sponsor clarity, and one simple ask.
+              </p>
+            </div>
+
+            <dl class="ff-dashboardModern__miniStats">
+              <div>
+                <dt>Average gift</dt>
+                <dd>{{ _average_gift_label }}</dd>
+              </div>
+              <div>
+                <dt>Sponsors</dt>
+                <dd>{{ _sponsor_count_label }}</dd>
+              </div>
+              <div>
+                <dt>Pending</dt>
+                <dd>{{ _pending_count_label }}</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article
+            class="ff-dashboardModern__panel ff-dashboardModern__panel--momentum"
+            aria-labelledby="dashboard-momentum-title"
+            data-ff-dashboard-momentum
+          >
+            <div class="ff-dashboardModern__panelHead">
+              <div>
+                <p class="ff-dashboardModern__eyebrow">Campaign momentum</p>
+                <h2 id="dashboard-momentum-title">Recent movement</h2>
+              </div>
+              <span class="ff-dashboardModern__status ff-dashboardModern__status--quiet">Live</span>
+            </div>
+
+            <ol class="ff-dashboardModern__momentumFeed" aria-label="Recent campaign momentum">
+              <li>
+                <span class="ff-dashboardModern__feedDot" aria-hidden="true"></span>
+                <div>
+                  <div class="ff-dashboardModern__feedTop">
+                    <strong>$250 gift received</strong>
+                    <time datetime="PT12M">12m ago</time>
+                  </div>
+                  <p>Donation moved the campaign closer to the next milestone.</p>
+                </div>
+              </li>
+
+              <li>
+                <span class="ff-dashboardModern__feedDot" aria-hidden="true"></span>
+                <div>
+                  <div class="ff-dashboardModern__feedTop">
+                    <strong>Featured sponsor viewed</strong>
+                    <time datetime="PT28M">28m ago</time>
+                  </div>
+                  <p>A local business reviewed sponsor visibility and next steps.</p>
+                </div>
+              </li>
+
+              <li>
+                <span class="ff-dashboardModern__feedDot" aria-hidden="true"></span>
+                <div>
+                  <div class="ff-dashboardModern__feedTop">
+                    <strong>12 campaign shares</strong>
+                    <time datetime="PT1H">1h ago</time>
+                  </div>
+                  <p>Families and supporters are extending campaign reach.</p>
+                </div>
+              </li>
+
+              <li>
+                <span class="ff-dashboardModern__feedDot ff-dashboardModern__feedDot--warn" aria-hidden="true"></span>
+                <div>
+                  <div class="ff-dashboardModern__feedTop">
+                    <strong>Payment check next</strong>
+                    <time datetime="PT2H">2h ago</time>
+                  </div>
+                  <p>Confirm provider readiness before the next sponsor push.</p>
+                </div>
+              </li>
+            </ol>
+
+            <div class="ff-dashboardModern__momentumFooter">
+              <p>
+                Keep momentum focused: share the page, approve sponsor recognition,
+                and follow up while interest is warm.
+              </p>
+
+              <a class="ff-dashboardModern__button ff-dashboardModern__button--small" href="{{ _public_url|e }}">
+                Open public campaign
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <aside class="ff-dashboardModern__railStack" aria-label="Readiness, sponsor review, and activity">
+          <article class="ff-dashboardModern__panel ff-dashboardModern__panel--readiness">
+            <div class="ff-dashboardModern__panelHead">
+              <div>
+                <p class="ff-dashboardModern__eyebrow">Launch quality</p>
+                <h2>Readiness</h2>
+              </div>
+              <strong class="ff-dashboardModern__score">94%</strong>
+            </div>
+
+            <ul class="ff-dashboardModern__checklist ff-dashboardModern__checklist--dense" aria-label="Launch checklist">
+              <li><span aria-hidden="true"></span><strong>Campaign page</strong><em>Ready</em></li>
+              <li><span aria-hidden="true"></span><strong>Sponsor package</strong><em>Ready</em></li>
+              <li><span aria-hidden="true"></span><strong>Media assets</strong><em>Ready</em></li>
+              <li><span aria-hidden="true"></span><strong>Payment check</strong><em>Verify</em></li>
+            </ul>
+          </article>
+
+          <article class="ff-dashboardModern__panel ff-dashboardModern__panel--sponsors">
+            <div class="ff-dashboardModern__panelHead">
+              <div>
+                <p class="ff-dashboardModern__eyebrow">Sponsor pipeline</p>
+                <h2>Review queue</h2>
+              </div>
+              <strong class="ff-dashboardModern__score">{{ _review_count }}</strong>
+            </div>
+
+            <p class="ff-dashboardModern__panelText">
+              Keep sponsor details private until public recognition is approved.
+            </p>
+
+            <a class="ff-dashboardModern__button ff-dashboardModern__button--small" href="{{ _public_url|e }}#sponsors">
+              Open sponsor section
+            </a>
+          </article>
+
+          <article class="ff-dashboardModern__panel ff-dashboardModern__panel--feed">
+            <div class="ff-dashboardModern__panelHead">
+              <div>
+                <p class="ff-dashboardModern__eyebrow">Recent activity</p>
+                <h2>Live feed</h2>
+              </div>
+            </div>
+
+            <ol class="ff-dashboardModern__feed" aria-label="Recent campaign activity">
+              <li>
+                <span aria-hidden="true"></span>
+                <div>
+                  <strong>Campaign preview viewed</strong>
+                  <p>Public page is ready to share.</p>
+                </div>
+              </li>
+
+              <li>
+                <span aria-hidden="true"></span>
+                <div>
+                  <strong>Sponsor package reviewed</strong>
+                  <p>Community Partner path recommended.</p>
+                </div>
+              </li>
+
+              <li>
+                <span aria-hidden="true"></span>
+                <div>
+                  <strong>Media check completed</strong>
+                  <p>Team photo assets are available.</p>
+                </div>
+              </li>
+            </ol>
+          </article>
+        </aside>
+      </section>
+
+      <section
+        class="ff-dashboardModern__operations ff-dashboardModern__operations--upgraded"
+        aria-label="Advanced operations and sponsor records"
+        data-ff-dashboard-operations
+      >
+        <details class="ff-dashboardModern__operationsDetails">
+          <summary>
+            <span>
+              <strong>Operations & records</strong>
+              <em>Provider checks, sponsor approvals, exports, and recognition records.</em>
+            </span>
+
+            <b aria-label="Pending sponsor review count">
+              <strong>{{ _review_count }}</strong>
+              <small>pending reviews</small>
+            </b>
+          </summary>
+
+          <div class="ff-dashboardModern__operationsBody">
+            <article class="ff-dashboardModern__opsSummary" aria-label="Operations summary">
+              <div>
+                <span>Provider checks</span>
+                <strong>Ready</strong>
+                <p>Stripe and PayPal readiness stay visible before larger pushes.</p>
+              </div>
+
+              <div>
+                <span>Ledger exports</span>
+                <strong>Available</strong>
+                <p>Donation and sponsor records stay prepared for operator review.</p>
+              </div>
+
+              <div>
+                <span>Follow-up</span>
+                <strong>Active</strong>
+                <p>Donor, sponsor, and operator messages stay coordinated.</p>
+              </div>
+            </article>
+
+            <article
+              class="ff-dashboardReviewQueue ff-platformSurface ff-dashboardModern__reviewQueue ff-dashboardModern__reviewQueue--insideDrawer"
+              aria-labelledby="dashboard-sponsor-review-title"
+              data-ff-sponsor-review-queue
+            >
+              <div class="ff-dashboardReviewQueue__header">
+                <div>
+                  <p class="ff-dashboardModern__eyebrow">Sponsor review queue</p>
+                  <h2 id="dashboard-sponsor-review-title">Pending sponsor recognition</h2>
+                  <p>
+                    Recognition details stay private until reviewed. Open these records only when approving sponsor placement.
+                  </p>
+                </div>
+              </div>
+
+              {% if _sponsor_review_queue %}
+                <div class="ff-dashboardModern__reviewListCompact">
+                  {% for item in _sponsor_review_queue %}
+                    {% set sponsor = item.sponsor|default({}, true) %}
+                    {% set review = item.review|default({}, true) %}
+                    {% set _business_name = sponsor.business_name|default('Sponsor awaiting review', true) %}
+                    {% set _recognition_name = sponsor.recognition_name|default(_business_name, true) %}
+                    {% set _package_label = sponsor.package_label|default('Sponsor package', true) %}
+                    {% set _package_amount = sponsor.package_amount|default('', true) %}
+                    {% set _item_campaign_slug = item.campaign_slug|default(_dashboard_campaign_slug, true) %}
+
+                    <article class="ff-dashboardSponsorReviewCard ff-dashboardModern__reviewCardCompact">
+                      <div class="ff-dashboardSponsorReviewCard__main">
+                        <span class="ff-dashboardSponsorReviewCard__status">
+                          {{ review.review_state|default('pending_payment_or_review', true)|replace('_', ' ') }}
+                        </span>
+
+                        <h3>{{ _business_name }}</h3>
+
+                        <dl class="ff-dashboardSponsorReviewCard__meta">
+                          <div>
+                            <dt>Package</dt>
+                            <dd>
+                              {{ _package_label }}
+                              {% if _package_amount %}
+                                <span>${{ _package_amount }}</span>
+                              {% endif %}
+                            </dd>
+                          </div>
+
+                          <div>
+                            <dt>Recognition</dt>
+                            <dd>{{ _recognition_name }}</dd>
+                          </div>
+
+                          {% if sponsor.contact_email|default('', true) %}
+                            <div>
+                              <dt>Contact</dt>
+                              <dd>{{ sponsor.contact_email }}</dd>
+                            </div>
+                          {% endif %}
+                        </dl>
+                      </div>
+
+                      <div class="ff-dashboardSponsorReviewCard__actions">
+                        <a class="ff-button ff-button--primary" href="mailto:sponsors@getfuturefunded.com?subject=Review%20sponsor%20recognition">
+                          Review sponsor
+                        </a>
+
+                        <a class="ff-button ff-button--ghost" href="/c/{{ _item_campaign_slug }}#sponsors">
+                          View campaign
+                        </a>
+                      </div>
+                    </article>
+                  {% endfor %}
+                </div>
+              {% else %}
+                <div class="ff-dashboardReviewQueue__empty">
+                  <strong>No pending sponsor recognition yet.</strong>
+                  <p>When a sponsor starts checkout with recognition details, it will appear here for review.</p>
+
+                  <a class="ff-button ff-button--ghost" href="{{ _public_url|e }}#sponsor-form">
+                    View sponsor intake
+                  </a>
+                </div>
+              {% endif %}
+            </article>
+
+            <article class="ff-dashboardModern__panel ff-dashboardModern__opsPanel">
+              <p class="ff-dashboardModern__eyebrow">Payment readiness</p>
+              <h2>Provider diagnostics</h2>
+              {% include "platform/_provider_readiness_panel.html" ignore missing %}
+            </article>
+
+            <article class="ff-dashboardModern__panel ff-dashboardModern__opsPanel">
+              <p class="ff-dashboardModern__eyebrow">Sponsor tools</p>
+              <h2>Package and queue previews</h2>
+              {% include "platform/_sponsor_queue_preview.html" ignore missing %}
+              {% include "platform/_sponsor_package_preview.html" ignore missing %}
+            </article>
+          </div>
+        </details>
+      </section>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+<script defer src="{{ url_for('static', filename='js/ff-launch-completion.js') }}?v={{ _asset_v|e }}"></script>
+
+<script defer src="{{ url_for('static', filename='js/ff-operator-dashboard.js') }}?v={{ _asset_v|e }}" data-ff-operator-dashboard-js></script>
+{% endblock %}

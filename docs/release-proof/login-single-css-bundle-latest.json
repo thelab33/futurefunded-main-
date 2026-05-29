@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-05-20T02:37:27.585187+00:00",
+  "rerunMode": true,
+  "template": "apps/web/app/templates/platform/login.html",
+  "bundle": "apps/web/app/static/css/login.bundle.css",
+  "bundleLines": 38474,
+  "bundleBytes": 1026465,
+  "bundleSha256": "841d759e9d99d96a2ed4c0d2a61a0ae395d703188ce6ac776fedad91b78ecfca",
+  "sourceCss": [
+    "ff.css",
+    "login.css",
+    "ff-fortune500-final.css"
+  ],
+  "sourceReports": [
+    {
+      "order": 1,
+      "file": "ff.css",
+      "path": "apps/web/app/static/css/ff.css",
+      "lines": 36182,
+      "bytes": 959307,
+      "sha256": "203b4c01fc9aa60f2cb4254b90d469206bcc56b5e9a9b5cf8f45969c2b74b15d"
+    },
+    {
+      "order": 2,
+      "file": "login.css",
+      "path": "apps/web/app/static/css/login.css",
+      "lines": 1716,
+      "bytes": 48506,
+      "sha256": "c76dd4c121cb5e7e6052b09d0b53c66fc3e57717d1dba58f549e3730b318520d"
+    },
+    {
+      "order": 3,
+      "file": "ff-fortune500-final.css",
+      "path": "apps/web/app/static/css/ff-fortune500-final.css",
+      "lines": 521,
+      "bytes": 16815,
+      "sha256": "6864c540d4d9bee935f29075a76c2a8a5402a1cbb48ad3a06453e43c16102d78"
+    }
+  ],
+  "templateCssLinksAfter": [
+    "login.bundle.css"
+  ]
+}

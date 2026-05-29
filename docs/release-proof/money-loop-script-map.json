@@ -1,0 +1,2043 @@
+[
+  {
+    "path": "docs/LAUNCH_BACKLOG.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "notification",
+      "paid",
+      "payment",
+      "provider",
+      "receipt",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/PRODUCTION_HANDOFF_CHECKLIST.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/SISTER_DEMO_RUNBOOK.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "payment"
+    ]
+  },
+  {
+    "path": "docs/audits/POST_DEMO_NEXT_PHASE.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "ledger",
+      "payment",
+      "receipt",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "docs/audits/backend-inventory/backend-inventory.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "ledger",
+      "payment",
+      "paypal",
+      "provider",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "docs/demo/FOUNDER_DEMO_SCRIPT.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "payment",
+      "provider"
+    ]
+  },
+  {
+    "path": "docs/deploy/DEPLOY_PREVIEW_RUNBOOK.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "ledger",
+      "paypal",
+      "provider",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "docs/final-launch-qa-checkpoint.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "ledger",
+      "payment",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "docs/final-launch-qa-post-wave8b.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "lifecycle",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/founder-demo-polish-plan.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "lifecycle",
+      "payment",
+      "provider",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/founder-demo-walkthrough.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "lifecycle",
+      "paid",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/launch-closeout/live-roadmap.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "ledger",
+      "payment",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/launch-closeout/local-roadmap.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "ledger",
+      "payment",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/launch-closeout/sister-today-roadmap.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "ledger",
+      "payment",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/launch-readiness-checkpoint.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "lifecycle",
+      "provider",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/launch-risk-register.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "lifecycle",
+      "notification",
+      "provider",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/live-demo-checklist.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/release-map.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "payment"
+    ]
+  },
+  {
+    "path": "docs/release-proof/active-repo-map-latest.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "ledger",
+      "paid",
+      "payment",
+      "paypal",
+      "provider",
+      "receipt",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "docs/release-proof/css-authority-cleanup-20260521.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "docs/release-proof/futurefunded-production-closeout-v1.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "paid",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/release-proof/repo-quarantine-plan-latest.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/release-proof/secret-hygiene-latest.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "provider",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "docs/release-proof/tooling-archive/launch-gate-scripts-20260523/ff_dashboard_header_unified_v32.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/release-proof/tooling-archive/launch-gate-scripts-20260523/ff_stripe_mercury_refinement_v3.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/release-proof/ui-core-final-blockers-20260523024222.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "docs/release-proof/ui-core-quarantine-apply-20260523015432.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment",
+      "provider"
+    ]
+  },
+  {
+    "path": "docs/release-proof/ui-core-quarantine-plan.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment",
+      "provider"
+    ]
+  },
+  {
+    "path": "docs/release-proof/ui-core-quarantine-safe-20260523021137.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment",
+      "provider"
+    ]
+  },
+  {
+    "path": "docs/release-proof/ui-core-quarantine-safe-20260523021333.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment",
+      "provider"
+    ]
+  },
+  {
+    "path": "docs/repo-authority.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "payment",
+      "provider"
+    ]
+  },
+  {
+    "path": "docs/sister-ui-review-checklist.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "receipt",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "docs/wave2e-2f-closeout.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "payment"
+    ]
+  },
+  {
+    "path": "docs/wave5a-operator-ux-polish.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "payment",
+      "provider"
+    ]
+  },
+  {
+    "path": "docs/wave5d-money-loop-proof.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "lifecycle",
+      "paid",
+      "payment",
+      "provider",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "docs/wave5e-email-delivery-proof.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "donation",
+      "lifecycle",
+      "provider",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/backend_inventory.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "notification",
+      "payment",
+      "paypal",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/demo-hardening.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_active_repo_inventory.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_active_repo_map.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "payment",
+      "paypal",
+      "receipt",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_asset_consolidation_plan.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_campaign_checkout_csp_trace.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "receipt",
+      "session"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_campaign_contract_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_campaign_conversion_contract_audit.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_campaign_conversion_trim_audit.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "receipt"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_campaign_css_inspector.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_campaign_css_selector_map.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_campaign_paint_rhythm_audit.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_checkout_continue_ux_audit.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "receipt",
+      "session"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_closeout_surface_map.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_collect_campaign_css_bundle.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_css_architecture_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_launch_contract_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "ledger",
+      "payment",
+      "paypal",
+      "receipt",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_lifecycle_dispatch_drill.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "lifecycle"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_lifecycle_route_scout.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "ledger",
+      "lifecycle",
+      "paid",
+      "payment",
+      "paypal",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_money_flow_script_inventory.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "ledger",
+      "notification",
+      "paid",
+      "payment",
+      "paypal",
+      "provider",
+      "receipt",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_paid_state_forensics.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "lifecycle",
+      "paid",
+      "payment",
+      "receipt",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_platform_topology_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_post_action_trust_audit.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_pre_demo_verify.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_prelive_ui_gate.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "provider",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_repo_authority_registry.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment",
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_repo_reference_map.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment",
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_text_to_donate_launch_audit.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_visual_surface_board.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave10a_sponsor_sales_scout.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave10b_sponsor_metadata_contract_scout.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "ledger",
+      "lifecycle",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave10b_sponsor_metadata_smoke.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave2_medium_triage.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "lifecycle",
+      "notification",
+      "provider",
+      "receipt"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave2b_cta_hierarchy_scout.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave2c_stale_public_scout.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave2e_css_authority_scout.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave2f_js_contract_scout.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave4_final_funnel_smoke.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "lifecycle"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave5b_mobile_pixel_qa.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave5c_stripe_checkout_smoke.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "lifecycle",
+      "paid",
+      "payment",
+      "provider",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave5d_paid_checkout_verify.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "ledger",
+      "lifecycle",
+      "paid",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave6_founder_demo_scout.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "payment",
+      "receipt",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave6c_founder_demo_package.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "donation",
+      "paid",
+      "payment",
+      "receipt",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave7a_secret_hygiene.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "provider",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/payment_notification_drill.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "notification",
+      "paid",
+      "payment",
+      "provider",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/sister_handoff_drill.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "donation",
+      "payment",
+      "paypal",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/audit_active_frontend.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger"
+    ]
+  },
+  {
+    "path": "scripts/audit_campaign_surface.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/campaign-payment-smoke.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment",
+      "paypal",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/capture-campaign-modals.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation"
+    ]
+  },
+  {
+    "path": "scripts/deploy/purge_cloudflare_assets.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/extract_campaign_identity_defaults.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/ff_cleanup_repo.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "provider",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/ff_live_runtime_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/ff_process_env_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/ff_repo_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/ff_verified_local_server.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/final_campaign_momentum_premium_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation"
+    ]
+  },
+  {
+    "path": "scripts/final_campaign_momentum_signal_strip_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/final_campaign_momentum_visual_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/final_faq_minimal_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "receipt"
+    ]
+  },
+  {
+    "path": "scripts/final_faq_trust_center_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "receipt"
+    ]
+  },
+  {
+    "path": "scripts/final_funnel_functional_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment",
+      "paypal",
+      "provider",
+      "receipt",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/final_platform_smoke.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/final_provider_readiness_polish_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "paypal",
+      "provider",
+      "receipt",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/final_provider_readiness_v2_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "paypal",
+      "provider",
+      "receipt",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/harden_white_label_identity_boundaries.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/launch/ff_full_suite_preflight.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/launch/ff_run_full_local_suite.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/ops/ff-founder-demo-checkpoint.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "lifecycle"
+    ]
+  },
+  {
+    "path": "scripts/ops/ff-postmark-smtp-smoke.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "ledger",
+      "lifecycle",
+      "provider",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/polish_campaign_momentum_signal_visual.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/polish_provider_readiness_v2.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "notification",
+      "payment",
+      "paypal",
+      "provider",
+      "receipt",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/polish_white_label_provider_readiness.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment",
+      "paypal",
+      "provider",
+      "receipt",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/qa_campaign_flagship_smoke.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "ledger"
+    ]
+  },
+  {
+    "path": "scripts/qa_campaign_gate.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/qa_conversion_trust_smoke.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "donation",
+      "ledger",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/qa_homepage_smoke.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "ledger",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/qa_payment_contracts.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "paid",
+      "payment",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/qa_stripe_webhook_expired_ack.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "paid",
+      "payment",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/refine_campaign_momentum_premium.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation"
+    ]
+  },
+  {
+    "path": "scripts/refine_campaign_momentum_signal_strip.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/refine_faq_bare_minimal.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment",
+      "provider",
+      "receipt"
+    ]
+  },
+  {
+    "path": "scripts/refine_faq_trust_center.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment",
+      "provider",
+      "receipt"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_agency_hardening_gate.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_campaign_single_css_bundle.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_enterprise_launch_gate.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_final_rehearsal.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "paid",
+      "provider",
+      "session"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_live_donation_readiness_gate.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_paid_state_manual_drill.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "ledger",
+      "paid",
+      "payment",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_payment_mode_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "payment",
+      "paypal",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_receipt_delivery_audit.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "paid",
+      "payment",
+      "provider",
+      "receipt",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_release_gate.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_run_prelive_conversion_suite.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_sister_today_closeout.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_test_donation_readiness_gate.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_verify_release_claims.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/release/futurefunded_release_gate.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/release/inspect-stripe-webhook-readiness.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "payment",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/release/verify-analytics-events.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/release/verify-checkout-flow-stability.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/release/verify-conversion-behavior.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "payment",
+      "paypal",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/release/verify-referral-attribution.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/release/verify-stripe-network.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/release/verify-stripe-test-checkout.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "paid",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/remove_sponsor_signal_strip.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/repo/finalize_ui_core_blockers.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/repo/find_money_loop_scripts.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "invoice",
+      "ledger",
+      "lifecycle",
+      "notification",
+      "paid",
+      "payment",
+      "paypal",
+      "provider",
+      "receipt",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/run_local_stripe.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/run_public_preview.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/security/ff_secret_hygiene_audit.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/security/ff_secret_scan_postmark.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/setup_sister_demo.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "payment",
+      "paypal",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/smoke_product_pages.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger"
+    ]
+  },
+  {
+    "path": "scripts/test_product_functionality.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation"
+    ]
+  },
+  {
+    "path": "scripts/verify-campaign-launch.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "paypal",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/verify-campaign-modals.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment"
+    ]
+  },
+  {
+    "path": "scripts/verify-campaign-payments.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "payment",
+      "paypal",
+      "provider",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/verify-header-convergence.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/verify-homepage-surface.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "paypal",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/verify/ff_campaign_v1_authority_money_loop.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "donation",
+      "ledger",
+      "paid",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/verify/ff_cinematic_money_loop.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "ledger",
+      "paid",
+      "payment",
+      "session",
+      "stripe"
+    ]
+  },
+  {
+    "path": "scripts/verify/ff_css_v1_authority_check.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout"
+    ]
+  },
+  {
+    "path": "scripts/verify/ff_real_stripe_money_loop_hybrid.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "checkout",
+      "ledger",
+      "paid",
+      "payment",
+      "session",
+      "stripe",
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/verify_campaign_surface.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture",
+      "checkout",
+      "donation",
+      "payment"
+    ]
+  },
+  {
+    "path": "docs/frontend/VISUAL_SYSTEM_AUTHORITY.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "donation"
+    ]
+  },
+  {
+    "path": "docs/release-proof/dashboard-js-authority-audit.md",
+    "ext": ".md",
+    "executable_candidate": false,
+    "hits": [
+      "donation",
+      "ledger"
+    ]
+  },
+  {
+    "path": "docs/release-proof/tooling-archive/launch-gate-scripts-20260523/ff_dashboard_header_surgical_reset.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture"
+    ]
+  },
+  {
+    "path": "docs/release-proof/tooling-archive/launch-gate-scripts-20260523/ff_live_quality_gate.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_campaign_enterprise_sms_audit.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "webhook"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_dashboard_flash_root_cause_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_lifecycle_message_drill.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "lifecycle",
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_onboarding_executive_audit.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_receipt_lifecycle_contract.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "lifecycle",
+      "receipt"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_root_platform_release_contract.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "donation"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave2d_lifecycle_provider_readiness.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "donation",
+      "ledger",
+      "lifecycle",
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/audit/ff_wave3_operator_polish_scout.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "ledger"
+    ]
+  },
+  {
+    "path": "scripts/audit/operator_notification_outbox_drill.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "donation",
+      "ledger",
+      "notification",
+      "provider",
+      "session"
+    ]
+  },
+  {
+    "path": "scripts/audit/platform-ops-hardening.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "donation",
+      "ledger"
+    ]
+  },
+  {
+    "path": "scripts/capture-campaign-screenshot.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "capture"
+    ]
+  },
+  {
+    "path": "scripts/capture-homepage-screenshot.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "capture"
+    ]
+  },
+  {
+    "path": "scripts/capture_live_rhythm_screenshots.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "capture"
+    ]
+  },
+  {
+    "path": "scripts/capture_product_screenshots.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "capture"
+    ]
+  },
+  {
+    "path": "scripts/final_campaign_identity_extraction_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/final_campaign_momentum_os_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "donation"
+    ]
+  },
+  {
+    "path": "scripts/final_campaign_profile_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "donation"
+    ]
+  },
+  {
+    "path": "scripts/final_release_gate.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/final_sponsor_confirmation_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "notification"
+    ]
+  },
+  {
+    "path": "scripts/final_sponsor_operator_notification_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "notification"
+    ]
+  },
+  {
+    "path": "scripts/final_white_label_active_surface_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/final_white_label_identity_boundaries_audit.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/finalize_active_white_label_cleanup.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/ops/ff-email-doctor.sh",
+    "ext": ".sh",
+    "executable_candidate": true,
+    "hits": [
+      "lifecycle",
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/qa_operator_access_control.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "donation",
+      "ledger"
+    ]
+  },
+  {
+    "path": "scripts/qa_operator_dashboard_smoke.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "donation",
+      "ledger"
+    ]
+  },
+  {
+    "path": "scripts/qa_operator_login_smoke.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "ledger",
+      "session"
+    ]
+  },
+  {
+    "path": "scripts/qa_trust_proof_visual.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "ledger"
+    ]
+  },
+  {
+    "path": "scripts/release/ff_dashboard_single_css_bundle.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "provider"
+    ]
+  },
+  {
+    "path": "scripts/repo/create_active_surface_repo.py",
+    "ext": ".py",
+    "executable_candidate": true,
+    "hits": [
+      "capture"
+    ]
+  },
+  {
+    "path": "scripts/verify-homepage-launch.mjs",
+    "ext": ".mjs",
+    "executable_candidate": true,
+    "hits": [
+      "capture"
+    ]
+  }
+]

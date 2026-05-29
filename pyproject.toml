@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=82", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "futurefunded"
+version = "0.1.0"
+description = "FutureFunded monorepo for premium fundraising web and API apps."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "Flask>=3.1,<4",
+  "Jinja2>=3.1,<4",
+  "SQLAlchemy>=2.0,<3",
+  "alembic>=1.18,<2",
+  "email-validator>=2.3,<3",
+  "fastapi[standard]>=0.136,<1",
+  "gunicorn>=25,<26",
+  "httpx>=0.28,<1",
+  "psycopg[binary]>=3.3,<4",
+  "pydantic>=2.13,<3",
+  "pydantic-settings>=2.13,<3",
+  "python-dotenv>=1.2,<2",
+  "stripe>=13,<14"
+]
+
+[project.optional-dependencies]
+dev = [
+  "black>=25,<26",
+  "mypy>=1.18,<2",
+  "pre-commit>=4,<5",
+  "pytest>=9,<10",
+  "pytest-cov>=7,<8",
+  "ruff>=0.13,<1"
+]
+
+[tool.setuptools]
+py-modules = []
+
+[tool.black]
+line-length = 100
+target-version = ["py313"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = [
+  ".venv",
+  "venv",
+  "node_modules",
+  "dist",
+  "build",
+  "artifacts",
+  "playwright-report",
+  "test-results"
+]
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "I",
+  "UP",
+  "B"
+]
+ignore = [
+  "E501",
+  "E402",
+  "B904"
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "apps"]
+
+[tool.pytest.ini_options]
+testpaths = ["apps", "tools"]
+pythonpath = ["apps/web", "apps/api"]
+addopts = "-ra --strict-markers --strict-config"
+filterwarnings = [
+  "error",
+  "ignore::DeprecationWarning"
+]
