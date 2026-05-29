@@ -389,6 +389,8 @@ def create_app(config_object: type[Config] | str | None = None) -> Flask:
         )
         style_hash = "'sha256-t0esl956mDzVzwKc5pfR4KE32BvFdoRCmvPWLBktoqM='"
         unsafe_hashes = "'unsafe-hashes'"
+        # Marker: hoi-phase4c-kvue-frame-src-v1
+        kvue_frame_sources = ("https://www.kvue.com", "https://*.kvue.com")
 
         if not value:
             return value
@@ -408,6 +410,11 @@ def create_app(config_object: type[Config] | str | None = None) -> Flask:
                 for script_hash in script_hashes:
                     if script_hash not in tokens:
                         tokens.append(script_hash)
+
+            if directive in {"frame-src", "child-src"}:
+                for frame_source in kvue_frame_sources:
+                    if frame_source not in tokens:
+                        tokens.append(frame_source)
 
             if directive == "style-src":
                 if unsafe_hashes not in tokens:

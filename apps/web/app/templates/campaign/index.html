@@ -107,7 +107,7 @@
 {% if _canonical_url and _canonical_url[:4] != 'http' %}{% set _canonical_url = _request_root.rstrip('/') ~ _canonical_url %}{% endif %}
 {% set _og_image_url = og_image_url|default(_team_config.get('og_image_url'), true)|default(url_for('static', filename='images/connect-atx-team.jpg'), true)|string|trim %}
 {% set _qr_image_url = qr_image_url|default(_team_config.get('qr_image_url'), true)|default(url_for('static', filename=('images/qr-' ~ _ff_identity_campaign_slug ~ '.svg')), true)|string|trim %}
-{% set _story_video_url = story_video_url|default(_team_config.get('story_video_url'), true)|default(_team_config.get('team_video_url'), true)|default('', true)|string|trim %}
+{% set _story_video_url = story_video_url|default(_team_config.get('story_video_url'), true)|default(_team_config.get('team_video_url'), true)|default('https://www.kvue.com/embeds/video/responsive/269-beeecfc1-eb68-4cca-8ec5-417b66d8cbfa/iframe', true)|string|trim %}
 {% set _story_image_url = story_image_url|default(_team_config.get('story_image_url'), true)|default(url_for('static', filename='images/connect-atx-team.jpg'), true)|string|trim %}
 
 {# Marker: hoi-phase3f-index-real-photo-assets-only-v1 #}
@@ -564,43 +564,74 @@ data-ff-template="campaign-index-on-campaign-base-v1"
           </div>
         </section>
 
-        <section class="ff-campaignSection" id="story" aria-labelledby="story-title">
+                <section class="ff-campaignSection ff-campaignSection--pressStory" id="story" aria-labelledby="story-title" data-ff-press-story data-ff-reveal>
+          {# Marker: hoi-phase4c-kvue-story-video-proof-v1 #}
           <div class="ff-shell">
-            <div class="ff-storySplit ff-card" data-ff-reveal>
-              <div class="ff-storyMedia">
+            <div class="ff-storySplit ff-storySplit--press ff-card" data-ff-reveal>
+              <div class="ff-storyMedia ff-storyMedia--embed">
                 {% if _story_video_url %}
-                  <a class="ff-storyPoster" href="{{ _story_video_url|e }}" target="_blank" rel="noopener noreferrer" data-ff-story-video-link aria-label="Watch {{ _team_name|e }} story video">
+                  <div class="ff-storyEmbed" data-ff-story-video-embed>
+                    <iframe
+                      src="{{ _story_video_url|e }}"
+                      title="KVUE feature on The Connect ATX and Connect ATX Elite"
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                      webkitallowfullscreen
+                      mozallowfullscreen
+                      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                  </div>
                 {% else %}
                   <div class="ff-storyPoster" data-ff-story-video-preview role="img" aria-label="{{ _team_name|e }} campaign story media">
-                {% endif %}
                     <img src="{{ _story_image_url|e }}" alt="{{ _team_name|e }} campaign story image" width="1600" height="900" loading="lazy" decoding="async" />
                     <span class="ff-storyPoster__play" aria-hidden="true">▶</span>
                     <span class="ff-storyPoster__label">
                       <small>Watch the clip</small>
                       <strong>{{ _team_name }} season story</strong>
                     </span>
-                {% if _story_video_url %}</a>{% else %}</div>{% endif %}
+                  </div>
+                {% endif %}
               </div>
 
-              <div class="ff-storyCopy">
-                <p class="ff-eyebrow">Season story</p>
-                <h2 id="story-title">Built on reps, travel, and real support.</h2>
-                <p>Every weekend takes gym time, travel, meals, gear, coaches, and family support.</p>
-                <div class="ff-miniGrid">
-                  <article><span>01</span><strong>Gym time</strong><p>Practice space and skill work.</p></article>
-                  <article><span>02</span><strong>Travel weekends</strong><p>Hotels, rides, meals, hydration.</p></article>
-                  <article><span>03</span><strong>Player essentials</strong><p>Uniforms, gear, recovery items.</p></article>
+              <div class="ff-storyCopy ff-storyCopy--press">
+                <p class="ff-eyebrow">Featured community story</p>
+                <h2 id="story-title">A real program bridging the gap for Austin kids.</h2>
+                <p>The Connect ATX story is bigger than basketball: mentorship, a safe community space, and a program helping young athletes access high-level opportunities.</p>
+
+                <div class="ff-pressQuote" aria-label="Featured story quote">
+                  <span aria-hidden="true">“</span>
+                  <p>We’re just trying to bridge that gap and be that program that can have that helping hand.</p>
                 </div>
+
+                <div class="ff-miniGrid ff-miniGrid--press">
+                  <article>
+                    <span>01</span>
+                    <strong>Safe space</strong>
+                    <p>A community hub rooted in mentorship and belonging.</p>
+                  </article>
+                  <article>
+                    <span>02</span>
+                    <strong>Real access</strong>
+                    <p>Helping families offset the cost of competitive basketball.</p>
+                  </article>
+                  <article>
+                    <span>03</span>
+                    <strong>Life skills</strong>
+                    <p>Teamwork, communication, discipline, and confidence.</p>
+                  </article>
+                </div>
+
                 <div class="ff-campaignTrustLine ff-campaignTrustLine--story" aria-label="Story support assurance">
-                  <span>Give from the secure panel</span>
-                  <span>Sponsor recognition is reviewed</span>
+                  <span>Local news proof</span>
+                  <span>Family-led program</span>
+                  <span>Community impact</span>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="ff-campaignSection" id="faq" aria-labelledby="faq-title" data-ff-faq-mini>
+<section class="ff-campaignSection" id="faq" aria-labelledby="faq-title" data-ff-faq-mini>
           <div class="ff-shell ff-faqLayout">
             <div class="ff-faqIntro">
               <p class="ff-eyebrow">Quick answers</p>
