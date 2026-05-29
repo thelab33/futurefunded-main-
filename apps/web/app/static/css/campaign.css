@@ -8002,3 +8002,323 @@
   }
 }
 /* === FutureFunded Phase 4C KVUE Story Video Proof END === */
+
+/* === FutureFunded Phase 4E Campaign Trust Button Polish START === */
+/*
+  Marker: hoi-phase4e-campaign-trust-button-polish-v1
+
+  Scope:
+  - Micro trust polish.
+  - Impact header alignment.
+  - Premium button/chip treatment.
+  - No payment, checkout, sponsor, share, QR, modal, dashboard, or header hook changes.
+*/
+
+@layer campaign {
+  body.ff-campaignBody .ff-pill--press,
+  body.ff-campaignBody [data-ff-hero-trust-chip] {
+    border-color: rgba(15, 118, 110, .20);
+    background:
+      linear-gradient(180deg, rgba(236, 253, 245, .86), rgba(255,255,255,.74));
+    color: #0f766e;
+    box-shadow:
+      0 8px 18px rgba(15, 118, 110, .055),
+      0 1px 0 rgba(255,255,255,.82) inset;
+  }
+
+  body.ff-campaignBody .ff-donateAssurance,
+  body.ff-campaignBody [data-ff-donate-assurance] {
+    margin: .2rem 0 .08rem;
+    color: rgba(58, 41, 26, .68);
+    font-size: .74rem;
+    font-weight: 850;
+    letter-spacing: -.01em;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  body.ff-campaignBody .ff-donateAssurance::before,
+  body.ff-campaignBody [data-ff-donate-assurance]::before {
+    content: "✓ ";
+    color: #0f766e;
+    font-weight: 950;
+  }
+
+  body.ff-campaignBody .ff-sponsorReviewNote,
+  body.ff-campaignBody [data-ff-sponsor-review-note] {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    margin: .5rem auto 0;
+    border: 1px solid rgba(15, 118, 110, .16);
+    border-radius: 999px;
+    background:
+      linear-gradient(180deg, rgba(236, 253, 245, .80), rgba(255,255,255,.72));
+    color: rgba(15, 118, 110, .95);
+    font-size: .76rem;
+    font-weight: 900;
+    line-height: 1.2;
+    padding: .42rem .7rem;
+    box-shadow:
+      0 9px 20px rgba(45, 28, 10, .045),
+      0 1px 0 rgba(255,255,255,.82) inset;
+  }
+
+  body.ff-campaignBody .ff-sponsorReviewNote::before,
+  body.ff-campaignBody [data-ff-sponsor-review-note]::before {
+    content: "Reviewed";
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: rgba(15, 118, 110, .10);
+    color: #0f766e;
+    font-size: .61rem;
+    font-weight: 950;
+    letter-spacing: .08em;
+    line-height: 1;
+    padding: .24rem .42rem;
+    text-transform: uppercase;
+  }
+
+  /*
+    Impact alignment repair.
+    Keeps this section visually consistent with Meet the Squad, Sponsors,
+    Teams Behind the Campaign, and Quick Answers.
+  */
+  body.ff-campaignBody #impact .ff-sectionHeader,
+  body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    max-width: min(46rem, 100%) !important;
+    margin-inline: auto !important;
+    text-align: center !important;
+  }
+
+  body.ff-campaignBody #impact .ff-sectionHeader > *,
+  body.ff-campaignBody #impact .ff-sectionHeader > div,
+  body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader > *,
+  body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader > div {
+    justify-items: center !important;
+    margin-inline: auto !important;
+    text-align: center !important;
+  }
+
+  body.ff-campaignBody #impact .ff-sectionHeader .ff-eyebrow,
+  body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader .ff-eyebrow {
+    justify-self: center !important;
+    text-align: center !important;
+  }
+
+  body.ff-campaignBody #impact .ff-sectionHeader h2,
+  body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader h2 {
+    max-width: 11ch;
+    margin-inline: auto !important;
+    text-align: center !important;
+    text-wrap: balance;
+  }
+
+  body.ff-campaignBody #impact .ff-sectionHeader p,
+  body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader p {
+    max-width: 40rem;
+    margin-inline: auto !important;
+    text-align: center !important;
+  }
+
+  body.ff-campaignBody #impact .ff-sectionHeader [class*="meta"],
+  body.ff-campaignBody #impact .ff-sectionHeader [class*="Meta"],
+  body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader [class*="meta"],
+  body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader [class*="Meta"] {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /*
+    Impact chips: make them feel like premium allocation cards,
+    not flat text boxes.
+  */
+  body.ff-campaignBody #impact .ff-impactGrid {
+    margin-top: clamp(.9rem, 1.8vw, 1.3rem);
+    align-items: stretch;
+  }
+
+  body.ff-campaignBody .ff-impactChip {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-color: rgba(98, 63, 31, .12);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,248,240,.78));
+    box-shadow:
+      0 14px 32px rgba(45, 28, 10, .075),
+      0 1px 0 rgba(255,255,255,.78) inset;
+  }
+
+  body.ff-campaignBody .ff-impactChip::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6422, rgba(255, 164, 82, .65), rgba(15, 118, 110, .42));
+    opacity: .86;
+  }
+
+  body.ff-campaignBody .ff-impactChip small {
+    color: rgba(160, 65, 18, .78);
+    font-weight: 950;
+    letter-spacing: .08em;
+  }
+
+  body.ff-campaignBody .ff-impactChip strong {
+    letter-spacing: -.035em;
+  }
+
+  /*
+    Button polish across campaign CTAs and donation amounts.
+    Keeps existing hooks intact; only improves visual affordance.
+  */
+  body.ff-campaignBody .ff-button,
+  body.ff-campaignBody .ff-donateSubmit,
+  body.ff-campaignBody .ff-donationAmount,
+  body.ff-campaignBody [data-ff-open-checkout],
+  body.ff-campaignBody [data-ff-donate-trigger],
+  body.ff-campaignBody [data-ff-payment-trigger],
+  body.ff-campaignBody [data-ff-open-sponsor],
+  body.ff-campaignBody [data-ff-sponsor-trigger],
+  body.ff-campaignBody [data-ff-share-trigger],
+  body.ff-campaignBody [data-ff-qr-trigger] {
+    -webkit-tap-highlight-color: transparent;
+    transform: translateZ(0);
+    transition:
+      transform 180ms cubic-bezier(.16, 1, .3, 1),
+      box-shadow 180ms cubic-bezier(.16, 1, .3, 1),
+      border-color 180ms cubic-bezier(.16, 1, .3, 1),
+      background-color 180ms cubic-bezier(.16, 1, .3, 1),
+      color 180ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  body.ff-campaignBody .ff-button,
+  body.ff-campaignBody .ff-donateSubmit {
+    border-radius: 999px;
+    font-weight: 900;
+    letter-spacing: -.015em;
+  }
+
+  body.ff-campaignBody .ff-button--primary,
+  body.ff-campaignBody .ff-donateSubmit,
+  body.ff-campaignBody .ff-sponsorCard [data-ff-open-sponsor],
+  body.ff-campaignBody .ff-sponsorCard [data-ff-sponsor-trigger],
+  body.ff-campaignBody .ff-teamCard [data-ff-open-checkout],
+  body.ff-campaignBody .ff-teamCard [data-ff-donate-trigger],
+  body.ff-campaignBody .ff-campaignFooter [data-ff-open-checkout],
+  body.ff-campaignBody .ff-campaignFooter [data-ff-donate-trigger] {
+    border-color: rgba(255, 100, 34, .52);
+    background:
+      linear-gradient(180deg, #ff7a2f 0%, #ff6422 52%, #f2551a 100%);
+    color: #fff;
+    box-shadow:
+      0 12px 26px rgba(255, 91, 31, .24),
+      0 1px 0 rgba(255,255,255,.36) inset;
+  }
+
+  body.ff-campaignBody .ff-button--primary:hover,
+  body.ff-campaignBody .ff-donateSubmit:hover,
+  body.ff-campaignBody .ff-sponsorCard [data-ff-open-sponsor]:hover,
+  body.ff-campaignBody .ff-sponsorCard [data-ff-sponsor-trigger]:hover,
+  body.ff-campaignBody .ff-teamCard [data-ff-open-checkout]:hover,
+  body.ff-campaignBody .ff-teamCard [data-ff-donate-trigger]:hover,
+  body.ff-campaignBody .ff-campaignFooter [data-ff-open-checkout]:hover,
+  body.ff-campaignBody .ff-campaignFooter [data-ff-donate-trigger]:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 16px 34px rgba(255, 91, 31, .30),
+      0 1px 0 rgba(255,255,255,.38) inset;
+  }
+
+  body.ff-campaignBody .ff-button--ghost,
+  body.ff-campaignBody .ff-button--secondary,
+  body.ff-campaignBody [data-ff-share-trigger],
+  body.ff-campaignBody [data-ff-qr-trigger] {
+    border-color: rgba(83, 54, 24, .12);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,249,242,.76));
+    color: rgba(30, 23, 18, .88);
+    box-shadow:
+      0 9px 18px rgba(45, 28, 10, .055),
+      0 1px 0 rgba(255,255,255,.86) inset;
+  }
+
+  body.ff-campaignBody .ff-button--ghost:hover,
+  body.ff-campaignBody .ff-button--secondary:hover,
+  body.ff-campaignBody [data-ff-share-trigger]:hover,
+  body.ff-campaignBody [data-ff-qr-trigger]:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 100, 34, .22);
+    box-shadow:
+      0 13px 26px rgba(45, 28, 10, .085),
+      0 1px 0 rgba(255,255,255,.88) inset;
+  }
+
+  body.ff-campaignBody .ff-donationAmount {
+    border-radius: .9rem;
+    border-color: rgba(83, 54, 24, .11);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.91), rgba(255,248,241,.76));
+    box-shadow:
+      0 7px 16px rgba(45, 28, 10, .045),
+      0 1px 0 rgba(255,255,255,.82) inset;
+  }
+
+  body.ff-campaignBody .ff-donationAmount:hover,
+  body.ff-campaignBody .ff-donationAmount[aria-pressed="true"] {
+    transform: translateY(-1px);
+    border-color: rgba(255, 100, 34, .36);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,239,226,.86));
+    box-shadow:
+      0 0 0 3px rgba(255, 100, 34, .10),
+      0 12px 24px rgba(255, 91, 31, .12);
+  }
+
+  body.ff-campaignBody .ff-sectionFooter .ff-button,
+  body.ff-campaignBody .ff-sectionFooter button,
+  body.ff-campaignBody .ff-sectionFooter a {
+    min-height: 2.35rem;
+    padding-inline: .95rem;
+  }
+
+  @media (max-width: 899px) {
+    body.ff-campaignBody .ff-donateAssurance,
+    body.ff-campaignBody [data-ff-donate-assurance] {
+      font-size: .71rem;
+      line-height: 1.3;
+      padding-inline: .25rem;
+    }
+
+    body.ff-campaignBody .ff-sponsorReviewNote,
+    body.ff-campaignBody [data-ff-sponsor-review-note] {
+      width: 100%;
+      max-width: 24rem;
+      text-align: center;
+    }
+
+    body.ff-campaignBody #impact .ff-sectionHeader,
+    body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader {
+      text-align: center !important;
+    }
+
+    body.ff-campaignBody #impact .ff-sectionHeader h2,
+    body.ff-campaignBody .ff-campaignSection#impact .ff-sectionHeader h2 {
+      max-width: 10.5ch;
+    }
+
+    body.ff-campaignBody .ff-button,
+    body.ff-campaignBody .ff-donateSubmit {
+      min-height: 2.75rem;
+    }
+  }
+}
+/* === FutureFunded Phase 4E Campaign Trust Button Polish END === */
