@@ -45,6 +45,10 @@
 )|string|trim %}
 {% if _public_base.endswith('/') %}
   {% set _public_base = _public_base[:-1] %}
+{# Marker: hoi-phase3d-campaign-local-public-base-same-origin-v1 #}
+{% if request is defined and request and _public_base and (_public_base.startswith('http://127.0.0.1:') or _public_base.startswith('http://localhost:')) %}
+  {% set _public_base = request.url_root.rstrip('/') %}
+{% endif %}
 {% endif %}
 
 {% set _path = (request.path if request is defined else '')|string %}
@@ -81,7 +85,17 @@
   {% set _hero_image = _public_base ~ _hero_image %}
 {% endif %}
 
+{# Marker: hoi-phase3b-campaign-base-local-static-normalize-v1 #}
 {% set _platform_logo = (platform_logo|default(url_for('static', filename='images/ff-logo-mark.svg'), true))|string|trim %}
+{% set _platform_logo = _platform_logo
+  |replace('http://127.0.0.1:5000/static/', '/static/')
+  |replace('http://localhost:5000/static/', '/static/')
+%}
+{# Marker: hoi-phase3d-campaign-platform-logo-final-static-normalize-v1 #}
+{% set _platform_logo = _platform_logo
+  |replace('http://127.0.0.1:5000/static/', '/static/')
+  |replace('http://localhost:5000/static/', '/static/')
+%}
 {% set _og_image = (og_image_url|default(_hero_image, true)|default(_platform_logo, true)|default('', true))|string|trim %}
 {% if _og_image and _og_image.startswith('/') and _public_base %}
   {% set _og_image = _public_base ~ _og_image %}

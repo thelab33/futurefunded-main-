@@ -380,7 +380,13 @@ def create_app(config_object: type[Config] | str | None = None) -> Flask:
     # console hygiene gate. This patches the WSGI response header after any
     # Flask/Talisman/header middleware has produced the CSP.
     def _ff_patch_final_csp_header_for_known_inline_hashes(value):
-        script_hash = "'sha256-xNlbosNiX81JFLnBe9S2TlVb59AzMgNhddzmmzwPkv8='"
+        # Marker: hoi-phase3c-csp-known-inline-hashes-v1
+        script_hashes = (
+            "'sha256-xNlbosNiX81JFLnBe9S2TlVb59AzMgNhddzmmzwPkv8='",
+            "'sha256-0A2AULUYoZH+oYvGufGDVF/50/7IdAfj6aGDdRSGpTU='",
+            "'sha256-2W+1Kis6Ki2XpUlKbh9DMHtaYzFjW29XuADc6CbQRRk='",
+            "'sha256-odo5rg5eVzJLNl0FdzjpdnVCzDJ/q42tGM2wsT98CmQ='",
+        )
         style_hash = "'sha256-t0esl956mDzVzwKc5pfR4KE32BvFdoRCmvPWLBktoqM='"
         unsafe_hashes = "'unsafe-hashes'"
 
@@ -398,8 +404,10 @@ def create_app(config_object: type[Config] | str | None = None) -> Flask:
             tokens = part.split()
             directive = tokens[0] if tokens else ""
 
-            if directive == "script-src" and script_hash not in tokens:
-                tokens.append(script_hash)
+            if directive == "script-src":
+                for script_hash in script_hashes:
+                    if script_hash not in tokens:
+                        tokens.append(script_hash)
 
             if directive == "style-src":
                 if unsafe_hashes not in tokens:

@@ -41,7 +41,7 @@ def get_campaign_identity_defaults() -> CampaignIdentityDefaults:
         campaign_name=_env("FF_DEFAULT_CAMPAIGN_NAME", f"{team_name} Season Fund"),
         campaign_title=_env("FF_DEFAULT_CAMPAIGN_TITLE", "Fuel the season. Fund the future."),
         campaign_accent=_env("FF_DEFAULT_CAMPAIGN_ACCENT", "Back the athletes."),
-        public_base_url=_env("PUBLIC_BASE_URL", _env("FF_PUBLIC_BASE_URL", "http://127.0.0.1:5000")),
+        public_base_url=_env("PUBLIC_BASE_URL", _env("FF_PUBLIC_BASE_URL", "")),
         sponsor_contact_email=_env("FF_SPONSOR_CONTACT_EMAIL", "sponsor@futurefunded.com"),
         team_logo_url=_env("FF_DEFAULT_TEAM_LOGO_URL", "/static/images/teams/connect-atx-elite/logo.jpg"),
     )

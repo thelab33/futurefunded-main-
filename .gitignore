@@ -11,14 +11,12 @@ venv/
 node_modules/
 dist/
 build/
-
 # Local env / secrets
 .env
 .env.*
 !.env.example
 !.env.production.example
 .stripe-local-whsec
-
 # Runtime / generated
 audit_outputs/
 artifacts/
@@ -31,18 +29,16 @@ backups/
 .audits/
 repo-quarantine/
 futurefunded.egg-info/
-
 # Heavy/generated files
 *.zip
 *.tgz
 *.sqlite3
 *.db
 *.log
-
 # OS/editor
 .DS_Store
 .vscode/
 .idea/
-
 # Local runtime helpers
 .runtime/
+# Local/generated clutter

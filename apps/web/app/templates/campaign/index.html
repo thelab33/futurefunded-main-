@@ -105,11 +105,13 @@
 {% if request is defined and request %}{% set _request_root = request.url_root|default('https://getfuturefunded.com/', true)|string %}{% else %}{% set _request_root = 'https://getfuturefunded.com/' %}{% endif %}
 {% set _canonical_url = canonical_url|default(_request_root.rstrip('/') ~ _campaign_url, true)|string|trim %}
 {% if _canonical_url and _canonical_url[:4] != 'http' %}{% set _canonical_url = _request_root.rstrip('/') ~ _canonical_url %}{% endif %}
-{% set _og_image_url = og_image_url|default(_team_config.get('og_image_url'), true)|default(url_for('static', filename='images/connect-atx-team.svg'), true)|string|trim %}
+{% set _og_image_url = og_image_url|default(_team_config.get('og_image_url'), true)|default(url_for('static', filename='images/connect-atx-team.jpg'), true)|string|trim %}
 {% set _qr_image_url = qr_image_url|default(_team_config.get('qr_image_url'), true)|default(url_for('static', filename=('images/qr-' ~ _ff_identity_campaign_slug ~ '.svg')), true)|string|trim %}
 {% set _story_video_url = story_video_url|default(_team_config.get('story_video_url'), true)|default(_team_config.get('team_video_url'), true)|default('', true)|string|trim %}
-{% set _story_image_url = story_image_url|default(_team_config.get('story_image_url'), true)|default(url_for('static', filename='images/connect-atx-team.svg'), true)|string|trim %}
+{% set _story_image_url = story_image_url|default(_team_config.get('story_image_url'), true)|default(url_for('static', filename='images/connect-atx-team.jpg'), true)|string|trim %}
 
+{# Marker: hoi-phase3f-index-real-photo-assets-only-v1 #}
+{# Marker: hoi-phase3g-index-real-photo-defaults-v1 #}
 {% set _donation_amounts = donation_amounts|default(_team_config.get('donation_amounts'), true)|default([25, 50, 100, 250], true) %}
 {% set _impact_chips = impact_chips|default(_team_config.get('impact_chips'), true)|default([
   {'amount': '$25', 'label': 'Meals + hydration', 'copy': 'Fuel athletes around practices and tournament days.'},
@@ -118,14 +120,14 @@
   {'amount': '$250', 'label': 'Team travel boost', 'copy': 'Reduce larger travel, lodging, and meal costs.'}
 ], true) %}
 {% set _squad_cards = squad_cards|default(_team_config.get('squad_cards'), true)|default([
-  {'title': '6th Grade Gold', 'note': 'Travel + tournaments', 'image': 'images/program-proof/6th-grade.svg'},
+  {'title': '6th Grade Gold', 'note': 'Travel + tournaments', 'image': 'images/connect-atx-team.jpg'},
   {'title': '7th Grade Black', 'note': 'Entry fees + gear', 'image': 'images/7thBlack.png'},
-  {'title': '8th Grade Gold', 'note': 'Hotels + meals', 'image': 'images/program-proof/8th-grade.svg'},
-  {'title': '7th Grade Gold', 'note': 'Player development', 'image': 'images/program-proof/7th-grade.svg'}
+  {'title': '8th Grade Gold', 'note': 'Hotels + meals', 'image': 'images/connect-atx-team.jpg'},
+  {'title': '7th Grade Gold', 'note': 'Player development', 'image': 'images/7thBlack.png'}
 ], true) %}
 {% set _team_cards = team_cards|default(_team_config.get('team_cards'), true)|default([
-  {'eyebrow': '6th Grade Gold', 'title': 'Elite kids. Big standards. Community.', 'cta': 'Support 6th Grade Gold', 'image': 'images/program-proof/6th-grade.svg'},
-  {'eyebrow': '7th Grade Gold', 'title': 'School, travel, gym, growth.', 'cta': 'Support 7th Grade Gold', 'image': 'images/program-proof/7th-grade.svg'}
+  {'eyebrow': '6th Grade Gold', 'title': 'Elite kids. Big standards. Community.', 'cta': 'Support 6th Grade Gold', 'image': 'images/connect-atx-team.jpg'},
+  {'eyebrow': '7th Grade Gold', 'title': 'School, travel, gym, growth.', 'cta': 'Support 7th Grade Gold', 'image': 'images/7thBlack.png'}
 ], true) %}
 {% set _sponsor_tiers = sponsor_tiers|default(_team_config.get('sponsor_tiers'), true)|default([
   {'eyebrow': 'Community', 'title': 'Community Partner', 'price': '$300', 'copy': 'Family-safe recognition for local supporters who want to help.', 'benefits': ['Name or logo on campaign', 'Reviewed placement', 'Simple sponsor onboarding']},
@@ -394,8 +396,13 @@ data-ff-template="campaign-index-on-campaign-base-v1"
 
               <div class="ff-squadRail" aria-label="Team groups">
                 {% for card in _squad_cards %}
-                  {% set ff_squad_fallback_src = url_for('static', filename=loop.cycle('images/program-proof/6th-grade.svg', 'images/program-proof/7th-grade.svg', 'images/7thBlack.png', 'images/program-proof/8th-grade.svg', 'images/connect-atx-team.svg')) %}
+                  {% set ff_squad_fallback_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/connect-atx-team.jpg')) %}
                   {% set ff_squad_media_src = ff_media_src(card.get('image')) if card.get('image') else ff_squad_fallback_src %}
+                  {# Marker: hoi-phase3g-squad-card-render-photo-authority-v1 #}
+                  {% set _squad_media_key = ff_squad_media_src|string %}
+                  {% if 'program-proof/' in _squad_media_key or '7thGold' in _squad_media_key or '8thGold' in _squad_media_key or 'connect-atx-team.svg' in _squad_media_key or _squad_media_key.endswith('.svg') %}
+                    {% set ff_squad_media_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/connect-atx-team.jpg')) %}
+                  {% endif %}
                   {% set _squad_title = card.get('title')|default('Program team', true) %}
                   {% set _squad_note = card.get('note')|default('Season support', true) %}
                   <article class="ff-squadCard" data-ff-squad-card>
@@ -525,8 +532,13 @@ data-ff-template="campaign-index-on-campaign-base-v1"
 
               <div class="ff-teamGrid">
                 {% for team in _team_cards %}
-                  {% set ff_team_fallback_src = url_for('static', filename=loop.cycle('images/program-proof/6th-grade.svg', 'images/program-proof/7th-grade.svg', 'images/program-proof/8th-grade.svg', 'images/connect-atx-team.svg')) %}
+                  {% set ff_team_fallback_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/connect-atx-team.jpg', 'images/7thBlack.png')) %}
                   {% set ff_team_media_src = ff_media_src(team.get('image')) if team.get('image') else ff_team_fallback_src %}
+                  {# Marker: hoi-phase3g-team-card-render-photo-authority-v1 #}
+                  {% set _team_media_key = ff_team_media_src|string %}
+                  {% if 'program-proof/' in _team_media_key or '7thGold' in _team_media_key or '8thGold' in _team_media_key or 'connect-atx-team.svg' in _team_media_key or _team_media_key.endswith('.svg') %}
+                    {% set ff_team_media_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/connect-atx-team.jpg', 'images/7thBlack.png')) %}
+                  {% endif %}
                   {% set _team_label = team.get('eyebrow')|default('Program team', true) %}
                   {% set _team_title = team.get('title')|default('Support this team', true) %}
                   {% set _team_cta = team.get('cta')|default('Support this team', true) %}
