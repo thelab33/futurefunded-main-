@@ -4,17 +4,21 @@ Run before committing UI, CSS, template, JS, or route changes:
 
 ```bash
 scripts/dev/ff-spine-gate.sh
-
-The gate checks:
-
-repo shape
-git state and diff capture
+What the gate checks
+Repo shape
+Git state and diff capture
 CSS brace integrity
 Flask route health
-linked CSS per route
-critical campaign hooks
-horizontal overflow
-mobile/tablet/desktop screenshots
+Linked CSS per route
+Critical campaign hooks
+Horizontal overflow
+Mobile/tablet/desktop screenshots
+Browser dependency setup
+
+If the browser audit cannot find Playwright, run:
+
+npm ci --include=dev
+npx playwright install chromium
 
 Generated output is ignored under:
 

@@ -155,6 +155,34 @@ for route in "${ROUTES[@]}"; do
   esac
 done
 
+
+echo
+echo "== Browser dependency preflight =="
+if ! node - <<'NODE'
+let ok = false;
+try {
+  require("playwright");
+  ok = true;
+} catch (_) {}
+
+try {
+  require("@playwright/test");
+  ok = true;
+} catch (_) {}
+
+if (!ok) {
+  console.error("❌ Missing Playwright dependency.");
+  console.error("Run:");
+  console.error("  npm ci --include=dev");
+  console.error("  npx playwright install chromium");
+  process.exit(1);
+}
+console.log("✅ Playwright dependency available.");
+NODE
+then
+  exit 1
+fi
+
 echo
 echo "== Build browser contract audit =="
 cat > "$OUT/rendered/spine-browser-gate.cjs" <<'NODE'
