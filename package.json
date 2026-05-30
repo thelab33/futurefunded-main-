@@ -9,8 +9,8 @@
   },
   "scripts": {
     "lint": "run-s lint:css lint:js lint:html",
-    "lint:js": "eslint \"apps/web/app/static/js/**/*.js\" \"tests/**/*.js\"",
-    "lint:html": "htmlhint \"apps/web/app/templates/**/*.html\"",
+    "lint:js": "node scripts/release/ff_npm_js_lint.mjs",
+    "lint:html": "python scripts/release/ff_html_lint.py",
     "lint:css:fix": "stylelint \"apps/web/app/static/css/**/*.css\" --allow-empty-input --fix",
     "format": "prettier --write .",
     "format:write": "prettier --write .",
