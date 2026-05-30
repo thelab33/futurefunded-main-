@@ -1,7 +1,0 @@
-Branch: master
-HEAD:   5c1d0bee5bff4ebd11f97a80b87589be63e8e679
-
-Status:
-
-Recent log:
-5c1d0be (HEAD -> master) Initialize FutureFunded clean room from audited HEAD

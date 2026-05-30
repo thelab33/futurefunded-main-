@@ -1,5 +1,0 @@
-200	http://127.0.0.1:5000/platform/
-200	http://127.0.0.1:5000/c/connect-atx-elite
-200	http://127.0.0.1:5000/platform/login
-200	http://127.0.0.1:5000/platform/onboarding
-403	http://127.0.0.1:5000/platform/dashboard

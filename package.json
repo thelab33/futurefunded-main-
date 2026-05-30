@@ -59,7 +59,11 @@
     "qa:conversion:public": "bash scripts/release/ff_run_prelive_conversion_suite.sh https://getfuturefunded.com",
     "verify:conversion": "node scripts/release/verify-conversion-behavior.mjs",
     "verify:referrals": "node scripts/release/verify-referral-attribution.mjs",
-    "verify:stripe:test": "node scripts/release/verify-stripe-test-checkout.mjs"
+    "verify:stripe:test": "node scripts/release/verify-stripe-test-checkout.mjs",
+    "doctor": "bash scripts/release/ff-master-product-doctor.sh",
+    "doctor:heavy": "FF_DOCTOR_HEAVY=1 bash scripts/release/ff-master-product-doctor.sh",
+    "doctor:all": "FF_DOCTOR_ALL=1 FF_DOCTOR_SECURITY=1 bash scripts/release/ff-master-product-doctor.sh",
+    "lint:css": "node scripts/release/ff_npm_css_lint.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",

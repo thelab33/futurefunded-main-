@@ -1,6 +1,0 @@
-✅ Clean-room app responded on http://127.0.0.1:5010
-200	http://127.0.0.1:5010/platform/
-200	http://127.0.0.1:5010/c/connect-atx-elite
-200	http://127.0.0.1:5010/platform/login
-200	http://127.0.0.1:5010/platform/onboarding
-302	http://127.0.0.1:5010/platform/dashboard

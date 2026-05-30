@@ -87,3 +87,21 @@ futurefunded.egg-info/
 .zencoder/
 skills/
 skills-lock.json
+
+# === FUTUREFUNDED CLEAN ROOT GENERATED ARTIFACTS START ===
+audit_outputs/
+downloads/
+.rollback/
+node_modules/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+*.bak-*
+*.bak
+*.tmp
+*.log
+.DS_Store
+# === FUTUREFUNDED CLEAN ROOT GENERATED ARTIFACTS END ===
