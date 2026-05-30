@@ -9,38 +9,67 @@ OLD_ROOT="$HOME/futurefunded-product-spine"
 PORT="${PORT:-5000}"
 OLD_PORT="${OLD_PORT:-5010}"
 
+kill_port() {
+  local port="$1"
+  local pids
+  pids="$(/usr/bin/lsof -tiTCP:"$port" -sTCP:LISTEN 2>/dev/null || true)"
+  if [ -n "$pids" ]; then
+    echo "Killing listeners on port $port: $pids"
+    echo "$pids" | xargs -r kill -TERM 2>/dev/null || true
+    sleep 1
+    echo "$pids" | xargs -r kill -KILL 2>/dev/null || true
+  fi
+}
+
+stop_supervisors() {
+  if command -v pm2 >/dev/null 2>&1; then
+    pm2 delete futurefunded-product-spine-web 2>/dev/null || true
+    pm2 delete futurefunded-web 2>/dev/null || true
+    pm2 save --force 2>/dev/null || true
+  fi
+}
+
 status() {
   echo "== FutureFunded server status =="
   echo
-  echo "Clean root:"
-  echo "  $CLEAN_ROOT"
+  echo "Clean root: $CLEAN_ROOT"
+  echo "Old root:   $OLD_ROOT"
   echo
   echo "Port $PORT:"
-  lsof -nP -iTCP:"$PORT" -sTCP:LISTEN || true
+  /usr/bin/lsof -nP -iTCP:"$PORT" -sTCP:LISTEN || true
   echo
   echo "Port $OLD_PORT:"
-  lsof -nP -iTCP:"$OLD_PORT" -sTCP:LISTEN || true
+  /usr/bin/lsof -nP -iTCP:"$OLD_PORT" -sTCP:LISTEN || true
   echo
   echo "Processes:"
-  ps -eo pid,ppid,etime,cmd \
-    | grep -E "python -m flask|flask --app|futurefunded-main|futurefunded-product-spine|cloudflared" \
-    | grep -v grep || true
+  /bin/ps -eo pid,ppid,etime,cmd \
+    | /usr/bin/grep -E "python -m flask|flask --app|futurefunded-main|futurefunded-product-spine|pm2|cloudflared" \
+    | /usr/bin/grep -v grep || true
 }
 
 stop() {
   echo "== Stopping FutureFunded local servers =="
-  pkill -f "/futurefunded-product-spine/.venv/bin/python -m flask" 2>/dev/null || true
-  pkill -f "/futurefunded-final/.venv/bin/python -m flask" 2>/dev/null || true
-  pkill -f "/futurefunded-main/.venv/bin/python -m flask" 2>/dev/null || true
-  pkill -f "flask --app apps.web.app:create_app run" 2>/dev/null || true
-  fuser -k "$PORT/tcp" 2>/dev/null || true
-  fuser -k "$OLD_PORT/tcp" 2>/dev/null || true
+  stop_supervisors
+
+  /usr/bin/pkill -TERM -f "futurefunded-product-spine.*flask" 2>/dev/null || true
+  /usr/bin/pkill -TERM -f "futurefunded-main.*flask" 2>/dev/null || true
+  /usr/bin/pkill -TERM -f "flask --app apps.web.app:create_app" 2>/dev/null || true
   sleep 1
+
+  /usr/bin/pkill -KILL -f "futurefunded-product-spine.*flask" 2>/dev/null || true
+  /usr/bin/pkill -KILL -f "futurefunded-main.*flask" 2>/dev/null || true
+  /usr/bin/pkill -KILL -f "flask --app apps.web.app:create_app" 2>/dev/null || true
+
+  kill_port "$PORT"
+  kill_port "$OLD_PORT"
+
   echo "✅ stopped"
 }
 
 start() {
   echo "== Starting clean FutureFunded server =="
+  stop
+
   cd "$CLEAN_ROOT" || exit 1
   source .venv/bin/activate 2>/dev/null || true
   bash scripts/demo/ff-demo-start.sh
@@ -48,38 +77,34 @@ start() {
   echo
   echo "== Route smoke =="
   for path in /healthz /platform/ /platform/onboarding /platform/login /c/connect-atx-elite; do
-    if command -v curl >/dev/null 2>&1; then
-      curl -fsS -o /dev/null -w "%{http_code}  $path\n" "http://127.0.0.1:${PORT}${path}"
-    else
-      python - <<PY
-import urllib.request
-url = "http://127.0.0.1:${PORT}${path}"
-try:
-    urllib.request.urlopen(url, timeout=2).read()
-    print("200  ${path}")
-except Exception as exc:
-    print(f"ERR  ${path}  {exc}")
-PY
-    fi
+    /usr/bin/curl -fsS -o /dev/null -w "%{http_code}  $path\n" "http://127.0.0.1:${PORT}${path}"
   done
+
+  echo
+  echo "== Owner check =="
+  status
+
+  if /bin/ps -eo pid,cmd | /usr/bin/grep -E "futurefunded-product-spine.*python -m flask.*port ${PORT}" | /usr/bin/grep -v grep; then
+    echo "❌ Old repo still owns port $PORT."
+    exit 1
+  fi
 
   echo
   echo "✅ clean server ready: http://127.0.0.1:${PORT}/c/connect-atx-elite"
 }
 
 restart() {
-  stop
   start
 }
 
 old_start() {
   echo "== Starting OLD repo on isolated port $OLD_PORT =="
   echo "Reference only. Do not use old repo for launch."
+
+  kill_port "$OLD_PORT"
+
   cd "$OLD_ROOT" || exit 1
   source .venv/bin/activate 2>/dev/null || true
-
-  fuser -k "$OLD_PORT/tcp" 2>/dev/null || true
-  sleep 1
 
   nohup python -m flask --app apps.web.app:create_app run \
     --host 127.0.0.1 \
