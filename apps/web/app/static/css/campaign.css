@@ -8322,3 +8322,137 @@
   }
 }
 /* === FutureFunded Phase 4E Campaign Trust Button Polish END === */
+
+/* === FutureFunded Campaign Desktop Polish V1.1 === */
+/*
+  Scope:
+  - Campaign page only
+  - Desktop only
+  - Uses real campaign selectors from index.html:
+    .ff-campaignHero, .ff-campaignHero__grid, .ff-campaignHero__story,
+    .ff-card--hero, .ff-heroTitle, .ff-lede, .ff-heroActions
+*/
+@media (min-width: 1024px) {
+  .ff-campaign-desktop-polish-v1 {
+    --ff-campaign-desktop-max: 1180px;
+    --ff-campaign-desktop-gutter: clamp(24px, 4vw, 56px);
+    --ff-campaign-desktop-gap: clamp(28px, 4vw, 58px);
+    --ff-campaign-desktop-radius: 30px;
+    --ff-campaign-desktop-shadow: 0 28px 90px rgba(15, 23, 42, 0.13);
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero {
+    min-height: min(780px, calc(100svh - 88px));
+    padding-block: clamp(44px, 5vw, 76px);
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero > .ff-shell,
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero__grid {
+    width: min(100%, var(--ff-campaign-desktop-max));
+    margin-inline: auto;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
+    align-items: stretch;
+    gap: var(--ff-campaign-desktop-gap);
+    padding-inline: var(--ff-campaign-desktop-gutter);
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero__story.ff-card,
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero__grid > :last-child {
+    border-radius: var(--ff-campaign-desktop-radius);
+    box-shadow: var(--ff-campaign-desktop-shadow);
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero__story {
+    min-height: clamp(520px, 55vw, 650px);
+    padding: clamp(34px, 4.4vw, 58px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero__grid > :last-child {
+    align-self: stretch;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-pillRow {
+    gap: 8px;
+    margin-bottom: clamp(18px, 2vw, 26px);
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-headingStack {
+    gap: clamp(12px, 1.5vw, 18px);
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-eyebrow {
+    margin: 0;
+    letter-spacing: 0.115em;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-heroTitle {
+    max-width: 720px;
+    margin: 0;
+    font-size: clamp(4rem, 5.9vw, 6.85rem);
+    line-height: 0.875;
+    letter-spacing: -0.072em;
+    text-wrap: balance;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-heroTitle span {
+    display: block;
+    max-width: 9.5ch;
+    line-height: 0.92;
+    letter-spacing: -0.066em;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-lede {
+    max-width: 48ch;
+    margin: clamp(14px, 1.6vw, 20px) 0 0;
+    font-size: clamp(1.02rem, 1.08vw, 1.16rem);
+    line-height: 1.58;
+    text-wrap: pretty;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-heroActions {
+    margin-top: clamp(22px, 2.8vw, 34px);
+    gap: 12px;
+    align-items: center;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-heroActions :is(a, button) {
+    min-height: 48px;
+    border-radius: 999px;
+    font-weight: 850;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-heroActions :is(a, button):first-child {
+    min-width: 154px;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero :is(input, select, textarea, button) {
+    border-radius: 14px;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero :is([class*="progress"], [class*="meter"]) {
+    overflow: hidden;
+  }
+
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero + section {
+    margin-top: clamp(28px, 4vw, 56px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero__grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.74fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .ff-campaign-desktop-polish-v1 .ff-campaignHero__grid {
+    --ff-campaign-desktop-max: 1220px;
+  }
+}
