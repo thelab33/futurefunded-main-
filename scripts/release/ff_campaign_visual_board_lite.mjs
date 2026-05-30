@@ -5,7 +5,7 @@ import { spawnSync } from "node:child_process";
 import { chromium } from "playwright";
 
 const ROOT = process.cwd();
-const BASE_URL = process.env.FF_BASE_URL || "http://127.0.0.1:5000"\;
+const BASE_URL = process.env.FF_BASE_URL || "http://127.0.0.1:5000";
 const URL = `${BASE_URL.replace(/\/$/, "")}/c/connect-atx-elite`;
 const OUT = path.join(ROOT, "audit_outputs", "visual-review-board", "latest");
 
