@@ -8742,3 +8742,259 @@
   }
 }
 /* === FutureFunded Campaign Prestige Board Pass END === */
+
+/* === FutureFunded Campaign Prestige Pass 2 START === */
+/*
+  Board-driven prestige pass:
+  - restore real proof media where available
+  - convert story/video surface into reliable premium poster-first proof
+  - tighten mobile rhythm without touching payment/sponsor/share contracts
+  - sharpen sponsor/trust cards for enterprise credibility
+*/
+
+@layer campaign {
+  body.ff-campaignBody {
+    --ff-pass2-photo-ring: rgba(255, 255, 255, .72);
+    --ff-pass2-photo-line: rgba(72, 44, 25, .13);
+    --ff-pass2-proof-glow: 0 18px 46px rgba(55, 36, 20, .13);
+  }
+
+  body.ff-campaignBody .ff-squadCard img,
+  body.ff-campaignBody .ff-teamCard img {
+    background:
+      radial-gradient(circle at 18% 12%, rgba(255,255,255,.78), transparent 18rem),
+      linear-gradient(145deg, rgba(255,250,244,.94), rgba(247,232,211,.88));
+    border: 1px solid var(--ff-pass2-photo-line);
+    box-shadow:
+      inset 0 1px 0 var(--ff-pass2-photo-ring),
+      0 14px 30px rgba(55, 36, 20, .095);
+    filter: saturate(1.05) contrast(1.015);
+  }
+
+  body.ff-campaignBody .ff-squadCard,
+  body.ff-campaignBody .ff-teamCard {
+    overflow: hidden;
+  }
+
+  body.ff-campaignBody .ff-squadCard::before,
+  body.ff-campaignBody .ff-teamCard::before {
+    background: linear-gradient(90deg, rgba(243,95,22,.9), rgba(18,124,111,.72));
+    opacity: .78;
+  }
+
+  /*
+    Story proof should never appear as an empty external iframe box.
+    Use a poster-first local proof surface; external video can still be opened through the video hooks/modal.
+  */
+  body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyMedia--embed,
+  body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyEmbed,
+  body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyPoster {
+    min-height: clamp(230px, 31vw, 440px);
+    border-radius: clamp(20px, 2vw, 30px);
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, rgba(16, 11, 7, .86), rgba(16, 11, 7, .28) 48%, rgba(16, 11, 7, .78)),
+      url("/static/images/program-proof/8th-grade.jpg") center / cover no-repeat,
+      linear-gradient(145deg, #160f0b, #2b1a10);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      0 24px 62px rgba(34, 20, 11, .18);
+  }
+
+  body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyEmbed {
+    position: relative;
+    isolation: isolate;
+  }
+
+  body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyEmbed iframe {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyEmbed::before,
+  body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyPoster::before {
+    position: absolute;
+    inset: auto auto 18px 18px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 11px;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .92);
+    color: #a84310;
+    content: "KVUE feature";
+    font-size: .68rem;
+    font-weight: 950;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    box-shadow: 0 12px 26px rgba(0,0,0,.16);
+  }
+
+  body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyEmbed::after,
+  body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyPoster::after {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    color: rgba(255, 250, 244, .96);
+    content: "▶";
+    font-size: clamp(2.1rem, 5vw, 4.2rem);
+    font-weight: 900;
+    text-shadow: 0 12px 34px rgba(0,0,0,.36);
+    pointer-events: none;
+  }
+
+  body.ff-campaignBody .ff-storyCopy--press {
+    border-color: rgba(72,44,25,.11);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,250,244,.82)),
+      radial-gradient(circle at 8% 0%, rgba(243,95,22,.10), transparent 18rem);
+  }
+
+  body.ff-campaignBody .ff-storyCopy--press h2 {
+    max-width: 12.5ch;
+  }
+
+  body.ff-campaignBody .ff-sponsorCard,
+  body.ff-campaignBody .ff-sponsorTier,
+  body.ff-campaignBody .ff-impactCard {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.84),
+      0 16px 44px rgba(55, 36, 20, .085);
+  }
+
+  body.ff-campaignBody .ff-sponsorCard:hover,
+  body.ff-campaignBody .ff-sponsorTier:hover,
+  body.ff-campaignBody .ff-teamCard:hover,
+  body.ff-campaignBody .ff-squadCard:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.88),
+      0 24px 62px rgba(55, 36, 20, .13);
+  }
+
+  body.ff-campaignBody .ff-sponsorCard .ff-button,
+  body.ff-campaignBody .ff-sponsorTier .ff-button {
+    min-height: 40px;
+    border-radius: 999px;
+    font-weight: 950;
+  }
+
+  body.ff-campaignBody .ff-donatePanel {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.66),
+      0 26px 72px rgba(55, 36, 20, .16);
+  }
+
+  @media (min-width: 980px) {
+    body.ff-campaignBody .ff-squadRail {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    body.ff-campaignBody .ff-teamGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    body.ff-campaignBody .ff-campaignSection {
+      padding-block: clamp(24px, 7vw, 38px);
+    }
+
+    body.ff-campaignBody .ff-sectionPanel {
+      padding: clamp(15px, 4.8vw, 21px);
+    }
+
+    body.ff-campaignBody .ff-sectionHeader {
+      margin-bottom: 12px;
+    }
+
+    body.ff-campaignBody .ff-sectionHeader h2 {
+      font-size: clamp(1.86rem, 9.2vw, 2.82rem);
+      line-height: .91;
+    }
+
+    body.ff-campaignBody .ff-squadRail,
+    body.ff-campaignBody .ff-teamGrid,
+    body.ff-campaignBody .ff-sponsorGrid,
+    body.ff-campaignBody .ff-impactGrid {
+      gap: 9px;
+    }
+
+    body.ff-campaignBody .ff-squadCard,
+    body.ff-campaignBody .ff-teamCard,
+    body.ff-campaignBody .ff-sponsorCard,
+    body.ff-campaignBody .ff-impactCard {
+      padding: 12px;
+      border-radius: 19px;
+    }
+
+    body.ff-campaignBody .ff-squadCard img,
+    body.ff-campaignBody .ff-teamCard img {
+      border-radius: 15px;
+    }
+
+    body.ff-campaignBody .ff-squadCard img {
+      aspect-ratio: 16 / 8.5;
+    }
+
+    body.ff-campaignBody .ff-teamCard img {
+      aspect-ratio: 16 / 9;
+    }
+
+    body.ff-campaignBody .ff-campaignSection--pressStory .ff-storySplit--press {
+      gap: 14px;
+      padding: 12px;
+    }
+
+    body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyMedia--embed,
+    body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyEmbed,
+    body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyPoster {
+      min-height: clamp(178px, 52vw, 255px);
+    }
+
+    body.ff-campaignBody .ff-storyCopy--press {
+      padding: 16px;
+      border-radius: 20px;
+    }
+
+    body.ff-campaignBody .ff-storyCopy--press h2 {
+      font-size: clamp(1.72rem, 8.4vw, 2.35rem);
+    }
+
+    body.ff-campaignBody .ff-finalCta,
+    body.ff-campaignBody .ff-campaignFooter {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 430px) {
+    body.ff-campaignBody .ff-campaignHero {
+      padding-block-end: 24px;
+    }
+
+    body.ff-campaignBody .ff-campaignSection {
+      padding-block: 25px;
+    }
+
+    body.ff-campaignBody .ff-sectionPanel {
+      border-radius: 22px;
+    }
+
+    body.ff-campaignBody .ff-squadCard img,
+    body.ff-campaignBody .ff-teamCard img {
+      aspect-ratio: 16 / 8.2;
+    }
+
+    body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyEmbed::before,
+    body.ff-campaignBody .ff-campaignSection--pressStory .ff-storyPoster::before {
+      inset: auto auto 12px 12px;
+      min-height: 28px;
+      font-size: .61rem;
+    }
+  }
+}
+/* === FutureFunded Campaign Prestige Pass 2 END === */
