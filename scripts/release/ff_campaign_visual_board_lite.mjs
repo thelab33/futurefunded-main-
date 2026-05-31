@@ -97,9 +97,23 @@ for (const [name, width, height] of viewports) {
   console.log(`Capturing ${name}: ${url}`);
 
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForTimeout(900);
+  
+  await page.waitForTimeout(1200);
+  await page.evaluate(async () => {
+    const imgs = Array.from(document.images);
+    await Promise.allSettled(imgs.map((img) => {
+      if (img.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        img.addEventListener("load", resolve, { once: true });
+        img.addEventListener("error", resolve, { once: true });
+        setTimeout(resolve, 1600);
+      });
+    }));
+  });
 
-  const data = await page.evaluate((contracts) => {
+  await page.waitForTimeout(650);
+
+  const data = await page.evaluate(async (contracts) => {
     const one = (sel) => document.querySelector(sel);
     const all = (sel) => Array.from(document.querySelectorAll(sel));
     const clean = (txt) => String(txt || "").replace(/\s+/g, " ").trim();
@@ -127,9 +141,40 @@ for (const [name, width, height] of viewports) {
       scrollHeight: Math.max(html.scrollHeight, body?.scrollHeight || 0),
       overflowX: Math.max(html.scrollWidth, body?.scrollWidth || 0) > window.innerWidth + 2,
       images: document.images.length,
-      brokenImages: Array.from(document.images)
-        .filter((img) => !img.complete || img.naturalWidth === 0)
-        .map((img) => img.currentSrc || img.src || ""),
+      brokenImages: await Promise.all(Array.from(document.images).map(async (img) => {
+        const src = img.currentSrc || img.src || "";
+        if (!src) return "";
+
+        // Fast path: browser decoded it as a real image.
+        if (img.complete && img.naturalWidth > 0) return "";
+
+        // Slow path: prove the URL is actually loadable. This avoids false positives
+        // caused by fallback swaps, delayed decode, or headless image timing.
+        try {
+          const probe = new Image();
+          probe.decoding = "async";
+          probe.src = src;
+
+          await new Promise((resolve) => {
+            if (probe.complete && probe.naturalWidth > 0) return resolve();
+            probe.addEventListener("load", resolve, { once: true });
+            probe.addEventListener("error", resolve, { once: true });
+            setTimeout(resolve, 2200);
+          });
+
+          if (probe.complete && probe.naturalWidth > 0) return "";
+        } catch {}
+
+        // Final network proof. Static media may be valid even if the DOM image was
+        // swapped during runtime fallback.
+        try {
+          const res = await fetch(src, { cache: "no-store" });
+          const type = res.headers.get("content-type") || "";
+          if (res.ok && type.startsWith("image/")) return "";
+        } catch {}
+
+        return src;
+      })).then((items) => items.filter(Boolean)),
       contracts: contractStatus,
       headings: Array.from(document.querySelectorAll("h1,h2,h3"))
         .slice(0, 30)

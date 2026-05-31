@@ -214,7 +214,7 @@
 (() => {
   "use strict";
 
-  const FALLBACK_SRC = "/static/images/system/ff-campaign-media-fallback.svg";
+  const FALLBACK_SRC = "/static/images/system/ff-campaign-media-fallback.png";
   const BROKEN_ATTR = "data-ff-media-fallback";
   const ORIGINAL_ATTR = "data-ff-original-src";
 
@@ -228,7 +228,7 @@
   function repairImage(img, reason = "error") {
     if (!img || img.nodeType !== 1 || img.getAttribute(BROKEN_ATTR) === "true") return;
     const src = img.currentSrc || img.getAttribute("src") || "";
-    if (src.includes("ff-campaign-media-fallback.svg")) return;
+    if (src.includes("ff-campaign-media-fallback")) return;
 
     img.setAttribute(ORIGINAL_ATTR, src);
     img.setAttribute(BROKEN_ATTR, "true");
