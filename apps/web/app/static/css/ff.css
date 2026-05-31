@@ -16479,3 +16479,62 @@ body.ff-dashboardModernBody .ff-dashboardModern__offlineStatus[data-tone="warnin
   }
 }
 /* FF_HOMEPAGE_FINAL_ACCEPTANCE_PASS_4_END */
+
+/* FF_HOMEPAGE_HEADER_BRAND_FINAL_FIX_START */
+/*
+  Final homepage/platform header polish.
+  Scope: platform/home shell only.
+  Fixes compressed brand subtitle so the header feels finished.
+*/
+
+@layer platform {
+  body.ff-platformBody .ff-siteHeader__shell {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  body.ff-platformBody .ff-brandMark {
+    min-width: clamp(10.5rem, 18vw, 14.5rem);
+  }
+
+  body.ff-platformBody .ff-brandMark__copy {
+    min-width: 0;
+  }
+
+  body.ff-platformBody .ff-brandMark__copy strong {
+    max-width: 13.5rem;
+  }
+
+  body.ff-platformBody .ff-brandMark__copy small {
+    max-width: 13.5rem;
+    letter-spacing: 0.115em;
+  }
+
+  body.ff-platformBody .ff-siteHeader__nav {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 760px) {
+  @layer platform {
+    body.ff-platformBody .ff-brandMark {
+      min-width: 0;
+    }
+
+    body.ff-platformBody .ff-brandMark__copy strong {
+      max-width: 8rem;
+    }
+
+    body.ff-platformBody .ff-brandMark__copy small {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 430px) {
+  @layer platform {
+    body.ff-platformBody .ff-brandMark__copy strong {
+      max-width: 7.1rem;
+    }
+  }
+}
+/* FF_HOMEPAGE_HEADER_BRAND_FINAL_FIX_END */
