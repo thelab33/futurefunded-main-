@@ -15563,3 +15563,679 @@ body.ff-dashboardModernBody .ff-dashboardModern__offlineStatus[data-tone="warnin
   }
 }
 /* FF_HOMEPAGE_PRESTIGE_PASS_2_END */
+
+/* FF_HOMEPAGE_FINAL_POLISH_PASS_3_START */
+/*
+  FutureFunded Homepage Final Polish Pass 3
+  Scope: /platform/ only.
+
+  Intent:
+  - top-to-bottom premium finish
+  - calmer hierarchy
+  - tighter visual rhythm
+  - better section scanability
+  - stronger institutional trust
+  - fewer “card dump” vibes
+  - mobile-first composure
+  - no campaign/runtime/checkout changes
+*/
+
+@layer platform {
+  body.ff-platformBody {
+    --ff-home-final-bg-a: #fff8ef;
+    --ff-home-final-bg-b: #f5e8d7;
+    --ff-home-final-bg-c: #eddcc4;
+    --ff-home-final-ink: #130d09;
+    --ff-home-final-muted: rgba(31, 22, 15, 0.66);
+    --ff-home-final-soft: rgba(31, 22, 15, 0.48);
+    --ff-home-final-line: rgba(73, 46, 27, 0.115);
+    --ff-home-final-line-strong: rgba(73, 46, 27, 0.18);
+    --ff-home-final-card: rgba(255, 255, 255, 0.82);
+    --ff-home-final-card-strong: rgba(255, 255, 255, 0.94);
+    --ff-home-final-orange: #f35f16;
+    --ff-home-final-orange-2: #ff7a1a;
+    --ff-home-final-brown: #3a2113;
+    --ff-home-final-green: #127c6f;
+    --ff-home-final-shell: min(100% - clamp(1rem, 4vw, 2.5rem), 76rem);
+    --ff-home-final-wide: min(100% - clamp(1rem, 4vw, 2.5rem), 84rem);
+    --ff-home-final-section: clamp(4.6rem, 8vw, 7.2rem);
+    --ff-home-final-section-tight: clamp(3.5rem, 6.5vw, 5.7rem);
+    --ff-home-final-radius-xl: clamp(1.5rem, 3vw, 2rem);
+    --ff-home-final-radius-lg: clamp(1rem, 2vw, 1.35rem);
+    --ff-home-final-shadow: 0 24px 78px rgba(55, 36, 20, 0.115);
+    --ff-home-final-shadow-soft: 0 12px 38px rgba(55, 36, 20, 0.075);
+  }
+
+  body.ff-platformBody .ff-platformPage {
+    background:
+      linear-gradient(90deg, rgba(72, 44, 25, 0.032) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(72, 44, 25, 0.025) 1px, transparent 1px),
+      radial-gradient(circle at 12% -6%, rgba(255, 122, 26, 0.12), transparent 29rem),
+      radial-gradient(circle at 88% 5%, rgba(255, 196, 137, 0.18), transparent 33rem),
+      radial-gradient(circle at 55% 98%, rgba(18, 124, 111, 0.055), transparent 31rem),
+      linear-gradient(180deg, var(--ff-home-final-bg-a) 0%, var(--ff-home-final-bg-b) 52%, var(--ff-home-final-bg-c) 100%);
+    background-size:
+      74px 74px,
+      74px 74px,
+      auto,
+      auto,
+      auto,
+      auto;
+  }
+
+  body.ff-platformBody .ff-shell {
+    width: var(--ff-home-final-shell);
+    max-width: var(--ff-home-final-shell);
+  }
+
+  body.ff-platformBody .ff-siteHeader {
+    top: max(0.65rem, env(safe-area-inset-top));
+  }
+
+  body.ff-platformBody .ff-siteHeader__shell {
+    width: var(--ff-home-final-shell);
+    min-height: 3.25rem;
+    padding: 0.42rem;
+    border-radius: 1.25rem;
+    border-color: rgba(73, 46, 27, 0.11);
+    background: rgba(255, 250, 242, 0.88);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.82) inset,
+      0 14px 40px rgba(55, 36, 20, 0.08);
+    backdrop-filter: blur(18px) saturate(1.18);
+    -webkit-backdrop-filter: blur(18px) saturate(1.18);
+  }
+
+  body.ff-platformBody .ff-brandMark__symbol {
+    width: 2.18rem;
+    height: 2.18rem;
+    border-radius: 0.8rem;
+  }
+
+  body.ff-platformBody .ff-brandMark__copy strong {
+    font-size: 0.78rem;
+    letter-spacing: -0.02em;
+  }
+
+  body.ff-platformBody .ff-brandMark__copy small {
+    font-size: 0.55rem;
+    letter-spacing: 0.13em;
+  }
+
+  body.ff-platformBody .ff-siteHeader__nav {
+    background: rgba(255, 255, 255, 0.58);
+  }
+
+  body.ff-platformBody .ff-siteHeader__nav a {
+    min-height: 1.95rem;
+    padding-inline: 0.72rem;
+    color: rgba(31, 22, 15, 0.74);
+    font-size: 0.69rem;
+    font-weight: 880;
+  }
+
+  body.ff-platformBody .ff-siteHeader__actions .ff-button {
+    min-height: 2.08rem;
+    padding-inline: 0.78rem;
+    font-size: 0.69rem;
+  }
+
+  body.ff-platformBody .ff-platformMain {
+    padding-top: calc(var(--ff-header-h) + clamp(0.75rem, 1.5vw, 1.05rem));
+  }
+
+  body.ff-platformBody .ff-platformHero {
+    padding-block: clamp(1rem, 2.2vw, 1.6rem) clamp(4.7rem, 8vw, 7.2rem);
+  }
+
+  body.ff-platformBody .ff-platformHero__grid {
+    width: var(--ff-home-final-wide);
+    max-width: var(--ff-home-final-wide);
+    grid-template-columns: minmax(0, 1.02fr) minmax(21rem, 0.74fr);
+    gap: clamp(0.9rem, 2vw, 1.3rem);
+  }
+
+  body.ff-platformBody .ff-platformHero__copy,
+  body.ff-platformBody .ff-launchCard,
+  body.ff-platformBody .ff-proofSplit__copy,
+  body.ff-platformBody .ff-campaignPreview,
+  body.ff-platformBody .ff-launchFlow,
+  body.ff-platformBody .ff-finalCta {
+    border: 1px solid var(--ff-home-final-line);
+    border-radius: var(--ff-home-final-radius-xl);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.82) inset,
+      var(--ff-home-final-shadow);
+  }
+
+  body.ff-platformBody .ff-platformHero__copy {
+    min-height: clamp(30rem, calc(100svh - 10.75rem), 38rem);
+    padding: clamp(1.35rem, 3.7vw, 3rem);
+    align-content: space-between;
+    background:
+      radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.98), transparent 18rem),
+      radial-gradient(circle at 15% 18%, rgba(255, 237, 213, 0.45), transparent 22rem),
+      radial-gradient(circle at 92% 0%, rgba(255, 190, 126, 0.42), transparent 31rem),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.985), rgba(255, 242, 226, 0.95));
+  }
+
+  body.ff-platformBody .ff-platformHeroTitle,
+  body.ff-platformBody .ff-platformHeroTitle--accented {
+    max-width: 10.25ch;
+    font-size: clamp(3.12rem, 6.45vw, 5.95rem);
+    line-height: 0.91;
+    letter-spacing: -0.073em;
+    font-weight: 890;
+  }
+
+  body.ff-platformBody .ff-platformHeroTitle em,
+  body.ff-platformBody .ff-platformReadinessTitle em {
+    color: var(--ff-home-final-orange);
+    font-style: normal;
+  }
+
+  body.ff-platformBody .ff-lede {
+    max-width: 35rem;
+    color: var(--ff-home-final-muted);
+    font-size: clamp(0.98rem, 1.14vw, 1.06rem);
+    line-height: 1.58;
+  }
+
+  body.ff-platformBody .ff-eyebrow {
+    color: #9c4312;
+    font-size: 0.66rem;
+    letter-spacing: 0.15em;
+  }
+
+  body.ff-platformBody .ff-eyebrow::before {
+    width: 0.32rem;
+    height: 0.32rem;
+  }
+
+  body.ff-platformBody .ff-pillRow {
+    gap: 0.42rem;
+  }
+
+  body.ff-platformBody .ff-pill {
+    min-height: 1.78rem;
+    padding-inline: 0.65rem;
+    border-color: rgba(73, 46, 27, 0.11);
+    background: rgba(255, 255, 255, 0.68);
+    color: rgba(31, 22, 15, 0.68);
+    font-size: 0.66rem;
+  }
+
+  body.ff-platformBody .ff-pill--hot {
+    background: rgba(255, 237, 213, 0.82);
+    color: #9c4312;
+  }
+
+  body.ff-platformBody .ff-platformHero .ff-button {
+    min-height: 2.84rem;
+    padding-inline: 1rem;
+    font-size: 0.82rem;
+  }
+
+  body.ff-platformBody .ff-button--primary {
+    background: linear-gradient(135deg, var(--ff-home-final-orange), var(--ff-home-final-orange-2));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.28) inset,
+      0 13px 30px rgba(243, 95, 22, 0.22);
+  }
+
+  body.ff-platformBody .ff-button--ghost {
+    background: rgba(255, 255, 255, 0.74);
+  }
+
+  body.ff-platformBody .ff-trustGrid {
+    gap: 0.58rem;
+  }
+
+  body.ff-platformBody .ff-trustGrid article {
+    min-height: 5.15rem;
+    padding: 0.78rem;
+    border-radius: 0.95rem;
+  }
+
+  body.ff-platformBody .ff-trustGrid strong {
+    font-size: 0.78rem;
+  }
+
+  body.ff-platformBody .ff-trustGrid span {
+    margin-top: 0.22rem;
+    font-size: 0.68rem;
+    line-height: 1.36;
+  }
+
+  body.ff-platformBody .ff-launchCard {
+    min-height: clamp(30rem, calc(100svh - 10.75rem), 38rem);
+    padding: clamp(1.1rem, 2.3vw, 1.7rem);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 122, 26, 0.13), transparent 20rem),
+      radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.12), transparent 16rem),
+      linear-gradient(145deg, #2a1710, #100a07);
+    color: #fff8ef;
+  }
+
+  body.ff-platformBody .ff-launchCard p,
+  body.ff-platformBody .ff-launchCard em,
+  body.ff-platformBody .ff-launchCard span {
+    color: rgba(255, 248, 239, 0.7);
+  }
+
+  body.ff-platformBody .ff-launchCard h2,
+  body.ff-platformBody .ff-launchCard strong {
+    color: #fff8ef;
+  }
+
+  body.ff-platformBody .ff-platformReadinessTitle {
+    max-width: 11.4ch;
+    font-size: clamp(1.85rem, 2.75vw, 2.6rem);
+    line-height: 0.94;
+  }
+
+  body.ff-platformBody .ff-readinessList {
+    gap: 0.56rem;
+  }
+
+  body.ff-platformBody .ff-readinessList article {
+    padding: 0.74rem;
+    border-color: rgba(255, 248, 239, 0.1);
+    background: rgba(255, 255, 255, 0.075);
+  }
+
+  body.ff-platformBody .ff-readinessList b {
+    background: rgba(255, 248, 239, 0.12);
+    color: #fff0dd;
+  }
+
+  body.ff-platformBody .ff-previewStrip {
+    border-color: rgba(255, 248, 239, 0.12);
+    background: rgba(255, 255, 255, 0.075);
+  }
+
+  body.ff-platformBody .ff-platformSection {
+    padding-block: var(--ff-home-final-section);
+  }
+
+  body.ff-platformBody #product,
+  body.ff-platformBody #campaigns,
+  body.ff-platformBody #sponsors,
+  body.ff-platformBody #proof,
+  body.ff-platformBody #launch,
+  body.ff-platformBody #faq {
+    padding-block: var(--ff-home-final-section-tight);
+  }
+
+  body.ff-platformBody #product > .ff-shell,
+  body.ff-platformBody #sponsors > .ff-shell,
+  body.ff-platformBody #launch > .ff-shell,
+  body.ff-platformBody #faq > .ff-shell {
+    border-top: 1px solid rgba(243, 95, 22, 0.32);
+    padding-top: clamp(1rem, 2vw, 1.45rem);
+  }
+
+  body.ff-platformBody .ff-sectionHeader {
+    margin-bottom: clamp(1.1rem, 2.2vw, 1.75rem);
+  }
+
+  body.ff-platformBody .ff-sectionHeader--center {
+    max-width: 42rem;
+  }
+
+  body.ff-platformBody .ff-sectionHeader h2 {
+    max-width: 12ch;
+    margin-inline: auto;
+    color: var(--ff-home-final-ink);
+    font-size: clamp(2.02rem, 3.85vw, 3.7rem);
+    line-height: 0.95;
+    letter-spacing: -0.066em;
+  }
+
+  body.ff-platformBody .ff-sectionHeader p {
+    max-width: 36rem;
+    margin-inline: auto;
+    color: var(--ff-home-final-muted);
+    font-size: 0.92rem;
+    line-height: 1.56;
+  }
+
+  body.ff-platformBody .ff-featureGrid,
+  body.ff-platformBody .ff-sponsorGrid,
+  body.ff-platformBody .ff-flowGrid {
+    gap: 0.78rem;
+  }
+
+  body.ff-platformBody .ff-featureCard,
+  body.ff-platformBody .ff-sponsorCard,
+  body.ff-platformBody .ff-flowGrid article,
+  body.ff-platformBody .ff-campaignPreview__meter > div,
+  body.ff-platformBody .ff-faqItem {
+    border-color: var(--ff-home-final-line);
+    border-radius: 0.95rem;
+    background: var(--ff-home-final-card);
+    box-shadow: var(--ff-home-final-shadow-soft);
+  }
+
+  body.ff-platformBody .ff-featureCard,
+  body.ff-platformBody .ff-sponsorCard,
+  body.ff-platformBody .ff-flowGrid article {
+    padding: clamp(0.95rem, 1.7vw, 1.22rem);
+  }
+
+  body.ff-platformBody .ff-featureCard span,
+  body.ff-platformBody .ff-flowGrid span,
+  body.ff-platformBody .ff-sponsorCard > span,
+  body.ff-platformBody .ff-sponsorCard__head span {
+    color: #a84310;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+  }
+
+  body.ff-platformBody .ff-featureCard h3,
+  body.ff-platformBody .ff-sponsorCard strong,
+  body.ff-platformBody .ff-flowGrid strong {
+    margin-top: 0.7rem;
+    color: var(--ff-home-final-ink);
+    font-size: clamp(0.94rem, 1.05vw, 1.03rem);
+    line-height: 1.05;
+  }
+
+  body.ff-platformBody .ff-featureCard p,
+  body.ff-platformBody .ff-sponsorCard p,
+  body.ff-platformBody .ff-flowGrid p {
+    margin-top: 0.52rem;
+    color: var(--ff-home-final-muted);
+    font-size: 0.8rem;
+    line-height: 1.46;
+  }
+
+  body.ff-platformBody .ff-proofSplit {
+    gap: 0.92rem;
+  }
+
+  body.ff-platformBody .ff-proofSplit__copy,
+  body.ff-platformBody .ff-campaignPreview,
+  body.ff-platformBody .ff-launchFlow,
+  body.ff-platformBody .ff-finalCta {
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+  }
+
+  body.ff-platformBody .ff-proofSplit__copy {
+    min-height: clamp(17rem, 28vw, 23rem);
+    align-content: center;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.9), transparent 20rem),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 244, 0.84));
+  }
+
+  body.ff-platformBody .ff-proofSplit__copy h2,
+  body.ff-platformBody .ff-launchFlow h2,
+  body.ff-platformBody .ff-finalCta h2 {
+    max-width: 11.8ch;
+    color: var(--ff-home-final-ink);
+    font-size: clamp(2rem, 3.75vw, 3.65rem);
+    line-height: 0.94;
+  }
+
+  body.ff-platformBody .ff-campaignPreview {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 122, 26, 0.12), transparent 17rem),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.91), rgba(255, 248, 239, 0.84));
+  }
+
+  body.ff-platformBody .ff-campaignPreview__top strong {
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  }
+
+  body.ff-platformBody .ff-campaignPreview__meter {
+    gap: 0.48rem;
+  }
+
+  body.ff-platformBody .ff-campaignPreview__meter > div {
+    min-height: 3.9rem;
+    padding: 0.75rem;
+  }
+
+  body.ff-platformBody .ff-progressTrack {
+    height: 0.62rem;
+  }
+
+  body.ff-platformBody #sponsors .ff-sectionHeader {
+    grid-template-columns: 1fr auto;
+    max-width: none;
+    text-align: left;
+    justify-items: stretch;
+  }
+
+  body.ff-platformBody #sponsors .ff-sectionHeader h2,
+  body.ff-platformBody #sponsors .ff-sectionHeader p {
+    margin-inline: 0;
+  }
+
+  body.ff-platformBody #sponsors .ff-sectionHeader h2 {
+    max-width: 12ch;
+  }
+
+  body.ff-platformBody .ff-launchFlow {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.88), transparent 20rem),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.91), rgba(255, 249, 242, 0.84));
+  }
+
+  body.ff-platformBody .ff-finalCta {
+    min-height: clamp(17rem, 26vw, 23rem);
+    background:
+      radial-gradient(circle at 88% 0%, rgba(255, 122, 26, 0.18), transparent 22rem),
+      radial-gradient(circle at 0% 100%, rgba(18, 124, 111, 0.08), transparent 22rem),
+      linear-gradient(145deg, rgba(39, 23, 15, 0.985), rgba(16, 10, 7, 0.985));
+  }
+
+  body.ff-platformBody .ff-finalCta h2,
+  body.ff-platformBody .ff-finalCta strong {
+    color: #fff8ef;
+  }
+
+  body.ff-platformBody .ff-finalCta p {
+    color: rgba(255, 248, 239, 0.72);
+  }
+
+  body.ff-platformBody .ff-faqItem {
+    padding: 0.78rem 0.9rem;
+  }
+
+  body.ff-platformBody .ff-faqItem summary {
+    color: var(--ff-home-final-ink);
+    font-size: 0.82rem;
+  }
+
+  body.ff-platformBody .ff-footer {
+    padding-top: clamp(1.8rem, 4vw, 3rem);
+  }
+
+  body.ff-platformBody .ff-footer__grid {
+    width: var(--ff-home-final-wide);
+    max-width: var(--ff-home-final-wide);
+    border-color: rgba(73, 46, 27, 0.12);
+    border-radius: 1.05rem;
+    background: rgba(255, 255, 255, 0.72);
+  }
+}
+
+@media (min-width: 981px) {
+  @layer platform {
+    body.ff-platformBody .ff-featureGrid--four,
+    body.ff-platformBody .ff-flowGrid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    body.ff-platformBody .ff-sponsorGrid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  @layer platform {
+    body.ff-platformBody .ff-platformHero__grid {
+      width: var(--ff-home-final-shell);
+      max-width: var(--ff-home-final-shell);
+      grid-template-columns: 1fr;
+    }
+
+    body.ff-platformBody .ff-launchCard {
+      min-height: auto;
+    }
+
+    body.ff-platformBody .ff-featureGrid--four,
+    body.ff-platformBody .ff-flowGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.ff-platformBody #sponsors .ff-sectionHeader {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  @layer platform {
+    body.ff-platformBody {
+      --ff-home-final-section: clamp(3.2rem, 13vw, 4.9rem);
+      --ff-home-final-section-tight: clamp(2.7rem, 11vw, 4.1rem);
+    }
+
+    body.ff-platformBody .ff-siteHeader {
+      top: max(0.42rem, env(safe-area-inset-top));
+    }
+
+    body.ff-platformBody .ff-siteHeader__shell {
+      width: min(100% - 1rem, 42rem);
+      border-radius: 1.1rem;
+    }
+
+    body.ff-platformBody .ff-brandMark__copy strong {
+      max-width: 7.4rem;
+      font-size: 0.76rem;
+    }
+
+    body.ff-platformBody .ff-brandMark__copy small {
+      display: none;
+    }
+
+    body.ff-platformBody .ff-platformHero {
+      padding-block: 0.62rem clamp(3.2rem, 12vw, 4.6rem);
+    }
+
+    body.ff-platformBody .ff-platformHero__copy {
+      min-height: auto;
+      border-radius: 1.38rem;
+      padding: clamp(1rem, 5vw, 1.35rem);
+    }
+
+    body.ff-platformBody .ff-platformHeroTitle,
+    body.ff-platformBody .ff-platformHeroTitle--accented {
+      max-width: 9.8ch;
+      font-size: clamp(2.72rem, 13.1vw, 4rem);
+      line-height: 0.93;
+      letter-spacing: -0.064em;
+    }
+
+    body.ff-platformBody .ff-lede {
+      font-size: 0.97rem;
+      line-height: 1.55;
+    }
+
+    body.ff-platformBody .ff-platformHero .ff-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.56rem;
+    }
+
+    body.ff-platformBody .ff-platformHero .ff-button {
+      width: 100%;
+      min-height: 3.02rem;
+      justify-content: center;
+      white-space: normal;
+    }
+
+    body.ff-platformBody .ff-trustGrid,
+    body.ff-platformBody .ff-featureGrid--four,
+    body.ff-platformBody .ff-flowGrid,
+    body.ff-platformBody .ff-sponsorGrid,
+    body.ff-platformBody .ff-campaignPreview__meter {
+      grid-template-columns: 1fr;
+    }
+
+    body.ff-platformBody .ff-launchCard {
+      border-radius: 1.38rem;
+      padding: 1rem;
+    }
+
+    body.ff-platformBody .ff-platformSection {
+      padding-block: var(--ff-home-final-section);
+    }
+
+    body.ff-platformBody .ff-sectionHeader h2,
+    body.ff-platformBody .ff-proofSplit__copy h2,
+    body.ff-platformBody .ff-launchFlow h2,
+    body.ff-platformBody .ff-finalCta h2 {
+      max-width: 11.5ch;
+      font-size: clamp(1.92rem, 9.4vw, 2.95rem);
+      line-height: 0.99;
+      letter-spacing: -0.054em;
+    }
+
+    body.ff-platformBody .ff-sectionHeader p {
+      font-size: 0.9rem;
+    }
+
+    body.ff-platformBody .ff-proofSplit__copy,
+    body.ff-platformBody .ff-campaignPreview,
+    body.ff-platformBody .ff-launchFlow,
+    body.ff-platformBody .ff-finalCta {
+      border-radius: 1.22rem;
+      padding: clamp(1rem, 5vw, 1.25rem);
+    }
+
+    body.ff-platformBody .ff-finalCta {
+      min-height: auto;
+      align-items: stretch;
+    }
+
+    body.ff-platformBody .ff-finalCta .ff-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    body.ff-platformBody .ff-footer__grid {
+      width: min(100% - 1rem, 42rem);
+    }
+  }
+}
+
+@media (max-width: 430px) {
+  @layer platform {
+    body.ff-platformBody .ff-siteHeader__actions .ff-button--ghost {
+      display: none;
+    }
+
+    body.ff-platformBody .ff-platformHeroTitle,
+    body.ff-platformBody .ff-platformHeroTitle--accented {
+      font-size: clamp(2.5rem, 12.8vw, 3.62rem);
+    }
+
+    body.ff-platformBody .ff-pill {
+      min-height: 1.68rem;
+      padding-inline: 0.55rem;
+      font-size: 0.62rem;
+    }
+
+    body.ff-platformBody .ff-trustGrid article {
+      min-height: auto;
+    }
+  }
+}
+/* FF_HOMEPAGE_FINAL_POLISH_PASS_3_END */
