@@ -16239,3 +16239,243 @@ body.ff-dashboardModernBody .ff-dashboardModern__offlineStatus[data-tone="warnin
   }
 }
 /* FF_HOMEPAGE_FINAL_POLISH_PASS_3_END */
+
+/* FF_HOMEPAGE_FINAL_ACCEPTANCE_PASS_4_START */
+/*
+  FutureFunded Homepage Final Acceptance Pass 4
+  Scope: /platform/ only.
+
+  Final acceptance goals:
+  - improve header readability without enlarging the whole shell
+  - give hero proof card more breathing room
+  - normalize card legibility on desktop and mobile
+  - refine footer into a deliberate product close
+  - keep campaign, checkout, onboarding, login, and dashboard untouched
+*/
+
+@layer platform {
+  body.ff-platformBody .ff-siteHeader__shell {
+    min-height: 3.42rem;
+    padding-inline: 0.5rem;
+  }
+
+  body.ff-platformBody .ff-brandMark {
+    gap: 0.62rem;
+  }
+
+  body.ff-platformBody .ff-brandMark__symbol {
+    width: 2.28rem;
+    height: 2.28rem;
+    border-radius: 0.82rem;
+    font-size: 0.7rem;
+  }
+
+  body.ff-platformBody .ff-brandMark__copy strong {
+    max-width: 10.5rem;
+    font-size: 0.8rem;
+    line-height: 1;
+  }
+
+  body.ff-platformBody .ff-brandMark__copy small {
+    max-width: 11rem;
+    overflow: hidden;
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  body.ff-platformBody .ff-siteHeader__nav a {
+    min-height: 2.05rem;
+    padding-inline: 0.76rem;
+  }
+
+  body.ff-platformBody .ff-siteHeader__actions .ff-button {
+    min-height: 2.18rem;
+    padding-inline: 0.82rem;
+  }
+
+  body.ff-platformBody .ff-platformHero__copy {
+    gap: clamp(1.08rem, 2.1vw, 1.55rem);
+  }
+
+  body.ff-platformBody .ff-platformHeroTitle,
+  body.ff-platformBody .ff-platformHeroTitle--accented {
+    max-width: 10.45ch;
+  }
+
+  body.ff-platformBody .ff-platformHero .ff-actions {
+    margin-top: 0.15rem;
+  }
+
+  body.ff-platformBody .ff-launchCard {
+    gap: clamp(0.9rem, 1.8vw, 1.25rem);
+  }
+
+  body.ff-platformBody .ff-launchCard__head {
+    gap: 0.72rem;
+  }
+
+  body.ff-platformBody .ff-launchCard__head p {
+    max-width: 28rem;
+    line-height: 1.52;
+  }
+
+  body.ff-platformBody .ff-readinessList article {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.35rem 0.62rem;
+  }
+
+  body.ff-platformBody .ff-readinessList span {
+    width: 1.45rem;
+  }
+
+  body.ff-platformBody .ff-readinessList em {
+    line-height: 1.38;
+  }
+
+  body.ff-platformBody .ff-previewStrip strong {
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  body.ff-platformBody .ff-featureCard,
+  body.ff-platformBody .ff-sponsorCard,
+  body.ff-platformBody .ff-flowGrid article {
+    min-height: 8.15rem;
+  }
+
+  body.ff-platformBody .ff-featureCard p,
+  body.ff-platformBody .ff-sponsorCard p,
+  body.ff-platformBody .ff-flowGrid p {
+    max-width: 24rem;
+  }
+
+  body.ff-platformBody .ff-proofSplit__copy p,
+  body.ff-platformBody .ff-launchFlow p,
+  body.ff-platformBody .ff-finalCta p {
+    max-width: 38rem;
+  }
+
+  body.ff-platformBody .ff-campaignPreview {
+    align-content: center;
+  }
+
+  body.ff-platformBody .ff-campaignPreview__meter > div {
+    display: grid;
+    align-content: center;
+  }
+
+  body.ff-platformBody #proof .ff-proofSplit__copy {
+    min-height: clamp(18rem, 30vw, 24rem);
+  }
+
+  body.ff-platformBody #proof .ff-card:not(.ff-proofSplit__copy) {
+    border-radius: 1rem;
+  }
+
+  body.ff-platformBody #faq .ff-sectionHeader h2 {
+    max-width: 10.5ch;
+  }
+
+  body.ff-platformBody .ff-faqItem summary {
+    min-height: 2.1rem;
+  }
+
+  body.ff-platformBody .ff-footer__grid {
+    padding: 1rem;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.72) inset,
+      0 14px 40px rgba(55, 36, 20, 0.075);
+  }
+
+  body.ff-platformBody .ff-footer__nav {
+    gap: 0.85rem;
+  }
+
+  body.ff-platformBody .ff-footer__nav a {
+    color: rgba(31, 22, 15, 0.78);
+  }
+
+  body.ff-platformBody .ff-footer__nav a:hover {
+    color: #a84310;
+  }
+}
+
+@media (min-width: 981px) {
+  @layer platform {
+    body.ff-platformBody .ff-platformHero__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(22.5rem, 0.72fr);
+    }
+
+    body.ff-platformBody .ff-platformHero__copy,
+    body.ff-platformBody .ff-launchCard {
+      min-height: clamp(31rem, calc(100svh - 10.4rem), 39rem);
+    }
+
+    body.ff-platformBody #campaigns .ff-proofSplit {
+      grid-template-columns: minmax(0, 0.95fr) minmax(21rem, 0.58fr);
+    }
+
+    body.ff-platformBody #proof .ff-proofSplit {
+      grid-template-columns: minmax(0, 0.72fr) minmax(22rem, 0.58fr);
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  @layer platform {
+    body.ff-platformBody .ff-brandMark__copy strong {
+      max-width: 8.1rem;
+      font-size: 0.77rem;
+    }
+
+    body.ff-platformBody .ff-siteHeader__actions .ff-button {
+      min-height: 2.2rem;
+      padding-inline: 0.72rem;
+    }
+
+    body.ff-platformBody .ff-platformHeroTitle,
+    body.ff-platformBody .ff-platformHeroTitle--accented {
+      max-width: 9.85ch;
+    }
+
+    body.ff-platformBody .ff-featureCard,
+    body.ff-platformBody .ff-sponsorCard,
+    body.ff-platformBody .ff-flowGrid article {
+      min-height: auto;
+    }
+
+    body.ff-platformBody .ff-readinessList article {
+      padding: 0.82rem;
+    }
+
+    body.ff-platformBody .ff-footer__grid {
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    body.ff-platformBody .ff-footer__nav {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+}
+
+@media (max-width: 430px) {
+  @layer platform {
+    body.ff-platformBody .ff-siteHeader__shell {
+      min-height: 3.28rem;
+    }
+
+    body.ff-platformBody .ff-brandMark__symbol {
+      width: 2.12rem;
+      height: 2.12rem;
+    }
+
+    body.ff-platformBody .ff-brandMark__copy strong {
+      max-width: 7.2rem;
+    }
+  }
+}
+/* FF_HOMEPAGE_FINAL_ACCEPTANCE_PASS_4_END */
