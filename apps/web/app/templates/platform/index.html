@@ -37,7 +37,7 @@
 {% set _supporters = supporters|default(143, true) %}
 {% set _percent = percent|default('59%', true)|string|trim %}
 {% set _page_title = page_title|default('FutureFunded — Premium fundraising pages teams can launch today', true)|string|trim %}
-{% set _page_description = page_description|default('Launch premium fundraising pages with secure donations, sponsor packages, QR sharing, and operator follow-up for teams, schools, clubs, and nonprofits.', true)|string|trim %}
+{% set _page_description = page_description|default('Launch premium fundraising pages with secure donations, sponsor packages, share-ready links, and operator follow-up for teams, schools, clubs, and nonprofits.', true)|string|trim %}
 {% if request is defined and request %}{% set _request_root = request.url_root|default('https://getfuturefunded.com/', true)|string %}{% else %}{% set _request_root = 'https://getfuturefunded.com/' %}{% endif %}
 {% set _canonical_url = canonical_url|default(_request_root.rstrip('/') ~ _platform_url, true)|string|trim %}
 {% set _og_image_url = og_image_url|default(static_url('images/connect-atx-team.jpg'), true)|string|trim %}
@@ -92,7 +92,7 @@ data-ff-platform-template="site-shell-v1"
 {% block content %}
   <a class="ff-skip" href="#platform-main">Skip to content</a>
 
-    <div class="ff-page ff-platformPage" data-ff-page-root data-ff-home-root>
+    <div class="ff-page ff-platformPage" data-ff-page-root data-ff-home-root data-ff-homepage-flagship="ff-authority-v1" data-ff-homepage-flagship="ff-authority-v1">
       {{ ff_shell_header(
     mode='marketing',
     brand_name='FutureFunded',
@@ -120,7 +120,7 @@ data-ff-platform-template="site-shell-v1"
               <div class="ff-pillRow" aria-label="FutureFunded trust signals">
                 <span class="ff-pill ff-pill--hot">Live donations</span>
                 <span class="ff-pill">Sponsor-ready</span>
-                <span class="ff-pill">QR sharing</span>
+                <span class="ff-pill">share-ready links</span>
                 <span class="ff-pill">Operator-ready</span>
               </div>
 
@@ -129,10 +129,10 @@ data-ff-platform-template="site-shell-v1"
                 <h1 id="platform-title" class="ff-platformHeroTitle ff-platformHeroTitle--accented">
                   <span>Launch a</span>
                   <span><em>fundraiser</em></span>
-                  <span>donors <strong>trust.</strong></span>
+                  <span>people <strong>trust.</strong></span>
                 </h1>
                 <p class="ff-lede">
-                  One polished page for donations, sponsors, QR sharing, and follow-up.
+                  One polished page for donations, sponsors, share-ready links, and follow-up.
                 </p>
               </div>
 
@@ -148,7 +148,7 @@ data-ff-platform-template="site-shell-v1"
                 </article>
                 <article>
                   <strong>Built to share</strong>
-                  <span>Mobile links, QR sharing, and sponsor-safe asks.</span>
+                  <span>Mobile links, share-ready links, and sponsor-safe asks.</span>
                 </article>
                 <article>
                   <strong>Ready to run</strong>
@@ -188,7 +188,7 @@ data-ff-platform-template="site-shell-v1"
             <div class="ff-sectionHeader ff-sectionHeader--center">
               <p class="ff-eyebrow">The product</p>
               <h2 id="product-title">Everything ready before the first share.</h2>
-              <p>Replace scattered links, sponsor PDFs, and text threads with one trusted page.</p>
+              <p>Replace scattered links, sponsor packets, and text threads with one trusted page.</p>
             </div>
 
             <div class="ff-featureGrid ff-featureGrid--four">

@@ -65,7 +65,9 @@
     "doctor:all": "FF_DOCTOR_ALL=1 FF_DOCTOR_SECURITY=1 bash scripts/release/ff-master-product-doctor.sh",
     "lint:css": "node scripts/release/ff_npm_css_lint.mjs",
     "board:campaign": "node scripts/release/ff_campaign_visual_board_lite.mjs",
-    "board": "npm run board:campaign"
+    "board": "npm run board:campaign",
+    "board:home": "node scripts/release/ff_homepage_screenshot_board.mjs",
+    "audit:homepage-board": "node scripts/release/ff_homepage_screenshot_board.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",
