@@ -133,7 +133,7 @@
 
     const focusTarget = $("[autofocus],input,button,[href],[tabindex]:not([tabindex='-1'])", node);
     setTimeout(() => {
-      try { focusTarget?.focus?.({ preventScroll: true }); } catch {}
+      try { focusTarget?.focus?.({ preventScroll: true }); } catch (error) { void error; }
     }, 40);
 
     window.dispatchEvent(new CustomEvent("ff:campaign-runtime:open", { detail: { name, version: VERSION } }));

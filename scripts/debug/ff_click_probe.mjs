@@ -104,7 +104,7 @@ try {
   after = await page.evaluate(state);
 } catch (e) {
   gotoError = String(e.message || e);
-  try { after = await page.evaluate(state); } catch {}
+  try { after = await page.evaluate(state); } catch (error) { void error; }
 }
 
 await page.screenshot({ path: path.join(out, "click-trace.png"), fullPage: true }).catch(() => {});
