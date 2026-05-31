@@ -16538,3 +16538,56 @@ body.ff-dashboardModernBody .ff-dashboardModern__offlineStatus[data-tone="warnin
   }
 }
 /* FF_HOMEPAGE_HEADER_BRAND_FINAL_FIX_END */
+
+/* FF_HOMEPAGE_HEADER_SUBTITLE_CLEAN_LOCK_START */
+/*
+  Final homepage/platform header lock.
+  Premium decision:
+  - Do not fight subtitle truncation.
+  - Marketing header brand should read cleanly as FutureFunded.
+  - Keep underlying shell/header contracts unchanged.
+*/
+
+@layer platform {
+  body.ff-platformBody .ff-siteHeader__brand .ff-brandMark__copy {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  body.ff-platformBody .ff-siteHeader__brand .ff-brandMark__copy strong {
+    max-width: none;
+    overflow: visible;
+    font-size: 0.82rem;
+    line-height: 1;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+
+  body.ff-platformBody .ff-siteHeader__brand .ff-brandMark__copy small {
+    display: none !important;
+  }
+
+  body.ff-platformBody .ff-brandMark {
+    min-width: auto;
+  }
+
+  body.ff-platformBody .ff-siteHeader__shell {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  body.ff-platformBody .ff-siteHeader__nav {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 700px) {
+  @layer platform {
+    body.ff-platformBody .ff-siteHeader__brand .ff-brandMark__copy strong {
+      max-width: 7.8rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+/* FF_HOMEPAGE_HEADER_SUBTITLE_CLEAN_LOCK_END */
