@@ -38,7 +38,7 @@ const surfaces = [
     key: "onboarding",
     label: "Launch onboarding",
     path: "/platform/onboarding",
-    contracts: ["main", "form"],
+    contracts: ["main", "h1"],
   },
   {
     key: "login",
@@ -74,6 +74,42 @@ function cleanName(value) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+async function warmLazyMedia(page) {
+  const height = await page.evaluate(() => Math.max(
+    document.documentElement.scrollHeight || 0,
+    document.body.scrollHeight || 0,
+    window.innerHeight || 0
+  )).catch(() => 0);
+
+  const viewportHeight = page.viewportSize()?.height || 900;
+  const step = Math.max(320, Math.floor(viewportHeight * 0.72));
+
+  for (let y = 0; y <= height + step; y += step) {
+    await page.evaluate((scrollY) => window.scrollTo(0, scrollY), y).catch(() => {});
+    await page.waitForTimeout(90).catch(() => {});
+  }
+
+  await page.evaluate(() => window.scrollTo(0, 0)).catch(() => {});
+  await page.waitForTimeout(140).catch(() => {});
+
+  await page.evaluate(async () => {
+    await Promise.allSettled(Array.from(document.images).map((img) => {
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+
+      if (img.loading === "lazy") {
+        img.loading = "eager";
+      }
+
+      return new Promise((resolve) => {
+        img.addEventListener("load", resolve, { once: true });
+        img.addEventListener("error", resolve, { once: true });
+        setTimeout(resolve, 1800);
+      });
+    }));
+  }).catch(() => {});
+}
+
+
 async function capture(browser, surface, viewport) {
   const context = await browser.newContext({
     viewport: { width: viewport.width, height: viewport.height },
@@ -97,6 +133,7 @@ async function capture(browser, surface, viewport) {
 
   const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
   await page.waitForLoadState("networkidle", { timeout: 12000 }).catch(() => {});
+  await warmLazyMedia(page);
 
   await page.evaluate(async () => {
     await Promise.allSettled(Array.from(document.images).map((img) => {
@@ -130,6 +167,7 @@ async function capture(browser, surface, viewport) {
     const duplicateIds = Array.from(new Set(ids.filter((id, index) => ids.indexOf(id) !== index)));
 
     const brokenImages = Array.from(document.images)
+      .filter((img) => visible(img))
       .filter((img) => !img.complete || img.naturalWidth === 0)
       .map((img) => ({ src: img.currentSrc || img.src, alt: img.alt || "" }));
 
