@@ -8456,3 +8456,289 @@
     --ff-campaign-desktop-max: 1220px;
   }
 }
+
+/* === FutureFunded Campaign Prestige Board Pass START === */
+/*
+  Screenshot-driven pass:
+  - hardens broken media states
+  - reduces mobile dead space
+  - keeps checkout/sponsor/share contracts untouched
+  - improves premium trust impression without changing markup
+*/
+
+@layer campaign {
+  html[data-ff-page="campaign"] {
+    --ff-prestige-tight-section: clamp(26px, 5.4vw, 54px);
+    --ff-prestige-card-line: rgba(72, 44, 25, .125);
+    --ff-prestige-media-bg:
+      radial-gradient(circle at 18% 8%, rgba(255,255,255,.92), transparent 18rem),
+      radial-gradient(circle at 88% 0%, rgba(243,95,22,.18), transparent 20rem),
+      linear-gradient(145deg, rgba(255,250,244,.96), rgba(246,232,212,.86));
+  }
+
+  .ff-campaignPage img {
+    background: var(--ff-prestige-media-bg);
+  }
+
+  .ff-campaignPage img[data-ff-media-fallback="true"] {
+    object-fit: cover;
+    object-position: center;
+    border-color: rgba(243, 95, 22, .18);
+    background: var(--ff-prestige-media-bg);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.86) inset,
+      0 14px 34px rgba(55,36,20,.09);
+  }
+
+  .ff-squadCard img,
+  .ff-teamCard img,
+  .ff-storyMedia img,
+  .ff-storyVisual img,
+  .ff-galleryCard img,
+  .ff-campaignMedia img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    background: var(--ff-prestige-media-bg);
+  }
+
+  .ff-squadCard img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .ff-teamCard img {
+    aspect-ratio: 16 / 10.5;
+  }
+
+  .ff-storyMedia img,
+  .ff-storyVisual img,
+  .ff-campaignMedia img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .ff-squadCard,
+  .ff-teamCard,
+  .ff-sponsorCard,
+  .ff-impactCard,
+  .ff-miniGrid article {
+    border-color: var(--ff-prestige-card-line);
+  }
+
+  .ff-sectionPanel {
+    border: 1px solid rgba(72, 44, 25, .095);
+  }
+
+  .ff-donatePanel {
+    border: 1px solid rgba(72, 44, 25, .10);
+  }
+
+  .ff-donateSubmit,
+  .ff-campaignPage .ff-button--primary {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .ff-donateSubmit::after,
+  .ff-campaignPage .ff-button--primary::after {
+    position: absolute;
+    inset: 1px 12%;
+    height: 1px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.42);
+    content: "";
+    pointer-events: none;
+  }
+
+  @media (max-width: 760px) {
+    .ff-campaignHero {
+      padding-block: 8px var(--ff-prestige-tight-section);
+    }
+
+    .ff-campaignHero__grid {
+      gap: 12px;
+    }
+
+    .ff-campaignHero__story {
+      min-height: auto;
+      gap: 14px;
+      padding: clamp(19px, 6vw, 28px);
+      border-radius: 26px;
+    }
+
+    .ff-heroTitle {
+      max-width: 9.9ch;
+      font-size: clamp(3rem, 14.8vw, 4.38rem);
+      line-height: .86;
+      letter-spacing: -.083em;
+    }
+
+    .ff-campaignHero .ff-lede {
+      max-width: 37ch;
+      font-size: .95rem;
+      line-height: 1.42;
+    }
+
+    .ff-heroActions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .ff-heroActions .ff-button,
+    .ff-campaignHero .ff-button--xl {
+      min-width: 0;
+      min-height: 46px;
+      padding-inline: 13px;
+      font-size: .82rem;
+    }
+
+    .ff-statGrid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .ff-statGrid article {
+      min-height: 68px;
+      padding: 10px;
+      border-radius: 16px;
+    }
+
+    .ff-statGrid span {
+      font-size: .58rem;
+      letter-spacing: .07em;
+    }
+
+    .ff-statGrid strong {
+      font-size: .9rem;
+    }
+
+    .ff-assuranceBand {
+      padding: 11px;
+      border-radius: 17px;
+    }
+
+    .ff-donatePanel {
+      position: relative;
+      top: auto;
+      width: 100%;
+      padding: 16px;
+      border-radius: 24px;
+    }
+
+    .ff-donatePanel__header h2 {
+      max-width: 13ch;
+      font-size: clamp(1.62rem, 8vw, 2.22rem);
+    }
+
+    .ff-donationAmounts {
+      gap: 7px;
+    }
+
+    .ff-donationAmount,
+    .ff-checkoutAmount,
+    button[data-ff-amount] {
+      min-height: 41px;
+      border-radius: 13px;
+      font-size: .78rem;
+    }
+
+    .ff-donorTrustStrip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ff-donorTrustStrip span {
+      min-height: 28px;
+      font-size: .66rem;
+    }
+
+    .ff-campaignSection {
+      padding-block: var(--ff-prestige-tight-section);
+    }
+
+    .ff-sectionPanel {
+      padding: clamp(16px, 5.4vw, 24px);
+      border-radius: 25px;
+    }
+
+    .ff-sectionHeader {
+      margin-bottom: 14px;
+    }
+
+    .ff-sectionHeader h2 {
+      font-size: clamp(2.05rem, 10.4vw, 3.1rem);
+      line-height: .9;
+      letter-spacing: -.073em;
+    }
+
+    .ff-sectionHeader p {
+      font-size: .9rem;
+      line-height: 1.42;
+    }
+
+    .ff-squadRail,
+    .ff-teamGrid,
+    .ff-sponsorGrid,
+    .ff-impactGrid,
+    .ff-miniGrid {
+      gap: 10px;
+    }
+
+    .ff-squadCard,
+    .ff-impactCard,
+    .ff-sponsorCard,
+    .ff-teamCard,
+    .ff-miniGrid article {
+      border-radius: 20px;
+      padding: 13px;
+    }
+
+    .ff-squadCard img,
+    .ff-teamCard img {
+      border-radius: 16px;
+    }
+
+    .ff-sectionFooter,
+    .ff-campaignFooter__grid {
+      border-radius: 20px;
+      padding: 13px;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .ff-campaignPage {
+      --ff-campaign-section: 32px;
+    }
+
+    .ff-campaignHero__story {
+      padding: 18px;
+    }
+
+    .ff-heroTitle {
+      font-size: clamp(2.85rem, 15.5vw, 3.95rem);
+    }
+
+    .ff-heroActions {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-statGrid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .ff-squadRail {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-impactGrid,
+    .ff-sponsorGrid,
+    .ff-teamGrid,
+    .ff-miniGrid {
+      grid-template-columns: 1fr;
+    }
+
+    .ff-squadCard img {
+      aspect-ratio: 16 / 8.8;
+    }
+  }
+}
+/* === FutureFunded Campaign Prestige Board Pass END === */

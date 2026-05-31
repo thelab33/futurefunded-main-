@@ -210,3 +210,70 @@
   });
 })();
 
+/* === FutureFunded Campaign Media Resilience START === */
+(() => {
+  "use strict";
+
+  const FALLBACK_SRC = "/static/images/system/ff-campaign-media-fallback.svg";
+  const BROKEN_ATTR = "data-ff-media-fallback";
+  const ORIGINAL_ATTR = "data-ff-original-src";
+
+  function isCampaignPage() {
+    return Boolean(
+      document.documentElement?.getAttribute("data-ff-page") === "campaign" ||
+      document.querySelector(".ff-campaignPage")
+    );
+  }
+
+  function repairImage(img, reason = "error") {
+    if (!img || img.nodeType !== 1 || img.getAttribute(BROKEN_ATTR) === "true") return;
+    const src = img.currentSrc || img.getAttribute("src") || "";
+    if (src.includes("ff-campaign-media-fallback.svg")) return;
+
+    img.setAttribute(ORIGINAL_ATTR, src);
+    img.setAttribute(BROKEN_ATTR, "true");
+    img.setAttribute("data-ff-media-fallback-reason", reason);
+
+    if (!img.getAttribute("alt")) {
+      img.setAttribute("alt", "FutureFunded campaign team media");
+    }
+
+    img.src = FALLBACK_SRC;
+  }
+
+  function sweepBrokenImages() {
+    if (!isCampaignPage()) return;
+
+    const images = Array.from(document.querySelectorAll(".ff-campaignPage img, body.ff-campaignBody img"));
+
+    for (const img of images) {
+      if (img.complete && img.naturalWidth === 0) {
+        repairImage(img, "sweep");
+      }
+    }
+  }
+
+  document.addEventListener(
+    "error",
+    (event) => {
+      const target = event.target;
+      if (target && target.tagName === "IMG" && isCampaignPage()) {
+        repairImage(target, "error");
+      }
+    },
+    true
+  );
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      sweepBrokenImages();
+      window.setTimeout(sweepBrokenImages, 350);
+      window.setTimeout(sweepBrokenImages, 900);
+    }, { once: true });
+  } else {
+    sweepBrokenImages();
+    window.setTimeout(sweepBrokenImages, 350);
+    window.setTimeout(sweepBrokenImages, 900);
+  }
+})();
+/* === FutureFunded Campaign Media Resilience END === */

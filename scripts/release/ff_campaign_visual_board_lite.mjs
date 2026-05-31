@@ -171,6 +171,9 @@ const md = [
     `- H1: ${r.data.h1 || "MISSING"}`,
     `- Horizontal overflow: ${r.data.overflowX ? "REVIEW" : "none detected"}`,
     `- Broken images: ${r.data.brokenImages.length}`,
+    ...(r.data.brokenImages.length
+      ? ["", "Broken image URLs:", ...r.data.brokenImages.map((src) => `- ${src}`)]
+      : []),
     `- Page height: ${r.data.scrollHeight}px`,
     "",
     "| Contract | Status | Count |",

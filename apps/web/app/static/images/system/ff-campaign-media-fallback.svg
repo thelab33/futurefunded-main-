@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-label="FutureFunded campaign media">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset=".52" stop-color="#ffe4c2"/>
+      <stop offset="1" stop-color="#f6d5a8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".18" cy=".12" r=".9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".92"/>
+      <stop offset=".52" stop-color="#ff7a1a" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#127c6f" stop-opacity=".10"/>
+    </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#372414" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" rx="54" fill="url(#bg)"/>
+  <rect width="1200" height="760" rx="54" fill="url(#glow)"/>
+  <path d="M0 610 C190 540 330 680 520 610 C740 528 872 642 1200 552 L1200 760 L0 760 Z" fill="#ffffff" opacity=".36"/>
+  <g filter="url(#shadow)">
+    <rect x="82" y="84" width="1036" height="592" rx="42" fill="#fffaf3" opacity=".86"/>
+    <rect x="108" y="110" width="984" height="540" rx="32" fill="none" stroke="#3a2113" stroke-opacity=".10" stroke-width="3"/>
+  </g>
+  <g transform="translate(148 154)">
+    <rect width="94" height="94" rx="26" fill="#17110c"/>
+    <text x="47" y="58" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="26" font-weight="900" fill="#fff7ed">FF</text>
+    <text x="0" y="154" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="900" fill="#a84310" letter-spacing="5">CAMPAIGN MEDIA</text>
+    <text x="0" y="234" font-family="Inter,Arial,sans-serif" font-size="82" font-weight="950" fill="#170f0a" letter-spacing="-5">FutureFunded</text>
+    <text x="0" y="308" font-family="Inter,Arial,sans-serif" font-size="48" font-weight="900" fill="#f35f16" letter-spacing="-2">Real teams. Real support.</text>
+    <text x="0" y="374" font-family="Inter,Arial,sans-serif" font-size="28" font-weight="700" fill="#5d4636">Secure fundraising page media fallback.</text>
+    <g transform="translate(0 450)">
+      <rect width="190" height="44" rx="22" fill="#f35f16"/>
+      <text x="95" y="29" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="900" fill="#fff7ed">Give securely</text>
+      <rect x="208" width="176" height="44" rx="22" fill="#ffffff" stroke="#3a2113" stroke-opacity=".13"/>
+      <text x="296" y="29" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="900" fill="#170f0a">Sponsor-ready</text>
+    </g>
+  </g>
+</svg>
