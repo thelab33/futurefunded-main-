@@ -588,3 +588,56 @@
     boot();
   }
 })();
+
+
+/* ff-checkout-direct-hotfix-capture-open-v1 */
+(function () {
+  "use strict";
+
+  function qs(sel) { return document.querySelector(sel); }
+
+  function openCheckout(ev) {
+    var trigger = ev.target && ev.target.closest && ev.target.closest("[data-ff-open-checkout]");
+    if (!trigger) return;
+
+    ev.preventDefault();
+    ev.stopPropagation();
+    if (ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+
+    var checkout =
+      qs("#checkout") ||
+      qs("[data-ff-checkout-sheet]") ||
+      qs("[data-ff-embedded-checkout-shell]") ||
+      qs(".ff-checkoutModal") ||
+      qs(".ff-modal");
+
+    if (!checkout) {
+      console.warn("[FutureFunded] checkout trigger clicked, but checkout shell was not found");
+      return false;
+    }
+
+    checkout.hidden = false;
+    checkout.removeAttribute("hidden");
+    checkout.setAttribute("aria-hidden", "false");
+    checkout.setAttribute("data-ff-state", "open");
+    checkout.setAttribute("data-ff-checkout-state", "open");
+
+    document.documentElement.classList.add("ff-checkout-open");
+    document.body.classList.add("ff-checkout-open");
+
+    var focusTarget =
+      checkout.querySelector("[autofocus]") ||
+      checkout.querySelector("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])");
+
+    if (focusTarget && focusTarget.focus) {
+      setTimeout(function () { focusTarget.focus({ preventScroll: true }); }, 0);
+    }
+
+    return false;
+  }
+
+  document.addEventListener("click", openCheckout, true);
+  document.addEventListener("touchend", openCheckout, true);
+
+  window.FutureFundedCheckoutHotfix = { open: openCheckout };
+})();
