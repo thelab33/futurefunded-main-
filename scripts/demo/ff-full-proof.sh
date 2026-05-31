@@ -35,7 +35,7 @@ run_step "Visual launch gate" "${FF_VISUAL_TIMEOUT:-360}" \
   "FF_OPERATOR_ACCESS_TOKEN="$FF_OPERATOR_ACCESS_TOKEN" OPERATOR_ACCESS_TOKEN="$OPERATOR_ACCESS_TOKEN" FF_VISUAL_STRICT=1 node scripts/release/ff_visual_launch_gate.mjs 2>&1 | sed -E 's/(access_token=)[A-Za-z0-9_-]+/\\1<redacted>/g'"
 
 run_step "Campaign payment smoke" "${FF_SMOKE_TIMEOUT:-240}" \
-  "node scripts/campaign-payment-smoke-safe.mjs"
+  "node scripts/campaign-payment-smoke.mjs"
 
 echo
 echo "Full proof complete."

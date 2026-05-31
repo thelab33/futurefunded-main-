@@ -1,45 +1,56 @@
 #!/usr/bin/env bash
-set -Eeuo pipefail
+# FutureFunded canonical money proof.
+# Owns only the current checkout runtime contract:
+# - ff-campaign-runtime.js opens the checkout modal
+# - ff-checkout-direct.js owns Stripe continuation
+# - scripts/campaign-payment-smoke.mjs is the canonical proof
 
-cd "$(dirname "$0")/../.." || exit 1
+set -u
+
+ROOT="${FF_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+cd "$ROOT" || exit 1
+
+export PATH="$HOME/.local/bin:$HOME/.nvm/versions/node/v20.20.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
+source .venv/bin/activate 2>/dev/null || true
 
 export FF_BASE_URL="${FF_BASE_URL:-http://127.0.0.1:5000}"
 
-source scripts/demo/_ff-proof-lib.sh
-
-trap 'cleanup_stale_proof_processes >/dev/null 2>&1 || true' EXIT
-
-echo "Running FutureFunded money-only proof against: $FF_BASE_URL"
-
-wait_for_health
-
-curl -sS \
-  -o /tmp/ff-campaign-check.html \
-  -w "Campaign HTTP: %{http_code}\n" \
-  "$FF_BASE_URL/c/connect-atx-elite"
+echo "== FutureFunded money proof =="
+echo "ROOT=$ROOT"
+echo "FF_BASE_URL=$FF_BASE_URL"
 
 python - <<'PY'
-from pathlib import Path
+import os
+import sys
+import urllib.request
 
-html = Path("/tmp/ff-campaign-check.html").read_text(encoding="utf-8", errors="replace")
-checks = {
-    "route clean": "Internal Server Error" not in html and "Traceback" not in html,
-    "campaign base marker": "campaign-index-on-campaign-base-v1" in html,
-    "ff-campaign.js rendered": "ff-campaign.js" in html,
-    "embedded checkout rendered": "ff-embedded-checkout.js" in html,
-    "checkout direct rendered": "ff-checkout-direct.js" in html,
-    "firewall rendered": "ff-donation-payload-firewall.js" in html,
-    "campaign css rendered": "campaign.css" in html,
-    "checkout modal present": 'id="checkout"' in html or "data-ff-checkout-modal" in html,
-}
-for name, ok in checks.items():
-    print(f"{'✅' if ok else '❌'} {name}")
-if not all(checks.values()):
-    raise SystemExit("Rendered campaign HTML is missing a required runtime contract.")
+base = os.environ.get("FF_BASE_URL", "http://127.0.0.1:5000").rstrip("/")
+url = base + "/healthz"
+
+try:
+    with urllib.request.urlopen(url, timeout=5) as res:
+        if not (200 <= res.status < 400):
+            raise RuntimeError(f"health status={res.status}")
+    print("✅ app health ready")
+except Exception as exc:
+    print(f"App not ready yet: {exc}")
+    sys.exit(7)
 PY
 
-run_step "Campaign payment smoke" "${FF_SMOKE_TIMEOUT:-210}" \
-  "node scripts/campaign-payment-smoke-safe.mjs"
+HEALTH_CODE="$?"
+
+if [ "$HEALTH_CODE" != "0" ]; then
+  echo "== Starting clean demo server =="
+  if command -v ffserver >/dev/null 2>&1; then
+    ffserver restart
+  elif [ -x scripts/demo/ff-demo-start.sh ]; then
+    bash scripts/demo/ff-demo-start.sh
+  else
+    echo "❌ No ffserver or ff-demo-start.sh available."
+    exit 1
+  fi
+fi
 
 echo
-echo "Money proof complete."
+echo "== Running canonical campaign payment smoke =="
+node scripts/campaign-payment-smoke.mjs
