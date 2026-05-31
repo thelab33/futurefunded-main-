@@ -9298,3 +9298,69 @@
   }
 }
 /* === FutureFunded Campaign Donor Conversion Pass 3 END === */
+
+/* === FutureFunded Campaign Real Team Media Pass START === */
+/*
+  Purpose:
+  - ensure team section uses authentic proof photos, not generated fallback cards
+  - keep cards polished after real-photo swap
+  - do not touch checkout/donate/sponsor/share contracts
+*/
+
+@layer campaign {
+  body.ff-campaignBody .ff-teamCard img,
+  body.ff-campaignBody .ff-squadCard img {
+    object-fit: cover;
+    object-position: center 38%;
+  }
+
+  body.ff-campaignBody .ff-teamCard img[src*="program-proof"],
+  body.ff-campaignBody .ff-squadCard img[src*="program-proof"],
+  body.ff-campaignBody .ff-squadCard img[src*="7thGold"],
+  body.ff-campaignBody .ff-squadCard img[src*="8thGold"] {
+    background: #120d09;
+    filter: saturate(1.08) contrast(1.03);
+  }
+
+  body.ff-campaignBody .ff-teamCard img[src*="program-proof"] {
+    aspect-ratio: 16 / 9.4;
+  }
+
+  body.ff-campaignBody .ff-squadCard img[src*="program-proof"],
+  body.ff-campaignBody .ff-squadCard img[src*="7thGold"],
+  body.ff-campaignBody .ff-squadCard img[src*="8thGold"] {
+    aspect-ratio: 16 / 9.2;
+  }
+
+  body.ff-campaignBody .ff-teamCard:has(img[src*="program-proof"])::after,
+  body.ff-campaignBody .ff-squadCard:has(img[src*="program-proof"])::after {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 0 8px;
+    border: 1px solid rgba(255,255,255,.34);
+    border-radius: 999px;
+    background: rgba(23, 17, 12, .84);
+    color: #fff7ed;
+    content: "Team proof";
+    font-size: .58rem;
+    font-weight: 950;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 24px rgba(0,0,0,.18);
+  }
+
+  @media (max-width: 760px) {
+    body.ff-campaignBody .ff-teamCard img[src*="program-proof"],
+    body.ff-campaignBody .ff-squadCard img[src*="program-proof"],
+    body.ff-campaignBody .ff-squadCard img[src*="7thGold"],
+    body.ff-campaignBody .ff-squadCard img[src*="8thGold"] {
+      aspect-ratio: 16 / 8.8;
+    }
+  }
+}
+/* === FutureFunded Campaign Real Team Media Pass END === */

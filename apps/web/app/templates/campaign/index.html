@@ -122,12 +122,12 @@
 {% set _squad_cards = squad_cards|default(_team_config.get('squad_cards'), true)|default([
   {'title': '6th Grade Gold', 'note': 'Travel + tournaments', 'image': 'images/program-proof/6th-grade.jpg'},
   {'title': '7th Grade Black', 'note': 'Entry fees + gear', 'image': 'images/program-proof/7th-grade.jpg'},
-  {'title': '8th Grade Gold', 'note': 'Hotels + meals', 'image': 'images/program-proof/6th-grade.jpg'},
-  {'title': '7th Grade Gold', 'note': 'Player development', 'image': 'images/program-proof/7th-grade.jpg'}
+  {'title': '8th Grade Gold', 'note': 'Hotels + meals', 'image': 'images/program-proof/8th-grade.jpg'},
+  {'title': '7th Grade Gold', 'note': 'Player development', 'image': 'images/7thGold.jpg'}
 ], true) %}
 {% set _team_cards = team_cards|default(_team_config.get('team_cards'), true)|default([
-  {'eyebrow': '6th Grade Gold', 'title': 'Elite kids. Big standards. Community.', 'cta': 'Support 6th Grade Gold', 'image': 'images/connect-atx-team.jpg'},
-  {'eyebrow': '7th Grade Gold', 'title': 'School, travel, gym, growth.', 'cta': 'Support 7th Grade Gold', 'image': 'images/7thBlack.png'}
+  {'eyebrow': '6th Grade Gold', 'title': 'Elite kids. Big standards. Community.', 'cta': 'Support 6th Grade Gold', 'image': 'images/program-proof/6th-grade.jpg'},
+  {'eyebrow': '7th Grade Gold', 'title': 'School, travel, gym, growth.', 'cta': 'Support 7th Grade Gold', 'image': 'images/program-proof/7th-grade.jpg'}
 ], true) %}
 {% set _sponsor_tiers = sponsor_tiers|default(_team_config.get('sponsor_tiers'), true)|default([
   {'eyebrow': 'Community', 'title': 'Community Partner', 'price': '$300', 'copy': 'Family-safe recognition for local supporters who want to help.', 'benefits': ['Name or logo on campaign', 'Reviewed placement', 'Simple sponsor onboarding']},
