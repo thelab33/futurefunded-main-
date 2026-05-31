@@ -351,6 +351,29 @@
     if (video && overlay === video) setExpandedForSelector(selectors.openVideo, open);
   }
 
+
+  function setOverlayLifecycleState(overlay, open) {
+    if (!overlay) return;
+
+    overlay.hidden = !open;
+    overlay.setAttribute("aria-hidden", open ? "false" : "true");
+
+    if (open) {
+      overlay.dataset.open = "true";
+      overlay.dataset.ffState = "open";
+      overlay.dataset.ffModalState = "open";
+      overlay.dataset.ffCheckoutState = "open";
+      overlay.classList.add("is-open", "ff-is-open");
+      return;
+    }
+
+    delete overlay.dataset.open;
+    overlay.dataset.ffState = "closed";
+    overlay.dataset.ffModalState = "closed";
+    overlay.dataset.ffCheckoutState = "closed";
+    overlay.classList.remove("is-open", "ff-is-open");
+  }
+
   function openOverlay(overlay, trigger = null) {
     if (!overlay) return;
 
@@ -361,9 +384,7 @@
     state.activeOverlay = overlay;
     state.lastTrigger = trigger || doc.activeElement || null;
 
-    overlay.hidden = false;
-    overlay.removeAttribute("aria-hidden");
-    overlay.dataset.open = "true";
+    setOverlayLifecycleState(overlay, true);
     syncOverlayToggleState(overlay, true);
 
     if (body) {
@@ -467,9 +488,7 @@
 
     resetOverlayMedia(overlay);
 
-    overlay.hidden = true;
-    overlay.setAttribute("aria-hidden", "true");
-    delete overlay.dataset.open;
+    setOverlayLifecycleState(overlay, false);
     syncOverlayToggleState(overlay, false);
 
     if (state.activeOverlay === overlay) {
