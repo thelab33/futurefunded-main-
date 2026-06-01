@@ -69,7 +69,9 @@
     "board:home": "node scripts/release/ff_homepage_screenshot_board.mjs",
     "audit:homepage-board": "node scripts/release/ff_homepage_screenshot_board.mjs",
     "board:surfaces": "node scripts/release/ff_surface_lock_board.mjs",
-    "audit:surface-lock": "node scripts/release/ff_surface_lock_board.mjs"
+    "audit:surface-lock": "node scripts/release/ff_surface_lock_board.mjs",
+    "board:onboarding": "node scripts/release/ff_onboarding_screenshot_board.mjs",
+    "audit:onboarding-board": "node scripts/release/ff_onboarding_screenshot_board.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",
