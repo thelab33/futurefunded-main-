@@ -105,3 +105,4 @@ htmlcov/
 *.log
 .DS_Store
 # === FUTUREFUNDED CLEAN ROOT GENERATED ARTIFACTS END ===
+.env.email.local
