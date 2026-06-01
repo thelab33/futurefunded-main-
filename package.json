@@ -71,7 +71,9 @@
     "board:surfaces": "node scripts/release/ff_surface_lock_board.mjs",
     "audit:surface-lock": "node scripts/release/ff_surface_lock_board.mjs",
     "board:onboarding": "node scripts/release/ff_onboarding_screenshot_board.mjs",
-    "audit:onboarding-board": "node scripts/release/ff_onboarding_screenshot_board.mjs"
+    "audit:onboarding-board": "node scripts/release/ff_onboarding_screenshot_board.mjs",
+    "board:login": "node scripts/release/ff_login_screenshot_board.mjs",
+    "audit:login-board": "node scripts/release/ff_login_screenshot_board.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",
