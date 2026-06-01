@@ -1,0 +1,35 @@
+# =========================================================
+# FutureFunded — Controlled Email Test Env
+# Local only. Copy to .env.email.local and fill real values.
+# =========================================================
+
+FF_EMAIL_TEST_TO=your-controlled-test-inbox@example.com
+FF_OPERATOR_NOTIFY_EMAIL=arodgps@gmail.com
+
+FF_EMAIL_FROM=support@getfuturefunded.com
+FF_EMAIL_REPLY_TO=support@getfuturefunded.com
+
+# SendGrid SMTP example:
+# FF_SMTP_HOST=smtp.sendgrid.net
+# FF_SMTP_USERNAME=apikey
+# FF_SMTP_PASSWORD=YOUR_SENDGRID_API_KEY
+#
+# Postmark SMTP example:
+# FF_SMTP_HOST=smtp.postmarkapp.com
+# FF_SMTP_USERNAME=YOUR_POSTMARK_SERVER_TOKEN
+# FF_SMTP_PASSWORD=YOUR_POSTMARK_SERVER_TOKEN
+#
+# Gmail app password example:
+# FF_SMTP_HOST=smtp.gmail.com
+# FF_SMTP_USERNAME=your-email@gmail.com
+# FF_SMTP_PASSWORD=your-app-password
+
+FF_SMTP_HOST=
+FF_SMTP_PORT=587
+FF_SMTP_USERNAME=
+FF_SMTP_PASSWORD=
+FF_SMTP_USE_TLS=1
+FF_SMTP_USE_SSL=0
+
+# Safety switch. Leave blank until you intentionally send only two controlled test emails.
+FF_EMAIL_REAL_SEND_CONFIRM=

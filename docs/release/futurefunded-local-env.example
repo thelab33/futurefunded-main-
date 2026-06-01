@@ -1,14 +1,15 @@
 # =========================================================
-# FutureFunded — Environment Example
-# Safe to commit. Do not put real secrets here.
+# FutureFunded — Local Dev Env
+# Local only. Do not commit this file with real secrets.
+# Copy values into .env if your loader expects .env.
 # =========================================================
 
-# App
 APP_NAME=FutureFunded
 APP_ENV=development
 ENV=development
 FLASK_ENV=development
 FF_ENV=development
+
 WEB_HOST=127.0.0.1
 WEB_PORT=5000
 API_HOST=127.0.0.1
@@ -17,14 +18,9 @@ PUBLIC_BASE_URL=http://127.0.0.1:5000
 API_BASE_URL=http://127.0.0.1:8000
 PREFERRED_URL_SCHEME=http
 
-# Security
-SECRET_KEY=replace-with-local-dev-secret
-TURNKEY_ADMIN_PIN=replace-with-local-admin-pin
-
-# Database
+SECRET_KEY=replace-with-generated-local-secret
 DATABASE_URL=sqlite:///instance/futurefunded-dev.db
 
-# Payments — Stripe test mode only
 FF_PAYMENTS_ENABLED=1
 FF_STRIPE_ENABLED=1
 STRIPE_MODE=test
@@ -38,15 +34,13 @@ FF_EXPECT_TEST_PAYMENTS=1
 FF_FORBID_LIVE_KEYS=1
 FF_STRIPE_ENFORCE_LIVE_KEYS=0
 
-# PayPal sandbox / disabled until configured
-PAYPAL_ENV=sandbox
 PAYPAL_MODE=disabled
+PAYPAL_ENV=sandbox
 PAYPAL_CLIENT_ID=
 PAYPAL_CLIENT_SECRET=
 PAYPAL_WEBHOOK_ID=
 PAYPAL_CURRENCY=USD
 
-# Email — preview by default
 FF_EMAIL_DRY_RUN=1
 FF_EMAIL_FROM=support@getfuturefunded.com
 FF_EMAIL_REPLY_TO=support@getfuturefunded.com
@@ -58,7 +52,6 @@ FF_SMTP_PASSWORD=
 FF_SMTP_USE_TLS=1
 FF_SMTP_USE_SSL=0
 
-# Demo campaign
 DEMO_MODE=preview
 DEMO_ORG_SLUG=connect-atx-elite
 DEMO_ORGANIZATION_NAME=Connect ATX Elite
@@ -71,21 +64,3 @@ DEMO_GOAL=20000
 DEMO_RAISED=11850
 DEMO_SUPPORTERS=143
 DEMO_SPONSOR_LEADS=7
-
-# Demo media
-DEMO_GALLERY_HERO=/static/images/connect-atx-team.jpg
-DEMO_GALLERY_1=/static/images/7thGold.jpg
-DEMO_GALLERY_2=/static/images/8thGold.jpg
-DEMO_TEAM_6G_PHOTO=/static/images/program-proof/6th-grade.jpg
-DEMO_TEAM_7G_PHOTO=/static/images/7thGold.jpg
-DEMO_TEAM_7B_PHOTO=/static/images/program-proof/7th-grade.jpg
-DEMO_TEAM_8G_PHOTO=/static/images/program-proof/8th-grade.jpg
-
-# Legal/contact
-CONTACT_EMAIL=hello@getfuturefunded.com
-SPONSOR_EMAIL=sponsors@getfuturefunded.com
-SUPPORT_EMAIL=support@getfuturefunded.com
-DONATIONS_EMAIL=donations@getfuturefunded.com
-TERMS_URL=/terms
-PRIVACY_URL=/privacy
-LEGAL_LAST_UPDATED=April 20, 2026
