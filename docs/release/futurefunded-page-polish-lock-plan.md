@@ -54,10 +54,17 @@ Proof expectations:
 
 Route: `/platform/onboarding`
 
-Goal:
+Status: locked after Onboarding Prestige Pass 4.
 
-- Make onboarding feel like a premium setup wizard, not a form dump.
-- Confirm mobile flow, field hierarchy, trust cues, and completion CTA.
+Required green checks:
+
+- Dedicated onboarding screenshot board passes mobile/tablet/desktop
+- Strict all-surface board passes
+- Campaign payment smoke remains green
+- Visual launch gate remains 100/100
+- Fast strict proof passes
+
+Next page: Operator login.
 
 ### Operator login
 
@@ -108,3 +115,19 @@ Every page must feel:
 5. Dashboard locked
 6. Dashboard authenticated
 7. Final release gate
+
+## Locked pages
+
+### Launch onboarding
+
+Locked after Onboarding Prestige Pass 4.
+
+Required green checks:
+
+- Dedicated onboarding screenshot board passes mobile/tablet/desktop
+- Strict all-surface board passes
+- Campaign payment smoke remains green
+- Visual launch gate remains 100/100
+- Fast strict proof passes
+
+Next page: Operator login.
