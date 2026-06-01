@@ -3009,3 +3009,161 @@ html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hand
   }
 }
 /* FF_ONBOARDING_PRESTIGE_PASS_2_END */
+
+/* FF_ONBOARDING_PRESTIGE_PASS_3_HERO_CLIP_FIX_START */
+/*
+  FutureFunded Launch Onboarding Prestige Pass 3
+  Scope: /platform/onboarding only.
+
+  Fixes:
+  - hero heading visual clipping / washed top fold
+  - above-fold spacing below sticky header
+  - keeps header macro, homepage, campaign, checkout, login, and dashboard untouched
+*/
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body {
+  --ff-ob-p3-shell: min(100% - clamp(1rem, 4vw, 2.5rem), 76rem);
+  --ff-ob-p3-wide: min(100% - clamp(1rem, 4vw, 2.5rem), 84rem);
+  --ff-ob-p3-ink: #130d09;
+  --ff-ob-p3-muted: rgba(31, 22, 15, 0.66);
+}
+
+/* Keep the operator header clean and compact */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__header {
+  width: var(--ff-ob-p3-shell);
+}
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__header .ff-brandMark__copy {
+  display: flex;
+  align-items: center;
+}
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__header .ff-brandMark__copy small {
+  display: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__header .ff-brandMark__copy strong {
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+/* Move the first card safely below the sticky header */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__main {
+  width: var(--ff-ob-p3-wide);
+  max-width: var(--ff-ob-p3-wide);
+  padding-top: calc(var(--ff-header-h, 4rem) + clamp(2rem, 4vw, 3.1rem));
+}
+
+/* Hero must not clip the first display line */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero {
+  position: relative;
+  overflow: visible !important;
+  isolation: isolate;
+  align-items: center;
+  min-height: clamp(29rem, calc(100svh - 11rem), 37rem);
+  padding-block: clamp(2.2rem, 4.6vw, 3.9rem);
+}
+
+/* Any decorative hero wash stays behind the content */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero::before,
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero::after {
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.68;
+}
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__heroCopy {
+  align-self: center;
+  align-content: center;
+  padding-block: clamp(0.45rem, 1vw, 0.8rem);
+  transform: translate3d(0, 0, 0) !important;
+}
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero h1 {
+  display: block;
+  max-width: 10.9ch;
+  overflow: visible !important;
+  padding-top: 0.14em;
+  padding-bottom: 0.04em;
+  margin: 0;
+  color: var(--ff-ob-p3-ink);
+  font-size: clamp(2.95rem, 5.75vw, 5.55rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__lede {
+  max-width: 37rem;
+  color: var(--ff-ob-p3-muted);
+}
+
+/* Readiness card should sit as proof, not compete with the heading */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__readiness {
+  align-self: center;
+  transform: none !important;
+}
+
+/* Step rail should visually belong to hero, not feel detached */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__steps {
+  margin-top: clamp(1rem, 2vw, 1.45rem);
+}
+
+/* Keep downstream sections polished after the hero shifts */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__section,
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__handoff {
+  margin-top: clamp(1.05rem, 2vw, 1.5rem);
+}
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__sectionHead h2,
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__handoff h2 {
+  overflow: visible !important;
+  padding-top: 0.08em;
+  padding-bottom: 0.02em;
+  line-height: 1;
+}
+
+/* Mobile: preserve the strong first fold while avoiding oversized hero depth */
+@media (max-width: 700px) {
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body {
+    --ff-ob-p3-shell: min(100% - 1rem, 42rem);
+    --ff-ob-p3-wide: min(100% - 1rem, 42rem);
+  }
+
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__main {
+    padding-top: calc(var(--ff-header-h, 4rem) + 1.15rem);
+  }
+
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero {
+    min-height: auto;
+    padding-block: clamp(1.35rem, 7vw, 2rem);
+    overflow: visible !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero h1 {
+    max-width: 10.4ch;
+    padding-top: 0.1em;
+    font-size: clamp(2.55rem, 12.2vw, 3.75rem);
+    line-height: 1;
+    letter-spacing: -0.052em;
+  }
+
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__header .ff-brandMark__copy strong {
+    max-width: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 430px) {
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero h1 {
+    font-size: clamp(2.38rem, 11.8vw, 3.35rem);
+  }
+}
+/* FF_ONBOARDING_PRESTIGE_PASS_3_HERO_CLIP_FIX_END */
