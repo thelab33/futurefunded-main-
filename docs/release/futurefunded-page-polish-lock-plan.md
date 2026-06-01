@@ -70,10 +70,17 @@ Next page: Operator login.
 
 Route: `/platform/login`
 
-Goal:
+Locked after Login Final Acceptance Pass 2.
 
-- Make login feel secure, calm, premium, and institutional.
-- Avoid generic admin-login styling.
+Required green checks:
+
+- Dedicated operator login screenshot board passes mobile/tablet/desktop
+- Strict all-surface board passes
+- Campaign payment smoke remains green
+- Visual launch gate remains 100/100
+- Fast strict proof passes
+
+Next page: Dashboard locked and Dashboard token.
 
 ### Operator dashboard locked state
 
