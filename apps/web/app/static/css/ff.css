@@ -16591,3 +16591,333 @@ body.ff-dashboardModernBody .ff-dashboardModern__offlineStatus[data-tone="warnin
   }
 }
 /* FF_HOMEPAGE_HEADER_SUBTITLE_CLEAN_LOCK_END */
+
+/* FF_DASHBOARD_PRESTIGE_PASS_1_START */
+/*
+  FutureFunded Dashboard Prestige Pass 1
+  Scope: authenticated operator dashboard only.
+
+  Intent:
+  - make the real dashboard feel like a premium operator command center
+  - improve mobile/tablet composure and card hierarchy
+  - preserve locked homepage, campaign, onboarding, login, checkout, and auth contracts
+*/
+
+[data-ff-dashboard-root] {
+  --ff-dash-p1-ink: #130d09;
+  --ff-dash-p1-muted: rgba(31, 22, 15, 0.66);
+  --ff-dash-p1-soft: rgba(31, 22, 15, 0.48);
+  --ff-dash-p1-line: rgba(73, 46, 27, 0.12);
+  --ff-dash-p1-line-strong: rgba(73, 46, 27, 0.18);
+  --ff-dash-p1-card: rgba(255, 255, 255, 0.88);
+  --ff-dash-p1-card-strong: rgba(255, 255, 255, 0.94);
+  --ff-dash-p1-orange: #f35f16;
+  --ff-dash-p1-orange-2: #ff7a1a;
+  --ff-dash-p1-green: #0f766e;
+  --ff-dash-p1-brown: #2d170f;
+  --ff-dash-p1-radius: clamp(1.05rem, 2vw, 1.45rem);
+  --ff-dash-p1-radius-xl: clamp(1.35rem, 3vw, 2rem);
+  --ff-dash-p1-shadow: 0 22px 72px rgba(55, 36, 20, 0.12);
+  --ff-dash-p1-shadow-soft: 0 14px 44px rgba(55, 36, 20, 0.08);
+}
+
+/* Authenticated shell only */
+[data-ff-dashboard-root],
+[data-ff-operator-root] {
+  color: var(--ff-dash-p1-ink);
+}
+
+/* Header/nav: calm product shell */
+[data-ff-dashboard-root] [data-ff-header],
+[data-ff-dashboard-root] .ffShellHeader,
+[data-ff-dashboard-root] .ff-siteHeader {
+  margin-bottom: clamp(0.85rem, 2vw, 1.35rem);
+}
+
+[data-ff-dashboard-root] .ffShellHeader__shell,
+[data-ff-dashboard-root] .ff-siteHeader__shell {
+  min-height: 3.22rem;
+  border: 1px solid rgba(73, 46, 27, 0.105);
+  border-radius: 1.15rem;
+  background: rgba(255, 250, 242, 0.9);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.82) inset,
+    0 14px 42px rgba(55, 36, 20, 0.075);
+  backdrop-filter: blur(18px) saturate(1.16);
+  -webkit-backdrop-filter: blur(18px) saturate(1.16);
+}
+
+/* Main dashboard rhythm */
+[data-ff-dashboard-root] .ff-dashboardModern,
+[data-ff-dashboard-root].ff-dashboardModern,
+[data-ff-dashboard-root] [class*="dashboardModern"] {
+  scroll-margin-top: 5rem;
+}
+
+[data-ff-dashboard-root] {
+  width: min(100% - clamp(1rem, 4vw, 2.5rem), 86rem);
+  max-width: min(100% - clamp(1rem, 4vw, 2.5rem), 86rem);
+  margin-inline: auto;
+}
+
+/* Hero / command center */
+[data-ff-dashboard-root] .ff-dashboardModern__hero,
+[data-ff-dashboard-root] [class*="dashboardModern__hero"] {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.46fr);
+  gap: clamp(1rem, 2.4vw, 1.65rem);
+  align-items: center;
+  padding: clamp(1.15rem, 3vw, 2.35rem);
+  border: 1px solid var(--ff-dash-p1-line);
+  border-radius: var(--ff-dash-p1-radius-xl);
+  background:
+    radial-gradient(circle at 88% 8%, rgba(15, 118, 110, 0.09), transparent 20rem),
+    radial-gradient(circle at 12% 8%, rgba(255, 122, 26, 0.13), transparent 18rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(255, 248, 240, 0.86));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.84) inset,
+    var(--ff-dash-p1-shadow);
+}
+
+[data-ff-dashboard-root] .ff-dashboardModern__hero h1,
+[data-ff-dashboard-root] [class*="dashboardModern__hero"] h1 {
+  max-width: 10.8ch;
+  margin: 0;
+  color: var(--ff-dash-p1-ink);
+  font-size: clamp(2.55rem, 5.2vw, 5.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+[data-ff-dashboard-root] .ff-dashboardModern__hero p,
+[data-ff-dashboard-root] [class*="dashboardModern__hero"] p {
+  max-width: 42rem;
+  color: var(--ff-dash-p1-muted);
+  font-size: clamp(0.95rem, 1.08vw, 1.04rem);
+  line-height: 1.58;
+}
+
+/* Summary and KPI cards */
+[data-ff-dashboard-root] .ff-dashboardModern__summary,
+[data-ff-dashboard-root] [class*="dashboardModern__summary"],
+[data-ff-dashboard-root] .ff-dashboardModern__kpis,
+[data-ff-dashboard-root] [class*="dashboardModern__kpis"] {
+  gap: clamp(0.72rem, 1.5vw, 1rem);
+}
+
+[data-ff-dashboard-root] .ff-dashboardModern__kpis article,
+[data-ff-dashboard-root] [class*="dashboardModern__kpis"] article,
+[data-ff-dashboard-root] .ff-dashboardModern__summary article,
+[data-ff-dashboard-root] [class*="dashboardModern__summary"] article {
+  border: 1px solid rgba(73, 46, 27, 0.105);
+  border-radius: var(--ff-dash-p1-radius);
+  background: var(--ff-dash-p1-card);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.78) inset,
+    var(--ff-dash-p1-shadow-soft);
+}
+
+[data-ff-dashboard-root] .ff-dashboardModern__kpis strong,
+[data-ff-dashboard-root] [class*="dashboardModern__kpis"] strong,
+[data-ff-dashboard-root] .ff-dashboardModern__summary strong,
+[data-ff-dashboard-root] [class*="dashboardModern__summary"] strong {
+  color: var(--ff-dash-p1-ink);
+  letter-spacing: -0.035em;
+}
+
+/* Progress / meter areas */
+[data-ff-dashboard-root] progress,
+[data-ff-dashboard-root] [role="progressbar"],
+[data-ff-dashboard-root] .ff-progress,
+[data-ff-dashboard-root] [class*="progress"] {
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+[data-ff-dashboard-root] [class*="meter"],
+[data-ff-dashboard-root] [class*="progress"] {
+  accent-color: var(--ff-dash-p1-orange);
+}
+
+/* Board panels */
+[data-ff-dashboard-root] .ff-dashboardModern__board,
+[data-ff-dashboard-root] [class*="dashboardModern__board"],
+[data-ff-dashboard-root] .ff-dashboardModern__panel,
+[data-ff-dashboard-root] [class*="dashboardModern__panel"],
+[data-ff-dashboard-root] [data-ff-operator-records],
+[data-ff-dashboard-root] [data-ff-dashboard-operations],
+[data-ff-dashboard-root] [data-ff-dashboard-exec-assistant-slot] {
+  border: 1px solid var(--ff-dash-p1-line);
+  border-radius: var(--ff-dash-p1-radius-xl);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 122, 26, 0.075), transparent 18rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.93), rgba(255, 250, 243, 0.85));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.82) inset,
+    var(--ff-dash-p1-shadow-soft);
+}
+
+/* Forms inside the operator dashboard */
+[data-ff-dashboard-root] form,
+[data-ff-dashboard-root] [data-ff-offline-donation-form] {
+  border-color: rgba(73, 46, 27, 0.105);
+}
+
+[data-ff-dashboard-root] input,
+[data-ff-dashboard-root] textarea,
+[data-ff-dashboard-root] select {
+  min-height: 2.72rem;
+  border: 1px solid rgba(73, 46, 27, 0.105);
+  border-radius: 0.82rem;
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--ff-dash-p1-ink);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.72) inset;
+}
+
+[data-ff-dashboard-root] textarea {
+  min-height: 5.35rem;
+}
+
+[data-ff-dashboard-root] input:focus,
+[data-ff-dashboard-root] textarea:focus,
+[data-ff-dashboard-root] select:focus {
+  border-color: rgba(243, 95, 22, 0.42);
+  box-shadow:
+    0 0 0 4px rgba(243, 95, 22, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.76) inset;
+  outline: none;
+}
+
+/* Buttons and action hierarchy */
+[data-ff-dashboard-root] button,
+[data-ff-dashboard-root] .ff-button,
+[data-ff-dashboard-root] a[class*="button"],
+[data-ff-dashboard-root] a[class*="Button"] {
+  border-radius: 999px;
+  font-weight: 900;
+}
+
+[data-ff-dashboard-root] button[type="submit"],
+[data-ff-dashboard-root] .ff-button--primary,
+[data-ff-dashboard-root] a[href*="/c/"],
+[data-ff-dashboard-root] a[href*="export"] {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.24) inset,
+    0 14px 34px rgba(243, 95, 22, 0.16);
+}
+
+/* Tables/lists/records: less spreadsheet, more command center */
+[data-ff-dashboard-root] table,
+[data-ff-dashboard-root] [role="table"] {
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid rgba(73, 46, 27, 0.105);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+[data-ff-dashboard-root] th,
+[data-ff-dashboard-root] td {
+  border-bottom: 1px solid rgba(73, 46, 27, 0.08);
+}
+
+[data-ff-dashboard-root] th {
+  color: rgba(31, 22, 15, 0.58);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Assistant / operations panels */
+[data-ff-dashboard-root] .launchAssistant,
+[data-ff-dashboard-root] [class*="launchAssistant"],
+[data-ff-dashboard-root] [data-ff-dashboard-exec-assistant-slot] {
+  isolation: isolate;
+}
+
+[data-ff-dashboard-root] .launchAssistant h2,
+[data-ff-dashboard-root] [class*="launchAssistant"] h2,
+[data-ff-dashboard-root] [data-ff-dashboard-exec-assistant-slot] h2 {
+  max-width: 12ch;
+  line-height: 1;
+  letter-spacing: -0.052em;
+}
+
+/* Mobile command center: prioritize the fundraiser, progress, and next action */
+@media (max-width: 980px) {
+  [data-ff-dashboard-root] {
+    width: min(100% - 1rem, 48rem);
+    max-width: min(100% - 1rem, 48rem);
+  }
+
+  [data-ff-dashboard-root] .ff-dashboardModern__hero,
+  [data-ff-dashboard-root] [class*="dashboardModern__hero"] {
+    grid-template-columns: 1fr;
+    padding: clamp(1rem, 5vw, 1.45rem);
+  }
+
+  [data-ff-dashboard-root] .ff-dashboardModern__hero h1,
+  [data-ff-dashboard-root] [class*="dashboardModern__hero"] h1 {
+    max-width: 10.4ch;
+    font-size: clamp(2.35rem, 10.8vw, 3.65rem);
+    line-height: 1.02;
+    letter-spacing: -0.052em;
+  }
+
+  [data-ff-dashboard-root] .ff-dashboardModern__kpis,
+  [data-ff-dashboard-root] [class*="dashboardModern__kpis"],
+  [data-ff-dashboard-root] .ff-dashboardModern__summary,
+  [data-ff-dashboard-root] [class*="dashboardModern__summary"] {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  [data-ff-dashboard-root] {
+    width: min(100% - 0.78rem, 42rem);
+    max-width: min(100% - 0.78rem, 42rem);
+  }
+
+  [data-ff-dashboard-root] .ffShellHeader__shell,
+  [data-ff-dashboard-root] .ff-siteHeader__shell {
+    min-height: 3.1rem;
+    border-radius: 1.05rem;
+  }
+
+  [data-ff-dashboard-root] .ff-dashboardModern__hero,
+  [data-ff-dashboard-root] [class*="dashboardModern__hero"],
+  [data-ff-dashboard-root] .ff-dashboardModern__board,
+  [data-ff-dashboard-root] [class*="dashboardModern__board"],
+  [data-ff-dashboard-root] .ff-dashboardModern__panel,
+  [data-ff-dashboard-root] [class*="dashboardModern__panel"],
+  [data-ff-dashboard-root] [data-ff-operator-records],
+  [data-ff-dashboard-root] [data-ff-dashboard-operations],
+  [data-ff-dashboard-root] [data-ff-dashboard-exec-assistant-slot] {
+    border-radius: 1.25rem;
+  }
+
+  [data-ff-dashboard-root] .ff-dashboardModern__hero h1,
+  [data-ff-dashboard-root] [class*="dashboardModern__hero"] h1 {
+    font-size: clamp(2.18rem, 10.8vw, 3.18rem);
+  }
+
+  [data-ff-dashboard-root] button,
+  [data-ff-dashboard-root] .ff-button,
+  [data-ff-dashboard-root] a[class*="button"],
+  [data-ff-dashboard-root] a[class*="Button"] {
+    min-height: 2.65rem;
+  }
+}
+
+@media (max-width: 430px) {
+  [data-ff-dashboard-root] .ff-dashboardModern__hero h1,
+  [data-ff-dashboard-root] [class*="dashboardModern__hero"] h1 {
+    font-size: clamp(2.02rem, 10.4vw, 2.92rem);
+  }
+}
+/* FF_DASHBOARD_PRESTIGE_PASS_1_END */
