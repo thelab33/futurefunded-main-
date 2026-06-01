@@ -138,3 +138,25 @@ Required green checks:
 - Fast strict proof passes
 
 Next page: Operator login.
+
+### Dashboard locked + dashboard session
+
+Routes:
+
+- `/platform/dashboard`
+- Session-authenticated `/platform/dashboard` after `/platform/login`
+
+Locked after Dashboard Prestige Pass 1.
+
+Required green checks:
+
+- Dedicated dashboard screenshot board passes locked/session mobile/tablet/desktop
+- Strict all-surface board passes
+- Campaign payment smoke remains green
+- Visual launch gate remains 100/100
+- Fast strict proof passes
+
+Notes:
+
+- Dashboard visual authority is the dedicated dashboard session board.
+- Token URL may remain a local demo helper, but the real operator workspace is verified through session login.
