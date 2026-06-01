@@ -54,12 +54,12 @@ FF_SMTP_USE_SSL=0
 
 DEMO_MODE=preview
 DEMO_ORG_SLUG=connect-atx-elite
-DEMO_ORGANIZATION_NAME=Connect ATX Elite
+DEMO_ORGANIZATION_NAME="Connect ATX Elite"
 DEMO_CAMPAIGN_SLUG=connect-atx-elite
-DEMO_CAMPAIGN_NAME=Spring Fundraiser
-DEMO_LOCATION=Austin, TX
-DEMO_HEADLINE=Fuel the season. Fund the future.
-DEMO_SUBHEAD=Back the athletes.
+DEMO_CAMPAIGN_NAME="Spring Fundraiser"
+DEMO_LOCATION="Austin, TX"
+DEMO_HEADLINE="Fuel the season. Fund the future."
+DEMO_SUBHEAD="Back the athletes."
 DEMO_GOAL=20000
 DEMO_RAISED=11850
 DEMO_SUPPORTERS=143
