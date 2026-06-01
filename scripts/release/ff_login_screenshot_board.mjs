@@ -145,6 +145,7 @@ async function capture(browser, viewport) {
       actions,
       sections,
       contracts: {
+        flagship: !!document.querySelector('[data-ff-login-flagship]'),
         main: !!document.querySelector("main"),
         header: !!document.querySelector("[data-ff-header]"),
         formOrFields: !!document.querySelector("form") || fields.length > 0,
