@@ -445,6 +445,125 @@ def create_app(config_object: type[Config] | str | None = None) -> Flask:
     app.wsgi_app = _ff_console_hygiene_final_csp_wsgi_app
     # === FutureFunded hoi-console-hygiene-csp-final-header-v3 END ===
 
+
+    # FutureFunded platform meta routes — ff-platform-meta-routes-v1
+
+    # These keep production crawlers, share previews, and security contacts predictable.
+
+    from flask import Response, request
+
+
+    if not app.view_functions.get("ff_robots_txt"):
+
+        @app.get("/robots.txt", endpoint="ff_robots_txt")
+
+        def ff_robots_txt():
+
+            base_url = request.url_root.rstrip("/")
+
+            body = "\n".join([
+
+                "User-agent: *",
+
+                "Allow: /",
+
+                "Disallow: /platform/dashboard",
+
+                "",
+
+                f"Sitemap: {base_url}/sitemap.xml",
+
+                "",
+
+            ])
+
+            return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+    if not app.view_functions.get("ff_sitemap_xml"):
+
+        @app.get("/sitemap.xml", endpoint="ff_sitemap_xml")
+
+        def ff_sitemap_xml():
+
+            base_url = request.url_root.rstrip("/")
+
+            paths = [
+
+                "/platform/",
+
+                "/c/connect-atx-elite",
+
+                "/platform/onboarding",
+
+                "/platform/login",
+
+                "/privacy",
+
+                "/terms",
+
+            ]
+
+            items = []
+
+            for path in paths:
+
+                loc = base_url + path
+
+                items.append(
+
+                    "  <url>"
+
+                    f"<loc>{loc}</loc>"
+
+                    "<changefreq>weekly</changefreq>"
+
+                    "<priority>0.8</priority>"
+
+                    "</url>"
+
+                )
+
+            xml = (
+
+                '<?xml version="1.0" encoding="UTF-8"?>\n'
+
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+
+                + "\n".join(items)
+
+                + "\n</urlset>\n"
+
+            )
+
+            return Response(xml, mimetype="application/xml; charset=utf-8")
+
+
+    if not app.view_functions.get("ff_security_txt"):
+
+        @app.get("/.well-known/security.txt")
+
+        @app.get("/security.txt", endpoint="ff_security_txt_alias")
+
+        def ff_security_txt():
+
+            base_url = request.url_root.rstrip("/")
+
+            body = "\n".join([
+
+                "Contact: mailto:support@getfuturefunded.com",
+
+                f"Canonical: {base_url}/.well-known/security.txt",
+
+                "Preferred-Languages: en",
+
+                "",
+
+            ])
+
+            return Response(body, mimetype="text/plain; charset=utf-8")
+
+
     return app
 def _ensure_instance_path(app: Flask) -> None:
     Path(app.instance_path).mkdir(parents=True, exist_ok=True)
