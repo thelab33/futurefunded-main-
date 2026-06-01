@@ -73,7 +73,9 @@
     "board:onboarding": "node scripts/release/ff_onboarding_screenshot_board.mjs",
     "audit:onboarding-board": "node scripts/release/ff_onboarding_screenshot_board.mjs",
     "board:login": "node scripts/release/ff_login_screenshot_board.mjs",
-    "audit:login-board": "node scripts/release/ff_login_screenshot_board.mjs"
+    "audit:login-board": "node scripts/release/ff_login_screenshot_board.mjs",
+    "board:dashboard": "node scripts/release/ff_dashboard_screenshot_board.mjs",
+    "audit:dashboard-board": "node scripts/release/ff_dashboard_screenshot_board.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",
