@@ -3167,3 +3167,139 @@ html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hand
   }
 }
 /* FF_ONBOARDING_PRESTIGE_PASS_3_HERO_CLIP_FIX_END */
+
+/* FF_ONBOARDING_PRESTIGE_PASS_4_TOPFOLD_START */
+/*
+  FutureFunded Launch Onboarding Prestige Pass 4
+  Scope: /platform/onboarding only.
+
+  Final top-fold correction:
+  - moves hero content below the washed header glow
+  - removes accidental visual overlap from decorative hero layers
+  - preserves dedicated onboarding board, surface board, and strict proof contracts
+*/
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body {
+  --ff-ob-p4-shell: min(100% - clamp(1rem, 4vw, 2.5rem), 76rem);
+  --ff-ob-p4-wide: min(100% - clamp(1rem, 4vw, 2.5rem), 84rem);
+  --ff-ob-p4-top-clearance: clamp(2.6rem, 5vw, 4.4rem);
+  --ff-ob-p4-hero-pad-y: clamp(2.85rem, 5.6vw, 4.9rem);
+  --ff-ob-p4-ink: #130d09;
+  --ff-ob-p4-muted: rgba(31, 22, 15, 0.66);
+}
+
+/* Stop decorative wash from crossing over the actual heading. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero::before,
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero::after {
+  opacity: 0.42 !important;
+  filter: none !important;
+}
+
+/* Give the page real top clearance below the sticky shell. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__main {
+  width: var(--ff-ob-p4-wide);
+  max-width: var(--ff-ob-p4-wide);
+  padding-top: calc(var(--ff-header-h, 4rem) + var(--ff-ob-p4-top-clearance)) !important;
+}
+
+/* Make the hero itself a clean panel; content starts inside the card, not under the glow. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero {
+  overflow: hidden !important;
+  align-items: center;
+  min-height: clamp(30rem, calc(100svh - 12rem), 38rem);
+  padding-top: var(--ff-ob-p4-hero-pad-y) !important;
+  padding-bottom: clamp(2.25rem, 4.4vw, 3.9rem) !important;
+  background:
+    radial-gradient(circle at 82% 10%, rgba(15, 118, 110, 0.055), transparent 24rem),
+    radial-gradient(circle at 18% 16%, rgba(255, 237, 213, 0.38), transparent 24rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 237, 0.86)) !important;
+}
+
+/* Keep all hero children safely above decoration. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* Hard reset any previous transform/negative alignment on the hero copy. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__heroCopy {
+  align-self: center;
+  align-content: center;
+  transform: none !important;
+  translate: none !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Heading should breathe like a product headline, not scrape the top of the card. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero h1 {
+  display: block;
+  overflow: visible !important;
+  max-width: 10.8ch;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--ff-ob-p4-ink);
+  font-size: clamp(2.9rem, 5.45vw, 5.3rem);
+  line-height: 1.03;
+  letter-spacing: -0.056em;
+  text-wrap: balance;
+}
+
+/* Slightly calmer lede so the first fold feels intentional. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__lede {
+  max-width: 36rem;
+  color: var(--ff-ob-p4-muted);
+  line-height: 1.58;
+}
+
+/* Readiness card remains premium but no longer competes with the heading. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__readiness {
+  align-self: center;
+  transform: none !important;
+}
+
+/* Keep section cards aligned after the hero height correction. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__steps {
+  margin-top: clamp(1.1rem, 2vw, 1.55rem);
+}
+
+@media (min-width: 981px) {
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero {
+    grid-template-columns: minmax(0, 0.98fr) minmax(22rem, 0.55fr);
+  }
+}
+
+@media (max-width: 700px) {
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body {
+    --ff-ob-p4-shell: min(100% - 1rem, 42rem);
+    --ff-ob-p4-wide: min(100% - 1rem, 42rem);
+    --ff-ob-p4-top-clearance: 1.25rem;
+    --ff-ob-p4-hero-pad-y: clamp(1.45rem, 7vw, 2.25rem);
+  }
+
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__main {
+    width: var(--ff-ob-p4-wide);
+    max-width: var(--ff-ob-p4-wide);
+  }
+
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero {
+    min-height: auto;
+    padding-inline: clamp(1rem, 5vw, 1.35rem);
+    padding-bottom: clamp(1.35rem, 6vw, 2rem) !important;
+    border-radius: 1.28rem;
+  }
+
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero h1 {
+    max-width: 10.2ch;
+    font-size: clamp(2.46rem, 11.8vw, 3.55rem);
+    line-height: 1.02;
+    letter-spacing: -0.05em;
+  }
+}
+
+@media (max-width: 430px) {
+  html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__hero h1 {
+    font-size: clamp(2.32rem, 11.3vw, 3.25rem);
+  }
+}
+/* FF_ONBOARDING_PRESTIGE_PASS_4_TOPFOLD_END */
