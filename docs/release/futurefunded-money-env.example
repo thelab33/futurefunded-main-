@@ -1,0 +1,42 @@
+# FutureFunded Money Ops Environment Example
+# Copy to your real environment manager. Do not commit real secrets.
+
+# Database
+# Local dev example:
+DATABASE_URL=sqlite:///instance/futurefunded-dev.db
+# Production should be a managed database, usually Postgres:
+# DATABASE_URL=postgresql+psycopg://USER:PASSWORD@HOST:5432/DBNAME
+
+# Stripe test mode
+STRIPE_PUBLIC_KEY=pk_test_REPLACE_ME
+STRIPE_PUBLISHABLE_KEY=pk_test_REPLACE_ME
+STRIPE_SECRET_KEY=sk_test_REPLACE_ME
+STRIPE_WEBHOOK_SECRET=whsec_REPLACE_ME
+FF_PAYMENTS_ENABLED=1
+FF_STRIPE_ENABLED=1
+FF_EXPECT_TEST_PAYMENTS=1
+FF_FORBID_LIVE_KEYS=1
+
+# PayPal sandbox
+PAYPAL_CLIENT_ID=REPLACE_ME
+PAYPAL_CLIENT_SECRET=REPLACE_ME
+PAYPAL_ENV=sandbox
+
+# Email delivery
+# Option A: SMTP/Postmark/etc.
+FF_EMAIL_DRY_RUN=1
+FF_EMAIL_FROM=support@getfuturefunded.com
+FF_EMAIL_REPLY_TO=support@getfuturefunded.com
+FF_SMTP_HOST=
+FF_SMTP_PORT=587
+FF_SMTP_USERNAME=
+FF_SMTP_PASSWORD=
+FF_SMTP_USE_TLS=1
+
+# Option B: provider API if implemented
+SENDGRID_API_KEY=
+RESEND_API_KEY=
+POSTMARK_API_TOKEN=
+
+# Operator notifications
+FF_OPERATOR_NOTIFY_EMAIL=arodgps@gmail.com
