@@ -3303,3 +3303,318 @@ html[data-ff-page="platform-onboarding"] body.ffOnboardV2Body .ffOnboardV2__step
   }
 }
 /* FF_ONBOARDING_PRESTIGE_PASS_4_TOPFOLD_END */
+
+/* ==========================================================================
+   FutureFunded — Onboarding Conversion Polish Pass 1
+   Marker: FF_ONBOARDING_CONVERSION_POLISH_PASS_1
+
+   Scope:
+   - /platform/onboarding only
+   - CSS-only visual/conversion polish
+   - Preserve ff-onboarding.js, form names, data hooks, save button contracts
+========================================================================== */
+
+body[data-ff-surface="platform-onboarding"] {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__main {
+  padding-bottom: clamp(34px, 5vw, 72px);
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__hero::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 90, 31, .16), transparent 34%),
+    radial-gradient(circle at 92% 14%, rgba(15, 118, 110, .14), transparent 32%);
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__heroCopy {
+  max-width: 660px;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__hero h1,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__sectionHead h2,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__handoff h2,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__themePreview h3 {
+  text-wrap: balance;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__lede,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__sectionHead p,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__handoff p,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__miniNote {
+  text-wrap: pretty;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__readiness {
+  box-shadow:
+    0 28px 80px rgba(55, 36, 20, .18),
+    inset 0 1px 0 rgba(255, 255, 255, .16);
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__readinessHead span {
+  min-width: 58px;
+  justify-content: center;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__meter {
+  height: 10px;
+  border-radius: 999px;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__readiness dl {
+  gap: .65rem;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__readiness dl div {
+  min-height: 42px;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__steps article {
+  min-height: 154px;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__section {
+  position: relative;
+  overflow: hidden;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__section::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  opacity: .72;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255, 90, 31, .82), rgba(15, 118, 110, .42), transparent);
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__sectionHead {
+  max-width: 680px;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid {
+  align-items: start;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid label,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__themeControls label {
+  gap: .45rem;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid label > span,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__themeControls label > span {
+  color: rgba(46, 35, 26, .76);
+  font-size: .75rem;
+  letter-spacing: .045em;
+  text-transform: none;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid input,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid textarea,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid select,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__themeControls input {
+  min-height: 48px;
+  border-radius: 14px;
+  border-color: rgba(72, 44, 25, .13);
+  background: rgba(255, 255, 255, .88);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .72) inset,
+    0 8px 20px rgba(55, 36, 20, .045);
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid input:focus,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid textarea:focus,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid select:focus,
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__themeControls input:focus {
+  outline: 3px solid rgba(255, 90, 31, .22);
+  border-color: rgba(255, 90, 31, .54);
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__notice {
+  border-color: rgba(15, 118, 110, .18);
+  background:
+    linear-gradient(180deg, rgba(236, 253, 245, .88), rgba(255, 255, 255, .86));
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__notice strong {
+  color: #0f766e;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__presetRow button {
+  min-height: 36px;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__themePreview {
+  align-self: stretch;
+  min-height: 100%;
+  box-shadow:
+    0 28px 80px rgba(70, 31, 12, .22),
+    inset 0 1px 0 rgba(255, 255, 255, .16);
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__packageGrid article {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__packageGrid article ul {
+  margin-top: auto;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__handoff {
+  align-items: center;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__handoffActions {
+  align-items: center;
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__btn--primary {
+  box-shadow:
+    0 18px 44px rgba(255, 90, 31, .24),
+    inset 0 1px 0 rgba(255, 255, 255, .22);
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__btn--primary:hover {
+  transform: translateY(-1px);
+}
+
+body[data-ff-surface="platform-onboarding"] .ffOnboardV2__saveNote {
+  border-color: rgba(72, 44, 25, .1);
+  background: rgba(255, 255, 255, .72);
+}
+
+@media (min-width: 981px) {
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__hero {
+    grid-template-columns: minmax(0, 1.02fr) minmax(300px, .58fr);
+    align-items: center;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__readiness {
+    justify-self: center;
+    width: min(100%, 360px);
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__section {
+    padding-block: clamp(28px, 4vw, 48px);
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__brandGrid {
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__main {
+    padding-inline: 10px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__hero,
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__section,
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__handoff {
+    border-radius: 22px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__hero {
+    gap: 16px;
+    padding: 18px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__hero h1 {
+    font-size: clamp(2.15rem, 10.4vw, 3.05rem);
+    line-height: 1.02;
+    letter-spacing: -.052em;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__lede {
+    font-size: .95rem;
+    line-height: 1.56;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__pills {
+    gap: .45rem;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__pills span:nth-child(n + 4) {
+    display: none;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__actions,
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__handoffActions {
+    gap: .55rem;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__btn {
+    min-height: 44px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__steps {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__steps article {
+    min-height: auto;
+    padding: 14px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__section {
+    padding: 18px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__sectionHead h2,
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__handoff h2 {
+    font-size: clamp(1.75rem, 8.4vw, 2.55rem);
+    line-height: 1.04;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid {
+    gap: 12px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__formGrid textarea {
+    min-height: 96px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__brandGrid {
+    gap: 14px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__themePreview {
+    border-radius: 20px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__packageGrid {
+    gap: 12px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__packageGrid article {
+    min-height: auto;
+    padding: 14px;
+  }
+
+  body[data-ff-surface="platform-onboarding"] .ffOnboardV2__handoff {
+    padding: 18px;
+  }
+}
+
+/* FF_ONBOARDING_CONVERSION_POLISH_PASS_1_END */
