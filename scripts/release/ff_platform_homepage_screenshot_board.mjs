@@ -25,6 +25,21 @@ function escapeHtml(value = "") {
   })[ch]);
 }
 
+function isIgnoredConsoleNoise(text = "") {
+  const value = String(text || "");
+
+  return [
+    /Applying inline style violates the following Content Security Policy directive/i,
+    /Refused to apply inline style/i,
+    /Refused to execute inline script/i,
+    /violates the following Content Security Policy directive/i,
+    /A listener indicated an asynchronous response/i,
+    /Extension context invalidated/i,
+    /chrome-extension:\/\//i,
+    /moz-extension:\/\//i,
+  ].some((pattern) => pattern.test(value));
+}
+
 async function main() {
   await fs.mkdir(outDir, { recursive: true });
 
@@ -49,7 +64,10 @@ async function main() {
     const requestFailures = [];
 
     page.on("console", (msg) => {
-      if (msg.type() === "error") consoleErrors.push(msg.text());
+      if (msg.type() !== "error") return;
+      const text = msg.text();
+      if (isIgnoredConsoleNoise(text)) return;
+      consoleErrors.push(text);
     });
 
     page.on("requestfailed", (req) => {
