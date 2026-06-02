@@ -16921,3 +16921,702 @@ body.ff-dashboardModernBody .ff-dashboardModern__offlineStatus[data-tone="warnin
   }
 }
 /* FF_DASHBOARD_PRESTIGE_PASS_1_END */
+
+
+
+
+/* ==========================================================================
+   FutureFunded — Full Platform Product Page Transformation
+   Marker: FF_PLATFORM_FULL_PRODUCT_TRANSFORM_V1
+
+   Scope:
+   - /platform/ homepage
+   - Product marketing page authority
+   - No campaign/payment/auth/dashboard runtime changes
+========================================================================== */
+
+.ff-platformProductPage {
+  background:
+    radial-gradient(circle at top left, rgba(245, 158, 11, .18), transparent 30rem),
+    radial-gradient(circle at top right, rgba(59, 130, 246, .13), transparent 34rem),
+    linear-gradient(180deg, #fffaf2 0%, #ffffff 42%, #f8fafc 100%);
+  color: #0f172a;
+}
+
+.ff-platformProduct {
+  overflow: clip;
+}
+
+.ff-productHero,
+.ff-productSection,
+.ff-productTrust,
+.ff-productCaseStudy,
+.ff-productReadiness,
+.ff-productFinalCta {
+  position: relative;
+  isolation: isolate;
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+
+.ff-productHero {
+  padding-top: clamp(48px, 8vw, 110px);
+  padding-bottom: clamp(36px, 7vw, 92px);
+}
+
+.ff-productHero__shell,
+.ff-productTrust__shell,
+.ff-productSection,
+.ff-productCaseStudy,
+.ff-productReadiness,
+.ff-productFinalCta {
+  width: min(1180px, 100%);
+  margin-inline: auto;
+}
+
+.ff-productHero__shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(340px, .82fr);
+  gap: clamp(22px, 5vw, 72px);
+  align-items: center;
+}
+
+.ff-productEyebrow,
+.ff-productKicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  margin: 0 0 1rem;
+  color: rgba(15, 23, 42, .64);
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: .105em;
+  text-transform: uppercase;
+}
+
+.ff-productEyebrow span {
+  width: .65rem;
+  height: .65rem;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 7px rgba(34, 197, 94, .14);
+}
+
+.ff-productHero h1 {
+  max-width: 880px;
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(3.1rem, 8.8vw, 7.6rem);
+  line-height: .86;
+  letter-spacing: -.088em;
+}
+
+.ff-productHero__lead {
+  max-width: 720px;
+  margin: clamp(18px, 2.5vw, 28px) 0 0;
+  color: rgba(15, 23, 42, .68);
+  font-size: clamp(1.05rem, 1.55vw, 1.24rem);
+  line-height: 1.72;
+}
+
+.ff-productHero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .85rem;
+  margin-top: clamp(22px, 3vw, 34px);
+}
+
+.ff-productButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: .82rem 1.1rem;
+  border-radius: 999px;
+  font-weight: 950;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.ff-productButton:hover {
+  transform: translateY(-1px);
+}
+
+.ff-productButton--primary {
+  color: #ffffff;
+  background: #0f172a;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, .22);
+}
+
+.ff-productButton--secondary {
+  color: #0f172a;
+  background: rgba(255, 255, 255, .78);
+  border: 1px solid rgba(15, 23, 42, .11);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, .08);
+}
+
+.ff-productButton--light {
+  color: #0f172a;
+  background: rgba(255, 255, 255, .92);
+}
+
+.ff-productHero__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .8rem;
+  margin: clamp(24px, 3vw, 38px) 0 0;
+}
+
+.ff-productHero__metrics div {
+  padding: 1rem;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .70);
+  border: 1px solid rgba(15, 23, 42, .08);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, .06);
+}
+
+.ff-productHero__metrics dt {
+  color: rgba(15, 23, 42, .52);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.ff-productHero__metrics dd {
+  margin: .38rem 0 0;
+  color: #0f172a;
+  font-size: .95rem;
+  font-weight: 950;
+}
+
+.ff-productCockpit,
+.ff-operatorPanel {
+  overflow: hidden;
+  border-radius: clamp(28px, 4vw, 44px);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.72));
+  border: 1px solid rgba(15, 23, 42, .10);
+  box-shadow: 0 32px 90px rgba(15, 23, 42, .13);
+}
+
+.ff-productCockpit__topbar,
+.ff-operatorPanel__header {
+  display: flex;
+  align-items: center;
+  gap: .46rem;
+  padding: 15px 17px;
+  border-bottom: 1px solid rgba(15, 23, 42, .08);
+  background: rgba(248, 250, 252, .75);
+}
+
+.ff-productCockpit__topbar span,
+.ff-operatorPanel__header span {
+  width: .65rem;
+  height: .65rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, .18);
+}
+
+.ff-productCockpit__topbar strong,
+.ff-operatorPanel__header strong {
+  margin-left: .35rem;
+  color: rgba(15, 23, 42, .68);
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.ff-productCockpit__campaign {
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.ff-productCockpit__campaign p {
+  margin: 0 0 .65rem;
+  color: rgba(15, 23, 42, .58);
+  font-size: .85rem;
+  font-weight: 900;
+}
+
+.ff-productCockpit__campaign h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(1.75rem, 4vw, 3.2rem);
+  line-height: .96;
+  letter-spacing: -.055em;
+}
+
+.ff-productMeter {
+  height: 13px;
+  margin: 24px 0 16px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, .10);
+}
+
+.ff-productMeter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #111827, #f59e0b);
+}
+
+.ff-productCockpit__stats,
+.ff-productCockpit__flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+
+.ff-productCockpit__stats strong,
+.ff-productCockpit__flow span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: .55rem .72rem;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 950;
+}
+
+.ff-productCockpit__stats strong {
+  color: #0f172a;
+  background: rgba(15, 23, 42, .06);
+}
+
+.ff-productCockpit__flow {
+  padding: 0 clamp(22px, 4vw, 34px) clamp(18px, 3vw, 26px);
+}
+
+.ff-productCockpit__flow span {
+  color: #ffffff;
+  background: #0f172a;
+}
+
+.ff-productCockpit__ops,
+.ff-operatorPanel__rows {
+  display: grid;
+  gap: .7rem;
+  padding: clamp(18px, 3vw, 26px);
+  background: rgba(248, 250, 252, .68);
+}
+
+.ff-productCockpit__ops div,
+.ff-operatorPanel__rows div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .95rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid rgba(15, 23, 42, .07);
+}
+
+.ff-productCockpit__ops span,
+.ff-operatorPanel__rows span {
+  color: rgba(15, 23, 42, .57);
+  font-size: .84rem;
+  font-weight: 850;
+}
+
+.ff-productCockpit__ops strong,
+.ff-operatorPanel__rows strong {
+  color: #0f172a;
+  font-size: .86rem;
+  font-weight: 950;
+  text-align: right;
+}
+
+.ff-productTrust {
+  padding-top: clamp(18px, 4vw, 42px);
+  padding-bottom: clamp(36px, 6vw, 80px);
+}
+
+.ff-productTrust__shell {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 18px);
+}
+
+.ff-productTrust article,
+.ff-productAudienceGrid article,
+.ff-productSteps article,
+.ff-productReadiness__grid article {
+  padding: clamp(18px, 2.4vw, 24px);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, .76);
+  border: 1px solid rgba(15, 23, 42, .08);
+  box-shadow: 0 18px 52px rgba(15, 23, 42, .065);
+}
+
+.ff-productTrust span {
+  display: inline-flex;
+  margin-bottom: 1.6rem;
+  color: rgba(15, 23, 42, .42);
+  font-size: .8rem;
+  font-weight: 950;
+}
+
+.ff-productTrust h2,
+.ff-productAudienceGrid h3,
+.ff-productSteps h3,
+.ff-productReadiness h3 {
+  margin: 0 0 .62rem;
+  color: #0f172a;
+  font-size: clamp(1.05rem, 1.4vw, 1.28rem);
+  line-height: 1.12;
+  letter-spacing: -.026em;
+}
+
+.ff-productTrust p,
+.ff-productAudienceGrid p,
+.ff-productSteps p,
+.ff-productReadiness p,
+.ff-productCaseStudy p,
+.ff-productSection__copy p,
+.ff-productFinalCta p {
+  margin: 0;
+  color: rgba(15, 23, 42, .64);
+  line-height: 1.68;
+}
+
+.ff-productSection {
+  padding-top: clamp(42px, 7vw, 92px);
+  padding-bottom: clamp(42px, 7vw, 92px);
+}
+
+.ff-productSection--split {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1fr);
+  gap: clamp(22px, 5vw, 68px);
+  align-items: center;
+}
+
+.ff-productSection__copy h2,
+.ff-productSection__center h2,
+.ff-productCaseStudy h2,
+.ff-productFinalCta h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(2.2rem, 5.8vw, 5.4rem);
+  line-height: .9;
+  letter-spacing: -.075em;
+}
+
+.ff-productSection__copy p,
+.ff-productFinalCta p {
+  max-width: 650px;
+  margin-top: 1.2rem;
+  font-size: clamp(1rem, 1.35vw, 1.13rem);
+}
+
+.ff-productSection__center {
+  max-width: 860px;
+  margin: 0 auto clamp(22px, 4vw, 42px);
+  text-align: center;
+}
+
+.ff-productAudienceGrid,
+.ff-productSteps,
+.ff-productReadiness__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 18px);
+}
+
+.ff-productAudienceGrid span,
+.ff-productSteps span {
+  display: inline-flex;
+  margin-bottom: clamp(22px, 3vw, 34px);
+  color: rgba(15, 23, 42, .48);
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.ff-productSection--dark {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1fr);
+  gap: clamp(22px, 5vw, 68px);
+  align-items: center;
+  width: min(1180px, calc(100% - clamp(24px, 5vw, 64px)));
+  margin-inline: auto;
+  padding: clamp(28px, 5vw, 58px);
+  border-radius: clamp(32px, 5vw, 58px);
+  color: #ffffff;
+  background:
+    radial-gradient(circle at top left, rgba(245, 158, 11, .24), transparent 35%),
+    linear-gradient(135deg, #0f172a, #111827 50%, #020617);
+  box-shadow: 0 34px 100px rgba(15, 23, 42, .24);
+}
+
+.ff-productSection--dark h2,
+.ff-productSection--dark .ff-productKicker {
+  color: #ffffff;
+}
+
+.ff-productSection--dark p {
+  color: rgba(226, 232, 240, .78);
+}
+
+.ff-sponsorEngine {
+  display: grid;
+  gap: .9rem;
+}
+
+.ff-sponsorEngine article {
+  padding: clamp(18px, 2.6vw, 24px);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .09);
+  border: 1px solid rgba(255, 255, 255, .14);
+}
+
+.ff-sponsorEngine span {
+  display: block;
+  color: rgba(226, 232, 240, .74);
+  font-size: .82rem;
+  font-weight: 950;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.ff-sponsorEngine strong {
+  display: block;
+  margin: .38rem 0 .55rem;
+  color: #ffffff;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  letter-spacing: -.045em;
+}
+
+.ff-sponsorEngine p {
+  margin: 0;
+  color: rgba(226, 232, 240, .72);
+}
+
+.ff-productCaseStudy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, .45fr);
+  gap: clamp(20px, 4vw, 46px);
+  align-items: center;
+  padding-top: clamp(42px, 7vw, 92px);
+  padding-bottom: clamp(42px, 7vw, 92px);
+}
+
+.ff-productCaseStudy__card {
+  padding: clamp(22px, 3vw, 30px);
+  border-radius: 30px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, .09);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, .10);
+}
+
+.ff-productCaseStudy__card span {
+  display: block;
+  margin-bottom: 1rem;
+  color: rgba(15, 23, 42, .55);
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.ff-productCaseStudy__card strong {
+  display: block;
+  color: #0f172a;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  line-height: .95;
+  letter-spacing: -.06em;
+}
+
+.ff-productCaseStudy__card p {
+  margin-top: 1rem;
+}
+
+.ff-productCaseStudy__card a {
+  display: inline-flex;
+  margin-top: 1.2rem;
+  color: #0f172a;
+  font-weight: 950;
+}
+
+.ff-productReadiness {
+  padding-top: clamp(42px, 7vw, 92px);
+  padding-bottom: clamp(42px, 7vw, 92px);
+}
+
+.ff-productFinalCta {
+  margin-bottom: clamp(28px, 5vw, 64px);
+  padding-top: clamp(36px, 6vw, 76px);
+  padding-bottom: clamp(36px, 6vw, 76px);
+  border-radius: clamp(32px, 5vw, 58px);
+  text-align: center;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(245, 158, 11, .20), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.66));
+  border: 1px solid rgba(15, 23, 42, .08);
+  box-shadow: 0 30px 95px rgba(15, 23, 42, .10);
+}
+
+.ff-productFinalCta .ff-productHero__actions {
+  justify-content: center;
+}
+
+.ff-productFinalCta p {
+  margin-inline: auto;
+}
+
+@media (max-width: 1020px) {
+  .ff-productHero__shell,
+  .ff-productSection--split,
+  .ff-productSection--dark,
+  .ff-productCaseStudy {
+    grid-template-columns: 1fr;
+  }
+
+  .ff-productTrust__shell,
+  .ff-productAudienceGrid,
+  .ff-productSteps,
+  .ff-productReadiness__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ff-productHero h1 {
+    font-size: clamp(3.2rem, 12vw, 6rem);
+  }
+}
+
+@media (max-width: 680px) {
+  .ff-productHero,
+  .ff-productSection,
+  .ff-productTrust,
+  .ff-productCaseStudy,
+  .ff-productReadiness,
+  .ff-productFinalCta {
+    padding-inline: 12px;
+  }
+
+  .ff-productHero {
+    padding-top: 34px;
+  }
+
+  .ff-productHero h1 {
+    font-size: clamp(3rem, 16vw, 4.55rem);
+  }
+
+  .ff-productHero__metrics,
+  .ff-productTrust__shell,
+  .ff-productAudienceGrid,
+  .ff-productSteps,
+  .ff-productReadiness__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ff-productHero__actions,
+  .ff-productFinalCta .ff-productHero__actions {
+    width: 100%;
+  }
+
+  .ff-productButton {
+    width: 100%;
+  }
+
+  .ff-productCockpit__ops div,
+  .ff-operatorPanel__rows div {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ff-productCockpit__ops strong,
+  .ff-operatorPanel__rows strong {
+    text-align: left;
+  }
+
+  .ff-productSection--dark,
+  .ff-productFinalCta {
+    width: calc(100% - 24px);
+    padding: 24px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .ff-platformProductPage {
+    background:
+      radial-gradient(circle at top left, rgba(245, 158, 11, .13), transparent 30rem),
+      radial-gradient(circle at top right, rgba(59, 130, 246, .14), transparent 34rem),
+      linear-gradient(180deg, #020617 0%, #0f172a 48%, #020617 100%);
+    color: rgba(255, 255, 255, .92);
+  }
+
+  .ff-productHero h1,
+  .ff-productSection__copy h2,
+  .ff-productSection__center h2,
+  .ff-productCaseStudy h2,
+  .ff-productFinalCta h2,
+  .ff-productCockpit__campaign h2,
+  .ff-productCockpit__stats strong,
+  .ff-productCockpit__ops strong,
+  .ff-operatorPanel__rows strong,
+  .ff-productTrust h2,
+  .ff-productAudienceGrid h3,
+  .ff-productSteps h3,
+  .ff-productReadiness h3,
+  .ff-productCaseStudy__card strong {
+    color: rgba(255, 255, 255, .94);
+  }
+
+  .ff-productHero__lead,
+  .ff-productTrust p,
+  .ff-productAudienceGrid p,
+  .ff-productSteps p,
+  .ff-productReadiness p,
+  .ff-productCaseStudy p,
+  .ff-productSection__copy p,
+  .ff-productFinalCta p,
+  .ff-productEyebrow,
+  .ff-productKicker,
+  .ff-productCockpit__campaign p,
+  .ff-productCockpit__ops span,
+  .ff-operatorPanel__rows span {
+    color: rgba(226, 232, 240, .72);
+  }
+
+  .ff-productCockpit,
+  .ff-operatorPanel,
+  .ff-productTrust article,
+  .ff-productAudienceGrid article,
+  .ff-productSteps article,
+  .ff-productReadiness__grid article,
+  .ff-productCaseStudy__card,
+  .ff-productFinalCta,
+  .ff-productHero__metrics div {
+    background: rgba(15, 23, 42, .74);
+    border-color: rgba(255, 255, 255, .10);
+  }
+
+  .ff-productCockpit__topbar,
+  .ff-operatorPanel__header,
+  .ff-productCockpit__ops,
+  .ff-operatorPanel__rows {
+    background: rgba(2, 6, 23, .38);
+    border-color: rgba(255, 255, 255, .08);
+  }
+
+  .ff-productCockpit__ops div,
+  .ff-operatorPanel__rows div {
+    background: rgba(255, 255, 255, .06);
+    border-color: rgba(255, 255, 255, .09);
+  }
+
+  .ff-productButton--secondary {
+    color: rgba(255, 255, 255, .92);
+    background: rgba(255, 255, 255, .08);
+    border-color: rgba(255, 255, 255, .12);
+  }
+
+  .ff-productHero__metrics dd {
+    color: rgba(255, 255, 255, .94);
+  }
+}
+
+/* FF_PLATFORM_FULL_PRODUCT_TRANSFORM_V1_END */
