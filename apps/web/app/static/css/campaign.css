@@ -9579,3 +9579,243 @@ html[data-ff-page="campaign"] .ff-donorTrustStrip {
 }
 
 /* FF_CAMPAIGN_MEASURED_COMPRESSION_PASS_1_END */
+
+/* ==========================================================================
+   FutureFunded — Campaign Deep Mobile Compression Pass 2
+   Marker: FF_CAMPAIGN_DEEP_MOBILE_COMPRESSION_PASS_2
+
+   Scope:
+   - Public campaign page only
+   - Mobile/tablet height reduction
+   - Preserve checkout/sponsor/share/progress contracts
+========================================================================== */
+
+html[data-ff-page="campaign"] .ff-campaignHero__story {
+  overflow: hidden;
+}
+
+html[data-ff-page="campaign"] .ff-storyPoster,
+html[data-ff-page="campaign"] .ff-squadCard__media {
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 122, 24, .08), rgba(17, 24, 39, .06));
+}
+
+html[data-ff-page="campaign"] .ff-storyPoster img,
+html[data-ff-page="campaign"] .ff-squadCard__media img {
+  display: block;
+  object-position: center;
+}
+
+html[data-ff-page="campaign"] .ff-storyCopy {
+  align-self: center;
+}
+
+html[data-ff-page="campaign"] .ff-campaignFooter__closing {
+  align-self: center;
+}
+
+/* Tighter section introductions without disturbing checkout/modal contracts */
+html[data-ff-page="campaign"] .ff-campaignSection > :first-child:is(p, span, small),
+html[data-ff-page="campaign"] .ff-storyCopy > :first-child:is(p, span, small),
+html[data-ff-page="campaign"] .ff-campaignFooter__closing > :first-child:is(p, span, small) {
+  margin-bottom: .45rem;
+}
+
+html[data-ff-page="campaign"] .ff-storyCopy h2,
+html[data-ff-page="campaign"] .ff-campaignFooter__closing h2 {
+  max-width: 12ch;
+}
+
+/* Desktop/tablet: reduce large media dominance slightly */
+@media (min-width: 861px) {
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    aspect-ratio: 16 / 10;
+    max-height: 460px;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media {
+    aspect-ratio: 16 / 9;
+    max-height: 235px;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyCopy h2,
+  html[data-ff-page="campaign"] .ff-campaignFooter__closing h2 {
+    max-width: 13ch;
+  }
+}
+
+/* Tablet: biggest gains come from media and repeated card blocks */
+@media (max-width: 860px) {
+  html[data-ff-page="campaign"] .ff-campaignHero {
+    padding-block: 18px 22px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection {
+    padding-block: 22px;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    aspect-ratio: 16 / 8.8;
+    max-height: 340px;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media {
+    aspect-ratio: 16 / 8.8;
+    max-height: 190px;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactGrid,
+  html[data-ff-page="campaign"] .ff-sponsorGrid {
+    gap: 10px;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard,
+  html[data-ff-page="campaign"] .ff-sponsorCard {
+    padding: 13px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+    gap: 12px;
+  }
+}
+
+/* Phone: compress non-critical supporting content while keeping CTAs visible */
+@media (max-width: 680px) {
+  html[data-ff-page="campaign"] .ff-campaignHero {
+    padding-block: 16px 20px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__story {
+    padding: 16px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero h1 {
+    max-width: 11.8ch;
+    font-size: clamp(2rem, 9.4vw, 2.52rem);
+    line-height: 1.03;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero .ff-lede {
+    font-size: .92rem;
+    line-height: 1.48;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero .ff-pill {
+    min-height: 30px;
+    padding: .42rem .58rem;
+    font-size: .68rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-donorTrustStrip span {
+    min-height: 30px;
+    padding: .42rem .56rem;
+    font-size: .7rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-progressBar {
+    height: 10px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection {
+    padding-block: 20px;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard,
+  html[data-ff-page="campaign"] .ff-sponsorCard {
+    padding: 12px;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard h3,
+  html[data-ff-page="campaign"] .ff-sponsorCard h3 {
+    font-size: .96rem;
+    line-height: 1.12;
+    margin-bottom: .35rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard p,
+  html[data-ff-page="campaign"] .ff-sponsorCard li {
+    font-size: .84rem;
+    line-height: 1.38;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard ul {
+    gap: .24rem;
+    margin-top: .45rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard li::before {
+    top: .5em;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard__head {
+    margin-bottom: .4rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard__head em {
+    min-height: 26px;
+    padding: .34rem .5rem;
+    font-size: .64rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard > strong {
+    margin-bottom: .35rem;
+    font-size: clamp(1.5rem, 7.2vw, 2.05rem);
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    aspect-ratio: 16 / 9;
+    max-height: 230px;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster__label {
+    padding: .5rem .6rem;
+    border-radius: 14px;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster__label small {
+    font-size: .63rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster__label strong {
+    font-size: .82rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media {
+    aspect-ratio: 16 / 8.4;
+    max-height: 140px;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyCopy h2,
+  html[data-ff-page="campaign"] .ff-campaignFooter__closing h2 {
+    max-width: 12ch;
+    font-size: clamp(1.72rem, 7.8vw, 2.32rem);
+    line-height: 1.02;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__closing p {
+    font-size: .88rem;
+    line-height: 1.44;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__nav,
+  html[data-ff-page="campaign"] .ff-campaignFooter__actions {
+    gap: .45rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+    padding: 14px;
+  }
+}
+
+/* Tiny phones: prevent tall media from dominating the scroll */
+@media (max-width: 420px) {
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    max-height: 210px;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media {
+    max-height: 128px;
+  }
+}
+
+/* FF_CAMPAIGN_DEEP_MOBILE_COMPRESSION_PASS_2_END */
