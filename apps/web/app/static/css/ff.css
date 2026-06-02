@@ -17890,3 +17890,630 @@ body.ff-dashboardModernBody .ff-dashboardModern__offlineStatus[data-tone="warnin
 }
 
 /* FF_PLATFORM_HOME_VISUAL_TUNE_PASS_1_END */
+
+/* ==========================================================================
+   FutureFunded — Platform Homepage Readability Rescue
+   Marker: FF_PLATFORM_HOME_READABILITY_RESCUE_V1
+
+   Purpose:
+   - Fix over-compressed poster typography on /platform/
+   - Restore enterprise SaaS readability
+   - Preserve current product-page structure and proof gates
+========================================================================== */
+
+.ff-platformProductPage .ff-platformProduct {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.ff-platformProductPage .ff-productHero h1,
+.ff-platformProductPage .ff-productSection__copy h2,
+.ff-platformProductPage .ff-productSection__center h2,
+.ff-platformProductPage .ff-productCaseStudy h2,
+.ff-platformProductPage .ff-productFinalCta h2,
+.ff-platformProductPage .ff-productCockpit__campaign h2 {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-weight: 850;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  text-wrap: balance;
+  font-kerning: normal;
+}
+
+.ff-platformProductPage .ff-productHero h1 {
+  max-width: 920px;
+  font-size: clamp(2.85rem, 6.15vw, 5.85rem);
+  line-height: .98;
+  letter-spacing: -0.047em;
+}
+
+.ff-platformProductPage .ff-productSection__copy h2,
+.ff-platformProductPage .ff-productSection__center h2,
+.ff-platformProductPage .ff-productCaseStudy h2,
+.ff-platformProductPage .ff-productFinalCta h2 {
+  font-size: clamp(2rem, 4.8vw, 4.35rem);
+  line-height: 1.02;
+  letter-spacing: -0.043em;
+}
+
+.ff-platformProductPage .ff-productCockpit__campaign h2 {
+  font-size: clamp(1.65rem, 3vw, 2.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.038em;
+}
+
+.ff-platformProductPage .ff-sponsorEngine strong,
+.ff-platformProductPage .ff-productCaseStudy__card strong {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-weight: 850;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.ff-platformProductPage .ff-productHero__lead,
+.ff-platformProductPage .ff-productTrust p,
+.ff-platformProductPage .ff-productAudienceGrid h3,
+.ff-platformProductPage .ff-productSteps p,
+.ff-platformProductPage .ff-productReadiness p,
+.ff-platformProductPage .ff-productCaseStudy p,
+.ff-platformProductPage .ff-productSection__copy p,
+.ff-platformProductPage .ff-productFinalCta p,
+.ff-platformProductPage .ff-productCockpit__campaign p,
+.ff-platformProductPage .ff-productCockpit__ops span,
+.ff-platformProductPage .ff-productCockpit__ops strong,
+.ff-platformProductPage .ff-operatorPanel__rows span,
+.ff-platformProductPage .ff-operatorPanel__rows strong,
+.ff-platformProductPage .ff-sponsorEngine p {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.ff-platformProductPage .ff-productHero__lead,
+.ff-platformProductPage .ff-productSection__copy p,
+.ff-platformProductPage .ff-productFinalCta p,
+.ff-platformProductPage .ff-productCaseStudy p {
+  font-size: clamp(1rem, 1.18vw, 1.12rem);
+  line-height: 1.72;
+}
+
+.ff-platformProductPage .ff-productTrust h2,
+.ff-platformProductPage .ff-productAudienceGrid h3,
+.ff-platformProductPage .ff-productSteps h3,
+.ff-platformProductPage .ff-productReadiness h3 {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-weight: 820;
+  letter-spacing: -0.028em;
+  line-height: 1.16;
+}
+
+.ff-platformProductPage .ff-productTrust p,
+.ff-platformProductPage .ff-productSteps p,
+.ff-platformProductPage .ff-productReadiness p {
+  font-size: .94rem;
+  line-height: 1.62;
+}
+
+.ff-platformProductPage .ff-productAudienceGrid h3 {
+  font-size: .98rem;
+  line-height: 1.22;
+}
+
+.ff-platformProductPage .ff-productEyebrow,
+.ff-platformProductPage .ff-productKicker,
+.ff-platformProductPage .ff-productCockpit__topbar strong,
+.ff-platformProductPage .ff-operatorPanel__header strong,
+.ff-platformProductPage .ff-sponsorEngine span {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.ff-platformProductPage .ff-productHero__metrics dd,
+.ff-platformProductPage .ff-productButton,
+.ff-platformProductPage .ff-productCockpit__stats strong,
+.ff-platformProductPage .ff-productCockpit__flow span {
+  font-weight: 820;
+  letter-spacing: -0.012em;
+}
+
+@media (min-width: 1021px) {
+  .ff-platformProductPage .ff-productHero__shell {
+    align-items: center;
+  }
+
+  .ff-platformProductPage .ff-productHero h1 {
+    max-width: 860px;
+  }
+
+  .ff-platformProductPage .ff-productSection--split {
+    align-items: center;
+  }
+
+  .ff-platformProductPage .ff-productSection__center {
+    max-width: 920px;
+  }
+}
+
+@media (max-width: 1020px) {
+  .ff-platformProductPage .ff-productHero h1 {
+    max-width: 760px;
+    font-size: clamp(2.75rem, 8.2vw, 4.8rem);
+    line-height: 1;
+    letter-spacing: -0.044em;
+  }
+
+  .ff-platformProductPage .ff-productSection__copy h2,
+  .ff-platformProductPage .ff-productSection__center h2,
+  .ff-platformProductPage .ff-productCaseStudy h2,
+  .ff-platformProductPage .ff-productFinalCta h2 {
+    font-size: clamp(2rem, 6.4vw, 3.7rem);
+    line-height: 1.03;
+    letter-spacing: -0.04em;
+  }
+}
+
+@media (max-width: 680px) {
+  .ff-platformProductPage .ff-productHero h1 {
+    max-width: 12.5ch;
+    font-size: clamp(2.35rem, 10.6vw, 3.18rem);
+    line-height: 1.04;
+    letter-spacing: -0.038em;
+  }
+
+  .ff-platformProductPage .ff-productHero__lead {
+    font-size: .98rem;
+    line-height: 1.62;
+  }
+
+  .ff-platformProductPage .ff-productSection__copy h2,
+  .ff-platformProductPage .ff-productSection__center h2,
+  .ff-platformProductPage .ff-productCaseStudy h2,
+  .ff-platformProductPage .ff-productFinalCta h2 {
+    font-size: clamp(1.9rem, 8.8vw, 2.85rem);
+    line-height: 1.05;
+    letter-spacing: -0.038em;
+  }
+
+  .ff-platformProductPage .ff-productCockpit__campaign h2 {
+    font-size: clamp(1.48rem, 7vw, 2rem);
+    line-height: 1.06;
+  }
+
+  .ff-platformProductPage .ff-productTrust h2,
+  .ff-platformProductPage .ff-productAudienceGrid h3,
+  .ff-platformProductPage .ff-productSteps h3,
+  .ff-platformProductPage .ff-productReadiness h3 {
+    font-size: 1rem;
+    line-height: 1.18;
+  }
+
+  .ff-platformProductPage .ff-productTrust p,
+  .ff-platformProductPage .ff-productSteps p,
+  .ff-platformProductPage .ff-productReadiness p,
+  .ff-platformProductPage .ff-sponsorEngine p {
+    font-size: .9rem;
+    line-height: 1.58;
+  }
+
+  .ff-platformProductPage .ff-productAudienceGrid article {
+    min-height: auto;
+  }
+
+  .ff-platformProductPage .ff-productAudienceGrid h3 {
+    font-size: .95rem;
+    line-height: 1.22;
+  }
+}
+
+@media (max-width: 420px) {
+  .ff-platformProductPage .ff-productHero h1 {
+    max-width: 12ch;
+    font-size: clamp(2.18rem, 10vw, 2.85rem);
+    line-height: 1.06;
+    letter-spacing: -0.034em;
+  }
+}
+
+/* FF_PLATFORM_HOME_READABILITY_RESCUE_V1_END */
+
+/* ==========================================================================
+   FutureFunded — Platform Homepage Dark Contrast Fix
+   Marker: FF_PLATFORM_HOME_DARK_CONTRAST_FIX_V1
+
+   Purpose:
+   - Keep the premium navy enterprise theme
+   - Restore readability for cockpit labels, section kickers, cards, and meta text
+   - Preserve current product structure and screenshot-board gates
+========================================================================== */
+
+.ff-platformProductPage {
+  color-scheme: dark;
+}
+
+.ff-platformProductPage .ff-productEyebrow,
+.ff-platformProductPage .ff-productKicker,
+.ff-platformProductPage .ff-productCockpit__topbar strong,
+.ff-platformProductPage .ff-operatorPanel__header strong,
+.ff-platformProductPage .ff-sponsorEngine span,
+.ff-platformProductPage .ff-productCaseStudy__card span,
+.ff-platformProductPage .ff-productHero__metrics dt,
+.ff-platformProductPage .ff-productTrust span,
+.ff-platformProductPage .ff-productAudienceGrid span,
+.ff-platformProductPage .ff-productSteps span {
+  color: rgba(248, 250, 252, .78);
+  text-shadow: 0 1px 18px rgba(255, 255, 255, .08);
+}
+
+.ff-platformProductPage .ff-productCockpit__topbar,
+.ff-platformProductPage .ff-operatorPanel__header {
+  background: rgba(15, 23, 42, .96);
+  border-bottom-color: rgba(255, 255, 255, .13);
+}
+
+.ff-platformProductPage .ff-productCockpit__topbar strong,
+.ff-platformProductPage .ff-operatorPanel__header strong {
+  color: rgba(255, 255, 255, .82);
+}
+
+.ff-platformProductPage .ff-productCockpit__topbar span,
+.ff-platformProductPage .ff-operatorPanel__header span {
+  background: rgba(255, 255, 255, .34);
+}
+
+.ff-platformProductPage .ff-productHero__lead,
+.ff-platformProductPage .ff-productSection__copy p,
+.ff-platformProductPage .ff-productSection__center p,
+.ff-platformProductPage .ff-productCaseStudy p,
+.ff-platformProductPage .ff-productFinalCta p {
+  color: rgba(241, 245, 249, .78);
+}
+
+.ff-platformProductPage .ff-productCockpit__campaign p,
+.ff-platformProductPage .ff-productCockpit__ops span,
+.ff-platformProductPage .ff-operatorPanel__rows span,
+.ff-platformProductPage .ff-productTrust p,
+.ff-platformProductPage .ff-productSteps p,
+.ff-platformProductPage .ff-productReadiness p,
+.ff-platformProductPage .ff-sponsorEngine p,
+.ff-platformProductPage .ff-productCaseStudy__card p {
+  color: rgba(226, 232, 240, .74);
+}
+
+.ff-platformProductPage .ff-productHero__metrics dd,
+.ff-platformProductPage .ff-productCockpit__stats strong,
+.ff-platformProductPage .ff-productCockpit__ops strong,
+.ff-platformProductPage .ff-operatorPanel__rows strong,
+.ff-platformProductPage .ff-productTrust h2,
+.ff-platformProductPage .ff-productAudienceGrid h3,
+.ff-platformProductPage .ff-productSteps h3,
+.ff-platformProductPage .ff-productReadiness h3 {
+  color: rgba(255, 255, 255, .92);
+}
+
+.ff-platformProductPage .ff-productHero__metrics div,
+.ff-platformProductPage .ff-productTrust article,
+.ff-platformProductPage .ff-productAudienceGrid article,
+.ff-platformProductPage .ff-productSteps article,
+.ff-platformProductPage .ff-productReadiness__grid article,
+.ff-platformProductPage .ff-productCaseStudy__card {
+  background: rgba(15, 23, 42, .82);
+  border-color: rgba(255, 255, 255, .12);
+  box-shadow: 0 18px 58px rgba(0, 0, 0, .22);
+}
+
+.ff-platformProductPage .ff-productCockpit,
+.ff-platformProductPage .ff-operatorPanel {
+  background: rgba(15, 23, 42, .86);
+  border-color: rgba(255, 255, 255, .14);
+  box-shadow:
+    0 32px 90px rgba(0, 0, 0, .32),
+    inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+
+.ff-platformProductPage .ff-productCockpit__ops,
+.ff-platformProductPage .ff-operatorPanel__rows {
+  background: rgba(2, 6, 23, .26);
+}
+
+.ff-platformProductPage .ff-productCockpit__ops div,
+.ff-platformProductPage .ff-operatorPanel__rows div {
+  background: rgba(255, 255, 255, .075);
+  border-color: rgba(255, 255, 255, .11);
+}
+
+.ff-platformProductPage .ff-productCockpit__flow span {
+  color: rgba(15, 23, 42, .96);
+  background: rgba(255, 255, 255, .92);
+}
+
+.ff-platformProductPage .ff-productButton--secondary {
+  color: rgba(255, 255, 255, .92);
+  background: rgba(255, 255, 255, .10);
+  border-color: rgba(255, 255, 255, .14);
+}
+
+.ff-platformProductPage .ff-productButton--primary {
+  color: rgb(15, 23, 42);
+  background: rgba(255, 255, 255, .94);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .28);
+}
+
+.ff-platformProductPage .ff-productSection--dark {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(245, 158, 11, .17), transparent 34%),
+    linear-gradient(135deg, rgba(15, 23, 42, .96), rgba(2, 6, 23, .98));
+  border: 1px solid rgba(255, 255, 255, .10);
+}
+
+.ff-platformProductPage .ff-productFinalCta {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(245, 158, 11, .14), transparent 30%),
+    linear-gradient(180deg, rgba(15, 23, 42, .86), rgba(15, 23, 42, .72));
+  border-color: rgba(255, 255, 255, .12);
+}
+
+@media (max-width: 680px) {
+  .ff-platformProductPage .ff-productEyebrow,
+  .ff-platformProductPage .ff-productKicker,
+  .ff-platformProductPage .ff-productCockpit__topbar strong,
+  .ff-platformProductPage .ff-operatorPanel__header strong {
+    color: rgba(248, 250, 252, .84);
+  }
+}
+
+/* FF_PLATFORM_HOME_DARK_CONTRAST_FIX_V1_END */
+
+/* ==========================================================================
+   FutureFunded — Platform Homepage Theme Contract
+   Marker: FF_PLATFORM_HOME_THEME_CONTRACT_V1
+
+   Contract:
+   - Default platform product page: premium navy / dark SaaS
+   - User preference light: polished light theme override
+   - Scope: /platform/ product page only
+========================================================================== */
+
+/* Default: premium dark navy */
+.ff-platformProductPage {
+  color-scheme: dark;
+  background:
+    radial-gradient(circle at top left, rgba(245, 158, 11, .11), transparent 31rem),
+    radial-gradient(circle at top right, rgba(59, 130, 246, .14), transparent 36rem),
+    linear-gradient(180deg, #020617 0%, #07101f 44%, #020617 100%);
+  color: rgba(255, 255, 255, .94);
+}
+
+.ff-platformProductPage .ff-productHero h1,
+.ff-platformProductPage .ff-productSection__copy h2,
+.ff-platformProductPage .ff-productSection__center h2,
+.ff-platformProductPage .ff-productCaseStudy h2,
+.ff-platformProductPage .ff-productFinalCta h2,
+.ff-platformProductPage .ff-productCockpit__campaign h2,
+.ff-platformProductPage .ff-sponsorEngine strong,
+.ff-platformProductPage .ff-productCaseStudy__card strong {
+  color: rgba(255, 255, 255, .96);
+}
+
+.ff-platformProductPage .ff-productHero__lead,
+.ff-platformProductPage .ff-productSection__copy p,
+.ff-platformProductPage .ff-productFinalCta p,
+.ff-platformProductPage .ff-productCaseStudy p {
+  color: rgba(226, 232, 240, .78);
+}
+
+.ff-platformProductPage .ff-productEyebrow,
+.ff-platformProductPage .ff-productKicker,
+.ff-platformProductPage .ff-productCockpit__topbar strong,
+.ff-platformProductPage .ff-operatorPanel__header strong,
+.ff-platformProductPage .ff-sponsorEngine span,
+.ff-platformProductPage .ff-productCaseStudy__card span,
+.ff-platformProductPage .ff-productHero__metrics dt,
+.ff-platformProductPage .ff-productTrust span,
+.ff-platformProductPage .ff-productAudienceGrid span,
+.ff-platformProductPage .ff-productSteps span {
+  color: rgba(248, 250, 252, .80);
+}
+
+.ff-platformProductPage .ff-productCockpit,
+.ff-platformProductPage .ff-operatorPanel,
+.ff-platformProductPage .ff-productHero__metrics div,
+.ff-platformProductPage .ff-productTrust article,
+.ff-platformProductPage .ff-productAudienceGrid article,
+.ff-platformProductPage .ff-productSteps article,
+.ff-platformProductPage .ff-productReadiness__grid article,
+.ff-platformProductPage .ff-productCaseStudy__card,
+.ff-platformProductPage .ff-productFinalCta {
+  background: rgba(15, 23, 42, .82);
+  border-color: rgba(255, 255, 255, .12);
+}
+
+.ff-platformProductPage .ff-productCockpit__topbar,
+.ff-platformProductPage .ff-operatorPanel__header,
+.ff-platformProductPage .ff-productCockpit__ops,
+.ff-platformProductPage .ff-operatorPanel__rows {
+  background: rgba(2, 6, 23, .34);
+  border-color: rgba(255, 255, 255, .10);
+}
+
+.ff-platformProductPage .ff-productCockpit__ops div,
+.ff-platformProductPage .ff-operatorPanel__rows div {
+  background: rgba(255, 255, 255, .075);
+  border-color: rgba(255, 255, 255, .11);
+}
+
+.ff-platformProductPage .ff-productButton--primary {
+  color: rgb(15, 23, 42);
+  background: rgba(255, 255, 255, .94);
+}
+
+.ff-platformProductPage .ff-productButton--secondary {
+  color: rgba(255, 255, 255, .92);
+  background: rgba(255, 255, 255, .10);
+  border-color: rgba(255, 255, 255, .14);
+}
+
+/* User/system prefers light: polished light marketing mode */
+@media (prefers-color-scheme: light) {
+  .ff-platformProductPage {
+    color-scheme: light;
+    background:
+      radial-gradient(circle at top left, rgba(245, 158, 11, .18), transparent 30rem),
+      radial-gradient(circle at top right, rgba(59, 130, 246, .12), transparent 34rem),
+      linear-gradient(180deg, #fffaf2 0%, #ffffff 44%, #f8fafc 100%);
+    color: #0f172a;
+  }
+
+  .ff-platformProductPage .ff-productHero h1,
+  .ff-platformProductPage .ff-productSection__copy h2,
+  .ff-platformProductPage .ff-productSection__center h2,
+  .ff-platformProductPage .ff-productCaseStudy h2,
+  .ff-platformProductPage .ff-productFinalCta h2,
+  .ff-platformProductPage .ff-productCockpit__campaign h2,
+  .ff-platformProductPage .ff-sponsorEngine strong,
+  .ff-platformProductPage .ff-productCaseStudy__card strong,
+  .ff-platformProductPage .ff-productHero__metrics dd,
+  .ff-platformProductPage .ff-productCockpit__stats strong,
+  .ff-platformProductPage .ff-productCockpit__ops strong,
+  .ff-platformProductPage .ff-operatorPanel__rows strong,
+  .ff-platformProductPage .ff-productTrust h2,
+  .ff-platformProductPage .ff-productAudienceGrid h3,
+  .ff-platformProductPage .ff-productSteps h3,
+  .ff-platformProductPage .ff-productReadiness h3 {
+    color: #0f172a;
+  }
+
+  .ff-platformProductPage .ff-productHero__lead,
+  .ff-platformProductPage .ff-productSection__copy p,
+  .ff-platformProductPage .ff-productFinalCta p,
+  .ff-platformProductPage .ff-productCaseStudy p,
+  .ff-platformProductPage .ff-productCockpit__campaign p,
+  .ff-platformProductPage .ff-productCockpit__ops span,
+  .ff-platformProductPage .ff-operatorPanel__rows span,
+  .ff-platformProductPage .ff-productTrust p,
+  .ff-platformProductPage .ff-productSteps p,
+  .ff-platformProductPage .ff-productReadiness p,
+  .ff-platformProductPage .ff-sponsorEngine p,
+  .ff-platformProductPage .ff-productCaseStudy__card p {
+    color: rgba(15, 23, 42, .66);
+  }
+
+  .ff-platformProductPage .ff-productEyebrow,
+  .ff-platformProductPage .ff-productKicker,
+  .ff-platformProductPage .ff-productCockpit__topbar strong,
+  .ff-platformProductPage .ff-operatorPanel__header strong,
+  .ff-platformProductPage .ff-sponsorEngine span,
+  .ff-platformProductPage .ff-productCaseStudy__card span,
+  .ff-platformProductPage .ff-productHero__metrics dt,
+  .ff-platformProductPage .ff-productTrust span,
+  .ff-platformProductPage .ff-productAudienceGrid span,
+  .ff-platformProductPage .ff-productSteps span {
+    color: rgba(15, 23, 42, .58);
+    text-shadow: none;
+  }
+
+  .ff-platformProductPage .ff-productCockpit,
+  .ff-platformProductPage .ff-operatorPanel,
+  .ff-platformProductPage .ff-productHero__metrics div,
+  .ff-platformProductPage .ff-productTrust article,
+  .ff-platformProductPage .ff-productAudienceGrid article,
+  .ff-platformProductPage .ff-productSteps article,
+  .ff-platformProductPage .ff-productReadiness__grid article,
+  .ff-platformProductPage .ff-productCaseStudy__card,
+  .ff-platformProductPage .ff-productFinalCta {
+    background: rgba(255, 255, 255, .78);
+    border-color: rgba(15, 23, 42, .09);
+    box-shadow: 0 18px 55px rgba(15, 23, 42, .07);
+  }
+
+  .ff-platformProductPage .ff-productCockpit__topbar,
+  .ff-platformProductPage .ff-operatorPanel__header,
+  .ff-platformProductPage .ff-productCockpit__ops,
+  .ff-platformProductPage .ff-operatorPanel__rows {
+    background: rgba(248, 250, 252, .76);
+    border-color: rgba(15, 23, 42, .08);
+  }
+
+  .ff-platformProductPage .ff-productCockpit__ops div,
+  .ff-platformProductPage .ff-operatorPanel__rows div {
+    background: rgba(255, 255, 255, .76);
+    border-color: rgba(15, 23, 42, .07);
+  }
+
+  .ff-platformProductPage .ff-productCockpit__flow span {
+    color: #ffffff;
+    background: #0f172a;
+  }
+
+  .ff-platformProductPage .ff-productButton--primary {
+    color: #ffffff;
+    background: #0f172a;
+  }
+
+  .ff-platformProductPage .ff-productButton--secondary {
+    color: #0f172a;
+    background: rgba(255, 255, 255, .80);
+    border-color: rgba(15, 23, 42, .11);
+  }
+
+  .ff-platformProductPage .ff-productSection--dark {
+    color: #ffffff;
+    background:
+      radial-gradient(circle at top left, rgba(245, 158, 11, .24), transparent 35%),
+      linear-gradient(135deg, #0f172a, #111827 50%, #020617);
+    border-color: rgba(15, 23, 42, .10);
+  }
+
+  .ff-platformProductPage .ff-productSection--dark h2,
+  .ff-platformProductPage .ff-productSection--dark .ff-productKicker,
+  .ff-platformProductPage .ff-productSection--dark .ff-sponsorEngine strong {
+    color: #ffffff;
+  }
+
+  .ff-platformProductPage .ff-productSection--dark p,
+  .ff-platformProductPage .ff-productSection--dark .ff-sponsorEngine p,
+  .ff-platformProductPage .ff-productSection--dark .ff-sponsorEngine span {
+    color: rgba(226, 232, 240, .78);
+  }
+
+  .ff-platformProductPage .ff-productSection--dark .ff-sponsorEngine article {
+    background: rgba(255, 255, 255, .09);
+    border-color: rgba(255, 255, 255, .14);
+  }
+}
+
+/* FF_PLATFORM_HOME_THEME_CONTRACT_V1_END */
