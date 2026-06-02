@@ -9364,3 +9364,218 @@
   }
 }
 /* === FutureFunded Campaign Real Team Media Pass END === */
+
+/* ==========================================================================
+   FutureFunded — Campaign Measured Compression Pass 1
+   Marker: FF_CAMPAIGN_MEASURED_COMPRESSION_PASS_1
+
+   Goal:
+   - Reduce mobile/tablet scroll fatigue without hiding money-critical CTAs
+   - Preserve campaign/checkout/sponsor/share/progress contracts
+   - Focus on true height drivers: media cards, repeated section padding, tier cards
+========================================================================== */
+
+html[data-ff-page="campaign"] .ff-campaignSection {
+  padding-block: clamp(30px, 5vw, 64px);
+}
+
+html[data-ff-page="campaign"] .ff-campaignSection + .ff-campaignSection {
+  margin-top: 0;
+}
+
+html[data-ff-page="campaign"] .ff-storySplit,
+html[data-ff-page="campaign"] .ff-impactGrid,
+html[data-ff-page="campaign"] .ff-sponsorGrid,
+html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+  gap: clamp(12px, 2.2vw, 22px);
+}
+
+html[data-ff-page="campaign"] .ff-impactCard,
+html[data-ff-page="campaign"] .ff-sponsorCard,
+html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+  padding: clamp(16px, 2.4vw, 24px);
+}
+
+html[data-ff-page="campaign"] .ff-storyPoster {
+  min-height: auto;
+  aspect-ratio: 16 / 11;
+  max-height: 520px;
+}
+
+html[data-ff-page="campaign"] .ff-storyPoster img,
+html[data-ff-page="campaign"] .ff-squadCard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+html[data-ff-page="campaign"] .ff-squadCard__media {
+  aspect-ratio: 16 / 10;
+  min-height: 0;
+  max-height: 260px;
+}
+
+html[data-ff-page="campaign"] .ff-impactCard h3,
+html[data-ff-page="campaign"] .ff-sponsorCard h3 {
+  margin-bottom: .45rem;
+}
+
+html[data-ff-page="campaign"] .ff-impactCard p,
+html[data-ff-page="campaign"] .ff-sponsorCard li,
+html[data-ff-page="campaign"] .ff-campaignFooter__closing p {
+  line-height: 1.52;
+}
+
+html[data-ff-page="campaign"] .ff-sponsorCard ul {
+  gap: .42rem;
+  margin-top: .8rem;
+}
+
+html[data-ff-page="campaign"] .ff-sponsorCard li {
+  padding-left: 1.1rem;
+}
+
+html[data-ff-page="campaign"] .ff-sponsorCard__head {
+  margin-bottom: .7rem;
+}
+
+html[data-ff-page="campaign"] .ff-sponsorCard > strong {
+  display: block;
+  margin-bottom: .65rem;
+}
+
+html[data-ff-page="campaign"] .ff-donorTrustStrip {
+  margin-top: clamp(10px, 1.8vw, 16px);
+}
+
+@media (min-width: 861px) {
+  html[data-ff-page="campaign"] .ff-impactGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorGrid {
+    align-items: stretch;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard {
+    display: flex;
+    flex-direction: column;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard ul {
+    flex: 1;
+  }
+}
+
+@media (max-width: 860px) {
+  html[data-ff-page="campaign"] .ff-campaignSection {
+    padding-block: 28px;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    aspect-ratio: 16 / 10;
+    max-height: 420px;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media {
+    max-height: 220px;
+  }
+}
+
+@media (max-width: 680px) {
+  html[data-ff-page="campaign"] .ff-campaignHero {
+    padding-block: 20px 24px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__grid {
+    gap: 14px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection {
+    padding-block: 24px;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactGrid,
+  html[data-ff-page="campaign"] .ff-sponsorGrid {
+    gap: 10px;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard,
+  html[data-ff-page="campaign"] .ff-sponsorCard {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard span,
+  html[data-ff-page="campaign"] .ff-sponsorCard__head span,
+  html[data-ff-page="campaign"] .ff-squadCard__media span {
+    margin-bottom: 9px;
+  }
+
+  html[data-ff-page="campaign"] .ff-impactCard p,
+  html[data-ff-page="campaign"] .ff-sponsorCard li {
+    font-size: .88rem;
+    line-height: 1.45;
+  }
+
+  html[data-ff-page="campaign"] .ff-storySplit {
+    gap: 12px;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    aspect-ratio: 4 / 3;
+    max-height: 320px;
+    border-radius: 18px;
+  }
+
+  html[data-ff-page="campaign"] .ff-storyPoster__label {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: .62rem .72rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media {
+    aspect-ratio: 16 / 9;
+    max-height: 180px;
+    border-radius: 16px;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard ul {
+    margin-top: .65rem;
+    gap: .34rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard__head {
+    margin-bottom: .5rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-sponsorCard > strong {
+    margin-bottom: .45rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+    padding: 16px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  html[data-ff-page="campaign"] .ff-storyPoster {
+    max-height: 280px;
+  }
+
+  html[data-ff-page="campaign"] .ff-squadCard__media {
+    max-height: 160px;
+  }
+}
+
+/* FF_CAMPAIGN_MEASURED_COMPRESSION_PASS_1_END */
