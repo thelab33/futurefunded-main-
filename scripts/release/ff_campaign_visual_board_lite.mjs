@@ -9,6 +9,8 @@ const BASE_URL = process.env.FF_BASE_URL || "http://127.0.0.1:5000";
 const URL = `${BASE_URL.replace(/\/$/, "")}/c/connect-atx-elite`;
 const OUT = path.join(ROOT, "audit_outputs", "visual-review-board", "latest");
 
+const FF_CAMPAIGN_BOARD_REAL_IMAGE_EXTENSIONS = /\.(png|jpe?g|webp|gif|svg|avif)(\?|#|$)/i;
+
 const viewports = [
   ["mobile", 390, 1400],
   ["tablet", 768, 1500],
@@ -143,7 +145,13 @@ for (const [name, width, height] of viewports) {
       images: document.images.length,
       brokenImages: await Promise.all(Array.from(document.images).map(async (img) => {
         const src = img.currentSrc || img.src || "";
-        if (!src) return "";
+        const pageUrl = new URL(window.location.href);
+        const srcUrl = src ? new URL(src, window.location.href) : null;
+        const looksLikeRealImage = /\.(png|jpe?g|webp|gif|svg|avif)(\?|#|$)/i.test(src);
+
+        // Ignore empty sources, page URLs, and non-image URLs. Some runtime fallback
+        // states expose the current document URL as an image src in headless capture.
+        if (!src || !srcUrl || srcUrl.pathname === pageUrl.pathname || !looksLikeRealImage) return "";
 
         // Fast path: browser decoded it as a real image.
         if (img.complete && img.naturalWidth > 0) return "";
