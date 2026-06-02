@@ -107,3 +107,4 @@ htmlcov/
 # === FUTUREFUNDED CLEAN ROOT GENERATED ARTIFACTS END ===
 .env.email.local
 .env.host.local
+.env.db.local
