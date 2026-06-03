@@ -1,205 +1,178 @@
 /* ==========================================================================
-   FutureFunded HOI 6H.1 — CSP-safe onboarding Brand Kit
-   Marker: hoi-6h1-onboarding-csp-layer-fix-v1
-========================================================================== */
-(() => {
-  "use strict";
+   FutureFunded — Onboarding Workspace JS v5
+   File: apps/web/app/static/js/ff-onboarding.js
+   Marker: FF_ONBOARDING_JS_FOCUSED_V5
 
-  const root = document.querySelector("[data-ff-onboard-root]");
+   Scope:
+   - /platform/onboarding only
+   - Stable template contract: ffOnboardV2__*
+   - No framework dependency
+========================================================================== */
+
+(() => {
+  const root =
+    document.querySelector('[data-ff-onboarding-root]') ||
+    document.querySelector('[data-ff-onboard-root]') ||
+    document.querySelector('[data-ff-page-root]');
+
   if (!root) return;
 
-  const save = document.querySelector("[data-ff-save-onboarding]");
-  const note = document.querySelector("[data-ff-save-note]");
-  const presetButtons = [...document.querySelectorAll("[data-ff-theme-preset]")];
+  const storageKey = 'futurefunded.platformOnboarding.v5';
 
-  const setPreset = (preset) => {
-    if (!preset) return;
-    root.setAttribute("data-ff-brand-preset", preset);
+  const $ = (selector, scope = root) => scope.querySelector(selector);
+  const $$ = (selector, scope = root) => Array.from(scope.querySelectorAll(selector));
+
+  const fields = $$('input[name], textarea[name], select[name]');
+  const saveButtons = $$('[data-ff-save-onboarding]');
+  const saveNote = $('[data-ff-save-note]');
+  const themePreview = $('[data-ff-theme-preview]');
+  const presetButtons = $$('[data-ff-theme-preset]');
+
+  const colorFields = {
+    primary: $('[data-ff-color-primary]'),
+    accent: $('[data-ff-color-accent]'),
+    soft: $('[data-ff-color-soft]')
   };
 
-  presetButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const preset = button.getAttribute("data-preset") || "elite";
-      setPreset(preset);
+  const previewSources = $$('[data-ff-preview-source]');
+  const previewTargets = $$('[data-ff-preview-target]');
 
-      try {
-        window.localStorage.setItem("futurefunded:onboarding-brand-preset", preset);
-      } catch (_) {}
+  const presets = {
+    elite: { primary: '#ff5a1f', accent: '#0f766e', soft: '#fff3e7', label: 'Elite orange' },
+    school: { primary: '#2563eb', accent: '#f59e0b', soft: '#eff6ff', label: 'School blue' },
+    club: { primary: '#12845f', accent: '#ff5a1f', soft: '#effaf4', label: 'Club green' },
+    nonprofit: { primary: '#6d4aff', accent: '#0f766e', soft: '#f5f1ff', label: 'Nonprofit violet' }
+  };
 
-      presetButtons.forEach((item) => {
-        item.setAttribute("aria-pressed", item === button ? "true" : "false");
-      });
+  function setStatus(message, tone = 'neutral') {
+    if (!saveNote) return;
+    saveNote.textContent = message;
+    saveNote.dataset.tone = tone;
+  }
+
+  function collectDraft() {
+    return fields.reduce((draft, field) => {
+      draft[field.name] = field.type === 'checkbox' ? field.checked : field.value;
+      return draft;
+    }, { updatedAt: new Date().toISOString() });
+  }
+
+  function applyDraft(draft) {
+    if (!draft || typeof draft !== 'object') return;
+    fields.forEach((field) => {
+      if (!(field.name in draft)) return;
+      if (field.type === 'checkbox') field.checked = Boolean(draft[field.name]);
+      else field.value = draft[field.name];
     });
-  });
+  }
 
-  try {
-    const savedPreset = window.localStorage.getItem("futurefunded:onboarding-brand-preset");
-    if (savedPreset) {
-      setPreset(savedPreset);
-      presetButtons.forEach((item) => {
-        item.setAttribute("aria-pressed", item.getAttribute("data-preset") === savedPreset ? "true" : "false");
-      });
+  function saveDraft({ quiet = false } = {}) {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(collectDraft()));
+      if (!quiet) setStatus('Saved privately in this browser. Public campaign content was not changed.', 'success');
+    } catch {
+      if (!quiet) setStatus('Could not save locally. Your browser may be blocking storage.', 'warning');
     }
-  } catch (_) {}
+  }
 
-  if (save) {
-    save.addEventListener("click", () => {
-      const payload = {
-        preset: root.getAttribute("data-ff-brand-preset") || "elite",
-        savedAt: new Date().toISOString(),
-      };
+  function loadDraft() {
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return;
+      applyDraft(JSON.parse(raw));
+      setStatus('Loaded your private draft from this browser.', 'success');
+    } catch {
+      setStatus('Saved draft could not be loaded. Template defaults were kept.', 'warning');
+    }
+  }
 
-      try {
-        window.localStorage.setItem("futurefunded:onboarding-brand-kit", JSON.stringify(payload));
-      } catch (_) {}
+  function applyPreviewColors() {
+    const primary = colorFields.primary?.value || presets.elite.primary;
+    const accent = colorFields.accent?.value || presets.elite.accent;
+    const soft = colorFields.soft?.value || presets.elite.soft;
 
-      if (note) {
-        note.textContent = "Launch setup saved locally. Review the campaign before sharing.";
+    const targets = [document.documentElement, document.body, themePreview].filter(Boolean);
+
+    targets.forEach((target) => {
+      target.style.setProperty('--onb-orange', primary);
+      target.style.setProperty('--onb-orange-2', primary);
+      target.style.setProperty('--onb-teal', accent);
+      target.style.setProperty('--onb-cream', soft);
+    });
+  }
+
+  function updatePreviewText() {
+    const values = previewSources.reduce((acc, field) => {
+      acc[field.dataset.ffPreviewSource] = String(field.value || '').trim();
+      return acc;
+    }, {});
+
+    previewTargets.forEach((target) => {
+      const key = target.dataset.ffPreviewTarget;
+      const value = values[key];
+      if (!value) return;
+
+      if (key === 'campaignName') {
+        target.textContent = value.replace(/\s+(Season Fund|Fundraiser)$/i, '') || value;
+      }
+
+      if (key === 'summary') {
+        target.textContent = value;
       }
     });
   }
-})();
-/* ==========================================================================
-   FutureFunded HOI 6I — Brand Kit Persistence Contract
-   Marker: hoi-6i-brand-kit-contract-v1
 
-   Contract:
-   - Onboarding owns setup intent.
-   - Brand Kit saves a stable frontend contract to localStorage.
-   - Campaign can preview the selected preset without inline styles.
-   - Backend can later persist this exact contract to campaign settings.
-========================================================================== */
-(() => {
-  "use strict";
+  function setPreset(name) {
+    const preset = presets[name];
+    if (!preset) return;
 
-  const CONTRACT_KEY = "futurefunded:brand-kit-contract:v1";
-  const LEGACY_PRESET_KEY = "futurefunded:onboarding-brand-preset";
-  const LEGACY_KIT_KEY = "futurefunded:onboarding-brand-kit";
-
-  const ALLOWED_PRESETS = new Set(["elite", "school", "club", "nonprofit"]);
-
-  const root = document.querySelector("[data-ff-onboard-root]");
-  if (!root) return;
-
-  const presetButtons = [...document.querySelectorAll("[data-ff-theme-preset]")];
-  const saveButton = document.querySelector("[data-ff-save-onboarding]");
-  const note = document.querySelector("[data-ff-save-note]");
-
-  const fields = {
-    primary: document.querySelector("[data-ff-color-primary]"),
-    accent: document.querySelector("[data-ff-color-accent]"),
-    soft: document.querySelector("[data-ff-color-soft]"),
-  };
-
-  function cleanPreset(value) {
-    const preset = String(value || "").trim().toLowerCase();
-    return ALLOWED_PRESETS.has(preset) ? preset : "elite";
-  }
-
-  function activePreset() {
-    const pressed = presetButtons.find((button) => button.getAttribute("aria-pressed") === "true");
-    return cleanPreset(
-      root.getAttribute("data-ff-brand-preset") ||
-      pressed?.getAttribute("data-preset") ||
-      "elite"
-    );
-  }
-
-  function buildContract() {
-    return {
-      version: 1,
-      preset: activePreset(),
-      primary: fields.primary?.value || "",
-      accent: fields.accent?.value || "",
-      soft: fields.soft?.value || "",
-      source: "platform/onboarding",
-      scope: "campaign-preview",
-      updatedAt: new Date().toISOString(),
-    };
-  }
-
-  function applyPreset(preset) {
-    const safePreset = cleanPreset(preset);
-    root.setAttribute("data-ff-brand-preset", safePreset);
+    if (colorFields.primary) colorFields.primary.value = preset.primary;
+    if (colorFields.accent) colorFields.accent.value = preset.accent;
+    if (colorFields.soft) colorFields.soft.value = preset.soft;
 
     presetButtons.forEach((button) => {
-      button.setAttribute(
-        "aria-pressed",
-        button.getAttribute("data-preset") === safePreset ? "true" : "false"
-      );
+      button.setAttribute('aria-pressed', String(button.dataset.preset === name));
     });
 
-    return safePreset;
+    applyPreviewColors();
+    updatePreviewText();
+    saveDraft({ quiet: true });
+    setStatus(`${preset.label} theme applied privately.`, 'success');
   }
 
-  function saveContract(reason = "manual") {
-    const contract = buildContract();
-    contract.reason = reason;
-
-    try {
-      window.localStorage.setItem(CONTRACT_KEY, JSON.stringify(contract));
-      window.localStorage.setItem(LEGACY_PRESET_KEY, contract.preset);
-      window.localStorage.setItem(LEGACY_KIT_KEY, JSON.stringify(contract));
-    } catch (_) {}
-
-    root.setAttribute("data-ff-brand-contract-saved", "true");
-
-    if (note) {
-      note.textContent =
-        reason === "preset"
-          ? "Brand preset saved. Preview the campaign to see the theme contract."
-          : "Brand kit saved locally. Preview the campaign to see the selected theme.";
-    }
-
-    return contract;
+  function markDirty() {
+    applyPreviewColors();
+    updatePreviewText();
+    saveDraft({ quiet: true });
+    setStatus('Private draft updated in this browser.', 'neutral');
   }
 
-  function restoreContract() {
-    try {
-      const raw = window.localStorage.getItem(CONTRACT_KEY);
-      if (!raw) {
-        const legacyPreset = window.localStorage.getItem(LEGACY_PRESET_KEY);
-        if (legacyPreset) applyPreset(legacyPreset);
-        return;
-      }
+  loadDraft();
+  applyPreviewColors();
+  updatePreviewText();
 
-      const contract = JSON.parse(raw);
-      applyPreset(contract.preset);
-
-      if (fields.primary && contract.primary) fields.primary.value = contract.primary;
-      if (fields.accent && contract.accent) fields.accent.value = contract.accent;
-      if (fields.soft && contract.soft) fields.soft.value = contract.soft;
-
-      root.setAttribute("data-ff-brand-contract-saved", "true");
-    } catch (_) {}
-  }
+  fields.forEach((field) => {
+    field.addEventListener('input', markDirty);
+    field.addEventListener('change', markDirty);
+  });
 
   presetButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const preset = applyPreset(button.getAttribute("data-preset"));
-      saveContract("preset");
+    button.addEventListener('click', () => setPreset(button.dataset.preset));
+  });
 
-      root.dispatchEvent(
-        new CustomEvent("ff:brand-kit:preset", {
-          bubbles: true,
-          detail: { preset },
-        })
-      );
+  saveButtons.forEach((button) => {
+    const idleText = button.dataset.ffIdleText || button.textContent.trim() || 'Save setup';
+
+    button.addEventListener('click', () => {
+      saveDraft();
+      button.textContent = 'Saved';
+      button.setAttribute('aria-live', 'polite');
+
+      window.setTimeout(() => {
+        button.textContent = idleText;
+      }, 1300);
     });
   });
 
-  Object.values(fields).forEach((field) => {
-    if (!field) return;
-    field.addEventListener("change", () => {
-      saveContract("field");
-    });
-  });
-
-  if (saveButton) {
-    saveButton.addEventListener("click", () => {
-      saveContract("manual");
-    });
-  }
-
-  restoreContract();
+  root.dataset.ffOnboardingJsReady = 'true';
 })();
