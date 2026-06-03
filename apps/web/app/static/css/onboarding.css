@@ -1192,3 +1192,165 @@ html[data-ff-page="platform-onboarding"] .ffOnboard__grid {
     width: 100%;
   }
 }
+
+/* ==========================================================================
+   FF_ONBOARDING_HERO_MOBILE_CONTAINMENT_LOCK_20260603
+   Final containment pass for compact onboarding hero:
+   - Prevents mobile kicker clipping
+   - Centers radial progress card on mobile
+   - Tightens desktop vertical rhythm
+   - Keeps compact onboarding direction intact
+   ========================================================================== */
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
+  overflow: visible !important;
+  margin-top: 8px !important;
+  margin-bottom: 14px !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
+  min-width: 0;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker {
+  position: relative;
+  z-index: 2;
+  margin-top: 0 !important;
+  white-space: nowrap;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup h1 {
+  max-width: 12.4ch !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts div {
+  display: grid;
+  align-content: center;
+}
+
+/* Desktop: slightly tighter, more product-app than landing-page */
+@media (min-width: 981px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
+    padding-block: clamp(18px, 2.5vw, 26px) !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
+    padding-block: 6px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts {
+    margin-top: 16px !important;
+  }
+}
+
+/* Tablet/mobile: make the hero stack feel deliberate */
+@media (max-width: 980px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
+    gap: 18px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__status--radial {
+    width: 100%;
+    max-width: none !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressRing {
+    margin-inline: auto !important;
+  }
+}
+
+/* Phone: stop top clipping and reduce oversized hero feel */
+@media (max-width: 720px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__main {
+    padding-top: 14px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
+    margin-top: 10px !important;
+    padding: 22px 18px 18px !important;
+    border-radius: 22px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
+    padding: 4px 2px 0 !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker {
+    min-height: 28px !important;
+    margin-bottom: 12px !important;
+    padding-inline: 10px !important;
+    font-size: .72rem !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__eyebrow {
+    margin-bottom: 7px !important;
+    font-size: .68rem !important;
+    letter-spacing: .15em !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup h1 {
+    max-width: 10.8ch !important;
+    margin-bottom: 10px !important;
+    font-size: clamp(2.14rem, 11.6vw, 3.05rem) !important;
+    line-height: .9 !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroText {
+    font-size: .9rem !important;
+    line-height: 1.48 !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroActions {
+    gap: 8px !important;
+    margin-top: 16px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn {
+    min-height: 38px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts {
+    gap: 8px !important;
+    margin-top: 14px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts div {
+    min-height: 56px !important;
+    padding: 10px 11px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial {
+    padding: 16px 14px !important;
+    border-radius: 20px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressRing {
+    width: 118px !important;
+    height: 118px !important;
+    margin: 6px auto 10px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressOrb {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop {
+    align-items: center;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__steps li {
+    min-height: 32px !important;
+  }
+}
+
+/* Very narrow phones */
+@media (max-width: 390px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup h1 {
+    font-size: clamp(2rem, 11vw, 2.72rem) !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroText {
+    font-size: .86rem !important;
+  }
+}

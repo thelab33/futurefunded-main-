@@ -9,7 +9,7 @@
   const prevBtn = document.querySelector("[data-ff-prev-step]");
   const saveBtn = document.querySelector("[data-ff-save-onboarding]");
   const progressBar = document.querySelector("[data-ff-progress-bar]");
-  const progressLabel = document.querySelector("[data-ff-progress-label]");
+  const progressLabels = Array.from(document.querySelectorAll("[data-ff-progress-label]"));\n  const progressRing = document.querySelector("[data-ff-progress-ring]");
   const saveNote = document.querySelector("[data-ff-save-note]");
   const previewSources = Array.from(document.querySelectorAll("[data-ff-preview-source]"));
 
@@ -33,7 +33,7 @@
 
     const pct = Math.round(((current + 1) / panels.length) * 100);
     if (progressBar) progressBar.style.width = `${pct}%`;
-    if (progressLabel) progressLabel.textContent = `${pct}%`;
+    progressLabels.forEach((label) => { label.textContent = `${pct}%`; });\n    if (progressRing) {\n      progressRing.style.setProperty("--ff-progress-deg", `${Math.round((pct / 100) * 360)}deg`);\n      progressRing.setAttribute("aria-label", `${pct}% complete`);\n    }
 
     if (prevBtn) prevBtn.disabled = current === 0;
     if (nextBtn) nextBtn.textContent = current === panels.length - 1 ? "Review complete" : "Continue";
