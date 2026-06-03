@@ -429,6 +429,8 @@ def run_page_board(
     parser.add_argument("--port", type=int, default=int(os.environ.get("FF_BOARD_PORT", str(default_port))))
     parser.add_argument("--wait", type=int, default=int(os.environ.get("FF_BOARD_WAIT_MS", "900")))
     parser.add_argument("--no-open", action="store_true")
+    parser.add_argument("--capture-only", action="store_true", help="Capture screenshots and write board HTML, but do not start the board server.")
+    parser.add_argument("--allow-unreachable", action="store_true", help="Attempt capture even if the target URL check fails.")
     args = parser.parse_args()
 
     slug = args.slug.strip().replace(" ", "-").lower()
@@ -452,6 +454,12 @@ def run_page_board(
         out_dir=out_dir,
         stamp=stamp,
     )
+
+    if args.capture_only:
+        print(f"✅ {args.title} captured")
+        print(f"Target: {target}")
+        print(f"Board file: {board_file}")
+        return 0
 
     port = find_free_port(args.port)
     os.chdir(str(out_dir))
