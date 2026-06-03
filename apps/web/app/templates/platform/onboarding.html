@@ -2,12 +2,12 @@
 {% set ff_page = 'platform-onboarding' %}
 {% extends "_base/site_base.html" %}
 
-{% block html_class %}ff-root ff-onboardV1Root{% endblock %}
-{% block body_class %}ff-page ff-onboarding-page ffOnboardV1Body{% endblock %}
-{% block title %}Launch workspace · FutureFunded{% endblock %}
+{% block html_class %}ff-root ff-onboardRoot{% endblock %}
+{% block body_class %}ff-page ff-onboarding-page ffOnboardBody{% endblock %}
+{% block title %}Campaign setup · FutureFunded{% endblock %}
 
 {% block page_description %}
-Build a sponsor-ready fundraising campaign with a clear ask, safe giving path, polished sponsor offers, and a simple launch checklist.
+Set up a FutureFunded campaign with only the essentials: campaign details, branding, giving, sponsor options, and review.
 {% endblock %}
 
 {% block head_meta %}
@@ -18,266 +18,262 @@ Build a sponsor-ready fundraising campaign with a clear ask, safe giving path, p
   <link rel="stylesheet"
         href="{{ url_for('static', filename='css/onboarding.css') }}?v={{ _asset_v|e }}"
         data-ff-css="onboarding.css"
-        data-ff-css-authority="platform-onboarding-v1-owned-header">
+        data-ff-css-authority="platform-onboarding-compact">
 {% endblock %}
 
 {% block body_attrs %}
-data-ff-surface="platform-onboarding"
 data-ff-page="platform-onboarding"
-data-ff-onboarding-template="v1-owned-header"
-data-ff-onboarding-version="1.0"
+data-ff-surface="platform-onboarding"
+data-ff-onboarding-template="compact"
+data-ff-onboarding-version="2.0"
 {% endblock %}
 
 {% block content %}
-  <a class="ffOnboardV1__skip" href="#main-content">Skip to setup</a>
+<a class="ffOnboard__skip" href="#main-content">Skip to setup</a>
 
-  <header
-    class="ffOnboardV1__header"
-    data-ff-onboard-header
-    role="banner"
-    aria-label="FutureFunded launch workspace header"
-  >
-    <div class="ffOnboardV1__headerShell">
-      <a class="ffOnboardV1__brand" href="/platform/" aria-label="FutureFunded launch workspace home">
-        <span class="ffOnboardV1__brandMark" aria-hidden="true">FF</span>
-        <span class="ffOnboardV1__brandCopy">
-          <strong>FutureFunded</strong>
-          <small>Launch workspace</small>
-        </span>
-      </a>
+<header class="ffOnboard__header" role="banner">
+  <div class="ffOnboard__headerShell">
+    <a class="ffOnboard__brand" href="/platform/" aria-label="FutureFunded platform home">
+      <span class="ffOnboard__brandMark">FF</span>
+      <span>
+        <strong>FutureFunded</strong>
+        <small>Campaign setup</small>
+      </span>
+    </a>
 
-      <button
-        class="ffOnboardV1__navToggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="onboarding-owned-nav"
-        data-ff-onboard-nav-toggle
-      >
-        <span aria-hidden="true"></span>
-        <span class="ffOnboardV1__srOnly">Open launch navigation</span>
-      </button>
+    <nav class="ffOnboard__nav" aria-label="Setup navigation">
+      <a href="#setup">Setup</a>
+      <a href="#preview">Preview</a>
+      <a href="#review">Review</a>
+    </nav>
 
-      <nav class="ffOnboardV1__nav" id="onboarding-owned-nav" aria-label="Launch workspace navigation" data-ff-onboard-nav>
-        <a href="#campaign-basics">Basics</a>
-        <a href="#story-builder">Story</a>
-        <a href="#brand-kit">Brand</a>
-        <a href="#giving-readiness">Giving</a>
-        <a href="#sponsor-offers">Sponsors</a>
-        <a href="#launch-handoff">Launch</a>
-      </nav>
+    <a class="ffOnboard__previewBtn" href="/c/connect-atx-elite">Preview</a>
+  </div>
+</header>
 
-      <div class="ffOnboardV1__headerActions" aria-label="Workspace actions">
-        <span class="ffOnboardV1__headerStatus" data-ff-header-score>82% ready</span>
-        <a class="ffOnboardV1__headerBtn" href="/c/connect-atx-elite">Preview</a>
-      </div>
+<main class="ffOnboard__main" id="main-content" data-ff-onboard-root>
+  <section class="ffOnboard__hero" aria-labelledby="onboard-title">
+    <div>
+      <p class="ffOnboard__eyebrow">Campaign onboarding</p>
+      <h1 id="onboard-title">Set up a fundraiser in minutes.</h1>
+      <p>
+        Add the essentials, review the donor-facing preview, then save the campaign for launch.
+      </p>
     </div>
-  </header>
 
-  <main
-    class="ffOnboardV1__main"
-    id="main-content"
-    data-ff-page-root
-    data-ff-onboard-root
-    data-ff-onboarding-root
-    data-ff-onboarding-flagship="owned-header-v1"
-  >
-    <section class="ffOnboardV1__hero" aria-labelledby="launch-title">
-      <div class="ffOnboardV1__heroCopy">
-        <div class="ffOnboardV1__pills" aria-label="Launch workspace status">
-          <span>Private draft</span>
-          <span>Plain-English setup</span>
-          <span>Sponsor-ready</span>
-          <span>Safe preview</span>
+    <aside class="ffOnboard__status" aria-label="Setup progress">
+      <div class="ffOnboard__statusTop">
+        <span>Setup progress</span>
+        <strong data-ff-progress-label>20%</strong>
+      </div>
+      <div class="ffOnboard__progress" aria-hidden="true">
+        <span data-ff-progress-bar></span>
+      </div>
+      <ol class="ffOnboard__steps" data-ff-step-list>
+        <li data-step-index="0" aria-current="step">Basics</li>
+        <li data-step-index="1">Brand</li>
+        <li data-step-index="2">Giving</li>
+        <li data-step-index="3">Sponsors</li>
+        <li data-step-index="4">Review</li>
+      </ol>
+    </aside>
+  </section>
+
+  <form class="ffOnboard__grid" data-ff-onboard-form novalidate>
+    <section class="ffOnboard__card ffOnboard__formCard" id="setup" aria-label="Campaign setup">
+      <div class="ffOnboard__panel is-active" data-ff-step-panel="0">
+        <div class="ffOnboard__sectionHead">
+          <p class="ffOnboard__eyebrow">Step 1</p>
+          <h2>Campaign basics</h2>
+          <p>Only the details donors need to understand the ask.</p>
         </div>
 
-        <p class="ffOnboardV1__eyebrow">Campaign launch workspace</p>
-        <h1 id="launch-title">Launch a fundraiser families trust.</h1>
-        <p class="ffOnboardV1__lede">
-          A simple, premium setup page for building a polished fundraiser without touching code: clarify the ask, verify giving, package sponsors, and preview the campaign before it goes public.
-        </p>
+        <div class="ffOnboard__fields">
+          <label>
+            <span>Campaign name</span>
+            <input name="campaign_name" value="Connect ATX Elite Season Fund" data-ff-preview-source="campaignName" required>
+          </label>
 
-        <div class="ffOnboardV1__actions" aria-label="Primary launch actions">
-          <a class="ffOnboardV1__btn ffOnboardV1__btn--primary" href="#campaign-basics">Start setup</a>
-          <a class="ffOnboardV1__btn ffOnboardV1__btn--ghost" href="/c/connect-atx-elite">Preview campaign</a>
-        </div>
+          <label>
+            <span>Organization / team</span>
+            <input name="organization_name" value="Connect ATX Elite" data-ff-preview-source="orgName" required>
+          </label>
 
-        <div class="ffOnboardV1__trustStrip" aria-label="Launch safeguards">
-          <span><strong>Private</strong><small>until approved</small></span>
-          <span><strong>Mobile</strong><small>first flow</small></span>
-          <span><strong>Donor</strong><small>safe language</small></span>
+          <label>
+            <span>Fundraising goal</span>
+            <input name="fundraising_goal" value="$20,000" inputmode="numeric" data-ff-preview-source="goal" required>
+          </label>
+
+          <label>
+            <span>Location</span>
+            <input name="location" value="Austin, TX" data-ff-preview-source="location">
+          </label>
+
+          <label class="ffOnboard__wide">
+            <span>Use of funds</span>
+            <textarea name="use_of_funds" rows="3" data-ff-preview-source="funds">Tournament travel, gym time, meals, scholarships, uniforms, equipment, and season logistics.</textarea>
+          </label>
+
+          <label class="ffOnboard__wide">
+            <span>Public summary</span>
+            <textarea name="public_summary" rows="3" data-ff-preview-source="summary">Help Connect ATX Elite reduce family costs and give players a stronger, more stable season.</textarea>
+          </label>
         </div>
       </div>
 
-      <aside class="ffOnboardV1__launchCard" aria-labelledby="readiness-title">
-        <div class="ffOnboardV1__launchTop">
-          <span class="ffOnboardV1__liveDot" aria-hidden="true"></span>
-          <span>Workspace status</span>
+      <div class="ffOnboard__panel" data-ff-step-panel="1">
+        <div class="ffOnboard__sectionHead">
+          <p class="ffOnboard__eyebrow">Step 2</p>
+          <h2>Brand</h2>
+          <p>Keep the campaign official and easy to recognize.</p>
         </div>
 
-        <div class="ffOnboardV1__scoreRing" aria-label="Launch readiness score">
-          <strong id="readiness-title" data-ff-readiness-score>82%</strong>
-          <span>launch ready</span>
+        <div class="ffOnboard__fields">
+          <label>
+            <span>Logo note</span>
+            <input name="logo_note" value="Use the team logo on the campaign page.">
+          </label>
+
+          <label>
+            <span>Primary color</span>
+            <input type="color" name="brand_primary" value="#ff5a1f" data-ff-color-primary>
+          </label>
+
+          <label>
+            <span>Accent color</span>
+            <input type="color" name="brand_accent" value="#0f766e" data-ff-color-accent>
+          </label>
+
+          <label>
+            <span>Soft background</span>
+            <input type="color" name="brand_soft" value="#fff3e7" data-ff-color-soft>
+          </label>
+        </div>
+      </div>
+
+      <div class="ffOnboard__panel" data-ff-step-panel="2">
+        <div class="ffOnboard__sectionHead">
+          <p class="ffOnboard__eyebrow">Step 3</p>
+          <h2>Giving</h2>
+          <p>Confirm the payment path before the campaign is shared.</p>
         </div>
 
-        <div class="ffOnboardV1__meter" aria-hidden="true">
-          <span data-ff-readiness-meter></span>
+        <div class="ffOnboard__fields">
+          <label>
+            <span>Payment provider</span>
+            <select name="payment_provider">
+              <option selected>Stripe + PayPal</option>
+              <option>Stripe only</option>
+              <option>External giving link</option>
+              <option>Needs review</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Giving URL</span>
+            <input name="giving_url" value="https://getfuturefunded.com/c/connect-atx-elite" inputmode="url">
+          </label>
+
+          <label>
+            <span>Receipt contact</span>
+            <input name="receipt_contact" value="futurefunded@proton.me" inputmode="email">
+          </label>
+
+          <label>
+            <span>Button text</span>
+            <input name="donation_cta" value="Give securely" data-ff-preview-source="cta">
+          </label>
+        </div>
+      </div>
+
+      <div class="ffOnboard__panel" data-ff-step-panel="3">
+        <div class="ffOnboard__sectionHead">
+          <p class="ffOnboard__eyebrow">Step 4</p>
+          <h2>Sponsors</h2>
+          <p>Set simple sponsor options businesses can understand fast.</p>
         </div>
 
-        <dl class="ffOnboardV1__readinessList" aria-label="Launch readiness checklist">
-          <div><dt>Story</dt><dd>Drafted</dd></div>
-          <div><dt>Giving</dt><dd>Needs final check</dd></div>
-          <div><dt>Sponsors</dt><dd>Packages ready</dd></div>
-          <div><dt>Preview</dt><dd>Private link</dd></div>
-        </dl>
-      </aside>
+        <div class="ffOnboard__fields">
+          <label>
+            <span>Community tier</span>
+            <input name="tier_community" value="$300">
+          </label>
+
+          <label>
+            <span>Featured tier</span>
+            <input name="tier_featured" value="$750">
+          </label>
+
+          <label>
+            <span>Season tier</span>
+            <input name="tier_season" value="$1,500">
+          </label>
+
+          <label>
+            <span>Sponsor CTA</span>
+            <input name="sponsor_cta" value="Become a sponsor">
+          </label>
+        </div>
+      </div>
+
+      <div class="ffOnboard__panel" id="review" data-ff-step-panel="4">
+        <div class="ffOnboard__sectionHead">
+          <p class="ffOnboard__eyebrow">Step 5</p>
+          <h2>Review</h2>
+          <p>Check the minimum launch requirements before handing off.</p>
+        </div>
+
+        <div class="ffOnboard__checks">
+          <label><input type="checkbox" checked data-ff-checklist> Campaign basics are complete</label>
+          <label><input type="checkbox" checked data-ff-checklist> Giving path is verified</label>
+          <label><input type="checkbox" checked data-ff-checklist> Sponsor tiers are ready</label>
+          <label><input type="checkbox" data-ff-checklist> Mobile preview reviewed</label>
+        </div>
+      </div>
+
+      <div class="ffOnboard__actions">
+        <button type="button" class="ffOnboard__btn ffOnboard__btn--ghost" data-ff-prev-step>Back</button>
+        <button type="button" class="ffOnboard__btn ffOnboard__btn--primary" data-ff-next-step>Continue</button>
+        <button type="button" class="ffOnboard__btn ffOnboard__btn--save" data-ff-save-onboarding data-ff-idle-text="Save setup">Save setup</button>
+      </div>
+
+      <p class="ffOnboard__saveNote" data-ff-save-note role="status" aria-live="polite">
+        Private draft. Nothing public changes until launch.
+      </p>
     </section>
 
-    <section class="ffOnboardV1__quickStart" aria-label="Simple setup path">
-      <article><span>01</span><strong>Tell the story</strong><p>Who this helps, what the funds cover, and why now.</p></article>
-      <article><span>02</span><strong>Set the trust signals</strong><p>Brand, location, goal, payment readiness, and public summary.</p></article>
-      <article><span>03</span><strong>Package sponsors</strong><p>Clear tiers local businesses can approve quickly.</p></article>
-      <article><span>04</span><strong>Preview then launch</strong><p>Review the donor path before anyone shares the page.</p></article>
-    </section>
-
-    <form class="ffOnboardV1__workspace" data-ff-onboard-form novalidate>
-      <section class="ffOnboardV1__panel ffOnboardV1__panel--split" id="campaign-basics" aria-labelledby="basics-title" data-ff-onboard-section="campaign-basics">
-        <div class="ffOnboardV1__sectionHead">
-          <p class="ffOnboardV1__eyebrow">Campaign basics</p>
-          <h2 id="basics-title">Make the ask clear in seconds.</h2>
-          <p>This is the minimum information your sister, a team parent, or a future client needs to create a credible campaign page fast.</p>
-        </div>
-
-        <div class="ffOnboardV1__formGrid">
-          <label><span>Campaign name</span><input name="campaign_name" value="Connect ATX Elite Season Fund" autocomplete="organization-title" data-ff-preview-source="campaignName"></label>
-          <label><span>Fundraising goal</span><input name="fundraising_goal" value="$20,000" inputmode="numeric" data-ff-preview-source="goal"></label>
-          <label><span>Organization / team</span><input name="organization_name" value="Connect ATX Elite" autocomplete="organization" data-ff-preview-source="orgName"></label>
-          <label><span>Location</span><input name="location" value="Austin, TX" autocomplete="address-level2" data-ff-preview-source="location"></label>
-          <label class="ffOnboardV1__wide"><span>Use of funds</span><textarea name="use_of_funds" rows="4" data-ff-preview-source="funds">Tournament travel, gym time, meals, scholarships, uniforms, equipment, and season logistics.</textarea></label>
-          <label class="ffOnboardV1__wide"><span>Public summary</span><textarea name="public_summary" rows="4" data-ff-preview-source="summary">Help Connect ATX Elite reduce family costs and give players a stronger, more stable season.</textarea></label>
-        </div>
-
-        <aside class="ffOnboardV1__previewCard" aria-label="Live campaign preview" data-ff-theme-preview>
-          <div class="ffOnboardV1__previewHero">
-            <span class="ffOnboardV1__previewMark" aria-hidden="true">FF</span>
-            <span><strong data-ff-preview-target="orgName">Connect ATX Elite</strong><small data-ff-preview-target="location">Austin, TX</small></span>
-          </div>
-          <h3 data-ff-preview-target="campaignName">Connect ATX Elite Season Fund</h3>
-          <p data-ff-preview-target="summary">Help Connect ATX Elite reduce family costs and give players a stronger, more stable season.</p>
-          <div class="ffOnboardV1__previewMeta">
-            <span><strong data-ff-preview-target="goal">$20,000</strong><small>goal</small></span>
-            <span><strong>Private</strong><small>draft</small></span>
-          </div>
-          <div class="ffOnboardV1__previewMeter" aria-hidden="true"><span></span></div>
-          <button type="button">Give securely</button>
-        </aside>
-      </section>
-
-      <section class="ffOnboardV1__panel" id="story-builder" aria-labelledby="story-title" data-ff-onboard-section="story-builder">
-        <div class="ffOnboardV1__sectionHead">
-          <p class="ffOnboardV1__eyebrow">Story builder</p>
-          <h2 id="story-title">Turn the need into donor confidence.</h2>
-          <p>The page should not feel like a spreadsheet. It should explain the mission, show practical needs, and make support feel safe and useful.</p>
-        </div>
-        <div class="ffOnboardV1__storyGrid">
-          <label><span>Who this helps</span><textarea name="who_it_helps" rows="4">Youth athletes and families across Austin who are working hard to compete, travel, and grow through basketball.</textarea></label>
-          <label><span>Why support matters now</span><textarea name="why_now" rows="4">Season costs can pile up quickly. Every gift helps lower barriers for families and keeps players focused on school, development, and team goals.</textarea></label>
-          <label><span>Thank-you message</span><textarea name="thank_you_message" rows="4">Thank you for helping our players compete with confidence and represent Austin with pride.</textarea></label>
-        </div>
-      </section>
-
-      <section class="ffOnboardV1__panel ffOnboardV1__panel--split" id="brand-kit" aria-labelledby="brand-title" data-ff-onboard-section="brand-kit">
-        <div class="ffOnboardV1__sectionHead">
-          <p class="ffOnboardV1__eyebrow">Brand kit</p>
-          <h2 id="brand-title">Make the campaign feel official.</h2>
-          <p>Give each fundraiser a clean, trustworthy visual system without requiring design experience.</p>
-        </div>
-        <div class="ffOnboardV1__brandControls" data-ff-theme-picker>
-          <div class="ffOnboardV1__presetRow" aria-label="Theme presets">
-            <button type="button" data-ff-theme-preset data-preset="elite" aria-pressed="true">Elite orange</button>
-            <button type="button" data-ff-theme-preset data-preset="school" aria-pressed="false">School blue</button>
-            <button type="button" data-ff-theme-preset data-preset="club" aria-pressed="false">Club green</button>
-            <button type="button" data-ff-theme-preset data-preset="nonprofit" aria-pressed="false">Nonprofit violet</button>
-          </div>
-          <div class="ffOnboardV1__colorGrid">
-            <label><span>Primary</span><input type="color" name="brand_primary" value="#ff5a1f" data-ff-color-primary></label>
-            <label><span>Accent</span><input type="color" name="brand_accent" value="#0f766e" data-ff-color-accent></label>
-            <label><span>Soft background</span><input type="color" name="brand_soft" value="#fff3e7" data-ff-color-soft></label>
-          </div>
-          <label><span>Logo / mark notes</span><input name="brand_logo_note" value="Use the team logo in the campaign header, sponsor cards, and receipt experience."></label>
-        </div>
-        <aside class="ffOnboardV1__brandProof" aria-label="Brand quality checklist">
-          <article><strong>Logo</strong><span>Use one clean mark</span></article>
-          <article><strong>Colors</strong><span>High contrast CTAs</span></article>
-          <article><strong>Copy</strong><span>Simple donor language</span></article>
-          <article><strong>Mobile</strong><span>No cramped setup fields</span></article>
-        </aside>
-      </section>
-
-      <section class="ffOnboardV1__panel" id="giving-readiness" aria-labelledby="giving-title" data-ff-onboard-section="giving-readiness">
-        <div class="ffOnboardV1__sectionHead">
-          <p class="ffOnboardV1__eyebrow">Giving readiness</p>
-          <h2 id="giving-title">Verify the giving path before launch.</h2>
-          <p>Public pages should only show donation options once the provider, backup link, receipt language, and mobile flow are ready.</p>
-        </div>
-        <div class="ffOnboardV1__formGrid">
-          <label><span>Payment provider</span><select name="payment_provider"><option selected>Stripe + PayPal</option><option>Stripe only</option><option>External giving link</option><option>Provider needs review</option></select></label>
-          <label><span>Fallback giving URL</span><input name="fallback_giving_url" value="https://getfuturefunded.com/c/connect-atx-elite" inputmode="url"></label>
-          <label><span>Receipt contact</span><input name="receipt_contact" value="futurefunded@proton.me" inputmode="email" autocomplete="email"></label>
-          <label><span>Donation CTA</span><input name="donation_cta" value="Give securely"></label>
-        </div>
-        <div class="ffOnboardV1__notice" role="note">
-          <strong>Keep sensitive payment and SMS setup private.</strong>
-          <p>Do not expose internal provider notes, SMS keywords, secret keys, webhook URLs, or test credentials in public campaign templates.</p>
-        </div>
-      </section>
-
-      <section class="ffOnboardV1__panel" id="sponsor-offers" aria-labelledby="sponsor-title" data-ff-onboard-section="sponsor-offers">
-        <div class="ffOnboardV1__sectionHead">
-          <p class="ffOnboardV1__eyebrow">Sponsor offers</p>
-          <h2 id="sponsor-title">Make sponsorship easy to approve.</h2>
-          <p>Give local businesses clear options, plain benefits, and sponsor-safe recognition before the page goes live.</p>
-        </div>
-        <div class="ffOnboardV1__packageGrid">
-          <article><span>Community</span><strong>$300</strong><p>Entry-level support for families and small businesses.</p><ul><li>Sponsor listing</li><li>Thank-you mention</li><li>Optional website link</li></ul></article>
-          <article class="ffOnboardV1__packageFeatured"><span>Featured</span><strong>$750</strong><p>More visible recognition on the campaign page.</p><ul><li>Featured sponsor card</li><li>Logo or business name</li><li>Update recognition included</li></ul></article>
-          <article><span>Season</span><strong>$1,500</strong><p>Premium recognition for season-wide support.</p><ul><li>Top sponsor placement</li><li>Season-long recognition</li><li>Stronger sponsor proof</li></ul></article>
-        </div>
-      </section>
-
-      <section class="ffOnboardV1__panel ffOnboardV1__panel--split" id="launch-checklist" aria-labelledby="checklist-title" data-ff-onboard-section="launch-checklist">
-        <div class="ffOnboardV1__sectionHead">
-          <p class="ffOnboardV1__eyebrow">Launch checklist</p>
-          <h2 id="checklist-title">Only publish when every signal is clean.</h2>
-          <p>These checks keep the page simple for non-technical operators and safer for donors, parents, and sponsors.</p>
-        </div>
-        <div class="ffOnboardV1__checklist" aria-label="Launch checklist">
-          <label><input type="checkbox" data-ff-checklist checked> <span>Campaign story is clear and public-safe</span></label>
-          <label><input type="checkbox" data-ff-checklist checked> <span>Donation provider and backup link are verified</span></label>
-          <label><input type="checkbox" data-ff-checklist checked> <span>Sponsor tiers and benefits are approved</span></label>
-          <label><input type="checkbox" data-ff-checklist> <span>Mobile preview has been reviewed</span></label>
-          <label><input type="checkbox" data-ff-checklist> <span>Operator dashboard handoff is complete</span></label>
-        </div>
-      </section>
-
-      <section class="ffOnboardV1__handoff" id="launch-handoff" aria-labelledby="handoff-title" data-ff-onboard-section="launch-handoff">
+    <aside class="ffOnboard__card ffOnboard__preview" id="preview" aria-label="Campaign preview">
+      <div class="ffOnboard__previewTop">
+        <span class="ffOnboard__previewMark">FF</span>
         <div>
-          <p class="ffOnboardV1__eyebrow">Launch handoff</p>
-          <h2 id="handoff-title">Ready when every signal is clean.</h2>
-          <p>Save the setup, preview the public page, then hand the campaign to the dashboard for final approval and launch.</p>
+          <strong data-ff-preview-target="orgName">Connect ATX Elite</strong>
+          <small data-ff-preview-target="location">Austin, TX</small>
         </div>
-        <div class="ffOnboardV1__handoffActions" aria-label="Launch handoff actions">
-          <button type="button" class="ffOnboardV1__btn ffOnboardV1__btn--primary" data-ff-save-onboarding data-ff-idle-text="Save setup">Save setup</button>
-          <a class="ffOnboardV1__btn ffOnboardV1__btn--ghost" href="/c/connect-atx-elite">Preview campaign</a>
-          <a class="ffOnboardV1__btn ffOnboardV1__btn--ghost" href="/platform/dashboard">Dashboard</a>
-        </div>
-        <p class="ffOnboardV1__saveNote" data-ff-save-note role="status" aria-live="polite">Private workspace. Public campaign content stays clean until review.</p>
-      </section>
-    </form>
-  </main>
+      </div>
+
+      <h2 data-ff-preview-target="campaignName">Connect ATX Elite Season Fund</h2>
+      <p data-ff-preview-target="summary">
+        Help Connect ATX Elite reduce family costs and give players a stronger, more stable season.
+      </p>
+
+      <div class="ffOnboard__miniStats">
+        <span><strong data-ff-preview-target="goal">$20,000</strong><small>Goal</small></span>
+        <span><strong>Private</strong><small>Status</small></span>
+      </div>
+
+      <div class="ffOnboard__previewMeter" aria-hidden="true"><span></span></div>
+      <button type="button" data-ff-preview-target="cta">Give securely</button>
+
+      <div class="ffOnboard__summary">
+        <strong>Use of funds</strong>
+        <p data-ff-preview-target="funds">Tournament travel, gym time, meals, scholarships, uniforms, equipment, and season logistics.</p>
+      </div>
+    </aside>
+  </form>
+</main>
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
 <script src="{{ url_for('static', filename='js/ff-onboarding.js') }}?v={{ _asset_v|default(asset_v|default('dev', true), true) }}" defer></script>
 {% endblock %}
-
