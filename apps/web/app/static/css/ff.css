@@ -18517,3 +18517,128 @@ body.ff-dashboardModernBody .ff-dashboardModern__offlineStatus[data-tone="warnin
 }
 
 /* FF_PLATFORM_HOME_THEME_CONTRACT_V1_END */
+
+/* ==========================================================================
+   FF_PLATFORM_WARM_TARGETED_STRUCTURE_POLISH_20260603
+   Safe targeted polish for the warm platform homepage.
+   Rules:
+   - No broad main > section overrides
+   - No [class*="..."] selectors
+   - No global card sweeps
+   - Only concrete platform-home classes
+   ========================================================================== */
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformMain {
+  width: min(1180px, calc(100vw - 32px));
+  margin-inline: auto;
+  padding-block: clamp(18px, 3vw, 34px) clamp(42px, 6vw, 76px);
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero {
+  overflow: hidden;
+  border-radius: clamp(24px, 3vw, 34px);
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(310px, 0.78fr);
+  align-items: stretch;
+  gap: clamp(16px, 2.4vw, 28px);
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero__copy,
+html[data-ff-page="platform"] body.ff-platformBody .ff-launchCard {
+  min-width: 0;
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeroTitle,
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero h1 {
+  max-width: 10.25ch;
+  text-wrap: balance;
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero .ff-lede {
+  max-width: 58ch;
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-launchCard {
+  align-self: stretch;
+  max-width: 100%;
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformSection {
+  margin-block: clamp(54px, 8vw, 104px);
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformSection:first-of-type {
+  margin-top: clamp(38px, 6vw, 76px);
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformSection:last-of-type {
+  margin-bottom: clamp(28px, 5vw, 58px);
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-trustGrid,
+html[data-ff-page="platform"] body.ff-platformBody .ff-featureGrid,
+html[data-ff-page="platform"] body.ff-platformBody .ff-sponsorGrid,
+html[data-ff-page="platform"] body.ff-platformBody .ff-flowGrid {
+  min-width: 0;
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-trustGrid > *,
+html[data-ff-page="platform"] body.ff-platformBody .ff-featureGrid > *,
+html[data-ff-page="platform"] body.ff-platformBody .ff-sponsorGrid > *,
+html[data-ff-page="platform"] body.ff-platformBody .ff-flowGrid > * {
+  min-width: 0;
+}
+
+/* Tablet: preserve the clean stack without hiding the live proof card. */
+@media (max-width: 980px) {
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformMain {
+    width: min(100vw - 24px, 1180px);
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-launchCard {
+    max-width: 100%;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeroTitle,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero h1 {
+    max-width: 10.8ch;
+  }
+}
+
+/* Phone: reduce the pinched-board look while keeping the premium narrow page. */
+@media (max-width: 720px) {
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformMain {
+    width: min(100vw - 18px, 1180px);
+    padding-top: 14px;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero {
+    border-radius: 24px;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeroTitle,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero h1 {
+    max-width: 8.7ch;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformSection {
+    margin-block: 34px;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-pillRow {
+    gap: 7px;
+  }
+}
+
+@media (max-width: 390px) {
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformMain {
+    width: min(100vw - 14px, 1180px);
+  }
+}
