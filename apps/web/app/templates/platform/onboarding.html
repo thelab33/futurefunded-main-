@@ -52,23 +52,60 @@ data-ff-onboarding-version="2.0"
 </header>
 
 <main class="ffOnboard__main" id="main-content" data-ff-onboard-root>
-  <section class="ffOnboard__hero" aria-labelledby="onboard-title">
-    <div>
+  <section class="ffOnboard__hero ffOnboard__hero--setup" aria-labelledby="onboard-title">
+    <div class="ffOnboard__heroContent">
+      <div class="ffOnboard__heroKicker">
+        <span class="ffOnboard__liveDot" aria-hidden="true"></span>
+        <span>Private campaign draft</span>
+      </div>
+
       <p class="ffOnboard__eyebrow">Campaign onboarding</p>
-      <h1 id="onboard-title">Set up a fundraiser in minutes.</h1>
-      <p>
-        Add the essentials, review the donor-facing preview, then save the campaign for launch.
+
+      <h1 id="onboard-title">Complete the setup before launch.</h1>
+
+      <p class="ffOnboard__heroText">
+        Add the required campaign details, confirm the giving path, review sponsor options, and preview the donor-facing page before anything goes public.
       </p>
+
+      <div class="ffOnboard__heroActions" aria-label="Primary onboarding actions">
+        <a class="ffOnboard__heroBtn ffOnboard__heroBtn--primary" href="#setup">Continue setup</a>
+        <a class="ffOnboard__heroBtn ffOnboard__heroBtn--ghost" href="#preview">Review preview</a>
+      </div>
+
+      <dl class="ffOnboard__heroFacts" aria-label="Setup requirements">
+        <div>
+          <dt>Current step</dt>
+          <dd>Basics</dd>
+        </div>
+        <div>
+          <dt>Required items</dt>
+          <dd>5</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>Draft</dd>
+        </div>
+      </dl>
     </div>
 
-    <aside class="ffOnboard__status" aria-label="Setup progress">
+    <aside class="ffOnboard__status ffOnboard__status--radial" aria-label="Setup progress">
       <div class="ffOnboard__statusTop">
         <span>Setup progress</span>
         <strong data-ff-progress-label>20%</strong>
       </div>
-      <div class="ffOnboard__progress" aria-hidden="true">
-        <span data-ff-progress-bar></span>
+
+      <div
+        class="ffOnboard__progressRing"
+        data-ff-progress-ring
+        style="--ff-progress-deg: 72deg;"
+        aria-label="20% complete"
+      >
+        <div class="ffOnboard__progressOrb">
+          <strong data-ff-progress-label>20%</strong>
+          <small>complete</small>
+        </div>
       </div>
+
       <ol class="ffOnboard__steps" data-ff-step-list>
         <li data-step-index="0" aria-current="step">Basics</li>
         <li data-step-index="1">Brand</li>
