@@ -9819,3 +9819,173 @@ html[data-ff-page="campaign"] .ff-campaignFooter__closing h2 {
 }
 
 /* FF_CAMPAIGN_DEEP_MOBILE_COMPRESSION_PASS_2_END */
+
+/* ==========================================================================
+   FF_CAMPAIGN_MONEY_PAGE_TARGETED_POLISH_20260603
+   Safe donor-facing campaign page pass.
+   Goal: match platform-page polish without changing campaign copy.
+   Rules:
+   - Concrete campaign selectors only
+   - No wildcard class matching
+   - No broad section sweeps
+   - No shared/global page overrides
+   ========================================================================== */
+
+html[data-ff-page="campaign"] body.ff-campaignBody {
+  --ff-campaign-warm-bg: #f3dfc2;
+  --ff-campaign-card: rgba(255, 252, 246, .96);
+  --ff-campaign-line: rgba(72, 44, 22, .13);
+  --ff-campaign-orange: #ff5a1f;
+  --ff-campaign-ink: #1f130c;
+  --ff-campaign-muted: rgba(47, 31, 20, .68);
+}
+
+/* Shell discipline */
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignMain,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignMain,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignShell,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignShell {
+  width: min(1180px, calc(100vw - 32px));
+  margin-inline: auto;
+}
+
+/* Hero: keep the current warm campaign direction, improve containment. */
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero {
+  overflow: hidden;
+  border-radius: clamp(24px, 3vw, 34px);
+}
+
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero__grid,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, .62fr);
+  align-items: start;
+  gap: clamp(18px, 2.5vw, 32px);
+}
+
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero__copy,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero__copy,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero__panel,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero__panel {
+  min-width: 0;
+}
+
+/* Donation panel: premium checkout card, stable on desktop/tablet. */
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-donationPanel,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffDonationPanel,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-givePanel,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffGivePanel,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignDonate,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignDonate {
+  max-width: 430px;
+  margin-inline: auto;
+  border-radius: 28px;
+  box-shadow: 0 28px 76px rgba(72, 44, 22, .18);
+}
+
+/* Section rhythm: tightened but not compressed. */
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignSection,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignSection {
+  margin-block: clamp(52px, 7.5vw, 96px);
+}
+
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignSection__inner,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignSection__inner {
+  width: min(1060px, 100%);
+  margin-inline: auto;
+}
+
+/* Cards: only named campaign cards, no wildcard selectors. */
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignCard,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignCard,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-impactCard,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffImpactCard,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-sponsorTier,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffSponsorTier,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-teamCard,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffTeamCard {
+  border-color: var(--ff-campaign-line);
+  box-shadow: 0 18px 42px rgba(72, 44, 22, .10);
+}
+
+/* Grids: prevent awkward overflow in the board screenshots. */
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignGrid,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignGrid,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-impactGrid,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffImpactGrid,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-sponsorGrid,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffSponsorGrid,
+html[data-ff-page="campaign"] body.ff-campaignBody .ff-teamGrid,
+html[data-ff-page="campaign"] body.ff-campaignBody .ffTeamGrid {
+  min-width: 0;
+}
+
+/* Tablet: keep hero + giving panel balanced. */
+@media (min-width: 760px) and (max-width: 980px) {
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignMain,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignMain,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignShell,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignShell {
+    width: min(100vw - 28px, 1180px);
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero__grid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero__grid {
+    grid-template-columns: minmax(0, .98fr) minmax(280px, .58fr);
+    gap: clamp(14px, 2vw, 22px);
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-donationPanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffDonationPanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-givePanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffGivePanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignDonate,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignDonate {
+    max-width: 360px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignSection,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignSection {
+    margin-block: clamp(42px, 6vw, 74px);
+  }
+}
+
+/* Mobile: protect donor CTA flow. */
+@media (max-width: 720px) {
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignMain,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignMain,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignShell,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignShell {
+    width: min(100vw - 18px, 1180px);
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero__grid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-donationPanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffDonationPanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-givePanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffGivePanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignDonate,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignDonate {
+    max-width: 100%;
+    border-radius: 24px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignSection,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignSection {
+    margin-block: 34px;
+  }
+}
+
+@media (max-width: 390px) {
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignMain,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignMain,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignShell,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignShell {
+    width: min(100vw - 14px, 1180px);
+  }
+}
