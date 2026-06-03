@@ -564,6 +564,18 @@ def create_app(config_object: type[Config] | str | None = None) -> Flask:
             return Response(body, mimetype="text/plain; charset=utf-8")
 
 
+    
+    # FF_SITE_WEBMANIFEST_ALIAS_V1
+    # Keep root-level manifest URL working for browsers and older templates.
+    @app.get("/site.webmanifest")
+    def ff_site_webmanifest_alias():
+        from flask import current_app, send_from_directory
+        return send_from_directory(
+            current_app.static_folder,
+            "site.webmanifest",
+            mimetype="application/manifest+json",
+        )
+
     return app
 def _ensure_instance_path(app: Flask) -> None:
     Path(app.instance_path).mkdir(parents=True, exist_ok=True)
