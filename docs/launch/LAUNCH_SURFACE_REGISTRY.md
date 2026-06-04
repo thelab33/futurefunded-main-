@@ -17,7 +17,7 @@ These must remain functional, but do not get flagship boards unless product stra
 
 | Bucket | Routes | Policy |
 |---|---|---|
-| Homepage aliases | `/platform`, `/platform/` | Redirect to `/` with 308 |
+| Homepage aliases | `/platform`, `/platform/` | Eventually canonicalize/redirect to `/` |
 | Onboarding alias | `/platform/onboarding/` | Eventually canonicalize/redirect to `/platform/onboarding` |
 | Auth support | `/login`, `/logout`, `/platform/login`, `/platform/logout`, `/platform/register`, `/platform/invite`, `/platform/mfa`, `/platform/forgot-password`, `/platform/reset-password` | Functional + basic polish only |
 | Legal/support | `/contact`, `/privacy`, `/terms`, `/legal/privacy`, `/legal/terms` | Simple, accessible, trustworthy |
