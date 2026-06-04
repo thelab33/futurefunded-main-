@@ -10133,3 +10133,228 @@ html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__actions {
     font-size: .78rem;
   }
 }
+
+
+/* ==========================================================================
+   FF_CAMPAIGN_MOBILE_HEADER_HERO_COMPRESSION_20260603
+   Campaign money-page mobile compression pass.
+   Scope:
+   - Header fit
+   - Top hero density
+   - CTA/stat/trust row tightening
+   Rules:
+   - No copy removal
+   - No global selectors
+   - No wildcard class matching
+   - No broad section sweeps
+   ========================================================================== */
+
+/* Tablet-to-small-desktop: slightly reduce above-the-fold height without changing layout. */
+@media (min-width: 760px) and (max-width: 980px) {
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero {
+    padding-block: clamp(16px, 2.4vw, 24px);
+    padding-inline: clamp(16px, 2.4vw, 24px);
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero__grid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero__grid {
+    gap: clamp(12px, 1.7vw, 18px);
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero h1,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero h1 {
+    font-size: clamp(3rem, 6.7vw, 4.25rem);
+    line-height: .84;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-donationPanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffDonationPanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-givePanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffGivePanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignDonate,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignDonate {
+    padding: clamp(16px, 2.1vw, 22px);
+  }
+}
+
+/* Mobile: preserve all copy, but make the first screen much tighter. */
+@media (max-width: 720px) {
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__shell {
+    min-height: 48px;
+    padding-inline: 7px;
+    gap: 7px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__brand {
+    gap: 7px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__brand strong {
+    max-width: min(45vw, 12rem);
+    font-size: .78rem;
+    line-height: 1;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__brand small {
+    font-size: .52rem;
+    line-height: 1;
+    letter-spacing: .09em;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__actions {
+    gap: 5px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__actions .ff-button {
+    min-height: 32px;
+    padding-inline: 10px;
+    font-size: .68rem;
+    line-height: 1;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignMain,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignMain,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignShell,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignShell {
+    width: min(100vw - 14px, 1180px);
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero {
+    border-radius: 22px;
+    padding: 14px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero__grid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero__grid {
+    gap: 14px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero__copy,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero__copy {
+    gap: 10px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero h1,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero h1 {
+    font-size: clamp(2.85rem, 14.8vw, 4.05rem);
+    line-height: .82;
+    letter-spacing: -.078em;
+    margin-bottom: 8px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero p,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero p {
+    line-height: 1.35;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero .ff-pillRow,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero .ff-pillRow {
+    gap: 6px;
+    margin-bottom: 7px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero .ff-pill,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero .ff-pill {
+    min-height: 26px;
+    padding: 5px 9px;
+    font-size: .64rem;
+    line-height: 1;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero .ff-button,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero .ff-button {
+    min-height: 39px;
+    padding-inline: 15px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero .ff-buttonRow,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero .ff-buttonRow {
+    gap: 8px;
+    margin-block: 10px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignStats,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignStats {
+    gap: 8px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignStats > *,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignStats > * {
+    min-height: 64px;
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-donationPanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffDonationPanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-givePanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffGivePanel,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignDonate,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignDonate {
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-donationPanel .ff-button,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffDonationPanel .ff-button,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-givePanel .ff-button,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffGivePanel .ff-button,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignDonate .ff-button,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignDonate .ff-button {
+    min-height: 40px;
+  }
+}
+
+/* Narrow phones: reduce top hero height further, while keeping all text visible. */
+@media (max-width: 430px) {
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__shell {
+    min-height: 46px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__brand strong {
+    max-width: min(48vw, 11.5rem);
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero {
+    padding: 12px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero h1,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero h1 {
+    font-size: clamp(2.55rem, 14.2vw, 3.55rem);
+    line-height: .81;
+    margin-bottom: 7px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero .ff-buttonRow,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero .ff-buttonRow {
+    margin-block: 8px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero .ff-button,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero .ff-button {
+    width: 100%;
+  }
+}
+
+/* Very narrow safety: keep the primary donation CTA protected. */
+@media (max-width: 370px) {
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__brand strong {
+    max-width: 43vw;
+    font-size: .74rem;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__actions .ff-button {
+    padding-inline: 10px;
+    font-size: .66rem;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignHero h1,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignHero h1 {
+    font-size: clamp(2.35rem, 13.8vw, 3.2rem);
+  }
+}
+
