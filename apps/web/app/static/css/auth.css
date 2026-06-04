@@ -4251,3 +4251,108 @@ html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthorit
   }
 }
 
+
+/* ==========================================================================
+   FF_LOGIN_AUTHORITY_V42_MOBILE_AUTH_FIRST_20260603
+   Mobile auth-first ordering pass.
+   Goal:
+   - Keep desktop/tablet enterprise layout untouched
+   - Put the actual sign-in card first on mobile
+   - Keep all proof/context copy visible below the form
+   ========================================================================== */
+
+@media (max-width: 720px) {
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__stage {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__card {
+    order: 1;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero {
+    order: 2;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__card {
+    padding: 14px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__cardHead .ff-loginAuthority__eyebrow {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__card h2 {
+    max-width: 8.4ch;
+    font-size: clamp(1.95rem, 9.5vw, 2.6rem);
+    line-height: .86;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__cardHead p:last-child {
+    max-width: 30ch;
+    margin-top: 8px;
+    font-size: .9rem;
+    line-height: 1.32;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__form {
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__field input {
+    min-height: 43px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__submit {
+    min-height: 45px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__formFooter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero {
+    padding: 14px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero h1 {
+    max-width: 10.4ch;
+    font-size: clamp(2.15rem, 11.2vw, 3rem);
+    line-height: .82;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__lede {
+    font-size: .86rem;
+    line-height: 1.32;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__proofGrid article {
+    padding: 11px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__proofGrid p {
+    font-size: .8rem;
+  }
+}
+
+@media (max-width: 390px) {
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__card,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero {
+    padding: 12px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__formFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
