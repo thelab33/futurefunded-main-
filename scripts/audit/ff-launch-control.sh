@@ -209,7 +209,16 @@ $(cat "$OUT/route-policy-proof.txt")
 ## Dynamic feature smoke
 
 \`\`\`
-$(awk -F, 'NR==1{next}{print $7 " " $3 " " $1}' "$OUT/dynamic-feature-smoke.csv")
+$(python - "$OUT/dynamic-feature-smoke.csv" <<'PYSMOKE'
+import csv
+import sys
+from pathlib import Path
+
+rows = list(csv.DictReader(Path(sys.argv[1]).open()))
+for row in rows:
+    print(f"{row['ok']} {row['status']} {row['name']}")
+PYSMOKE
+)
 \`\`\`
 
 ## Served URL proof
