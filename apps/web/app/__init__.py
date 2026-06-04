@@ -576,6 +576,19 @@ def create_app(config_object: type[Config] | str | None = None) -> Flask:
             mimetype="application/manifest+json",
         )
 
+
+    # FF_PLATFORM_ALIAS_CANONICAL_REDIRECT_20260604
+    # Keep one public homepage canonical URL: `/`.
+    # `/platform` and `/platform/` are aliases only; platform subroutes remain untouched.
+    @app.before_request
+    def _ff_platform_alias_canonical_redirect():
+        from flask import redirect, request
+
+        if request.path in {"/platform", "/platform/"}:
+            return redirect("/", code=308)
+
+        return None
+
     return app
 def _ensure_instance_path(app: Flask) -> None:
     Path(app.instance_path).mkdir(parents=True, exist_ok=True)
