@@ -22,6 +22,13 @@ if str(ROOT) not in sys.path:
 from flask import template_rendered  # noqa: E402
 from apps.web.app import create_app  # noqa: E402
 
+# FF_DASHBOARD_ACCESS_RESOLVER_IMPORT_20260604
+from pathlib import Path as _FFDashboardPath
+import sys as _ff_dashboard_sys
+_ff_dashboard_sys.path.insert(0, str(_FFDashboardPath(__file__).resolve().parents[1] / "visual"))
+from ff_dashboard_access import resolve_dashboard_path as _ff_resolve_dashboard_path
+
+
 
 OUT = ROOT / "audit_outputs" / "route-template-proof"
 
@@ -30,7 +37,7 @@ ROUTES = [
     ("platform-home", "/platform/"),
     ("platform-onboarding", "/platform/onboarding"),
     ("platform-login", "/platform/login"),
-    ("platform-dashboard", "/platform/dashboard?access_token=dev-operator-20260529123018"),
+    ("platform-dashboard", _ff_resolve_dashboard_path(require=False)),
     ("campaign-connect-atx", "/c/connect-atx-elite"),
 ]
 
