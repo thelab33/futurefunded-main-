@@ -3292,3 +3292,203 @@ body[data-ff-surface="platform-mfa"] .ff-authAuthority__card {
   }
 }
 /* FF_LOGIN_FINAL_ACCEPTANCE_PASS_2_END */
+
+
+/* ==========================================================================
+   FF_LOGIN_AUTH_WORKSPACE_POLISH_20260603
+   FutureFunded login/auth workspace polish.
+   Scope:
+   - Platform login page only
+   - Header fit
+   - Tablet form visibility
+   - Mobile compression
+   Rules:
+   - No copy removal
+   - No wildcard class matching
+   - No broad section sweeps
+   ========================================================================== */
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody {
+  --ff-auth-shell: min(1180px, calc(100vw - 32px));
+  --ff-auth-card-radius: 30px;
+  --ff-auth-card-shadow: 0 26px 74px rgba(72, 44, 22, .13);
+}
+
+/* Shell and page rhythm */
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginShell,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authShell,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginShell,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody main {
+  width: var(--ff-auth-shell);
+  margin-inline: auto;
+}
+
+/* Header: make the auth page feel as clean as platform/campaign. */
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHeader,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHeader,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHeader,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody header {
+  width: var(--ff-auth-shell);
+  margin-inline: auto;
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHeader__shell,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHeader__shell,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHeader__shell {
+  min-width: 0;
+}
+
+/* Main desktop composition */
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginGrid,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authGrid,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, .82fr);
+  align-items: center;
+  gap: clamp(22px, 3vw, 44px);
+}
+
+/* Cards */
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHero,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHero,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHero,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginPanel,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authPanel,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginPanel {
+  border-radius: var(--ff-auth-card-radius);
+  box-shadow: var(--ff-auth-card-shadow);
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHero h1,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHero h1,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHero h1 {
+  max-width: 10.8ch;
+  text-wrap: balance;
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginPanel form,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authPanel form,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginPanel form {
+  margin-top: clamp(18px, 2.4vw, 28px);
+}
+
+/* Tablet: keep the sign-in panel visible earlier. */
+@media (min-width: 760px) and (max-width: 980px) {
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody {
+    --ff-auth-shell: min(100vw - 28px, 1180px);
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginGrid,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authGrid,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginGrid {
+    grid-template-columns: minmax(0, .95fr) minmax(300px, .72fr);
+    align-items: start;
+    gap: 18px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHero,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHero,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHero,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginPanel,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authPanel,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginPanel {
+    border-radius: 26px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHero h1,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHero h1,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHero h1 {
+    font-size: clamp(3.05rem, 7vw, 4.25rem);
+    line-height: .86;
+  }
+}
+
+/* Mobile: compact but still trustworthy. */
+@media (max-width: 720px) {
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody {
+    --ff-auth-shell: min(100vw - 16px, 1180px);
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHeader,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHeader,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHeader,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody header {
+    width: var(--ff-auth-shell);
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginGrid,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authGrid,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHero,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHero,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHero,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginPanel,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authPanel,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginPanel {
+    border-radius: 22px;
+    padding: 18px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHero h1,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHero h1,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHero h1 {
+    font-size: clamp(2.65rem, 13.4vw, 3.65rem);
+    line-height: .82;
+    letter-spacing: -.078em;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHero p,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHero p,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHero p {
+    line-height: 1.35;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginFeatureGrid,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authFeatureGrid,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginFeatureGrid {
+    gap: 10px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginFeature,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authFeature,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginFeature {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody input,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody button {
+    min-height: 42px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody footer {
+    width: var(--ff-auth-shell);
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 430px) {
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody {
+    --ff-auth-shell: min(100vw - 14px, 1180px);
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHero,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHero,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHero,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginPanel,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authPanel,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginPanel {
+    padding: 14px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginHero h1,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-authHero h1,
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ffLoginHero h1 {
+    font-size: clamp(2.35rem, 12.5vw, 3.25rem);
+  }
+}
+
