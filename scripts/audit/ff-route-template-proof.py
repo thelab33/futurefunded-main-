@@ -51,7 +51,7 @@ def rendered_templates_for(app, client, path: str) -> tuple[int, list[str], str]
         rendered.append(template.name or "<unnamed>")
 
     with template_rendered.connected_to(record, app):
-        response = client.get(path)
+        response = client.get(path, follow_redirects=True)
 
     html = response.get_data(as_text=True)
     return response.status_code, rendered, html
