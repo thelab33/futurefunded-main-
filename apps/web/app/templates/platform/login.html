@@ -1,11 +1,10 @@
-{% from "_partials/ff_shell_header.html" import ff_shell_header %}
 {% set html_page = 'platform-login' %}
 {% set ff_page = 'platform-login' %}
 {% set _cfg = (config if config is defined and config is mapping else {}) %}
 {% set _requested_css_v = (request.args.get('css_v') if request is defined and request and request.args.get('css_v') else '')|string|trim %}
-{% set _asset_v = (_requested_css_v if _requested_css_v else asset_v|default(_cfg.get('ASSET_V'), true)|default('login-authority-v3', true))|string|trim %}
+{% set _asset_v = (_requested_css_v if _requested_css_v else asset_v|default(_cfg.get('ASSET_V'), true)|default('login-authority-v4', true))|string|trim %}
 {% if not _asset_v %}
-  {% set _asset_v = 'login-authority-v3' %}
+  {% set _asset_v = 'login-authority-v4' %}
 {% endif %}
 
 {% extends "_base/site_base.html" %}
@@ -32,7 +31,7 @@ Secure organizer access for campaign setup, launch readiness, donation records, 
 {% block body_attrs %}
 data-ff-surface="platform-login"
 data-ff-page="platform-login"
-data-ff-login-template="login-authority-v3"
+data-ff-login-template="login-authority-v4"
 {% endblock %}
 
 {% block content %}
@@ -69,22 +68,31 @@ data-ff-login-template="login-authority-v3"
     class="ff-loginAuthority"
     id="login-main"
     data-ff-login-root
-    data-ff-login-authority="v3"
+    data-ff-login-authority="v4"
     data-ff-login-page
   >
-    <div class="ff-loginAuthority__shell" data-ff-login-flagship="prestige-v1">
-      {{ ff_shell_header(
-        mode='operator',
-        brand_name='FutureFunded',
-        context='Organizer access',
-        brand_href=_platform_url,
-        nav_items=[
-          {'label': 'Platform', 'href': _platform_url},
-          {'label': 'Fundraiser', 'href': _campaign_url}
-        ],
-        actions=[],
-        extra_class='ff-loginAuthority__header'
-      ) }}
+    <div class="ff-loginAuthority__shell" data-ff-login-flagship="enterprise-v4">
+      <header class="ff-loginAuthority__topbar" aria-label="FutureFunded organizer access">
+        <a class="ff-loginAuthority__brand" href="{{ _platform_url|e }}" aria-label="FutureFunded platform home">
+          <span class="ff-loginAuthority__brandMark" aria-hidden="true">FF</span>
+          <span class="ff-loginAuthority__brandText">
+            <strong>FutureFunded</strong>
+            <small>Organizer access</small>
+          </span>
+        </a>
+
+        <nav class="ff-loginAuthority__nav" aria-label="Organizer access navigation">
+          <a href="{{ _platform_url|e }}">Platform</a>
+          <a href="{{ _campaign_url|e }}">Fundraiser</a>
+          <a href="#security">Security</a>
+          <a href="mailto:{{ _support_email|e }}">Support</a>
+        </nav>
+
+        <div class="ff-loginAuthority__topActions">
+          <a class="ff-loginAuthority__topGhost" href="{{ _campaign_url|e }}">View fundraiser</a>
+          <a class="ff-loginAuthority__topPrimary" href="#login-form">Sign in</a>
+        </div>
+      </header>
 
       <section class="ff-loginAuthority__stage" aria-labelledby="login-title">
         <article class="ff-loginAuthority__hero" data-ff-login-reveal>
@@ -228,7 +236,7 @@ data-ff-login-template="login-authority-v3"
               <span>Sign in securely</span>
             </button>
 
-            <div class="ff-loginAuthority__securityPills" aria-label="Security assurance">
+            <div class="ff-loginAuthority__securityPills" id="security" aria-label="Security assurance">
               <span>Protected operator dashboard</span>
               <span>Private campaign records</span>
               <span>Organizer-only access</span>
@@ -245,6 +253,25 @@ data-ff-login-template="login-authority-v3"
           </form>
         </section>
       </section>
+
+      <aside class="ff-loginAuthority__systemRail" aria-label="Workspace readiness preview">
+        <div>
+          <span>Campaign route</span>
+          <strong>Private until ready</strong>
+        </div>
+        <div>
+          <span>Donation records</span>
+          <strong>Operator-safe</strong>
+        </div>
+        <div>
+          <span>Sponsor follow-up</span>
+          <strong>Review queue</strong>
+        </div>
+        <div>
+          <span>Launch handoff</span>
+          <strong>Dashboard first</strong>
+        </div>
+      </aside>
 
       <footer class="ff-loginAuthority__footer" aria-label="FutureFunded login footer">
         <span>Protected organizer access · FutureFunded</span>
