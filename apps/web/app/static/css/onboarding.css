@@ -1,15 +1,30 @@
 /* ==========================================================================
-   FutureFunded compact onboarding
-   Real onboarding flow: stepper + form + preview + review
-   ========================================================================== */
+   FutureFunded — Onboarding CSS Authority Consolidated V1
+   File: apps/web/app/static/css/onboarding.css
+   Marker: FF_ONBOARDING_CSS_AUTHORITY_CONSOLIDATED_V1_20260603
 
-html[data-ff-page="platform-onboarding"] body.ffOnboardBody {
+   Scope:
+   - /platform/onboarding only
+   - Owned V1 header: ffOnboardV1__*
+   - Actual onboarding body contract: ffOnboard__*
+   - No shared shell header selectors
+   - No V2/V10 append history
+========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Page tokens + base
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] {
+  color-scheme: light;
+
   --ob-bg: #f2dfc4;
   --ob-bg-soft: #fff7ec;
   --ob-card: rgba(255, 252, 246, .92);
   --ob-card-strong: #fffdf8;
   --ob-ink: #21140c;
   --ob-muted: rgba(47, 31, 20, .68);
+  --ob-soft: rgba(47, 31, 20, .54);
   --ob-line: rgba(70, 42, 22, .14);
   --ob-line-strong: rgba(70, 42, 22, .22);
   --ob-orange: #ff5a1f;
@@ -17,27 +32,51 @@ html[data-ff-page="platform-onboarding"] body.ffOnboardBody {
   --ob-brown: #3b2114;
   --ob-brown-2: #23140d;
   --ob-green: #0f766e;
-  --ob-shadow: 0 24px 70px rgba(72, 44, 22, .14);
-  --ob-shadow-soft: 0 14px 34px rgba(72, 44, 22, .09);
   --ob-radius-xl: 26px;
   --ob-radius-lg: 20px;
   --ob-radius-md: 14px;
-  --ob-shell: min(1180px, calc(100vw - 32px));
+  --ob-pill: 999px;
+  --ob-shell: min(1120px, calc(100vw - 32px));
+  --ob-shadow: 0 22px 58px rgba(72, 44, 22, .12);
+  --ob-shadow-soft: 0 12px 30px rgba(72, 44, 22, .08);
+  --ob-ease: cubic-bezier(.22, 1, .36, 1);
+}
 
+html[data-ff-page="platform-onboarding"] body:is(.ffOnboardBody, .ffOnboardV1Body) {
   min-height: 100vh;
   margin: 0;
   color: var(--ob-ink);
   background:
-    radial-gradient(circle at 12% -8%, rgba(255, 119, 51, .18), transparent 28rem),
-    radial-gradient(circle at 90% 0%, rgba(15, 118, 110, .12), transparent 28rem),
+    radial-gradient(circle at 12% -8%, rgba(255, 119, 51, .16), transparent 25rem),
+    radial-gradient(circle at 90% 0%, rgba(15, 118, 110, .10), transparent 24rem),
     linear-gradient(180deg, #fff4e5 0%, var(--ob-bg) 100%);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+  isolation: isolate;
 }
 
-html[data-ff-page="platform-onboarding"] body.ffOnboardBody *,
-html[data-ff-page="platform-onboarding"] body.ffOnboardBody *::before,
-html[data-ff-page="platform-onboarding"] body.ffOnboardBody *::after {
+html[data-ff-page="platform-onboarding"] body:is(.ffOnboardBody, .ffOnboardV1Body) *,
+html[data-ff-page="platform-onboarding"] body:is(.ffOnboardBody, .ffOnboardV1Body) *::before,
+html[data-ff-page="platform-onboarding"] body:is(.ffOnboardBody, .ffOnboardV1Body) *::after {
   box-sizing: border-box;
+}
+
+html[data-ff-page="platform-onboarding"] :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+html[data-ff-page="platform-onboarding"] :where(h1, h2, h3, p, dl, dd) {
+  margin-top: 0;
+}
+
+html[data-ff-page="platform-onboarding"] :where(button, input, textarea, select) {
+  font: inherit;
+}
+
+html[data-ff-page="platform-onboarding"] :where(button, a, input, textarea, select):focus-visible {
+  outline: 3px solid rgba(255, 90, 31, .32);
+  outline-offset: 3px;
 }
 
 html[data-ff-page="platform-onboarding"] .ffOnboard__skip {
@@ -56,836 +95,391 @@ html[data-ff-page="platform-onboarding"] .ffOnboard__skip:focus {
   height: auto;
   padding: 10px 14px;
   clip-path: none;
-  border-radius: 999px;
+  border-radius: var(--ob-pill);
   background: #fff;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__header {
+/* --------------------------------------------------------------------------
+   2. Owned V1 header
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
   position: sticky;
-  top: 0;
-  z-index: 50;
-  padding: 14px 0;
-  background: rgba(242, 223, 196, .72);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__headerShell {
+  top: max(10px, env(safe-area-inset-top));
+  z-index: 80;
   width: var(--ob-shell);
-  min-height: 58px;
-  margin: 0 auto;
-  padding: 8px 10px;
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: center;
-  gap: 12px;
-  border: 1px solid rgba(255, 255, 255, .72);
+  margin: max(10px, env(safe-area-inset-top)) auto clamp(14px, 1.5vw, 20px);
+  border: 1px solid rgba(75, 48, 29, .12);
   border-radius: 999px;
-  background: rgba(255, 252, 246, .86);
-  box-shadow: 0 18px 44px rgba(72, 44, 22, .12);
+  background: linear-gradient(180deg, rgba(255, 253, 248, .96), rgba(255, 248, 239, .90));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .92),
+    0 14px 34px rgba(72, 44, 22, .10);
+  backdrop-filter: blur(20px) saturate(155%);
+  -webkit-backdrop-filter: blur(20px) saturate(155%);
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__brand {
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerShell {
+  display: grid;
+  grid-template-columns: minmax(0, auto) 1fr auto;
+  align-items: center;
+  gap: clamp(10px, 1.6vw, 18px);
+  min-height: 52px;
+  padding: 7px 9px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brand,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton {
   display: inline-flex;
   align-items: center;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brand {
+  min-width: 0;
   gap: 10px;
-  color: var(--ob-ink);
-  text-decoration: none;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__brandMark,
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewMark {
-  display: grid;
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandMark {
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
   place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 14px;
-  color: #fff;
-  background: linear-gradient(145deg, var(--ob-brown), #6b3418);
-  box-shadow: 0 10px 24px rgba(72, 44, 22, .24);
+  flex: 0 0 auto;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #140b07, #4f2813 58%, #763714);
+  color: #fff8ee;
+  box-shadow: 0 10px 24px rgba(72, 44, 22, .20);
+  font-size: .7rem;
   font-weight: 950;
-  letter-spacing: -.06em;
+  letter-spacing: -.05em;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__brand strong {
-  display: block;
-  font-size: .95rem;
-  letter-spacing: -.03em;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__brand small {
-  display: block;
-  color: rgba(47, 31, 20, .62);
-  font-size: .68rem;
-  font-weight: 900;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__nav {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px;
-  border: 1px solid var(--ob-line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .54);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__nav a,
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewBtn {
-  min-height: 34px;
-  padding: 0 13px;
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  color: var(--ob-ink);
-  text-decoration: none;
-  font-size: .82rem;
-  font-weight: 900;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__nav a:hover,
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewBtn {
-  background: #fff;
-  box-shadow: 0 8px 18px rgba(72, 44, 22, .08);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__main {
-  width: var(--ob-shell);
-  margin: 0 auto;
-  padding: 24px 0 64px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
-  min-height: 270px;
-  margin-bottom: 18px;
-  padding: clamp(22px, 4vw, 42px);
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 330px;
-  align-items: center;
-  gap: clamp(18px, 4vw, 42px);
-  border: 1px solid rgba(255,255,255,.72);
-  border-radius: var(--ob-radius-xl);
-  background:
-    radial-gradient(circle at 18% 10%, rgba(255, 90, 31, .12), transparent 18rem),
-    linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,246,234,.86));
-  box-shadow: var(--ob-shadow);
+  min-width: 0;
+  gap: 2px;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow {
-  margin: 0 0 8px;
-  color: var(--ob-orange);
-  font-size: .74rem;
-  font-weight: 950;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-}
-
-html[data-ff-page="platform-onboarding"] :where(h1, h2, h3, p) {
-  margin-top: 0;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero h1 {
-  max-width: 11ch;
-  margin-bottom: 12px;
-  color: var(--ob-ink);
-  font-size: clamp(2.65rem, 6.5vw, 4.8rem);
-  line-height: .88;
-  letter-spacing: -.085em;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero p,
-html[data-ff-page="platform-onboarding"] .ffOnboard__sectionHead p,
-html[data-ff-page="platform-onboarding"] .ffOnboard__summary p,
-html[data-ff-page="platform-onboarding"] .ffOnboard__saveNote {
-  color: var(--ob-muted);
-  line-height: 1.5;
-  font-weight: 650;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__status {
-  padding: 18px;
-  border-radius: 22px;
-  color: #fff;
-  background:
-    radial-gradient(circle at 90% 0%, rgba(255, 90, 31, .28), transparent 12rem),
-    linear-gradient(145deg, var(--ob-brown), var(--ob-brown-2));
-  box-shadow: 0 22px 44px rgba(72, 44, 22, .25);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop {
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 12px;
-  font-size: .86rem;
-  font-weight: 950;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__progress,
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewMeter {
-  height: 8px;
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy strong {
   overflow: hidden;
-  border-radius: 999px;
-  background: rgba(255,255,255,.2);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__progress span,
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewMeter span {
-  display: block;
-  width: 20%;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--ob-orange), var(--ob-green));
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__steps {
-  display: grid;
-  gap: 8px;
-  margin: 16px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__steps li {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 12px;
-  border-radius: 999px;
-  color: rgba(255,255,255,.72);
-  background: rgba(255,255,255,.08);
-  font-size: .82rem;
-  font-weight: 900;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__steps li[aria-current="step"] {
-  color: var(--ob-brown);
-  background: #fff;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
-  gap: 18px;
-  align-items: start;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__card {
-  border: 1px solid rgba(255,255,255,.72);
-  border-radius: var(--ob-radius-xl);
-  background: var(--ob-card);
-  box-shadow: var(--ob-shadow-soft);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__formCard {
-  padding: clamp(20px, 3vw, 34px);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__panel {
-  display: none;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__panel.is-active {
-  display: block;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__sectionHead {
-  margin-bottom: 18px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__sectionHead h2 {
-  margin-bottom: 7px;
   color: var(--ob-ink);
-  font-size: clamp(1.65rem, 3vw, 2.45rem);
-  line-height: .94;
-  letter-spacing: -.065em;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__fields {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 13px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__wide {
-  grid-column: 1 / -1;
-}
-
-html[data-ff-page="platform-onboarding"] label {
-  display: grid;
-  gap: 7px;
-}
-
-html[data-ff-page="platform-onboarding"] label > span,
-html[data-ff-page="platform-onboarding"] .ffOnboard__summary strong {
-  color: rgba(47,31,20,.74);
-  font-size: .8rem;
-  font-weight: 950;
-}
-
-html[data-ff-page="platform-onboarding"] input,
-html[data-ff-page="platform-onboarding"] textarea,
-html[data-ff-page="platform-onboarding"] select {
-  width: 100%;
-  min-height: 44px;
-  padding: 11px 13px;
-  border: 1px solid var(--ob-line);
-  border-radius: 13px;
-  color: var(--ob-ink);
-  background: rgba(255,255,255,.92);
-  font: inherit;
   font-size: .9rem;
-  font-weight: 750;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: -.03em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-html[data-ff-page="platform-onboarding"] textarea {
-  resize: vertical;
-  line-height: 1.45;
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy small {
+  overflow: hidden;
+  color: rgba(47, 31, 20, .62);
+  font-size: .63rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .15em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-html[data-ff-page="platform-onboarding"] input:focus,
-html[data-ff-page="platform-onboarding"] textarea:focus,
-html[data-ff-page="platform-onboarding"] select:focus {
-  border-color: rgba(255, 90, 31, .48);
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav {
+  justify-self: center;
+  gap: 4px;
+  border: 1px solid var(--ob-line);
+  border-radius: var(--ob-pill);
+  background: rgba(255, 255, 255, .54);
+  padding: 4px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav a {
+  display: inline-flex;
+  min-height: 31px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ob-pill);
+  color: var(--ob-ink);
+  font-size: .78rem;
+  font-weight: 900;
+  padding: 0 12px;
+  white-space: nowrap;
+  transition: background 160ms var(--ob-ease), transform 160ms var(--ob-ease);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav a:hover,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav a:focus-visible {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions {
+  justify-self: end;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton {
+  min-height: 38px;
+  justify-content: center;
+  border-radius: var(--ob-pill);
+  background: linear-gradient(135deg, var(--ob-orange), var(--ob-orange-2));
+  color: #fffaf3;
+  box-shadow: 0 12px 26px rgba(255, 90, 31, .22);
+  font-size: .82rem;
+  font-weight: 950;
+  padding: 0 17px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton {
+  display: none;
+  justify-self: end;
+  min-height: 38px;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--ob-line);
+  border-radius: var(--ob-pill);
+  background: rgba(255, 255, 255, .72);
+  color: var(--ob-ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .78);
+  cursor: pointer;
+  font-size: .78rem;
+  font-weight: 950;
+  padding: 8px 13px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton span:first-child {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--ob-pill);
+  background: var(--ob-orange);
   box-shadow: 0 0 0 4px rgba(255, 90, 31, .12);
 }
 
-html[data-ff-page="platform-onboarding"] input[type="color"] {
-  height: 44px;
-  padding: 5px;
-}
+/* --------------------------------------------------------------------------
+   3. Main + hero
+-------------------------------------------------------------------------- */
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__checks {
-  display: grid;
-  gap: 10px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__checks label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 12px 14px;
-  border: 1px solid var(--ob-line);
-  border-radius: 14px;
-  background: rgba(255,255,255,.74);
-  color: var(--ob-ink);
-  font-weight: 850;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__checks input {
-  width: 17px;
-  min-height: auto;
-  height: 17px;
-  accent-color: var(--ob-orange);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 22px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__btn {
-  min-height: 42px;
-  padding: 0 15px;
-  border: 0;
-  border-radius: 999px;
-  cursor: pointer;
-  font: inherit;
-  font-size: .86rem;
-  font-weight: 950;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__btn--primary,
-html[data-ff-page="platform-onboarding"] .ffOnboard__btn--save {
-  color: #fff;
-  background: linear-gradient(135deg, var(--ob-orange), var(--ob-orange-2));
-  box-shadow: 0 14px 28px rgba(255,90,31,.24);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__btn--ghost {
-  color: var(--ob-ink);
-  background: rgba(255,255,255,.88);
-  border: 1px solid var(--ob-line);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__btn[disabled] {
-  opacity: .45;
-  cursor: not-allowed;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__saveNote {
-  margin: 13px 0 0;
-  font-size: .86rem;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__saveNote[data-tone="success"] {
-  color: var(--ob-green);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__preview {
-  position: sticky;
-  top: 96px;
-  padding: 18px;
-  color: #fff;
-  background:
-    radial-gradient(circle at 88% 0%, rgba(255, 90, 31, .32), transparent 13rem),
-    linear-gradient(145deg, var(--ob-brown), var(--ob-brown-2));
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewTop {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 22px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewTop strong,
-html[data-ff-page="platform-onboarding"] .ffOnboard__preview h2,
-html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats strong,
-html[data-ff-page="platform-onboarding"] .ffOnboard__summary strong {
-  color: #fff;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewTop small,
-html[data-ff-page="platform-onboarding"] .ffOnboard__preview p,
-html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats small {
-  color: rgba(255,255,255,.72);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__preview h2 {
-  margin-bottom: 8px;
-  font-size: 2rem;
-  line-height: .95;
-  letter-spacing: -.065em;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin: 18px 0 12px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats span {
-  padding: 12px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.08);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats strong,
-html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats small {
-  display: block;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__preview button {
-  width: 100%;
-  min-height: 44px;
-  margin-top: 14px;
-  border: 0;
-  border-radius: 999px;
-  color: #fff;
-  background: linear-gradient(135deg, var(--ob-orange), var(--ob-orange-2));
-  font: inherit;
-  font-weight: 950;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__summary {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,.14);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__summary p {
-  margin: 6px 0 0;
-  color: rgba(255,255,255,.72);
-  font-size: .88rem;
-}
-
-@media (max-width: 980px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero,
-  html[data-ff-page="platform-onboarding"] .ffOnboard__grid {
-    grid-template-columns: 1fr;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__preview {
-    position: static;
-  }
-}
-
-@media (max-width: 720px) {
-  html[data-ff-page="platform-onboarding"] body.ffOnboardBody {
-    --ob-shell: min(100vw - 20px, 1180px);
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__headerShell {
-    grid-template-columns: 1fr auto;
-    border-radius: 24px;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__nav {
-    display: none;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
-    min-height: auto;
-    padding: 22px;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero h1 {
-    font-size: clamp(2.55rem, 15vw, 4rem);
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__fields {
-    grid-template-columns: 1fr;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__actions {
-    display: grid;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__btn {
-    width: 100%;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_COMPACT_PRODUCT_PASS_20260603
-   Tightens the compact setup flow into a real product onboarding surface.
-   No template rewrite. No ff.css changes.
-   ========================================================================== */
-
-html[data-ff-page="platform-onboarding"] body.ffOnboardBody {
-  --ob-shell: min(1120px, calc(100vw - 32px));
-  --ob-shadow: 0 22px 58px rgba(72, 44, 22, .12);
-  --ob-shadow-soft: 0 12px 30px rgba(72, 44, 22, .08);
-  background:
-    radial-gradient(circle at 12% -8%, rgba(255, 119, 51, .16), transparent 25rem),
-    radial-gradient(circle at 90% 0%, rgba(15, 118, 110, .10), transparent 24rem),
-    linear-gradient(180deg, #fff4e5 0%, #f3dfc2 100%) !important;
-}
-
-/* Neutralize inherited global shell spacing on this page */
 html[data-ff-page="platform-onboarding"] .ff-main,
 html[data-ff-page="platform-onboarding"] main.ff-main,
 html[data-ff-page="platform-onboarding"] .ff-siteMain {
   padding-top: 0 !important;
 }
 
-/* Header: more app-like, less bulky */
-html[data-ff-page="platform-onboarding"] .ffOnboard__header {
-  padding: 10px 0 !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__headerShell {
-  min-height: 52px !important;
-  padding: 7px 9px !important;
-  box-shadow: 0 14px 34px rgba(72, 44, 22, .10) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__brandMark,
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewMark {
-  width: 34px !important;
-  height: 34px !important;
-  border-radius: 12px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__brand strong {
-  font-size: .9rem !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__brand small {
-  font-size: .63rem !important;
-  letter-spacing: .15em !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__nav a,
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewBtn {
-  min-height: 31px !important;
-  padding-inline: 12px !important;
-  font-size: .78rem !important;
-}
-
-/* Main rhythm: remove the large landing-page gap */
 html[data-ff-page="platform-onboarding"] .ffOnboard__main {
-  padding: 14px 0 52px !important;
+  position: relative;
+  z-index: 2;
+  width: var(--ob-shell);
+  margin: 0 auto;
+  padding: 0 0 52px;
+  overflow: visible;
 }
 
-/* Hero: compact onboarding intro, not marketing hero */
 html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
-  min-height: 220px !important;
-  margin-bottom: 16px !important;
-  padding: clamp(22px, 3.2vw, 34px) !important;
-  grid-template-columns: minmax(0, 1fr) 300px !important;
-  gap: clamp(18px, 3vw, 34px) !important;
-  align-items: center !important;
-  border-radius: 24px !important;
+  position: relative;
+  min-height: 0;
+  margin: 0 0 14px;
+  padding: clamp(20px, 3vw, 30px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 292px;
+  align-items: stretch;
+  gap: clamp(18px, 3vw, 34px);
+  overflow: visible;
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: var(--ob-radius-xl);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255, 90, 31, .13), transparent 20rem),
+    radial-gradient(circle at 76% 0%, rgba(15, 118, 110, .07), transparent 18rem),
+    linear-gradient(135deg, rgba(255, 255, 255, .96), rgba(255, 247, 235, .88));
+  box-shadow: var(--ob-shadow);
+  clip-path: none;
+  mask-image: none;
+  -webkit-mask-image: none;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero h1 {
-  max-width: 12ch !important;
-  margin-bottom: 10px !important;
-  font-size: clamp(2.65rem, 5.2vw, 4.05rem) !important;
-  line-height: .88 !important;
-  letter-spacing: -.082em !important;
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker,
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker::before,
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker::after,
+html[data-ff-page="platform-onboarding"] [data-ff-draft-pill],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill {
+  content: none !important;
+  display: none !important;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero p {
-  max-width: 58ch !important;
-  margin-bottom: 0 !important;
-  font-size: .98rem !important;
-  line-height: 1.45 !important;
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
+  display: grid;
+  align-content: center;
+  min-width: 0;
+  max-width: 720px;
+  padding: clamp(8px, 1.4vw, 14px);
+  overflow: visible;
 }
 
 html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow {
-  margin-bottom: 7px !important;
-  font-size: .7rem !important;
+  position: relative;
+  z-index: 3;
+  display: block;
+  margin: 0 0 8px;
+  padding: 0;
+  color: rgba(47, 31, 20, .66);
+  font-size: .7rem;
+  font-weight: 950;
+  letter-spacing: .16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  transform: none;
+  overflow: visible;
 }
 
-/* Progress card: fix contrast and make steps feel clickable */
+html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow::before,
+html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow::after {
+  content: none !important;
+  display: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__hero h1 {
+  max-width: 12.4ch;
+  margin: 0 0 12px;
+  color: var(--ob-ink);
+  font-size: clamp(2.45rem, 4.9vw, 3.95rem);
+  line-height: .9;
+  letter-spacing: -.08em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroText,
+html[data-ff-page="platform-onboarding"] .ffOnboard__hero p {
+  max-width: 62ch;
+  margin: 0;
+  color: rgba(47, 31, 20, .72);
+  font-size: .98rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ob-pill);
+  font-size: .82rem;
+  font-weight: 950;
+  padding: 0 14px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn--primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--ob-orange), var(--ob-orange-2));
+  box-shadow: 0 14px 28px rgba(255, 90, 31, .22);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn--ghost {
+  border: 1px solid var(--ob-line);
+  background: rgba(255, 255, 255, .82);
+  color: var(--ob-ink);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  max-width: 520px;
+  margin: 18px 0 0;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts div {
+  min-height: 64px;
+  display: grid;
+  align-content: center;
+  border: 1px solid rgba(70, 42, 22, .11);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .66);
+  box-shadow: 0 10px 22px rgba(72, 44, 22, .055);
+  padding: 11px 12px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts dt {
+  margin: 0 0 4px;
+  color: rgba(47, 31, 20, .58);
+  font-size: .68rem;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts dd {
+  margin: 0;
+  color: var(--ob-ink);
+  font-size: .95rem;
+  font-weight: 950;
+}
+
+/* --------------------------------------------------------------------------
+   4. Setup progress card
+-------------------------------------------------------------------------- */
+
 html[data-ff-page="platform-onboarding"] .ffOnboard__status {
-  padding: 16px !important;
-  border-radius: 20px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop,
-html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop strong {
-  color: #fff !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop strong {
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.12);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__steps {
-  gap: 7px !important;
-  margin-top: 14px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__steps li {
-  min-height: 37px !important;
-  align-items: center;
-  padding: 8px 12px !important;
-  cursor: pointer;
-  transition:
-    transform 160ms ease,
-    background 160ms ease,
-    color 160ms ease;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__steps li:hover {
-  transform: translateX(2px);
-  background: rgba(255,255,255,.14);
-}
-
-/* Body grid: better product layout proportions */
-html[data-ff-page="platform-onboarding"] .ffOnboard__grid {
-  grid-template-columns: minmax(0, 1fr) 340px !important;
-  gap: 16px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__card {
-  border-radius: 24px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__formCard {
-  padding: clamp(20px, 2.4vw, 28px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__sectionHead {
-  margin-bottom: 16px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__sectionHead h2 {
-  margin-bottom: 6px !important;
-  font-size: clamp(1.55rem, 2.6vw, 2.08rem) !important;
-  line-height: .94 !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__sectionHead p {
-  max-width: 62ch !important;
-  margin-bottom: 0 !important;
-  font-size: .92rem !important;
-}
-
-/* Inputs: slightly smaller and more operator-friendly */
-html[data-ff-page="platform-onboarding"] .ffOnboard__fields {
-  gap: 12px !important;
-}
-
-html[data-ff-page="platform-onboarding"] label > span,
-html[data-ff-page="platform-onboarding"] .ffOnboard__summary strong {
-  font-size: .76rem !important;
-}
-
-html[data-ff-page="platform-onboarding"] input,
-html[data-ff-page="platform-onboarding"] textarea,
-html[data-ff-page="platform-onboarding"] select {
-  min-height: 42px !important;
-  padding: 10px 12px !important;
-  border-radius: 12px !important;
-  font-size: .88rem !important;
-}
-
-html[data-ff-page="platform-onboarding"] textarea[rows="3"] {
-  min-height: 86px !important;
-}
-
-/* Actions: cleaner onboarding footer */
-html[data-ff-page="platform-onboarding"] .ffOnboard__actions {
-  align-items: center;
-  margin-top: 18px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__btn {
-  min-height: 39px !important;
-  padding-inline: 14px !important;
-  font-size: .82rem !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__saveNote {
-  margin-top: 11px !important;
-  font-size: .82rem !important;
-}
-
-/* Preview: make it a compact live card */
-html[data-ff-page="platform-onboarding"] .ffOnboard__preview {
-  top: 82px !important;
-  padding: 16px !important;
-  border-radius: 24px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__previewTop {
-  margin-bottom: 18px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__preview h2 {
-  margin-bottom: 8px !important;
-  font-size: 1.68rem !important;
-  line-height: .95 !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__preview p {
-  font-size: .9rem !important;
-  line-height: 1.5 !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats {
-  gap: 8px !important;
-  margin: 14px 0 10px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats span {
-  padding: 10px !important;
-  border-radius: 13px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__preview button {
-  min-height: 41px !important;
-  margin-top: 12px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__summary {
-  margin-top: 14px !important;
-  padding-top: 14px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__summary p {
-  font-size: .82rem !important;
-}
-
-/* Review checks */
-html[data-ff-page="platform-onboarding"] .ffOnboard__checks label {
-  min-height: 44px !important;
-  padding: 10px 12px !important;
-  font-size: .88rem !important;
-}
-
-/* Mobile/tablet hardening */
-@media (max-width: 980px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
-    grid-template-columns: 1fr !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__status {
-    max-width: 520px;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__preview {
-    position: static !important;
-  }
-}
-
-@media (max-width: 720px) {
-  html[data-ff-page="platform-onboarding"] body.ffOnboardBody {
-    --ob-shell: min(100vw - 18px, 1120px);
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__main {
-    padding-top: 10px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
-    padding: 20px !important;
-    border-radius: 22px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero h1 {
-    max-width: 11ch !important;
-    font-size: clamp(2.35rem, 13vw, 3.5rem) !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__headerShell {
-    min-height: 50px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__previewBtn {
-    padding-inline: 11px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__formCard,
-  html[data-ff-page="platform-onboarding"] .ffOnboard__preview {
-    border-radius: 22px !important;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_SPINNING_PROGRESS_CARD_20260603
-   Restores the setup card to the circular progress version.
-   ========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial {
+  position: relative;
+  z-index: 3;
+  overflow: visible;
   display: grid;
   align-content: start;
   gap: 14px;
-  min-height: 270px;
+  min-height: 0;
+  border-radius: 20px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(255, 90, 31, .26), transparent 13rem),
+    linear-gradient(145deg, var(--ob-brown), var(--ob-brown-2));
+  box-shadow: 0 20px 54px rgba(57, 30, 17, .18);
+  padding: 18px 16px 16px;
+  transform: none;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial .ffOnboard__statusTop {
-  margin-bottom: 0 !important;
+html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop {
+  position: relative;
+  z-index: 5;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0;
+  color: #fff;
+  font-size: .86rem;
+  font-weight: 950;
+  line-height: 1.15;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop strong {
+  color: #fff;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop span,
+html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop strong:last-child {
+  border-radius: var(--ob-pill);
+  background: rgba(255, 255, 255, .14);
+  padding: 5px 9px;
 }
 
 html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing {
-  --ff-progress-deg: 72deg;
+  --ff-progress-deg: 180deg;
   position: relative;
+  z-index: 4;
   isolation: isolate;
-  width: 142px;
-  height: 142px;
-  margin: 2px auto 4px;
+  width: 126px;
+  height: 126px;
+  margin: 4px auto 8px;
   display: grid;
   place-items: center;
-  border-radius: 999px;
+  border-radius: var(--ob-pill);
 }
 
 html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing::before,
@@ -916,7 +510,7 @@ html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing::after {
     conic-gradient(
       from 0deg,
       transparent 0 64%,
-      rgba(255, 255, 255, .95) 70%,
+      rgba(255, 255, 255, .92) 70%,
       transparent 78% 100%
     );
   opacity: .72;
@@ -927,24 +521,24 @@ html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing::after {
 
 html[data-ff-page="platform-onboarding"] .ffOnboard__progressOrb {
   position: relative;
-  z-index: 1;
-  width: 96px;
-  height: 96px;
+  z-index: 5;
+  width: 84px;
+  height: 84px;
   display: grid;
   place-items: center;
   align-content: center;
-  border-radius: 999px;
+  border-radius: var(--ob-pill);
   color: var(--ob-brown);
-  background:
-    radial-gradient(circle at 35% 20%, #ffffff, #fff7ed 72%);
+  background: radial-gradient(circle at 35% 20%, #fff, #fff7ed 72%);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.9),
-    0 12px 26px rgba(0,0,0,.18);
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    0 12px 26px rgba(0, 0, 0, .18);
 }
 
 html[data-ff-page="platform-onboarding"] .ffOnboard__progressOrb strong {
-  color: var(--ob-brown) !important;
-  font-size: 1.55rem;
+  color: var(--ob-brown);
+  font-size: 1.32rem;
+  font-weight: 950;
   line-height: .95;
   letter-spacing: -.055em;
 }
@@ -952,531 +546,380 @@ html[data-ff-page="platform-onboarding"] .ffOnboard__progressOrb strong {
 html[data-ff-page="platform-onboarding"] .ffOnboard__progressOrb small {
   margin-top: 4px;
   color: rgba(59, 33, 20, .62);
-  font-size: .58rem;
+  font-size: .5rem;
   font-weight: 950;
   letter-spacing: .12em;
   text-transform: uppercase;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial .ffOnboard__steps {
-  margin-top: 0 !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial .ffOnboard__steps li {
-  min-height: 34px !important;
-  padding: 7px 11px !important;
-}
-
-@keyframes ffOnboardSpin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing::after {
-    animation: none;
-  }
-}
-
-@media (max-width: 980px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing {
-    margin-inline: 0;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial {
-    max-width: 100%;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_REAL_SETUP_HERO_20260603
-   Turns the hero from a marketing banner into a compact onboarding command panel.
-   ========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
-  min-height: 0 !important;
-  align-items: stretch !important;
-  grid-template-columns: minmax(0, 1fr) 292px !important;
-  padding: clamp(20px, 3vw, 30px) !important;
-  background:
-    radial-gradient(circle at 12% 8%, rgba(255, 90, 31, .13), transparent 20rem),
-    radial-gradient(circle at 76% 0%, rgba(15, 118, 110, .07), transparent 18rem),
-    linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,247,235,.88)) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
+html[data-ff-page="platform-onboarding"] .ffOnboard__steps {
   display: grid;
-  align-content: center;
-  max-width: 720px;
-  padding: clamp(8px, 1.4vw, 14px);
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker {
-  width: fit-content;
-  display: inline-flex;
+html[data-ff-page="platform-onboarding"] .ffOnboard__steps li {
+  min-height: 31px;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  min-height: 30px;
+  justify-content: space-between;
+  border-radius: var(--ob-pill);
+  color: rgba(255, 255, 255, .72);
+  background: rgba(255, 255, 255, .08);
+  cursor: pointer;
+  font-size: .78rem;
+  font-weight: 900;
+  padding: 6px 11px;
+  transition: transform 160ms var(--ob-ease), background 160ms var(--ob-ease), color 160ms var(--ob-ease);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__steps li:hover {
+  transform: translateX(2px);
+  background: rgba(255, 255, 255, .14);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__steps li[aria-current="step"] {
+  color: var(--ob-brown);
+  background: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   5. Workspace form + live campaign preview
+-------------------------------------------------------------------------- */
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 16px;
+  align-items: start;
+  margin-top: 14px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__card {
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 24px;
+  background: var(--ob-card);
+  box-shadow: var(--ob-shadow-soft);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__formCard {
+  padding: clamp(20px, 2.4vw, 28px);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__panel {
+  display: none;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__panel.is-active,
+html[data-ff-page="platform-onboarding"] .ffOnboard__panel[data-active="true"] {
+  display: block;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__sectionHead {
   margin-bottom: 16px;
-  padding: 0 11px;
-  border: 1px solid rgba(255, 90, 31, .18);
-  border-radius: 999px;
-  color: #6b3418;
-  background: rgba(255, 90, 31, .08);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__sectionHead h2 {
+  margin-bottom: 6px;
+  color: var(--ob-ink);
+  font-size: clamp(1.55rem, 2.6vw, 2.08rem);
+  line-height: .94;
+  letter-spacing: -.065em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__sectionHead p,
+html[data-ff-page="platform-onboarding"] .ffOnboard__saveNote {
+  max-width: 62ch;
+  margin-bottom: 0;
+  color: var(--ob-muted);
+  font-size: .92rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__wide {
+  grid-column: 1 / -1;
+}
+
+html[data-ff-page="platform-onboarding"] label {
+  display: grid;
+  gap: 7px;
+}
+
+html[data-ff-page="platform-onboarding"] label > span,
+html[data-ff-page="platform-onboarding"] .ffOnboard__summary strong {
+  color: rgba(47, 31, 20, .74);
   font-size: .76rem;
   font-weight: 950;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__liveDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--ob-orange);
-  box-shadow: 0 0 0 5px rgba(255, 90, 31, .12);
+html[data-ff-page="platform-onboarding"] input,
+html[data-ff-page="platform-onboarding"] textarea,
+html[data-ff-page="platform-onboarding"] select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--ob-line);
+  border-radius: 12px;
+  color: var(--ob-ink);
+  background: rgba(255, 255, 255, .92);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+  font-size: .88rem;
+  font-weight: 750;
+  outline: none;
+  padding: 10px 12px;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__eyebrow {
-  margin-bottom: 8px !important;
+html[data-ff-page="platform-onboarding"] textarea {
+  min-height: 86px;
+  resize: vertical;
+  line-height: 1.45;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup h1 {
-  max-width: 13ch !important;
-  margin: 0 0 12px !important;
-  font-size: clamp(2.45rem, 4.9vw, 3.95rem) !important;
-  line-height: .9 !important;
-  letter-spacing: -.08em !important;
+html[data-ff-page="platform-onboarding"] input:focus,
+html[data-ff-page="platform-onboarding"] textarea:focus,
+html[data-ff-page="platform-onboarding"] select:focus {
+  border-color: rgba(255, 90, 31, .48);
+  box-shadow: 0 0 0 4px rgba(255, 90, 31, .12);
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroText {
-  max-width: 62ch !important;
-  margin: 0 !important;
-  color: rgba(47,31,20,.72) !important;
-  font-size: .98rem !important;
-  line-height: 1.55 !important;
-  font-weight: 700 !important;
+html[data-ff-page="platform-onboarding"] input[type="color"] {
+  height: 44px;
+  padding: 5px;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroActions {
+html[data-ff-page="platform-onboarding"] .ffOnboard__checks {
+  display: grid;
+  gap: 10px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__checks label {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--ob-line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .74);
+  color: var(--ob-ink);
+  font-size: .88rem;
+  font-weight: 850;
+  padding: 10px 12px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__checks input {
+  width: 17px;
+  height: 17px;
+  min-height: auto;
+  accent-color: var(--ob-orange);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
+  align-items: center;
+  gap: 10px;
   margin-top: 18px;
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn {
-  min-height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 14px;
-  border-radius: 999px;
-  text-decoration: none;
+html[data-ff-page="platform-onboarding"] .ffOnboard__btn {
+  min-height: 39px;
+  border: 0;
+  border-radius: var(--ob-pill);
+  cursor: pointer;
   font-size: .82rem;
   font-weight: 950;
+  padding: 0 14px;
+  transition: transform 160ms var(--ob-ease), box-shadow 160ms var(--ob-ease), background 160ms var(--ob-ease);
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn--primary {
+html[data-ff-page="platform-onboarding"] .ffOnboard__btn:hover {
+  transform: translateY(-1px);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__btn--primary,
+html[data-ff-page="platform-onboarding"] .ffOnboard__btn--save {
   color: #fff;
   background: linear-gradient(135deg, var(--ob-orange), var(--ob-orange-2));
-  box-shadow: 0 14px 28px rgba(255,90,31,.22);
+  box-shadow: 0 14px 28px rgba(255, 90, 31, .24);
 }
 
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn--ghost {
-  color: var(--ob-ink);
-  background: rgba(255,255,255,.82);
+html[data-ff-page="platform-onboarding"] .ffOnboard__btn--ghost {
   border: 1px solid var(--ob-line);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 9px;
-  max-width: 520px;
-  margin: 18px 0 0;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts div {
-  min-height: 64px;
-  padding: 11px 12px;
-  border: 1px solid rgba(70,42,22,.11);
-  border-radius: 16px;
-  background: rgba(255,255,255,.66);
-  box-shadow: 0 10px 22px rgba(72,44,22,.055);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts dt {
-  margin: 0 0 4px;
-  color: rgba(47,31,20,.58);
-  font-size: .68rem;
-  font-weight: 950;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts dd {
-  margin: 0;
+  background: rgba(255, 255, 255, .88);
   color: var(--ob-ink);
-  font-size: .95rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__btn[disabled] {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__saveNote {
+  margin: 11px 0 0;
+  font-size: .82rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__saveNote[data-tone="success"] {
+  color: var(--ob-green);
+}
+
+/* Preview card */
+html[data-ff-page="platform-onboarding"] .ffOnboard__preview {
+  position: sticky;
+  top: 82px;
+  border-radius: 24px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(255, 90, 31, .32), transparent 13rem),
+    linear-gradient(145deg, var(--ob-brown), var(--ob-brown-2));
+  padding: 16px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewMark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(145deg, var(--ob-brown), #6b3418);
+  box-shadow: 0 10px 24px rgba(72, 44, 22, .24);
+  font-size: .72rem;
+  font-weight: 950;
+  letter-spacing: -.05em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewTop strong,
+html[data-ff-page="platform-onboarding"] .ffOnboard__preview h2,
+html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats strong,
+html[data-ff-page="platform-onboarding"] .ffOnboard__summary strong {
+  color: #fff;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewTop small,
+html[data-ff-page="platform-onboarding"] .ffOnboard__preview p,
+html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats small {
+  color: rgba(255, 255, 255, .72);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__preview h2 {
+  margin-bottom: 8px;
+  font-size: 1.68rem;
+  line-height: .95;
+  letter-spacing: -.065em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__preview p {
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 14px 0 10px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats span {
+  border-radius: 13px;
+  background: rgba(255, 255, 255, .08);
+  padding: 10px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats strong,
+html[data-ff-page="platform-onboarding"] .ffOnboard__miniStats small {
+  display: block;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__progress,
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewMeter {
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--ob-pill);
+  background: rgba(255, 255, 255, .2);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__progress span,
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewMeter span {
+  display: block;
+  width: 20%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--ob-orange), var(--ob-green));
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__preview button {
+  width: 100%;
+  min-height: 41px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: var(--ob-pill);
+  color: #fff;
+  background: linear-gradient(135deg, var(--ob-orange), var(--ob-orange-2));
+  cursor: pointer;
   font-weight: 950;
 }
 
-/* Better relationship between hero and radial progress card */
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__status--radial {
-  min-height: 0 !important;
-  align-self: stretch;
-  display: grid;
-  grid-template-rows: auto auto 1fr;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressRing {
-  width: 126px !important;
-  height: 126px !important;
-  margin-block: 4px 8px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressOrb {
-  width: 84px !important;
-  height: 84px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressOrb strong {
-  font-size: 1.32rem !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressOrb small {
-  font-size: .5rem !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__steps li {
-  min-height: 31px !important;
-  padding-block: 6px !important;
-  font-size: .78rem !important;
-}
-
-/* Tighter desktop page composition after reducing hero height */
-html[data-ff-page="platform-onboarding"] .ffOnboard__grid {
+html[data-ff-page="platform-onboarding"] .ffOnboard__summary {
   margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, .14);
 }
 
-/* Responsive */
+html[data-ff-page="platform-onboarding"] .ffOnboard__summary p {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, .72);
+  font-size: .82rem;
+}
+
+/* --------------------------------------------------------------------------
+   6. Responsive
+-------------------------------------------------------------------------- */
+
 @media (max-width: 980px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
-    grid-template-columns: 1fr !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__status--radial {
-    max-width: 520px;
-  }
-}
-
-@media (max-width: 720px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
-    padding: 18px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup h1 {
-    max-width: 11ch !important;
-    font-size: clamp(2.2rem, 12vw, 3.15rem) !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__grid {
     grid-template-columns: 1fr;
   }
 
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroActions {
-    display: grid;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__status {
     width: 100%;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_HERO_MOBILE_CONTAINMENT_LOCK_20260603
-   Final containment pass for compact onboarding hero:
-   - Prevents mobile kicker clipping
-   - Centers radial progress card on mobile
-   - Tightens desktop vertical rhythm
-   - Keeps compact onboarding direction intact
-   ========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
-  overflow: visible !important;
-  margin-top: 8px !important;
-  margin-bottom: 14px !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
-  min-width: 0;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker {
-  position: relative;
-  z-index: 2;
-  margin-top: 0 !important;
-  white-space: nowrap;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup h1 {
-  max-width: 12.4ch !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts div {
-  display: grid;
-  align-content: center;
-}
-
-/* Desktop: slightly tighter, more product-app than landing-page */
-@media (min-width: 981px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
-    padding-block: clamp(18px, 2.5vw, 26px) !important;
+    max-width: none;
   }
 
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
-    padding-block: 6px !important;
+  html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing {
+    margin-inline: auto;
   }
 
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts {
-    margin-top: 16px !important;
+  html[data-ff-page="platform-onboarding"] .ffOnboard__preview {
+    position: static;
   }
-}
-
-/* Tablet/mobile: make the hero stack feel deliberate */
-@media (max-width: 980px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
-    gap: 18px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__status--radial {
-    width: 100%;
-    max-width: none !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressRing {
-    margin-inline: auto !important;
-  }
-}
-
-/* Phone: stop top clipping and reduce oversized hero feel */
-@media (max-width: 720px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__main {
-    padding-top: 14px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
-    margin-top: 10px !important;
-    padding: 22px 18px 18px !important;
-    border-radius: 22px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
-    padding: 4px 2px 0 !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker {
-    min-height: 28px !important;
-    margin-bottom: 12px !important;
-    padding-inline: 10px !important;
-    font-size: .72rem !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__eyebrow {
-    margin-bottom: 7px !important;
-    font-size: .68rem !important;
-    letter-spacing: .15em !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup h1 {
-    max-width: 10.8ch !important;
-    margin-bottom: 10px !important;
-    font-size: clamp(2.14rem, 11.6vw, 3.05rem) !important;
-    line-height: .9 !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroText {
-    font-size: .9rem !important;
-    line-height: 1.48 !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroActions {
-    gap: 8px !important;
-    margin-top: 16px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn {
-    min-height: 38px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts {
-    gap: 8px !important;
-    margin-top: 14px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts div {
-    min-height: 56px !important;
-    padding: 10px 11px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial {
-    padding: 16px 14px !important;
-    border-radius: 20px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressRing {
-    width: 118px !important;
-    height: 118px !important;
-    margin: 6px auto 10px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup .ffOnboard__progressOrb {
-    width: 80px !important;
-    height: 80px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__statusTop {
-    align-items: center;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__steps li {
-    min-height: 32px !important;
-  }
-}
-
-/* Very narrow phones */
-@media (max-width: 390px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup h1 {
-    font-size: clamp(2rem, 11vw, 2.72rem) !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__heroText {
-    font-size: .86rem !important;
-  }
-}
-
-
-
-/* FF_ONBOARDING_V1_OWNED_HEADER_AUTHORITY_PATCH */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-  position: sticky;
-  top: max(10px, env(safe-area-inset-top));
-  z-index: 90;
-  width: var(--onb-shell, min(100% - 24px, 1180px));
-  margin: max(10px, env(safe-area-inset-top)) auto 0;
-  border: 1px solid rgba(75, 48, 29, .12);
-  border-radius: 24px;
-  background: linear-gradient(180deg, rgba(255,253,248,.96), rgba(255,248,239,.90));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 18px 50px rgba(58,36,20,.12);
-  backdrop-filter: blur(20px) saturate(155%);
-  -webkit-backdrop-filter: blur(20px) saturate(155%);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerShell {
-  display: grid;
-  grid-template-columns: minmax(0, auto) 1fr auto;
-  align-items: center;
-  gap: clamp(10px, 1.6vw, 18px);
-  min-height: 64px;
-  padding: 8px 10px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__brand,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton {
-  display: inline-flex;
-  align-items: center;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__brand {
-  min-width: 0;
-  gap: 11px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandMark {
-  display: inline-grid;
-  width: 40px;
-  height: 40px;
-  place-items: center;
-  flex: 0 0 auto;
-  border-radius: 15px;
-  background: linear-gradient(135deg, #140b07, #4f2813 58%, #763714);
-  color: #fff8ee;
-  font-size: .72rem;
-  font-weight: 950;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy {
-  display: grid;
-  gap: 3px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy strong {
-  color: var(--onb-ink, #120b07);
-  font-size: .9rem;
-  font-weight: 950;
-  line-height: 1;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy small {
-  color: rgba(80,49,27,.56);
-  font-size: .58rem;
-  font-weight: 920;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav {
-  justify-self: center;
-  gap: 4px;
-  border: 1px solid rgba(80,49,27,.09);
-  border-radius: 999px;
-  background: rgba(255,255,255,.72);
-  padding: 4px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav a {
-  border-radius: 999px;
-  color: rgba(42,27,18,.74);
-  font-size: .74rem;
-  font-weight: 920;
-  line-height: 1;
-  padding: 10px 14px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions {
-  justify-self: end;
-  gap: 8px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton {
-  min-height: 40px;
-  justify-content: center;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--onb-orange, #ff5a1f), var(--onb-orange-2, #ff8a22));
-  color: #fffaf3;
-  font-size: .75rem;
-  font-weight: 930;
-  padding: 10px 16px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton {
-  display: none;
-  justify-self: end;
-  min-height: 40px;
-  gap: 8px;
-  border: 1px solid rgba(80,49,27,.12);
-  border-radius: 999px;
-  background: rgba(255,255,255,.72);
-  color: var(--onb-ink, #120b07);
-  font-size: .74rem;
-  font-weight: 930;
-  padding: 9px 13px;
 }
 
 @media (max-width: 860px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+    width: min(100% - 18px, 1120px);
+    border-radius: 22px;
+  }
+
   html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerShell {
     grid-template-columns: minmax(0, 1fr) auto;
   }
@@ -1490,6 +933,8 @@ html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton {
     justify-self: stretch;
     display: none;
     overflow-x: auto;
+    justify-content: start;
+    -webkit-overflow-scrolling: touch;
   }
 
   html[data-ff-page="platform-onboarding"] .ffOnboardV1__header[data-menu-open="true"] .ffOnboardV1__nav {
@@ -1497,293 +942,117 @@ html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton {
   }
 
   html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions {
-    grid-column: 1 / -1;
-    justify-self: stretch;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton {
-    width: 100%;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_V1_VISUAL_POLISH_PASS_20260603
-   Purpose:
-   - Calm the hero scale
-   - Make progress feel accurate and premium
-   - Reduce harsh dark-card weight
-   - Tighten header rhythm
-   - Improve mobile-first layout polish
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] {
-  --onb-shell: min(100% - clamp(18px, 3vw, 36px), 1160px);
-  --onb-ink: #170d08;
-  --onb-muted: rgba(67, 48, 36, .74);
-  --onb-soft: rgba(67, 48, 36, .58);
-  --onb-orange: #ff641f;
-  --onb-orange-2: #ff8a2a;
-  --onb-dark-card: #29140c;
-  --onb-dark-card-2: #4b2111;
-}
-
-html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body {
-  background:
-    radial-gradient(circle at 10% 4%, rgba(255, 109, 31, .18), transparent 22rem),
-    radial-gradient(circle at 92% -5%, rgba(15, 118, 110, .13), transparent 28rem),
-    linear-gradient(180deg, #fff8ee 0%, #f4e4cc 55%, #ecd4b1 100%);
-}
-
-/* Header: more SaaS, less chunky */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-  top: max(8px, env(safe-area-inset-top));
-  border-radius: 22px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.92),
-    0 14px 38px rgba(58,36,20,.10);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerShell {
-  min-height: 58px;
-  padding: 7px 9px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandMark {
-  width: 36px;
-  height: 36px;
-  border-radius: 14px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy strong {
-  font-size: .84rem;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy small {
-  font-size: .56rem;
-  letter-spacing: .15em;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav {
-  padding: 3px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav a {
-  min-height: 32px;
-  padding: 8px 15px;
-  font-size: .72rem;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton {
-  min-height: 38px;
-  padding: 9px 17px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.26),
-    0 10px 24px rgba(255, 100, 31, .20);
-}
-
-/* Hero: calmer, more executive */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-  overflow: hidden;
-  border-radius: 28px;
-  background:
-    radial-gradient(circle at 18% 18%, rgba(255, 103, 31, .13), transparent 22rem),
-    radial-gradient(circle at 80% 12%, rgba(15, 118, 110, .08), transparent 24rem),
-    linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,250,242,.76));
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.92),
-    0 24px 70px rgba(68, 43, 22, .10);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
-  max-width: 11.8ch;
-  font-size: clamp(2.65rem, 4.25vw, 4.25rem);
-  line-height: .94;
-  letter-spacing: -.062em;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero p,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__lede {
-  max-width: 58ch;
-  color: rgba(49, 35, 25, .76);
-  font-size: clamp(.95rem, 1vw, 1.05rem);
-  line-height: 1.5;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__pills span,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__trustStrip span,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroProof span {
-  border-color: rgba(255, 100, 31, .15);
-  background: rgba(255, 244, 233, .78);
-  color: rgba(88, 42, 20, .86);
-}
-
-/* Hero stat tiles */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(dl, .ffOnboardV1__outcomeBar, .ffOnboardV1__heroStats) > div,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(.ffOnboardV1__stat, .ffOnboardV1__metric) {
-  border-color: rgba(80, 49, 27, .10);
-  background: rgba(255,255,255,.72);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.86),
-    0 12px 28px rgba(70, 44, 24, .06);
-}
-
-/* Progress card: premium command-card instead of heavy block */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 24px;
-  background:
-    radial-gradient(circle at 50% 8%, rgba(255, 255, 255, .12), transparent 8rem),
-    linear-gradient(145deg, var(--onb-dark-card), var(--onb-dark-card-2));
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.12),
-    0 24px 64px rgba(57, 30, 17, .22);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead {
-  align-items: center;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead strong,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead strong {
-  color: #fff8ee;
-  font-size: .92rem;
-  letter-spacing: -.02em;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead span,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead span,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-label] {
-  border-radius: 999px;
-  background: rgba(255,255,255,.14);
-  color: #fff8ee;
-  font-size: .78rem;
-  font-weight: 950;
-  padding: 6px 10px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness :where(li, dd, a, button),
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress :where(li, dd, a, button) {
-  color: rgba(255, 248, 238, .74);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness :where(li, a, button),
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress :where(li, a, button),
-html[data-ff-page="platform-onboarding"] [data-ff-progress-step] {
-  border-radius: 999px;
-  transition:
-    background 180ms var(--onb-ease),
-    color 180ms var(--onb-ease),
-    transform 180ms var(--onb-ease);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness :where(li, a, button)[aria-current="step"],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress :where(li, a, button)[aria-current="step"],
-html[data-ff-page="platform-onboarding"] [data-ff-progress-step][aria-current="step"] {
-  background: rgba(255,255,255,.96);
-  color: #241108;
-}
-
-/* Main form + preview: sharper enterprise spacing */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__section,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__panel,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__formCard {
-  border-radius: 26px;
-  background: rgba(255, 252, 246, .86);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.86),
-    0 18px 52px rgba(68, 43, 22, .09);
-}
-
-html[data-ff-page="platform-onboarding"] :where(input, textarea, select) {
-  border-color: rgba(80, 49, 27, .12);
-  background: rgba(255,255,255,.82);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.9),
-    0 8px 18px rgba(68, 43, 22, .035);
-}
-
-html[data-ff-page="platform-onboarding"] :where(input, textarea, select):focus {
-  border-color: rgba(255, 100, 31, .42);
-  box-shadow:
-    0 0 0 4px rgba(255, 100, 31, .13),
-    inset 0 1px 0 rgba(255,255,255,.92);
-}
-
-/* Campaign preview card */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__preview,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__campaignPreview,
-html[data-ff-page="platform-onboarding"] [data-ff-theme-preview] {
-  border-radius: 26px;
-  background:
-    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, .10), transparent 10rem),
-    linear-gradient(145deg, #4c1f10, #23100a 70%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.10),
-    0 24px 64px rgba(57, 30, 17, .19);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__preview h3,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__campaignPreview h3,
-html[data-ff-page="platform-onboarding"] [data-ff-theme-preview] h3 {
-  letter-spacing: -.045em;
-}
-
-/* Make CTA row cleaner */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__btn,
-html[data-ff-page="platform-onboarding"] button,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__button {
-  transition:
-    transform 180ms var(--onb-ease),
-    box-shadow 180ms var(--onb-ease),
-    background 180ms var(--onb-ease);
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__btn:hover,
-html[data-ff-page="platform-onboarding"] button:hover,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__button:hover {
-  transform: translateY(-1px);
-}
-
-/* Mobile: make this feel intentionally designed, not squeezed */
-@media (max-width: 760px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-    width: min(100% - 18px, 1160px);
-    border-radius: 20px;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions {
     display: none;
   }
+}
 
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-    border-radius: 24px;
+@media (max-width: 720px) {
+  html[data-ff-page="platform-onboarding"] {
+    --ob-shell: min(100vw - 18px, 1120px);
   }
 
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
-    max-width: 10.8ch;
-    font-size: clamp(2.35rem, 13vw, 3.35rem);
-    line-height: .94;
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandMark {
+    width: 32px;
+    height: 32px;
   }
 
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero p,
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__lede {
-    font-size: .95rem;
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy strong {
+    font-size: .82rem;
   }
 
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav {
-    padding-bottom: 5px;
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy small {
+    font-size: .58rem;
   }
 
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__section,
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__panel,
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__formCard,
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__preview,
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__campaignPreview,
-  html[data-ff-page="platform-onboarding"] [data-ff-theme-preview] {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__main {
+    padding-bottom: 42px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
+    gap: 18px;
     border-radius: 22px;
+    padding: 22px 18px 18px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
+    padding: 4px 2px 0;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow {
+    margin-bottom: 7px;
+    font-size: .68rem;
+    letter-spacing: .15em;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero h1 {
+    max-width: 10.8ch;
+    margin-bottom: 10px;
+    font-size: clamp(2.14rem, 11.6vw, 3.05rem);
+    line-height: .9;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroText,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero p {
+    font-size: .9rem;
+    line-height: 1.48;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroActions,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__actions {
+    display: grid;
+    gap: 8px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroBtn,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__btn {
+    width: 100%;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__fields {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts {
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts div {
+    min-height: 56px;
+    padding: 10px 11px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__status {
+    border-radius: 20px;
+    padding: 16px 14px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing {
+    width: 118px;
+    height: 118px;
+    margin: 6px auto 10px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__progressOrb {
+    width: 80px;
+    height: 80px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__formCard,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__preview {
+    border-radius: 22px;
+  }
+}
+
+@media (max-width: 390px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero h1 {
+    font-size: clamp(2rem, 11vw, 2.72rem);
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__heroText,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero p {
+    font-size: .86rem;
   }
 }
 
@@ -1796,756 +1065,14 @@ html[data-ff-page="platform-onboarding"] .ffOnboardV1__button:hover {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
   }
-}
 
-/* ==========================================================================
-   FF_ONBOARDING_V1_DOUBLE_HEADER_GUARD_20260603
-   Purpose:
-   - Keep one owned header only
-   - Remove visual ghost header/top-band space under the real header
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body {
-  padding-top: 0 !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header + .ffOnboardV1__header,
-html[data-ff-page="platform-onboarding"] [data-ff-onboard-header] + [data-ff-onboard-header] {
-  display: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] :where(
-  .ffOnboardHeader,
-  .ffOnboardingHeader,
-  .ffLaunchHeader,
-  .ffOnboard__header,
-  .ffLaunchV1__header,
-  .ffOnboardV1__topBand,
-  .ffOnboardV1__masthead,
-  .ffOnboardV1__shellHeader,
-  .ffOnboardV1__chrome,
-  .ffOnboardV1__ambientHeader,
-  .ffOnboardV1__headerGhost
-):not(.ffOnboardV1__header):not(.ffOnboardV1__headerShell) {
-  display: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-  margin-bottom: clamp(14px, 1.6vw, 20px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__main,
-html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root] {
-  padding-top: 0 !important;
-}
-
-/* Remove the accidental empty blurred band directly after the header. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header + :where(
-  .ffOnboardV1__ambient,
-  .ffOnboardV1__backgroundBand,
-  .ffOnboardV1__topGlow,
-  .ffOnboardV1__heroBackdrop
-) {
-  display: none !important;
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_V1_HEADER_OVERLAP_FIX_20260603
-   Purpose:
-   - One header only
-   - Prevent sticky owned header from visually covering the hero
-   - Remove accidental hero/top negative offset
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body {
-  padding-top: 0 !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-  position: sticky !important;
-  top: max(10px, env(safe-area-inset-top)) !important;
-  z-index: 100 !important;
-  margin-top: max(10px, env(safe-area-inset-top)) !important;
-  margin-bottom: clamp(22px, 2.4vw, 34px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header + main,
-html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
-  margin-top: 0 !important;
-  padding-top: clamp(14px, 1.8vw, 24px) !important;
-  transform: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero,
-html[data-ff-page="platform-onboarding"] [class*="__hero"] {
-  margin-top: 0 !important;
-  transform: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero > *,
-html[data-ff-page="platform-onboarding"] [class*="__hero"] > * {
-  transform: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__badge,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__pill,
-html[data-ff-page="platform-onboarding"] [class*="__eyebrow"],
-html[data-ff-page="platform-onboarding"] [class*="__badge"],
-html[data-ff-page="platform-onboarding"] [class*="__pill"] {
-  position: relative;
-  z-index: 1;
-}
-
-/* If any previous polish created an ambient band directly under the nav, flatten it. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header + :where(
-  .ffOnboardV1__ambient,
-  .ffOnboardV1__backgroundBand,
-  .ffOnboardV1__topGlow,
-  .ffOnboardV1__heroBackdrop,
-  .ffOnboardV1__masthead
-) {
-  display: none !important;
-}
-
-@media (max-width: 760px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-    margin-bottom: 18px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
-  html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
-  html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
-    padding-top: 12px !important;
+  html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing::after {
+    animation: none;
   }
 }
 
-/* ==========================================================================
-   FF_ONBOARDING_V1_FINAL_COMPOSITION_PASS_20260603
-   Purpose:
-   - Remove excess top atmospheric band
-   - Tighten hero-to-header rhythm
-   - Calm setup-page headline scale
-   - Improve right card vertical alignment
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-  margin-bottom: clamp(12px, 1.4vw, 18px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
-  padding-top: 0 !important;
-}
-
-/* Flatten the big empty glow band between nav and content */
-html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body::before,
-html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body::after,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__main::before,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__main::after {
-  opacity: .55;
-  max-height: 48px;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-  margin-top: 0 !important;
-  min-height: auto !important;
-  padding-top: clamp(30px, 4vw, 54px) !important;
-  padding-bottom: clamp(28px, 3.8vw, 48px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
-  max-width: 12.4ch !important;
-  font-size: clamp(2.45rem, 3.7vw, 3.85rem) !important;
-  line-height: .95 !important;
-  letter-spacing: -.058em !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero p,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__lede {
-  max-width: 56ch !important;
-  font-size: clamp(.92rem, .95vw, 1rem) !important;
-  line-height: 1.48 !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow {
-  margin-bottom: clamp(12px, 1.4vw, 18px) !important;
-}
-
-/* Better hero grid balance */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-  align-items: center !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-  align-self: center !important;
-  transform: translateY(0) !important;
-}
-
-/* Slightly lighter progress card so it does not overpower the form */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-  background:
-    radial-gradient(circle at 50% 8%, rgba(255, 255, 255, .10), transparent 8rem),
-    linear-gradient(145deg, #32170d, #4d2110) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.11),
-    0 20px 54px rgba(57, 30, 17, .18) !important;
-}
-
-/* Keep form + preview section tighter */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__workspace,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__content,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__grid {
-  gap: clamp(14px, 1.8vw, 22px) !important;
-}
-
-/* Mobile final tuning */
-@media (max-width: 760px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-    margin-bottom: 12px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-    padding-top: 26px !important;
-    padding-bottom: 30px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
-    max-width: 11.2ch !important;
-    font-size: clamp(2.25rem, 11.5vw, 3.15rem) !important;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_V1_HERO_CLIP_FIX_20260603
-   Purpose:
-   - Fix clipped hero pill and clipped progress title
-   - Reset old negative offsets/transforms
-   - Keep one owned header and preserve green served-URL baseline
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-  margin-bottom: clamp(16px, 1.8vw, 24px) !important;
-}
-
-/* The hero itself should not clip badges/cards at its top edge. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-  overflow: visible !important;
-  padding-top: clamp(46px, 4.8vw, 68px) !important;
-  padding-bottom: clamp(34px, 4vw, 54px) !important;
-}
-
-/* Kill any inherited pull-up from previous passes. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero > * {
-  position: relative !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: auto !important;
-  inset: auto !important;
-  margin-top: 0 !important;
-  transform: none !important;
-}
-
-/* Make the pill fully visible and intentionally placed. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(
-  .ffOnboardV1__pill,
-  .ffOnboardV1__badge,
-  .ffOnboardV1__eyebrow,
-  [class*="__pill"],
-  [class*="__badge"],
-  [class*="__eyebrow"]
-) {
-  position: relative !important;
-  top: auto !important;
-  transform: none !important;
-  margin-top: 0 !important;
-  margin-bottom: clamp(12px, 1.25vw, 18px) !important;
-  z-index: 2 !important;
-}
-
-/* Progress card was sitting too high; seat it inside the hero. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-  align-self: center !important;
-  margin-top: clamp(8px, 1vw, 14px) !important;
-}
-
-/* Let progress headings breathe so text is never cropped. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
-  padding-top: 2px !important;
-  margin-top: 0 !important;
-}
-
-/* Keep the outer rhythm tight without hiding content. */
-html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
-  padding-top: 0 !important;
-}
-
-/* Mobile safe spacing */
-@media (max-width: 760px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-    margin-bottom: 14px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-    padding-top: 34px !important;
-    padding-bottom: 34px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-  html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-    margin-top: 10px !important;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_V1_DRAFT_PILL_HARD_FIX_20260603
-   Purpose:
-   - Stop the draft pill from being clipped/pulled behind the header
-   - Use a dedicated template hook instead of fuzzy class matching
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-  overflow: hidden !important;
-  padding-top: clamp(42px, 4.4vw, 60px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] [data-ff-draft-pill],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill {
-  position: relative !important;
-  inset: auto !important;
-  top: auto !important;
-  left: auto !important;
-  transform: none !important;
-  translate: none !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  width: fit-content !important;
-  max-width: 100% !important;
-  min-height: 28px !important;
-  margin: 0 0 clamp(16px, 1.5vw, 22px) 0 !important;
-  padding: 6px 12px !important;
-  border: 1px solid rgba(255, 100, 31, .16) !important;
-  border-radius: 999px !important;
-  background: rgba(255, 236, 224, .78) !important;
-  color: #63260f !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.72),
-    0 8px 20px rgba(255, 100, 31, .08) !important;
-  font-size: .78rem !important;
-  font-weight: 920 !important;
-  line-height: 1 !important;
-  white-space: nowrap !important;
-  z-index: 5 !important;
-  overflow: visible !important;
-}
-
-html[data-ff-page="platform-onboarding"] [data-ff-draft-pill]::before,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  flex: 0 0 auto;
-  margin-right: 7px;
-  border-radius: 999px;
-  background: #ff641f;
-  box-shadow: 0 0 0 4px rgba(255, 100, 31, .13);
-}
-
-/* The first content block must never slide under the sticky header. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero > :first-child {
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-  transform: none !important;
-}
-
-/* Progress title/card safety: prevent top-edge clipping. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-  overflow: visible !important;
-  padding-top: clamp(18px, 1.8vw, 24px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
-  min-height: 28px !important;
-  overflow: visible !important;
-}
-
-/* Reduce the visible top atmosphere without clipping the hero. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-  margin-bottom: clamp(14px, 1.5vw, 20px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
-  padding-top: 0 !important;
-}
-
-@media (max-width: 760px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-    padding-top: 34px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] [data-ff-draft-pill],
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill {
-    min-height: 26px !important;
-    font-size: .74rem !important;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_V1_STACK_AND_HERO_SAFE_AREA_20260603
-   Purpose:
-   - Put decorative top glow behind content
-   - Stop draft pill/progress header from hiding under overlay
-   - Preserve one owned header + green served URL baseline
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body {
-  isolation: isolate !important;
-  overflow-x: hidden !important;
-}
-
-/* Decorative atmosphere must never sit above actual page content. */
-html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body::before,
-html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body::after {
-  z-index: 0 !important;
-  pointer-events: none !important;
-}
-
-/* Real page layers. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
-  position: sticky !important;
-  z-index: 60 !important;
-}
-
-html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
-html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
-  position: relative !important;
-  z-index: 2 !important;
-  overflow: visible !important;
-}
-
-/* Hero content needs a real safe-area below the sticky header/glow. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-  position: relative !important;
-  z-index: 2 !important;
-  overflow: visible !important;
-  clip-path: none !important;
-  mask-image: none !important;
-  -webkit-mask-image: none !important;
-  padding-top: clamp(72px, 6vw, 96px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero > *,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(section, div, article) {
-  overflow: visible !important;
-}
-
-/* Dedicated draft pill hook: force it into visible normal flow. */
-html[data-ff-page="platform-onboarding"] [data-ff-draft-pill],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill {
-  position: relative !important;
-  z-index: 30 !important;
-  inset: auto !important;
-  top: auto !important;
-  transform: translate3d(0, 0, 0) !important;
-  translate: none !important;
-  margin-top: 0 !important;
-  margin-bottom: clamp(14px, 1.3vw, 20px) !important;
-  overflow: visible !important;
-}
-
-/* Progress card title was also being covered by the same top layer. */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-  position: relative !important;
-  z-index: 3 !important;
-  overflow: visible !important;
-  padding-top: clamp(24px, 2.2vw, 32px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
-  position: relative !important;
-  z-index: 4 !important;
-  min-height: 32px !important;
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  overflow: visible !important;
-  transform: none !important;
-}
-
-/* Keep mobile compact but safe. */
-@media (max-width: 760px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-    padding-top: 54px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-  html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-    padding-top: 24px !important;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_V1_REMOVE_DRAFT_PILL_FINAL_20260603
-   Purpose:
-   - Remove redundant/clipped private draft pill
-   - Keep hero clean and premium
-   - Status remains visible through hero stat tile + footer note
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] [data-ff-draft-pill],
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill {
-  display: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-  padding-top: clamp(42px, 4.4vw, 64px) !important;
-  overflow: visible !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
-  margin-top: 0 !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-  overflow: visible !important;
-  padding-top: clamp(24px, 2vw, 30px) !important;
-}
-
-@media (max-width: 760px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-    padding-top: 30px !important;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_V1_GHOST_PILL_AND_PROGRESS_CLIP_FINAL_20260603
-   Purpose:
-   - Remove any empty hero badge/pill remnants
-   - Give progress card title enough top-safe space
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(
-  [data-ff-draft-pill],
-  .ffOnboardV1__draftPill,
-  .ffOnboardV1__draftPill:empty,
-  .ffOnboardV1__badge:empty,
-  .ffOnboardV1__pill:empty
-) {
-  display: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-  padding-top: clamp(44px, 4.8vw, 68px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-  margin-top: clamp(10px, 1vw, 16px) !important;
-  padding-top: clamp(30px, 2.6vw, 38px) !important;
-  overflow: visible !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
-  min-height: 34px !important;
-  line-height: 1.15 !important;
-  overflow: visible !important;
-  transform: none !important;
-}
-
-@media (max-width: 760px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-    padding-top: 32px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-  html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-  html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-    margin-top: 12px !important;
-    padding-top: 28px !important;
-  }
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_V1_KILL_GHOST_PSEUDO_20260603
-   Purpose:
-   - Remove leftover decorative pseudo/pill ghost above CAMPAIGN ONBOARDING
-   - Keep actual hero text/progress content visible
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero::before,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero::after,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy::before,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy::after,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow::before,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow::after {
-  content: none !important;
-  display: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
-  padding-top: clamp(38px, 4vw, 58px) !important;
-  overflow: visible !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow {
-  position: relative !important;
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  transform: none !important;
-  z-index: 5 !important;
-}
-
-/* Progress card final top safety */
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
-  padding-top: clamp(34px, 2.8vw, 42px) !important;
-  overflow: visible !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
-html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
-html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
-  position: relative !important;
-  z-index: 5 !important;
-  min-height: 36px !important;
-  overflow: visible !important;
-}
-
-/* ==========================================================================
-   FF_ONBOARDING_ACTUAL_CONTRACT_HERO_FIX_20260603
-   The rendered hero uses ffOnboard__*, not ffOnboardV1__*.
-   This removes the ghost kicker/pill and fixes progress clipping on the live contract.
-========================================================================== */
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker,
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker:empty,
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker::before,
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker::after {
-  content: none !important;
-  display: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
-  position: relative !important;
-  overflow: visible !important;
-  clip-path: none !important;
-  mask-image: none !important;
-  -webkit-mask-image: none !important;
-  padding-top: clamp(38px, 4vw, 58px) !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
-  position: relative !important;
-  z-index: 3 !important;
-  overflow: visible !important;
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-  transform: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow {
-  position: relative !important;
-  z-index: 4 !important;
-  display: block !important;
-  margin-top: 0 !important;
-  margin-bottom: clamp(12px, 1.3vw, 18px) !important;
-  padding-top: 0 !important;
-  transform: none !important;
-  overflow: visible !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow::before,
-html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow::after {
-  content: none !important;
-  display: none !important;
-}
-
-/* Fix the live progress card, not the V1 alias. */
-html[data-ff-page="platform-onboarding"] .ffOnboard__status,
-html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial {
-  position: relative !important;
-  z-index: 3 !important;
-  overflow: visible !important;
-  padding-top: clamp(28px, 2.5vw, 38px) !important;
-  margin-top: 0 !important;
-  transform: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__statusHead,
-html[data-ff-page="platform-onboarding"] .ffOnboard__statusHeader,
-html[data-ff-page="platform-onboarding"] .ffOnboard__status > :first-child {
-  position: relative !important;
-  z-index: 5 !important;
-  min-height: 36px !important;
-  overflow: visible !important;
-  transform: none !important;
-}
-
-html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing,
-html[data-ff-page="platform-onboarding"] .ffOnboard__progressOrb {
-  position: relative !important;
-  z-index: 4 !important;
-}
-
-/* Keep desktop composition clean. */
-html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
-  align-items: center !important;
-}
-
-/* Mobile: remove dead kicker space and keep hero compact. */
-@media (max-width: 760px) {
-  html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
-    padding-top: 28px !important;
-  }
-
-  html[data-ff-page="platform-onboarding"] .ffOnboard__status,
-  html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial {
-    padding-top: 24px !important;
+@keyframes ffOnboardSpin {
+  to {
+    transform: rotate(360deg);
   }
 }
