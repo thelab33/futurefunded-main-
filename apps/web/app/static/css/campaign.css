@@ -10536,3 +10536,127 @@ html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__actions {
   }
 }
 
+
+/* ==========================================================================
+   FF_CAMPAIGN_MOBILE_SECTION_DENSITY_20260603
+   Mobile-only campaign lower-page compression.
+   Scope:
+   - Campaign section spacing
+   - Section headings
+   - Named campaign cards/grids
+   - Named media cards
+   Rules:
+   - No copy removal
+   - No global selectors
+   - No wildcard class matching
+   - No broad section sweeps
+   ========================================================================== */
+
+@media (max-width: 720px) {
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignSection,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignSection {
+    margin-block: 24px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignSection__inner,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignSection__inner {
+    width: min(100%, calc(100vw - 14px));
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignSection h2,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignSection h2 {
+    font-size: clamp(1.72rem, 9vw, 2.55rem);
+    line-height: .9;
+    letter-spacing: -.07em;
+    margin-bottom: 8px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignSection p,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignSection p {
+    line-height: 1.34;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignGrid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignGrid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-impactGrid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffImpactGrid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-sponsorGrid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffSponsorGrid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-teamGrid,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffTeamGrid {
+    gap: 10px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-impactCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffImpactCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-sponsorTier,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffSponsorTier,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-teamCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffTeamCard {
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignCard h3,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignCard h3,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-impactCard h3,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffImpactCard h3,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-sponsorTier h3,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffSponsorTier h3,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-teamCard h3,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffTeamCard h3 {
+    font-size: .98rem;
+    line-height: 1.05;
+    margin-bottom: 5px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-teamCard img,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffTeamCard img {
+    max-height: 176px;
+    object-fit: cover;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-storyMedia img,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffStoryMedia img {
+    max-height: 360px;
+    object-fit: cover;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-finalCta,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffFinalCta {
+    padding: 16px;
+    border-radius: 22px;
+  }
+}
+
+@media (max-width: 430px) {
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignSection,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignSection {
+    margin-block: 20px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-campaignCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffCampaignCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-impactCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffImpactCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-sponsorTier,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffSponsorTier,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-teamCard,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffTeamCard {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-teamCard img,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffTeamCard img {
+    max-height: 156px;
+  }
+
+  html[data-ff-page="campaign"] body.ff-campaignBody .ff-storyMedia img,
+  html[data-ff-page="campaign"] body.ff-campaignBody .ffStoryMedia img {
+    max-height: 320px;
+  }
+}
+
