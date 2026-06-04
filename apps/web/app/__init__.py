@@ -576,6 +576,29 @@ def create_app(config_object: type[Config] | str | None = None) -> Flask:
             mimetype="application/manifest+json",
         )
 
+
+
+
+
+
+    # FF_ROOT_HOME_BEFORE_STACK_FIX_20260604
+    # Put canonical homepage handler FIRST so older `/` -> `/platform/` guards cannot win.
+    def _ff_root_home_before_stack_fix():
+        from flask import current_app, redirect, request
+
+        if request.method not in {"GET", "HEAD"}:
+            return None
+
+        if request.path == "/":
+            return current_app.view_functions["platform.index"]()
+
+        if request.path in {"/platform", "/platform/"}:
+            return redirect("/", code=308)
+
+        return None
+
+    app.before_request_funcs.setdefault(None, []).insert(0, _ff_root_home_before_stack_fix)
+
     return app
 def _ensure_instance_path(app: Flask) -> None:
     Path(app.instance_path).mkdir(parents=True, exist_ok=True)
