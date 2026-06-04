@@ -18642,3 +18642,176 @@ html[data-ff-page="platform"] body.ff-platformBody .ff-flowGrid > * {
     width: min(100vw - 14px, 1180px);
   }
 }
+
+
+/* ==========================================================================
+   FF_PLATFORM_WARM_MICRO_LAYOUT_PASS_20260603
+   Tiny targeted platform-home pass:
+   - Mobile header brand/action fit
+   - Tablet hero + live proof balance
+   - Slight section rhythm compression
+   Rules: concrete platform selectors only; no wildcard class matching or broad section sweeps.
+   ========================================================================== */
+
+/* Slightly tighter section rhythm without changing structure. */
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformSection {
+  margin-block: clamp(46px, 6.8vw, 86px);
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformSection:first-of-type {
+  margin-top: clamp(34px, 5.6vw, 68px);
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformSection:last-of-type {
+  margin-bottom: clamp(26px, 4.5vw, 52px);
+}
+
+/* Header fit: concrete shared-header/platform-header classes only. */
+html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__shell,
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__shell {
+  min-width: 0;
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__brand,
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__brand,
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformBrand {
+  min-width: 0;
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__brand strong,
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__brand strong,
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformBrand strong {
+  white-space: nowrap;
+}
+
+html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__actions,
+html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__actions {
+  flex: 0 0 auto;
+}
+
+/* Tablet: keep the live proof card visible beside the hero instead of dropping too far. */
+@media (min-width: 760px) and (max-width: 980px) {
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformMain {
+    width: min(100vw - 28px, 1180px);
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero {
+    padding: clamp(18px, 2.8vw, 26px);
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero__grid {
+    grid-template-columns: minmax(0, .96fr) minmax(268px, .68fr);
+    align-items: stretch;
+    gap: clamp(14px, 2vw, 20px);
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeroTitle,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero h1 {
+    max-width: 9.25ch;
+    font-size: clamp(3.15rem, 7vw, 4.35rem);
+    line-height: .86;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero .ff-lede {
+    max-width: 38ch;
+    font-size: .94rem;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-launchCard {
+    align-self: stretch;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-launchCard__head {
+    margin-bottom: 10px;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-launchCard h2 {
+    font-size: clamp(1.55rem, 3.5vw, 2.15rem);
+    line-height: .94;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformSection {
+    margin-block: clamp(42px, 6vw, 72px);
+  }
+}
+
+/* Phone: stop brand/action squeeze and preserve the clean narrow page. */
+@media (max-width: 720px) {
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__shell,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__shell {
+    min-height: 54px;
+    gap: 8px;
+    padding-inline: 8px;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__nav,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__nav {
+    display: none;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__brand,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__brand,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformBrand {
+    flex: 1 1 auto;
+    gap: 8px;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__brand strong,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__brand strong,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformBrand strong {
+    max-width: none;
+    font-size: .82rem;
+    letter-spacing: -.035em;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__brand small,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__brand small,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformBrand small {
+    font-size: .58rem;
+    letter-spacing: .1em;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__actions,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__actions {
+    gap: 6px;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__actions .ff-button,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__actions .ff-button {
+    min-height: 34px;
+    padding-inline: 10px;
+    font-size: .72rem;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformSection {
+    margin-block: 30px;
+  }
+}
+
+/* Very narrow phones: hide secondary header CTA to protect brand + primary CTA. */
+@media (max-width: 430px) {
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__actions .ff-button--ghost,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__actions .ff-button--ghost {
+    display: none;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__actions .ff-button,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__actions .ff-button {
+    padding-inline: 12px;
+  }
+}
+
+/* Ultra-small safety. */
+@media (max-width: 370px) {
+  html[data-ff-page="platform"] body.ff-platformBody .ff-siteHeader__brand strong,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__brand strong,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformBrand strong {
+    font-size: .78rem;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeroTitle,
+  html[data-ff-page="platform"] body.ff-platformBody .ff-platformHero h1 {
+    font-size: clamp(2.65rem, 14vw, 3.5rem);
+  }
+}
+
