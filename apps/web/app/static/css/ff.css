@@ -18815,3 +18815,811 @@ html[data-ff-page="platform"] body.ff-platformBody .ff-platformHeader__actions {
   }
 }
 
+
+/* ==========================================================================
+   FF_DASHBOARD_OPERATOR_POLISH_PASS_1_20260603
+   Scope:
+   - /platform/dashboard only
+   - Fix operator dashboard hero composition
+   - Preserve existing ff-dashboardModern* template/JS hooks
+   - Do not affect onboarding/login/campaign pages
+========================================================================== */
+
+html[data-ff-page="platform-dashboard"] {
+  --dash-shell: min(100% - clamp(18px, 3vw, 44px), 1180px);
+  --dash-ink: #1c1009;
+  --dash-muted: rgba(58, 39, 27, .72);
+  --dash-soft: rgba(58, 39, 27, .54);
+  --dash-line: rgba(76, 49, 30, .13);
+  --dash-card: rgba(255, 252, 246, .91);
+  --dash-card-strong: rgba(255, 255, 255, .96);
+  --dash-orange: #ff5a1f;
+  --dash-orange-2: #ff8324;
+  --dash-green: #0f766e;
+  --dash-brown: #32170d;
+  --dash-brown-2: #5b2410;
+  --dash-radius-xl: 28px;
+  --dash-radius-lg: 22px;
+  --dash-radius-md: 16px;
+  --dash-pill: 999px;
+  --dash-shadow: 0 24px 70px rgba(61, 38, 20, .12);
+  --dash-shadow-soft: 0 14px 38px rgba(61, 38, 20, .08);
+  --dash-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody {
+  background:
+    radial-gradient(circle at 12% -10%, rgba(255, 100, 31, .16), transparent 26rem),
+    radial-gradient(circle at 92% 0%, rgba(15, 118, 110, .10), transparent 28rem),
+    linear-gradient(180deg, #fff7ec 0%, #f2dfc4 100%) !important;
+  color: var(--dash-ink);
+  overflow-x: hidden;
+}
+
+/* Header: keep shared shell but make it dashboard-usable */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader {
+  width: var(--dash-shell);
+  margin: max(10px, env(safe-area-inset-top)) auto clamp(18px, 2vw, 28px);
+  border-radius: var(--dash-pill);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.92),
+    0 16px 40px rgba(61, 38, 20, .10);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__shell {
+  min-height: 54px;
+  padding: 7px 9px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__copy strong {
+  font-size: .86rem;
+  letter-spacing: -.025em;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__copy small {
+  max-width: 190px;
+  font-size: .56rem;
+  letter-spacing: .13em;
+  white-space: nowrap;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__nav {
+  gap: 4px;
+  padding: 4px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__nav a {
+  min-height: 31px;
+  padding: 8px 12px;
+  font-size: .72rem;
+}
+
+/* Main shell */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern {
+  width: var(--dash-shell);
+  margin: 0 auto;
+  padding: 0 0 clamp(42px, 5vw, 70px);
+}
+
+/* Hero: no overlapping children, operator-first composition */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 390px);
+  align-items: stretch;
+  gap: clamp(18px, 2.6vw, 34px);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.74);
+  border-radius: var(--dash-radius-xl);
+  background:
+    radial-gradient(circle at 16% 10%, rgba(255, 100, 31, .12), transparent 22rem),
+    radial-gradient(circle at 72% 8%, rgba(15, 118, 110, .08), transparent 24rem),
+    linear-gradient(135deg, rgba(255,255,255,.94), rgba(255, 244, 229, .84));
+  box-shadow: var(--dash-shadow);
+  padding: clamp(26px, 3.4vw, 46px);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero::after {
+  opacity: .45;
+  pointer-events: none;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero > * {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__heroMain {
+  display: grid !important;
+  align-content: center;
+  gap: 0;
+  min-width: 0;
+  max-width: 690px;
+  padding: 0;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0 0 clamp(14px, 1.6vw, 20px);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__pills span,
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__status {
+  border: 1px solid rgba(255, 100, 31, .13);
+  background: rgba(255, 244, 234, .78);
+  color: #7a3515;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
+  font-size: .68rem;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__eyebrow {
+  margin: 0 0 9px;
+  color: rgba(48, 33, 24, .62);
+  font-size: .7rem;
+  font-weight: 950;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero h1 {
+  max-width: 10.8ch !important;
+  margin: 0 0 14px !important;
+  color: var(--dash-ink);
+  font-size: clamp(3rem, 5.3vw, 5.2rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -.085em !important;
+  text-wrap: balance;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__lede {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--dash-muted);
+  font-size: clamp(.96rem, 1.05vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__heroActions {
+  position: static !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 20px;
+  transform: none !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__button,
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-button {
+  min-height: 40px;
+  border-radius: var(--dash-pill);
+  font-size: .78rem;
+  font-weight: 950;
+  line-height: 1;
+  padding: 10px 14px;
+  transition:
+    transform 180ms var(--dash-ease),
+    box-shadow 180ms var(--dash-ease),
+    background 180ms var(--dash-ease);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__button:hover,
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Summary card */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summary {
+  align-self: center;
+  min-width: 0;
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: var(--dash-radius-lg);
+  background:
+    radial-gradient(circle at 16% 0%, rgba(255,255,255,.32), transparent 10rem),
+    rgba(255, 252, 246, .84);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    0 18px 48px rgba(61, 38, 20, .10);
+  padding: clamp(18px, 2vw, 24px);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summaryHeader {
+  margin-bottom: 10px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summaryHeader span {
+  color: rgba(48, 33, 24, .62);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summaryHeader strong {
+  color: var(--dash-green);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__meter {
+  height: 9px;
+  border-radius: var(--dash-pill);
+  background: rgba(61, 38, 20, .12);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summaryStats,
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__miniStats {
+  gap: 9px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summaryStats div,
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__miniStats div {
+  border: 1px solid rgba(76, 49, 30, .10);
+  border-radius: 14px;
+  background: rgba(255,255,255,.62);
+  box-shadow: none;
+}
+
+/* KPI tiles */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(10px, 1.5vw, 16px);
+  margin: clamp(14px, 1.8vw, 22px) 0;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis article {
+  min-height: 112px;
+  border-radius: 18px;
+  background: rgba(255, 252, 246, .88);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.86),
+    0 12px 30px rgba(61, 38, 20, .07);
+  padding: 17px;
+}
+
+/* Main board */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(270px, 340px);
+  gap: clamp(14px, 1.8vw, 22px);
+  align-items: start;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-dashboardModern__panel,
+  .ff-dashboardModern__operations,
+  .ff-dashboardReviewQueue,
+  .ff-dashboardSponsorReviewCard
+) {
+  border: 1px solid rgba(255,255,255,.74);
+  border-radius: var(--dash-radius-lg);
+  background: rgba(255,252,246,.90);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.86),
+    0 14px 38px rgba(61, 38, 20, .075);
+}
+
+/* Launch assistant scripts */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-launchAssistant,
+  .ff-dashboardExecutiveAssistant,
+  [data-ff-dashboard-exec-assistant],
+  [data-ff-dashboard-launch-assistant]
+) {
+  border-radius: var(--dash-radius-lg);
+  background: rgba(255,255,255,.88);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-launchAssistant textarea,
+  .ff-dashboardExecutiveAssistant textarea
+) {
+  max-height: 120px;
+  border-radius: 14px;
+}
+
+/* Ledger / records containment */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__operations {
+  overflow: hidden;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(table) {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(.ff-dashboardModern__tableWrap, .ff-ledgerTableWrap, .ff-tableWrap) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
+}
+
+/* Mobile/tablet */
+@media (max-width: 980px) {
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero,
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__board {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summary {
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 720px) {
+  html[data-ff-page="platform-dashboard"] {
+    --dash-shell: min(100% - 16px, 1180px);
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader {
+    border-radius: 20px;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__copy small {
+    max-width: 122px;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero {
+    border-radius: 24px;
+    padding: 22px 18px;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero h1 {
+    max-width: 9.6ch !important;
+    font-size: clamp(2.65rem, 14vw, 4rem) !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__heroActions {
+    display: grid !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__button,
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-button {
+    width: 100%;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   FF_DASHBOARD_OPERATOR_POLISH_PASS_2_20260603
+   Scope:
+   - /platform/dashboard only
+   - Tighten command-center composition after Pass 1
+   - Do not affect onboarding/login/campaign pages
+========================================================================== */
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__brand {
+  min-width: clamp(190px, 22vw, 260px);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__copy small {
+  max-width: 240px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px) !important;
+  min-height: 360px;
+  align-items: center;
+  padding: clamp(28px, 3.6vw, 48px) !important;
+}
+
+/* Force the hero copy back into a clean vertical operator narrative. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__heroMain {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  grid-template-columns: none !important;
+  gap: 0 !important;
+  max-width: 620px !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__pills {
+  max-width: 520px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__pills span {
+  min-height: 25px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--dash-pill);
+  padding: 5px 10px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero h1 {
+  max-width: 9.6ch !important;
+  margin-bottom: 12px !important;
+  font-size: clamp(3rem, 4.85vw, 4.8rem) !important;
+  line-height: .88 !important;
+}
+
+/* Remove the old trapped action-card feel. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__heroActions {
+  width: auto !important;
+  max-width: 100% !important;
+  margin-top: 18px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__button {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.78),
+    0 10px 22px rgba(61, 38, 20, .08);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__button--primary {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 14px 30px rgba(255, 90, 31, .24);
+}
+
+/* Funding summary: more compact and command-center-like. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summary {
+  max-width: 380px;
+  justify-self: end;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summaryStats div,
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__miniStats div {
+  min-height: 44px;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+}
+
+/* KPI tiles: cleaner scan rhythm. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis article {
+  min-height: 104px;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis h2,
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis h3 {
+  margin: 0;
+  letter-spacing: -.035em;
+}
+
+/* Assistant cards: prevent cramped textarea widgets from dominating. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-launchAssistant,
+  .ff-dashboardExecutiveAssistant,
+  [data-ff-dashboard-exec-assistant],
+  [data-ff-dashboard-launch-assistant]
+) textarea {
+  min-height: 92px;
+  max-height: 118px;
+  line-height: 1.42;
+}
+
+/* Board cards: slightly less airy, more operational. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__board {
+  margin-top: 16px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__panel {
+  padding: clamp(18px, 2vw, 24px);
+}
+
+/* Records section containment. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__operations {
+  margin-top: clamp(18px, 2vw, 26px);
+  padding: clamp(22px, 2.6vw, 34px);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__operations h2 {
+  max-width: 12ch;
+  font-size: clamp(2.15rem, 3.3vw, 3.4rem);
+  line-height: .9;
+  letter-spacing: -.075em;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-dashboardModern__tableWrap,
+  .ff-ledgerTableWrap,
+  .ff-tableWrap,
+  .ff-dashboardModern__ledger,
+  .ff-dashboardLedger
+) {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(table) {
+  min-width: 620px;
+}
+
+/* Final mobile correction. */
+@media (max-width: 980px) {
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero {
+    min-height: 0;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summary {
+    max-width: none;
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 720px) {
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__brand {
+    min-width: 0;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero {
+    padding: 22px 18px !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero h1 {
+    max-width: 9.8ch !important;
+    font-size: clamp(2.55rem, 13.4vw, 3.75rem) !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__pills {
+    gap: 6px;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__pills span {
+    width: fit-content;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__operations h2 {
+    max-width: 11ch;
+    font-size: clamp(2rem, 10vw, 2.85rem);
+  }
+}
+
+/* ==========================================================================
+   FF_DASHBOARD_OPERATOR_POLISH_PASS_3_20260603
+   Scope:
+   - /platform/dashboard only
+   - Board-reviewed command center refinements
+   - Improves desktop rhythm, tablet stacking, and mobile containment
+========================================================================== */
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__brand {
+  min-width: clamp(220px, 25vw, 320px) !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__copy small {
+  max-width: clamp(180px, 22vw, 280px) !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Give the hero a calmer command-center stance on wide screens. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero {
+  min-height: clamp(350px, 31vw, 430px) !important;
+  margin-top: clamp(8px, 1.2vw, 16px);
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__heroMain {
+  max-width: 640px !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero h1 {
+  max-width: 9.7ch !important;
+  font-size: clamp(3.15rem, 4.55vw, 4.55rem) !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__lede {
+  max-width: 58ch !important;
+}
+
+/* Keep summary card visually anchored but not oversized. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summary {
+  width: min(100%, 360px) !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summaryStats,
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__miniStats {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* KPI strip should scan like operations status, not marketing cards. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis article {
+  border-radius: 17px !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis :where(h2, h3, strong) {
+  line-height: 1.05;
+}
+
+/* Launch assistant: keep text tools usable and contained. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-launchAssistant,
+  .ff-dashboardExecutiveAssistant,
+  [data-ff-dashboard-exec-assistant],
+  [data-ff-dashboard-launch-assistant]
+) {
+  overflow: hidden;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-launchAssistant h2,
+  .ff-dashboardExecutiveAssistant h2,
+  [data-ff-dashboard-exec-assistant] h2,
+  [data-ff-dashboard-launch-assistant] h2
+) {
+  max-width: 13ch;
+  font-size: clamp(2rem, 3.1vw, 3.25rem);
+  line-height: .9;
+  letter-spacing: -.075em;
+}
+
+/* Priority / momentum board: better card density. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-dashboardModern__board article,
+  .ff-dashboardModern__panel article,
+  .ff-dashboardModern__side article
+) {
+  min-width: 0;
+}
+
+/* Ledger section: prevent table/form from feeling like separate pages. */
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__operations {
+  border-radius: clamp(22px, 2.4vw, 30px) !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__operations h2 {
+  max-width: 11.5ch !important;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-dashboardModern__tableWrap,
+  .ff-ledgerTableWrap,
+  .ff-tableWrap,
+  .ff-dashboardModern__ledger,
+  .ff-dashboardLedger
+) {
+  scrollbar-width: thin;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-dashboardModern__tableWrap,
+  .ff-ledgerTableWrap,
+  .ff-tableWrap
+)::-webkit-scrollbar {
+  height: 10px;
+}
+
+html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+  .ff-dashboardModern__tableWrap,
+  .ff-ledgerTableWrap,
+  .ff-tableWrap
+)::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(47, 31, 20, .32);
+}
+
+/* Tablet: make the dashboard read like a proper stacked command workspace. */
+@media (max-width: 980px) {
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__brand {
+    min-width: clamp(180px, 36vw, 280px) !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__heroMain {
+    max-width: 100% !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summary {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summaryStats,
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__miniStats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Mobile: full-width cards, clean hierarchy, no skinny/operator-column feeling. */
+@media (max-width: 720px) {
+  html[data-ff-page="platform-dashboard"] {
+    --dash-shell: min(100% - 14px, 1180px) !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__brand {
+    min-width: 0 !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ffShellHeader__copy small {
+    max-width: 128px !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern {
+    padding-bottom: 36px !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero {
+    gap: 16px !important;
+    border-radius: 22px !important;
+    padding: 20px 16px !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__pills {
+    margin-bottom: 12px !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero h1 {
+    max-width: 9.5ch !important;
+    font-size: clamp(2.42rem, 13vw, 3.45rem) !important;
+    line-height: .88 !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__lede {
+    font-size: .9rem !important;
+    line-height: 1.45 !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__summaryStats,
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__miniStats {
+    grid-template-columns: 1fr !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis {
+    gap: 10px !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__kpis article {
+    min-height: auto !important;
+    padding: 15px !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+    .ff-dashboardModern__panel,
+    .ff-dashboardModern__operations,
+    .ff-dashboardReviewQueue,
+    .ff-dashboardSponsorReviewCard
+  ) {
+    border-radius: 20px !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
+    .ff-launchAssistant h2,
+    .ff-dashboardExecutiveAssistant h2,
+    [data-ff-dashboard-exec-assistant] h2,
+    [data-ff-dashboard-launch-assistant] h2,
+    .ff-dashboardModern__operations h2
+  ) {
+    max-width: 11ch !important;
+    font-size: clamp(2rem, 10vw, 2.72rem) !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__operations {
+    padding: 20px 14px !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(table) {
+    min-width: 560px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__hero h1 {
+    font-size: clamp(2.2rem, 12.4vw, 3rem) !important;
+  }
+
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-dashboardModern__button,
+  html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody .ff-button {
+    min-height: 39px !important;
+    padding-inline: 12px !important;
+  }
+}
