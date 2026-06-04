@@ -683,7 +683,7 @@ def board_html(out_dir: Path, surfaces: list[dict], generated: str, dashboard_ma
     }}
 
     /* FF_BOARD_PREVIEW_FIT_LOCK_20260604 */
-    .ffLaunchCard__shot {
+    .ffLaunchCard__shot {{
       height: clamp(420px, 36vw, 560px);
       overflow-y: auto;
       overflow-x: hidden;
@@ -692,32 +692,33 @@ def board_html(out_dir: Path, surfaces: list[dict], generated: str, dashboard_ma
         #f1ddc2;
       scrollbar-color: rgba(31,18,12,.38) rgba(255,255,255,.72);
       scrollbar-width: auto;
-    }
+    }}
 
-    .ffLaunchCard__shot img {
+    .ffLaunchCard__shot img {{
       display: block;
       width: 100%;
       min-width: 0;
       max-width: 100%;
       height: auto;
-    }
+    }}
 
-    .ffLaunchCard__shot:focus {
+    .ffLaunchCard__shot:focus {{
       outline: 3px solid rgba(255, 90, 31, .38);
       outline-offset: -3px;
-    }
+    }}
 
-    @media (max-width: 900px) {
-      .ffLaunchCard__shot {
+    @media (max-width: 900px) {{
+      .ffLaunchCard__shot {{
         height: 560px;
-      }
-    }
+      }}
+    }}
 
-    @media (max-width: 560px) {
-      .ffLaunchCard__shot {
+    @media (max-width: 560px) {{
+      .ffLaunchCard__shot {{
         height: 520px;
-      }
-    }
+      }}
+    }}
+
   </style>
 </head>
 
