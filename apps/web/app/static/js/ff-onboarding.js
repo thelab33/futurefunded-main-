@@ -1,104 +1,259 @@
+/* ==========================================================================
+   FutureFunded — Onboarding V1 Runtime
+   File: apps/web/app/static/js/ff-onboarding.js
+   Marker: FF_ONBOARDING_V1_OWNED_HEADER_RUNTIME
+
+   Scope:
+   - /platform/onboarding only
+   - Owned header mobile menu
+   - Local draft save
+   - Live preview sync
+   - Progress/checklist helpers
+========================================================================== */
+
 (() => {
-  const root = document.querySelector("[data-ff-onboard-root]");
-  const form = document.querySelector("[data-ff-onboard-form]");
-  if (!root || !form) return;
+  "use strict";
 
-  const panels = Array.from(document.querySelectorAll("[data-ff-step-panel]"));
-  const steps = Array.from(document.querySelectorAll("[data-step-index]"));
-  const nextBtn = document.querySelector("[data-ff-next-step]");
-  const prevBtn = document.querySelector("[data-ff-prev-step]");
-  const saveBtn = document.querySelector("[data-ff-save-onboarding]");
-  const progressBar = document.querySelector("[data-ff-progress-bar]");
-  const progressLabels = Array.from(document.querySelectorAll("[data-ff-progress-label]"));\n  const progressRing = document.querySelector("[data-ff-progress-ring]");
-  const saveNote = document.querySelector("[data-ff-save-note]");
-  const previewSources = Array.from(document.querySelectorAll("[data-ff-preview-source]"));
+  const doc = document;
+  const root =
+    doc.querySelector("[data-ff-onboarding-root]") ||
+    doc.querySelector("[data-ff-onboard-root]") ||
+    doc.querySelector("[data-ff-page-root]");
 
-  let current = 0;
+  if (!root) return;
 
-  function clampStep(value) {
-    return Math.max(0, Math.min(panels.length - 1, value));
-  }
+  const storageKey = "futurefunded.onboarding.v1.draft";
 
-  function setStep(index) {
-    current = clampStep(index);
+  const $ = (selector, scope = doc) => scope.querySelector(selector);
+  const $$ = (selector, scope = doc) => Array.from(scope.querySelectorAll(selector));
 
-    panels.forEach((panel, i) => {
-      panel.classList.toggle("is-active", i === current);
+  const header = $("[data-ff-onboard-header]");
+  const menuToggle = $("[data-ff-onboard-menu-toggle]");
+  const menu = $("[data-ff-onboard-menu]");
+
+  const fields = $$("input[name], textarea[name], select[name]", root);
+  const saveButtons = $$("[data-ff-save-onboarding], [data-ff-save-setup]", root);
+  const continueButtons = $$("[data-ff-continue], [data-ff-next-step]", root);
+  const backButtons = $$("[data-ff-back], [data-ff-prev-step]", root);
+  const saveNote = $("[data-ff-save-note]", root);
+
+  const previewSources = $$("[data-ff-preview-source]", root);
+  const previewTargets = $$("[data-ff-preview-target]", root);
+
+  const progressLabels = $$("[data-ff-progress-label]", root);
+  const progressRing = $("[data-ff-progress-ring]", root);
+  const progressMeter = $("[data-ff-progress-meter]", root);
+  const stepPanels = $$("[data-ff-step-panel], [data-ff-onboard-step]", root);
+  const stepButtons = $$("[data-ff-step-button], [data-ff-progress-step]", root);
+
+  const announce = (message) => {
+    if (!saveNote) return;
+    saveNote.textContent = message;
+    saveNote.setAttribute("role", "status");
+  };
+
+  const readDraft = () => {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) || "{}");
+    } catch {
+      return {};
+    }
+  };
+
+  const writeDraft = (payload) => {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(payload));
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const collect = () => {
+    const payload = {};
+
+    fields.forEach((field) => {
+      if (!field.name) return;
+
+      if (field.type === "checkbox") {
+        payload[field.name] = field.checked;
+      } else if (field.type === "radio") {
+        if (field.checked) payload[field.name] = field.value;
+      } else {
+        payload[field.name] = field.value;
+      }
     });
 
-    steps.forEach((step, i) => {
-      if (i === current) step.setAttribute("aria-current", "step");
-      else step.removeAttribute("aria-current");
+    payload.updatedAt = new Date().toISOString();
+    return payload;
+  };
+
+  const restore = () => {
+    const payload = readDraft();
+
+    fields.forEach((field) => {
+      if (!field.name || !(field.name in payload)) return;
+
+      if (field.type === "checkbox") {
+        field.checked = Boolean(payload[field.name]);
+      } else if (field.type === "radio") {
+        field.checked = payload[field.name] === field.value;
+      } else {
+        field.value = payload[field.name];
+      }
     });
+  };
 
-    const pct = Math.round(((current + 1) / panels.length) * 100);
-    if (progressBar) progressBar.style.width = `${pct}%`;
-    progressLabels.forEach((label) => { label.textContent = `${pct}%`; });\n    if (progressRing) {\n      progressRing.style.setProperty("--ff-progress-deg", `${Math.round((pct / 100) * 360)}deg`);\n      progressRing.setAttribute("aria-label", `${pct}% complete`);\n    }
+  const save = () => {
+    const ok = writeDraft(collect());
+    announce(ok ? "Saved locally — safe to keep editing." : "Could not save in this browser.");
+  };
 
-    if (prevBtn) prevBtn.disabled = current === 0;
-    if (nextBtn) nextBtn.textContent = current === panels.length - 1 ? "Review complete" : "Continue";
-  }
+  const syncPreview = () => {
+    const values = {};
 
-  function updatePreviewValue(key, value) {
-    document.querySelectorAll(`[data-ff-preview-target="${key}"]`).forEach((target) => {
-      target.textContent = value || target.textContent;
-    });
-  }
-
-  function syncPreview() {
     previewSources.forEach((source) => {
       const key = source.getAttribute("data-ff-preview-source");
-      updatePreviewValue(key, source.value);
+      if (!key) return;
+      values[key] = source.value || source.textContent || "";
+    });
+
+    previewTargets.forEach((target) => {
+      const key = target.getAttribute("data-ff-preview-target");
+      if (!key || !(key in values)) return;
+      target.textContent = values[key];
+    });
+  };
+
+  const filledScore = () => {
+    const explicit = Number(root.getAttribute("data-ff-progress-base") || "");
+    if (Number.isFinite(explicit) && explicit > 0) {
+      return Math.max(20, Math.min(96, Math.round(explicit)));
+    }
+
+    const visiblePanels = stepPanels.length ? stepPanels : [];
+    const activeIndex = currentStep();
+    const stepWeight = visiblePanels.length ? (activeIndex + 1) / visiblePanels.length : 0.2;
+
+    const meaningful = fields.filter((field) => {
+      if (field.disabled) return false;
+      if (field.type === "hidden") return false;
+      return field.hasAttribute("required") || field.closest("[data-ff-required]");
+    });
+
+    const completion = meaningful.length
+      ? meaningful.filter((field) => {
+          if (field.type === "checkbox") return field.checked;
+          if (field.type === "radio") return field.checked;
+          return String(field.value || "").trim().length > 0;
+        }).length / meaningful.length
+      : 0.35;
+
+    const blended = Math.round((stepWeight * 62) + (completion * 24) + 14);
+    return Math.max(20, Math.min(96, blended));
+  };
+
+  const syncProgress = () => {
+    const score = filledScore();
+
+    progressLabels.forEach((label) => {
+      label.textContent = `${score}%`;
+    });
+
+    if (progressRing) {
+      progressRing.style.setProperty("--progress", String(score));
+      progressRing.setAttribute("aria-valuenow", String(score));
+    }
+
+    if (progressMeter) {
+      progressMeter.style.width = `${score}%`;
+      progressMeter.setAttribute("aria-valuenow", String(score));
+    }
+
+    root.setAttribute("data-ff-onboarding-progress", String(score));
+  };
+
+  const setActiveStep = (index) => {
+    if (!stepPanels.length) return;
+
+    const safeIndex = Math.max(0, Math.min(index, stepPanels.length - 1));
+
+    stepPanels.forEach((panel, i) => {
+      const active = i === safeIndex;
+      panel.hidden = !active;
+      panel.setAttribute("data-active", String(active));
+    });
+
+    stepButtons.forEach((button, i) => {
+      button.setAttribute("aria-current", i === safeIndex ? "step" : "false");
+      button.setAttribute("aria-pressed", String(i === safeIndex));
+    });
+
+    root.setAttribute("data-ff-active-step", String(safeIndex + 1));
+  };
+
+  const currentStep = () => {
+    const raw = Number(root.getAttribute("data-ff-active-step") || "1");
+    return Number.isFinite(raw) ? Math.max(0, raw - 1) : 0;
+  };
+
+  if (header && menuToggle && menu) {
+    menuToggle.addEventListener("click", () => {
+      const open = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!open));
+      header.setAttribute("data-menu-open", String(!open));
+    });
+
+    menu.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) return;
+      if (!event.target.closest("a")) return;
+
+      menuToggle.setAttribute("aria-expanded", "false");
+      header.setAttribute("data-menu-open", "false");
     });
   }
 
-  nextBtn?.addEventListener("click", () => setStep(current + 1));
-  prevBtn?.addEventListener("click", () => setStep(current - 1));
+  stepButtons.forEach((button, index) => {
+    button.addEventListener("click", () => setActiveStep(index));
+  });
 
-  steps.forEach((step) => {
-    step.addEventListener("click", () => {
-      const index = Number(step.getAttribute("data-step-index"));
-      if (Number.isFinite(index)) setStep(index);
+  continueButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setActiveStep(currentStep() + 1);
+      save();
     });
   });
 
-  previewSources.forEach((source) => {
-    source.addEventListener("input", syncPreview);
-    source.addEventListener("change", syncPreview);
+  backButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setActiveStep(currentStep() - 1);
+    });
   });
 
-  saveBtn?.addEventListener("click", () => {
-    const payload = Object.fromEntries(new FormData(form).entries());
+  fields.forEach((field) => {
+    field.addEventListener("input", () => {
+      syncPreview();
+      syncProgress();
+    });
 
-    try {
-      localStorage.setItem("ff:onboarding:draft", JSON.stringify({
-        savedAt: new Date().toISOString(),
-        payload,
-      }));
-    } catch (_) {}
-
-    if (saveNote) {
-      saveNote.textContent = "Setup saved locally. Ready for preview or handoff.";
-      saveNote.dataset.tone = "success";
-    }
-
-    const idle = saveBtn.getAttribute("data-ff-idle-text") || "Save setup";
-    saveBtn.textContent = "Saved";
-    setTimeout(() => {
-      saveBtn.textContent = idle;
-    }, 1600);
+    field.addEventListener("change", () => {
+      syncPreview();
+      syncProgress();
+      save();
+    });
   });
 
-  try {
-    const saved = JSON.parse(localStorage.getItem("ff:onboarding:draft") || "null");
-    if (saved?.payload) {
-      Object.entries(saved.payload).forEach(([name, value]) => {
-        const field = form.elements.namedItem(name);
-        if (field && typeof field.value !== "undefined") field.value = value;
-      });
-    }
-  } catch (_) {}
+  saveButtons.forEach((button) => {
+    button.addEventListener("click", save);
+  });
 
+  restore();
   syncPreview();
-  setStep(0);
+  syncProgress();
+
+  if (stepPanels.length) {
+    setActiveStep(currentStep());
+  }
+
+  root.setAttribute("data-ff-onboarding-js", "owned-header-v1");
 })();

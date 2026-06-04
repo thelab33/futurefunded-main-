@@ -1354,3 +1354,1198 @@ html[data-ff-page="platform-onboarding"] .ffOnboard__heroFacts div {
     font-size: .86rem !important;
   }
 }
+
+
+
+/* FF_ONBOARDING_V1_OWNED_HEADER_AUTHORITY_PATCH */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+  position: sticky;
+  top: max(10px, env(safe-area-inset-top));
+  z-index: 90;
+  width: var(--onb-shell, min(100% - 24px, 1180px));
+  margin: max(10px, env(safe-area-inset-top)) auto 0;
+  border: 1px solid rgba(75, 48, 29, .12);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255,253,248,.96), rgba(255,248,239,.90));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 18px 50px rgba(58,36,20,.12);
+  backdrop-filter: blur(20px) saturate(155%);
+  -webkit-backdrop-filter: blur(20px) saturate(155%);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerShell {
+  display: grid;
+  grid-template-columns: minmax(0, auto) 1fr auto;
+  align-items: center;
+  gap: clamp(10px, 1.6vw, 18px);
+  min-height: 64px;
+  padding: 8px 10px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brand,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton {
+  display: inline-flex;
+  align-items: center;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brand {
+  min-width: 0;
+  gap: 11px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandMark {
+  display: inline-grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #140b07, #4f2813 58%, #763714);
+  color: #fff8ee;
+  font-size: .72rem;
+  font-weight: 950;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy {
+  display: grid;
+  gap: 3px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy strong {
+  color: var(--onb-ink, #120b07);
+  font-size: .9rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy small {
+  color: rgba(80,49,27,.56);
+  font-size: .58rem;
+  font-weight: 920;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav {
+  justify-self: center;
+  gap: 4px;
+  border: 1px solid rgba(80,49,27,.09);
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  padding: 4px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav a {
+  border-radius: 999px;
+  color: rgba(42,27,18,.74);
+  font-size: .74rem;
+  font-weight: 920;
+  line-height: 1;
+  padding: 10px 14px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions {
+  justify-self: end;
+  gap: 8px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton {
+  min-height: 40px;
+  justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--onb-orange, #ff5a1f), var(--onb-orange-2, #ff8a22));
+  color: #fffaf3;
+  font-size: .75rem;
+  font-weight: 930;
+  padding: 10px 16px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton {
+  display: none;
+  justify-self: end;
+  min-height: 40px;
+  gap: 8px;
+  border: 1px solid rgba(80,49,27,.12);
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  color: var(--onb-ink, #120b07);
+  font-size: .74rem;
+  font-weight: 930;
+  padding: 9px 13px;
+}
+
+@media (max-width: 860px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerShell {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__menuButton {
+    display: inline-flex;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    display: none;
+    overflow-x: auto;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header[data-menu-open="true"] .ffOnboardV1__nav {
+    display: flex;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_VISUAL_POLISH_PASS_20260603
+   Purpose:
+   - Calm the hero scale
+   - Make progress feel accurate and premium
+   - Reduce harsh dark-card weight
+   - Tighten header rhythm
+   - Improve mobile-first layout polish
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] {
+  --onb-shell: min(100% - clamp(18px, 3vw, 36px), 1160px);
+  --onb-ink: #170d08;
+  --onb-muted: rgba(67, 48, 36, .74);
+  --onb-soft: rgba(67, 48, 36, .58);
+  --onb-orange: #ff641f;
+  --onb-orange-2: #ff8a2a;
+  --onb-dark-card: #29140c;
+  --onb-dark-card-2: #4b2111;
+}
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body {
+  background:
+    radial-gradient(circle at 10% 4%, rgba(255, 109, 31, .18), transparent 22rem),
+    radial-gradient(circle at 92% -5%, rgba(15, 118, 110, .13), transparent 28rem),
+    linear-gradient(180deg, #fff8ee 0%, #f4e4cc 55%, #ecd4b1 100%);
+}
+
+/* Header: more SaaS, less chunky */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+  top: max(8px, env(safe-area-inset-top));
+  border-radius: 22px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.92),
+    0 14px 38px rgba(58,36,20,.10);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerShell {
+  min-height: 58px;
+  padding: 7px 9px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandMark {
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy strong {
+  font-size: .84rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__brandCopy small {
+  font-size: .56rem;
+  letter-spacing: .15em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav {
+  padding: 3px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav a {
+  min-height: 32px;
+  padding: 8px 15px;
+  font-size: .72rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton {
+  min-height: 38px;
+  padding: 9px 17px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.26),
+    0 10px 24px rgba(255, 100, 31, .20);
+}
+
+/* Hero: calmer, more executive */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 103, 31, .13), transparent 22rem),
+    radial-gradient(circle at 80% 12%, rgba(15, 118, 110, .08), transparent 24rem),
+    linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,250,242,.76));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.92),
+    0 24px 70px rgba(68, 43, 22, .10);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
+  max-width: 11.8ch;
+  font-size: clamp(2.65rem, 4.25vw, 4.25rem);
+  line-height: .94;
+  letter-spacing: -.062em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero p,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__lede {
+  max-width: 58ch;
+  color: rgba(49, 35, 25, .76);
+  font-size: clamp(.95rem, 1vw, 1.05rem);
+  line-height: 1.5;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__pills span,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__trustStrip span,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroProof span {
+  border-color: rgba(255, 100, 31, .15);
+  background: rgba(255, 244, 233, .78);
+  color: rgba(88, 42, 20, .86);
+}
+
+/* Hero stat tiles */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(dl, .ffOnboardV1__outcomeBar, .ffOnboardV1__heroStats) > div,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(.ffOnboardV1__stat, .ffOnboardV1__metric) {
+  border-color: rgba(80, 49, 27, .10);
+  background: rgba(255,255,255,.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.86),
+    0 12px 28px rgba(70, 44, 24, .06);
+}
+
+/* Progress card: premium command-card instead of heavy block */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255, 255, 255, .12), transparent 8rem),
+    linear-gradient(145deg, var(--onb-dark-card), var(--onb-dark-card-2));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 24px 64px rgba(57, 30, 17, .22);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead {
+  align-items: center;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead strong,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead strong {
+  color: #fff8ee;
+  font-size: .92rem;
+  letter-spacing: -.02em;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead span,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead span,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-label] {
+  border-radius: 999px;
+  background: rgba(255,255,255,.14);
+  color: #fff8ee;
+  font-size: .78rem;
+  font-weight: 950;
+  padding: 6px 10px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness :where(li, dd, a, button),
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress :where(li, dd, a, button) {
+  color: rgba(255, 248, 238, .74);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness :where(li, a, button),
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress :where(li, a, button),
+html[data-ff-page="platform-onboarding"] [data-ff-progress-step] {
+  border-radius: 999px;
+  transition:
+    background 180ms var(--onb-ease),
+    color 180ms var(--onb-ease),
+    transform 180ms var(--onb-ease);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness :where(li, a, button)[aria-current="step"],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress :where(li, a, button)[aria-current="step"],
+html[data-ff-page="platform-onboarding"] [data-ff-progress-step][aria-current="step"] {
+  background: rgba(255,255,255,.96);
+  color: #241108;
+}
+
+/* Main form + preview: sharper enterprise spacing */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__section,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__panel,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__formCard {
+  border-radius: 26px;
+  background: rgba(255, 252, 246, .86);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.86),
+    0 18px 52px rgba(68, 43, 22, .09);
+}
+
+html[data-ff-page="platform-onboarding"] :where(input, textarea, select) {
+  border-color: rgba(80, 49, 27, .12);
+  background: rgba(255,255,255,.82);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    0 8px 18px rgba(68, 43, 22, .035);
+}
+
+html[data-ff-page="platform-onboarding"] :where(input, textarea, select):focus {
+  border-color: rgba(255, 100, 31, .42);
+  box-shadow:
+    0 0 0 4px rgba(255, 100, 31, .13),
+    inset 0 1px 0 rgba(255,255,255,.92);
+}
+
+/* Campaign preview card */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__preview,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__campaignPreview,
+html[data-ff-page="platform-onboarding"] [data-ff-theme-preview] {
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, .10), transparent 10rem),
+    linear-gradient(145deg, #4c1f10, #23100a 70%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 24px 64px rgba(57, 30, 17, .19);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__preview h3,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__campaignPreview h3,
+html[data-ff-page="platform-onboarding"] [data-ff-theme-preview] h3 {
+  letter-spacing: -.045em;
+}
+
+/* Make CTA row cleaner */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__btn,
+html[data-ff-page="platform-onboarding"] button,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__button {
+  transition:
+    transform 180ms var(--onb-ease),
+    box-shadow 180ms var(--onb-ease),
+    background 180ms var(--onb-ease);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__btn:hover,
+html[data-ff-page="platform-onboarding"] button:hover,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__button:hover {
+  transform: translateY(-1px);
+}
+
+/* Mobile: make this feel intentionally designed, not squeezed */
+@media (max-width: 760px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+    width: min(100% - 18px, 1160px);
+    border-radius: 20px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerActions {
+    display: none;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+    border-radius: 24px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
+    max-width: 10.8ch;
+    font-size: clamp(2.35rem, 13vw, 3.35rem);
+    line-height: .94;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero p,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__lede {
+    font-size: .95rem;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__nav {
+    padding-bottom: 5px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__section,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__panel,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__formCard,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__preview,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__campaignPreview,
+  html[data-ff-page="platform-onboarding"] [data-ff-theme-preview] {
+    border-radius: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-ff-page="platform-onboarding"] *,
+  html[data-ff-page="platform-onboarding"] *::before,
+  html[data-ff-page="platform-onboarding"] *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_DOUBLE_HEADER_GUARD_20260603
+   Purpose:
+   - Keep one owned header only
+   - Remove visual ghost header/top-band space under the real header
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body {
+  padding-top: 0 !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header + .ffOnboardV1__header,
+html[data-ff-page="platform-onboarding"] [data-ff-onboard-header] + [data-ff-onboard-header] {
+  display: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] :where(
+  .ffOnboardHeader,
+  .ffOnboardingHeader,
+  .ffLaunchHeader,
+  .ffOnboard__header,
+  .ffLaunchV1__header,
+  .ffOnboardV1__topBand,
+  .ffOnboardV1__masthead,
+  .ffOnboardV1__shellHeader,
+  .ffOnboardV1__chrome,
+  .ffOnboardV1__ambientHeader,
+  .ffOnboardV1__headerGhost
+):not(.ffOnboardV1__header):not(.ffOnboardV1__headerShell) {
+  display: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+  margin-bottom: clamp(14px, 1.6vw, 20px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__main,
+html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root] {
+  padding-top: 0 !important;
+}
+
+/* Remove the accidental empty blurred band directly after the header. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header + :where(
+  .ffOnboardV1__ambient,
+  .ffOnboardV1__backgroundBand,
+  .ffOnboardV1__topGlow,
+  .ffOnboardV1__heroBackdrop
+) {
+  display: none !important;
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_HEADER_OVERLAP_FIX_20260603
+   Purpose:
+   - One header only
+   - Prevent sticky owned header from visually covering the hero
+   - Remove accidental hero/top negative offset
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body {
+  padding-top: 0 !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+  position: sticky !important;
+  top: max(10px, env(safe-area-inset-top)) !important;
+  z-index: 100 !important;
+  margin-top: max(10px, env(safe-area-inset-top)) !important;
+  margin-bottom: clamp(22px, 2.4vw, 34px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header + main,
+html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
+  margin-top: 0 !important;
+  padding-top: clamp(14px, 1.8vw, 24px) !important;
+  transform: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero,
+html[data-ff-page="platform-onboarding"] [class*="__hero"] {
+  margin-top: 0 !important;
+  transform: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero > *,
+html[data-ff-page="platform-onboarding"] [class*="__hero"] > * {
+  transform: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__badge,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__pill,
+html[data-ff-page="platform-onboarding"] [class*="__eyebrow"],
+html[data-ff-page="platform-onboarding"] [class*="__badge"],
+html[data-ff-page="platform-onboarding"] [class*="__pill"] {
+  position: relative;
+  z-index: 1;
+}
+
+/* If any previous polish created an ambient band directly under the nav, flatten it. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header + :where(
+  .ffOnboardV1__ambient,
+  .ffOnboardV1__backgroundBand,
+  .ffOnboardV1__topGlow,
+  .ffOnboardV1__heroBackdrop,
+  .ffOnboardV1__masthead
+) {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+    margin-bottom: 18px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
+  html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
+  html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
+    padding-top: 12px !important;
+  }
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_FINAL_COMPOSITION_PASS_20260603
+   Purpose:
+   - Remove excess top atmospheric band
+   - Tighten hero-to-header rhythm
+   - Calm setup-page headline scale
+   - Improve right card vertical alignment
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+  margin-bottom: clamp(12px, 1.4vw, 18px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
+  padding-top: 0 !important;
+}
+
+/* Flatten the big empty glow band between nav and content */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body::before,
+html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body::after,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__main::before,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__main::after {
+  opacity: .55;
+  max-height: 48px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+  margin-top: 0 !important;
+  min-height: auto !important;
+  padding-top: clamp(30px, 4vw, 54px) !important;
+  padding-bottom: clamp(28px, 3.8vw, 48px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
+  max-width: 12.4ch !important;
+  font-size: clamp(2.45rem, 3.7vw, 3.85rem) !important;
+  line-height: .95 !important;
+  letter-spacing: -.058em !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero p,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__lede {
+  max-width: 56ch !important;
+  font-size: clamp(.92rem, .95vw, 1rem) !important;
+  line-height: 1.48 !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow {
+  margin-bottom: clamp(12px, 1.4vw, 18px) !important;
+}
+
+/* Better hero grid balance */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+  align-items: center !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+  align-self: center !important;
+  transform: translateY(0) !important;
+}
+
+/* Slightly lighter progress card so it does not overpower the form */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255, 255, 255, .10), transparent 8rem),
+    linear-gradient(145deg, #32170d, #4d2110) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.11),
+    0 20px 54px rgba(57, 30, 17, .18) !important;
+}
+
+/* Keep form + preview section tighter */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__workspace,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__content,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__grid {
+  gap: clamp(14px, 1.8vw, 22px) !important;
+}
+
+/* Mobile final tuning */
+@media (max-width: 760px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+    margin-bottom: 12px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+    padding-top: 26px !important;
+    padding-bottom: 30px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
+    max-width: 11.2ch !important;
+    font-size: clamp(2.25rem, 11.5vw, 3.15rem) !important;
+  }
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_HERO_CLIP_FIX_20260603
+   Purpose:
+   - Fix clipped hero pill and clipped progress title
+   - Reset old negative offsets/transforms
+   - Keep one owned header and preserve green served-URL baseline
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+  margin-bottom: clamp(16px, 1.8vw, 24px) !important;
+}
+
+/* The hero itself should not clip badges/cards at its top edge. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+  overflow: visible !important;
+  padding-top: clamp(46px, 4.8vw, 68px) !important;
+  padding-bottom: clamp(34px, 4vw, 54px) !important;
+}
+
+/* Kill any inherited pull-up from previous passes. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero > * {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  inset: auto !important;
+  margin-top: 0 !important;
+  transform: none !important;
+}
+
+/* Make the pill fully visible and intentionally placed. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(
+  .ffOnboardV1__pill,
+  .ffOnboardV1__badge,
+  .ffOnboardV1__eyebrow,
+  [class*="__pill"],
+  [class*="__badge"],
+  [class*="__eyebrow"]
+) {
+  position: relative !important;
+  top: auto !important;
+  transform: none !important;
+  margin-top: 0 !important;
+  margin-bottom: clamp(12px, 1.25vw, 18px) !important;
+  z-index: 2 !important;
+}
+
+/* Progress card was sitting too high; seat it inside the hero. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+  align-self: center !important;
+  margin-top: clamp(8px, 1vw, 14px) !important;
+}
+
+/* Let progress headings breathe so text is never cropped. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
+  padding-top: 2px !important;
+  margin-top: 0 !important;
+}
+
+/* Keep the outer rhythm tight without hiding content. */
+html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
+  padding-top: 0 !important;
+}
+
+/* Mobile safe spacing */
+@media (max-width: 760px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+    margin-bottom: 14px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+    padding-top: 34px !important;
+    padding-bottom: 34px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+  html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+    margin-top: 10px !important;
+  }
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_DRAFT_PILL_HARD_FIX_20260603
+   Purpose:
+   - Stop the draft pill from being clipped/pulled behind the header
+   - Use a dedicated template hook instead of fuzzy class matching
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+  overflow: hidden !important;
+  padding-top: clamp(42px, 4.4vw, 60px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] [data-ff-draft-pill],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  translate: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  min-height: 28px !important;
+  margin: 0 0 clamp(16px, 1.5vw, 22px) 0 !important;
+  padding: 6px 12px !important;
+  border: 1px solid rgba(255, 100, 31, .16) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 236, 224, .78) !important;
+  color: #63260f !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.72),
+    0 8px 20px rgba(255, 100, 31, .08) !important;
+  font-size: .78rem !important;
+  font-weight: 920 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  z-index: 5 !important;
+  overflow: visible !important;
+}
+
+html[data-ff-page="platform-onboarding"] [data-ff-draft-pill]::before,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  margin-right: 7px;
+  border-radius: 999px;
+  background: #ff641f;
+  box-shadow: 0 0 0 4px rgba(255, 100, 31, .13);
+}
+
+/* The first content block must never slide under the sticky header. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero > :first-child {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  transform: none !important;
+}
+
+/* Progress title/card safety: prevent top-edge clipping. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+  overflow: visible !important;
+  padding-top: clamp(18px, 1.8vw, 24px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
+  min-height: 28px !important;
+  overflow: visible !important;
+}
+
+/* Reduce the visible top atmosphere without clipping the hero. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+  margin-bottom: clamp(14px, 1.5vw, 20px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
+  padding-top: 0 !important;
+}
+
+@media (max-width: 760px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+    padding-top: 34px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] [data-ff-draft-pill],
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill {
+    min-height: 26px !important;
+    font-size: .74rem !important;
+  }
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_STACK_AND_HERO_SAFE_AREA_20260603
+   Purpose:
+   - Put decorative top glow behind content
+   - Stop draft pill/progress header from hiding under overlay
+   - Preserve one owned header + green served URL baseline
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body {
+  isolation: isolate !important;
+  overflow-x: hidden !important;
+}
+
+/* Decorative atmosphere must never sit above actual page content. */
+html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body::before,
+html[data-ff-page="platform-onboarding"] body.ffOnboardV1Body::after {
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Real page layers. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__header {
+  position: sticky !important;
+  z-index: 60 !important;
+}
+
+html[data-ff-page="platform-onboarding"] main[data-ff-page-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboard-root],
+html[data-ff-page="platform-onboarding"] main[data-ff-onboarding-root],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__main {
+  position: relative !important;
+  z-index: 2 !important;
+  overflow: visible !important;
+}
+
+/* Hero content needs a real safe-area below the sticky header/glow. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+  position: relative !important;
+  z-index: 2 !important;
+  overflow: visible !important;
+  clip-path: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  padding-top: clamp(72px, 6vw, 96px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero > *,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(section, div, article) {
+  overflow: visible !important;
+}
+
+/* Dedicated draft pill hook: force it into visible normal flow. */
+html[data-ff-page="platform-onboarding"] [data-ff-draft-pill],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill {
+  position: relative !important;
+  z-index: 30 !important;
+  inset: auto !important;
+  top: auto !important;
+  transform: translate3d(0, 0, 0) !important;
+  translate: none !important;
+  margin-top: 0 !important;
+  margin-bottom: clamp(14px, 1.3vw, 20px) !important;
+  overflow: visible !important;
+}
+
+/* Progress card title was also being covered by the same top layer. */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+  position: relative !important;
+  z-index: 3 !important;
+  overflow: visible !important;
+  padding-top: clamp(24px, 2.2vw, 32px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
+  position: relative !important;
+  z-index: 4 !important;
+  min-height: 32px !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+
+/* Keep mobile compact but safe. */
+@media (max-width: 760px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+    padding-top: 54px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+  html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+    padding-top: 24px !important;
+  }
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_REMOVE_DRAFT_PILL_FINAL_20260603
+   Purpose:
+   - Remove redundant/clipped private draft pill
+   - Keep hero clean and premium
+   - Status remains visible through hero stat tile + footer note
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] [data-ff-draft-pill],
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__draftPill {
+  display: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+  padding-top: clamp(42px, 4.4vw, 64px) !important;
+  overflow: visible !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero h1 {
+  margin-top: 0 !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+  overflow: visible !important;
+  padding-top: clamp(24px, 2vw, 30px) !important;
+}
+
+@media (max-width: 760px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+    padding-top: 30px !important;
+  }
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_GHOST_PILL_AND_PROGRESS_CLIP_FINAL_20260603
+   Purpose:
+   - Remove any empty hero badge/pill remnants
+   - Give progress card title enough top-safe space
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero :where(
+  [data-ff-draft-pill],
+  .ffOnboardV1__draftPill,
+  .ffOnboardV1__draftPill:empty,
+  .ffOnboardV1__badge:empty,
+  .ffOnboardV1__pill:empty
+) {
+  display: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+  padding-top: clamp(44px, 4.8vw, 68px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+  margin-top: clamp(10px, 1vw, 16px) !important;
+  padding-top: clamp(30px, 2.6vw, 38px) !important;
+  overflow: visible !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
+  min-height: 34px !important;
+  line-height: 1.15 !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+
+@media (max-width: 760px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+    padding-top: 32px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+  html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+  html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+    margin-top: 12px !important;
+    padding-top: 28px !important;
+  }
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_V1_KILL_GHOST_PSEUDO_20260603
+   Purpose:
+   - Remove leftover decorative pseudo/pill ghost above CAMPAIGN ONBOARDING
+   - Keep actual hero text/progress content visible
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero::before,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero::after,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy::before,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__heroCopy::after,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow::before,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow::after {
+  content: none !important;
+  display: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__hero {
+  padding-top: clamp(38px, 4vw, 58px) !important;
+  overflow: visible !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__eyebrow {
+  position: relative !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  transform: none !important;
+  z-index: 5 !important;
+}
+
+/* Progress card final top safety */
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readiness,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progress,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] {
+  padding-top: clamp(34px, 2.8vw, 42px) !important;
+  overflow: visible !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__readinessHead,
+html[data-ff-page="platform-onboarding"] .ffOnboardV1__progressHead,
+html[data-ff-page="platform-onboarding"] [data-ff-progress-card] > :first-child {
+  position: relative !important;
+  z-index: 5 !important;
+  min-height: 36px !important;
+  overflow: visible !important;
+}
+
+/* ==========================================================================
+   FF_ONBOARDING_ACTUAL_CONTRACT_HERO_FIX_20260603
+   The rendered hero uses ffOnboard__*, not ffOnboardV1__*.
+   This removes the ghost kicker/pill and fixes progress clipping on the live contract.
+========================================================================== */
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker,
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker:empty,
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker::before,
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroKicker::after {
+  content: none !important;
+  display: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
+  position: relative !important;
+  overflow: visible !important;
+  clip-path: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  padding-top: clamp(38px, 4vw, 58px) !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__heroContent {
+  position: relative !important;
+  z-index: 3 !important;
+  overflow: visible !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  transform: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow {
+  position: relative !important;
+  z-index: 4 !important;
+  display: block !important;
+  margin-top: 0 !important;
+  margin-bottom: clamp(12px, 1.3vw, 18px) !important;
+  padding-top: 0 !important;
+  transform: none !important;
+  overflow: visible !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow::before,
+html[data-ff-page="platform-onboarding"] .ffOnboard__eyebrow::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Fix the live progress card, not the V1 alias. */
+html[data-ff-page="platform-onboarding"] .ffOnboard__status,
+html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial {
+  position: relative !important;
+  z-index: 3 !important;
+  overflow: visible !important;
+  padding-top: clamp(28px, 2.5vw, 38px) !important;
+  margin-top: 0 !important;
+  transform: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__statusHead,
+html[data-ff-page="platform-onboarding"] .ffOnboard__statusHeader,
+html[data-ff-page="platform-onboarding"] .ffOnboard__status > :first-child {
+  position: relative !important;
+  z-index: 5 !important;
+  min-height: 36px !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__progressRing,
+html[data-ff-page="platform-onboarding"] .ffOnboard__progressOrb {
+  position: relative !important;
+  z-index: 4 !important;
+}
+
+/* Keep desktop composition clean. */
+html[data-ff-page="platform-onboarding"] .ffOnboard__hero--setup {
+  align-items: center !important;
+}
+
+/* Mobile: remove dead kicker space and keep hero compact. */
+@media (max-width: 760px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__hero {
+    padding-top: 28px !important;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__status,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__status--radial {
+    padding-top: 24px !important;
+  }
+}

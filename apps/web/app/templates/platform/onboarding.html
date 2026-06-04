@@ -3,7 +3,7 @@
 {% extends "_base/site_base.html" %}
 
 {% block html_class %}ff-root ff-onboardRoot{% endblock %}
-{% block body_class %}ff-page ff-onboarding-page ffOnboardBody{% endblock %}
+{% block body_class %}ff-page ff-onboarding-page ffOnboardBody ffOnboardV1Body{% endblock %}
 {% block title %}Campaign setup · FutureFunded{% endblock %}
 
 {% block page_description %}
@@ -29,37 +29,51 @@ data-ff-onboarding-version="2.0"
 {% endblock %}
 
 {% block content %}
+
+  {# FF_ONBOARDING_V1_OWNED_HEADER_TEMPLATE #}
+  <header class="ffOnboardV1__header" data-ff-onboard-header role="banner">
+    <div class="ffOnboardV1__headerShell">
+      <a class="ffOnboardV1__brand" href="/platform/" aria-label="FutureFunded campaign setup">
+        <span class="ffOnboardV1__brandMark" aria-hidden="true">FF</span>
+        <span class="ffOnboardV1__brandCopy">
+          <strong>FutureFunded</strong>
+          <small>Campaign setup</small>
+        </span>
+      </a>
+
+      <button
+        class="ffOnboardV1__menuButton"
+        type="button"
+        aria-expanded="false"
+        aria-controls="ff-onboarding-owned-nav"
+        data-ff-onboard-menu-toggle
+      >
+        <span aria-hidden="true"></span>
+        <span>Menu</span>
+      </button>
+
+      <nav
+        class="ffOnboardV1__nav"
+        id="ff-onboarding-owned-nav"
+        aria-label="Campaign setup navigation"
+        data-ff-onboard-menu
+      >
+        <a href="#campaign-basics">Setup</a>
+        <a href="#campaign-preview">Preview</a>
+        <a href="#launch-checks">Review</a>
+      </nav>
+
+      <div class="ffOnboardV1__headerActions" aria-label="Workspace actions">
+        <a class="ffOnboardV1__headerButton" href="/c/connect-atx-elite">Preview</a>
+      </div>
+    </div>
+  </header>
+
 <a class="ffOnboard__skip" href="#main-content">Skip to setup</a>
-
-<header class="ffOnboard__header" role="banner">
-  <div class="ffOnboard__headerShell">
-    <a class="ffOnboard__brand" href="/platform/" aria-label="FutureFunded platform home">
-      <span class="ffOnboard__brandMark">FF</span>
-      <span>
-        <strong>FutureFunded</strong>
-        <small>Campaign setup</small>
-      </span>
-    </a>
-
-    <nav class="ffOnboard__nav" aria-label="Setup navigation">
-      <a href="#setup">Setup</a>
-      <a href="#preview">Preview</a>
-      <a href="#review">Review</a>
-    </nav>
-
-    <a class="ffOnboard__previewBtn" href="/c/connect-atx-elite">Preview</a>
-  </div>
-</header>
-
-<main class="ffOnboard__main" id="main-content" data-ff-onboard-root>
+<main class="ffOnboard__main" id="main-content" data-ff-onboard-root data-ff-page-root data-ff-onboarding-root>
   <section class="ffOnboard__hero ffOnboard__hero--setup" aria-labelledby="onboard-title">
     <div class="ffOnboard__heroContent">
-      <div class="ffOnboard__heroKicker">
-        <span class="ffOnboard__liveDot" aria-hidden="true"></span>
-        <span>Private campaign draft</span>
-      </div>
-
-      <p class="ffOnboard__eyebrow">Campaign onboarding</p>
+<p class="ffOnboard__eyebrow">Campaign onboarding</p>
 
       <h1 id="onboard-title">Complete the setup before launch.</h1>
 
