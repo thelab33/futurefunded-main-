@@ -1,6 +1,33 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# FF_DASHBOARD_AUDIT_TOKEN_BRIDGE_START
+# Use the current private dashboard token for local audit seeds.
+# Never commit the real token into this script.
+if [ -z "${FF_DASHBOARD_AUDIT_TOKEN:-}" ]; then
+  if [ -s /tmp/ff_operator_token ]; then
+    FF_DASHBOARD_AUDIT_TOKEN="$(tr -d '\r\n\t ' < /tmp/ff_operator_token)"
+  elif [ -n "${FF_OPERATOR_ACCESS_TOKEN:-}" ]; then
+    FF_DASHBOARD_AUDIT_TOKEN="${FF_OPERATOR_ACCESS_TOKEN}"
+  elif [ -f .env.local ]; then
+    FF_DASHBOARD_AUDIT_TOKEN="$(
+      grep -E '^[[:space:]]*FF_OPERATOR_ACCESS_TOKEN=' .env.local 2>/dev/null \
+        | tail -n 1 \
+        | sed -E 's/^[[:space:]]*FF_OPERATOR_ACCESS_TOKEN=//' \
+        | sed -E 's/^["'\"'"']|["'\"'"']$//g' \
+        | tr -d '\r\n'
+    )"
+  fi
+fi
+
+if [ -z "${FF_DASHBOARD_AUDIT_TOKEN:-}" ]; then
+  FF_DASHBOARD_AUDIT_TOKEN="${FF_DASHBOARD_AUDIT_TOKEN}"
+fi
+
+export FF_DASHBOARD_AUDIT_TOKEN
+# FF_DASHBOARD_AUDIT_TOKEN_BRIDGE_END
+
+
 BASE="${FF_AUDIT_BASE_URL:-http://127.0.0.1:5000}"
 STAMP="$(date +%Y%m%d%H%M%S)"
 OUT="audit_outputs/served-url-lite-${STAMP}"
@@ -21,7 +48,7 @@ cat > "$OUT/seed_urls.txt" <<EOF
 /platform/
 /platform/onboarding
 /platform/login
-/platform/dashboard?access_token=dev-operator-20260529123018
+/platform/dashboard?access_token=${FF_DASHBOARD_AUDIT_TOKEN}
 /c/connect-atx-elite
 /static/css/ff.css
 /static/css/onboarding.css
