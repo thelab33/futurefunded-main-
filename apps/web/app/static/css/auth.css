@@ -3992,3 +3992,262 @@ html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthorit
   }
 }
 
+
+/* ==========================================================================
+   FF_LOGIN_AUTHORITY_V41_PRIORITY_20260603
+   Final auth-page fit pass.
+   Goal:
+   - Keep v4 visual direction
+   - Reduce unused vertical air on desktop/tablet
+   - Bring sign-in form higher on mobile
+   - Keep all copy visible
+   ========================================================================== */
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority {
+  padding-top: clamp(10px, 1.6vw, 22px);
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__topbar {
+  margin-bottom: clamp(22px, 3.4vw, 44px);
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__stage {
+  align-items: stretch;
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero,
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__card {
+  min-height: auto;
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__systemRail {
+  margin-top: clamp(20px, 3vw, 34px);
+}
+
+html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__footer {
+  margin-top: clamp(20px, 3vw, 34px);
+}
+
+/* Tablet: tighten fold and keep both panels feeling intentional. */
+@media (min-width: 760px) and (max-width: 980px) {
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__topbar {
+    margin-bottom: 20px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero {
+    padding: 28px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__card {
+    padding: 28px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero h1 {
+    max-width: 11.5ch;
+    font-size: clamp(3.45rem, 8.6vw, 4.7rem);
+    line-height: .82;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__proofGrid {
+    margin-top: 22px;
+    gap: 10px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__proofGrid article {
+    padding: 14px;
+  }
+}
+
+/* Mobile: auth-first. Show purpose fast, then the login form, then proof. */
+@media (max-width: 720px) {
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority {
+    padding-top: 6px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__topbar {
+    position: sticky;
+    top: 6px;
+    z-index: 20;
+    margin-bottom: 10px;
+    box-shadow:
+      0 16px 42px rgba(72, 44, 22, .12),
+      0 1px 0 rgba(255,255,255,.94) inset;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__stage {
+    gap: 10px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero {
+    padding: 14px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__card {
+    padding: 14px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__pills {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__pills span {
+    min-height: 25px;
+    font-size: .62rem;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__eyebrow {
+    margin-top: 14px;
+    margin-bottom: 9px;
+    font-size: .64rem;
+    letter-spacing: .16em;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero h1 {
+    max-width: 10.75ch;
+    font-size: clamp(2.28rem, 12vw, 3.15rem);
+    line-height: .82;
+    letter-spacing: -.082em;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__lede {
+    margin-top: 12px;
+    font-size: .88rem;
+    line-height: 1.34;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__proofGrid {
+    margin-top: 14px;
+    gap: 8px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__proofGrid article {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__proofGrid strong {
+    margin-top: 10px;
+    font-size: .92rem;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__proofGrid p {
+    font-size: .82rem;
+    line-height: 1.3;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__trustStrip {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__trustStrip span {
+    min-height: 25px;
+    justify-content: center;
+    font-size: .62rem;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__card h2 {
+    max-width: 8.6ch;
+    font-size: clamp(1.85rem, 9vw, 2.45rem);
+    line-height: .88;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__cardHead p:last-child {
+    margin-top: 8px;
+    font-size: .9rem;
+    line-height: 1.32;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__form {
+    margin-top: 16px;
+    padding: 12px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__field {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__field input {
+    min-height: 44px;
+    border-radius: 14px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__submit {
+    min-height: 46px;
+    margin-top: 6px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__securityPills {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__securityPills span {
+    justify-content: center;
+    min-height: 25px;
+    font-size: .62rem;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__securityNote {
+    margin-top: 12px;
+    padding-bottom: 12px;
+    font-size: .88rem;
+    line-height: 1.32;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__formFooter {
+    margin-top: 12px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__systemRail {
+    margin-top: 12px;
+    gap: 8px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__systemRail div {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__footer {
+    margin-top: 12px;
+  }
+}
+
+/* Very narrow mobile polish */
+@media (max-width: 390px) {
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__brandText strong {
+    max-width: 112px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__hero h1 {
+    font-size: clamp(2.15rem, 11.4vw, 2.95rem);
+  }
+
+  html[data-ff-page="platform-login"] body.ff-loginAuthorityBody .ff-loginAuthority__topPrimary {
+    min-height: 32px;
+    padding-inline: 9px;
+  }
+}
+
