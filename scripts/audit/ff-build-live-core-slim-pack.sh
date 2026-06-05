@@ -227,6 +227,24 @@ Use \`.env.example.generated\` as the deployment env checklist.
 MD
 
 echo
+
+echo
+echo "== Copy active ops proof helpers =="
+# FF_SLIM_PACK_OPS_HELPERS_20260604
+for f in \
+  scripts/ops/ff-install-visual-board-deps.sh \
+  scripts/ops/ff-main-fresh-board-proof.sh
+do
+  if [ -f "$ROOT/$f" ]; then
+    mkdir -p "$OUT/$(dirname "$f")"
+    cp "$ROOT/$f" "$OUT/$f"
+    chmod +x "$OUT/$f" 2>/dev/null || true
+    echo "✅ copied $f"
+  else
+    echo "⚠️ missing optional ops helper: $f"
+  fi
+done
+
 echo "== Build slim manifest =="
 (
   cd "$OUT"
