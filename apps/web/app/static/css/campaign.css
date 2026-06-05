@@ -10660,3 +10660,635 @@ html[data-ff-page="campaign"] body.ff-campaignBody .ff-siteHeader__actions {
   }
 }
 
+/* === FF_CAMPAIGN_FLAGSHIP_POLISH_PASS_1_START === */
+/*
+  FutureFunded Campaign Page · Flagship Polish Pass 1
+  Scope:
+  - public campaign page only
+  - no ff.css authority drift
+  - improves donor/sponsor conversion hierarchy, section rhythm, media confidence,
+    and mobile-first containment
+*/
+
+html[data-ff-page="campaign"] {
+  --ff-campaign-page-max: min(100% - 32px, 1120px);
+  --ff-campaign-narrow-max: min(100% - 32px, 960px);
+  --ff-campaign-section-gap: clamp(68px, 7.8vw, 118px);
+  --ff-campaign-panel-pad: clamp(18px, 3vw, 34px);
+  --ff-campaign-panel-radius: clamp(22px, 2vw, 32px);
+  --ff-campaign-card-radius: clamp(16px, 1.6vw, 22px);
+  --ff-campaign-ink: #21110b;
+  --ff-campaign-muted: rgba(33, 17, 11, 0.68);
+  --ff-campaign-soft: rgba(255, 251, 244, 0.86);
+  --ff-campaign-soft-strong: rgba(255, 255, 255, 0.92);
+  --ff-campaign-line: rgba(82, 45, 23, 0.14);
+  --ff-campaign-line-strong: rgba(82, 45, 23, 0.2);
+  --ff-campaign-orange: #ff5a1f;
+  --ff-campaign-orange-2: #ff7a2f;
+  --ff-campaign-teal: #087f73;
+  --ff-campaign-shadow-sm: 0 10px 26px rgba(55, 31, 15, 0.08);
+  --ff-campaign-shadow-md: 0 18px 48px rgba(55, 31, 15, 0.12);
+  --ff-campaign-shadow-lg: 0 28px 80px rgba(55, 31, 15, 0.16);
+  scroll-padding-top: 112px;
+}
+
+html[data-ff-page="campaign"] body.ff-campaignBody {
+  color: var(--ff-campaign-ink);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 106, 42, 0.16), transparent 28rem),
+    radial-gradient(circle at 82% 6%, rgba(8, 127, 115, 0.12), transparent 30rem),
+    linear-gradient(180deg, #fff7ed 0%, #f2e5d2 44%, #efe1cf 100%);
+}
+
+html[data-ff-page="campaign"] .ff-campaignPage {
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+html[data-ff-page="campaign"] .ff-main--campaign,
+html[data-ff-page="campaign"] .ff-campaignMain {
+  padding-block: clamp(16px, 2vw, 28px) clamp(44px, 6vw, 88px);
+}
+
+html[data-ff-page="campaign"] .ff-shell {
+  width: var(--ff-campaign-page-max);
+}
+
+/* Header: keep it premium, compact, and donor-first */
+html[data-ff-page="campaign"] .ff-campaignHeader,
+html[data-ff-page="campaign"] .ffShellHeader--campaignPublic {
+  backdrop-filter: blur(22px) saturate(1.16);
+}
+
+html[data-ff-page="campaign"] .ffShellHeader--campaignPublic .ffShellHeader__shell,
+html[data-ff-page="campaign"] .ffShellHeader--campaignPublic .ff-siteHeader__shell {
+  min-height: 56px;
+  border-color: rgba(61, 35, 18, 0.12);
+  box-shadow: 0 14px 38px rgba(46, 25, 12, 0.08);
+}
+
+/* Hero: stronger conversion composition without changing markup */
+html[data-ff-page="campaign"] .ff-campaignHero {
+  position: relative;
+  padding-block: clamp(18px, 3vw, 34px) clamp(58px, 7vw, 92px);
+}
+
+html[data-ff-page="campaign"] .ff-campaignHero::before {
+  content: "";
+  position: absolute;
+  inset: clamp(8px, 2vw, 18px) max(16px, calc((100vw - 1160px) / 2)) auto;
+  height: min(520px, 70vh);
+  border-radius: 34px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 75% 12%, rgba(255, 103, 32, 0.24), transparent 18rem),
+    radial-gradient(circle at 32% 0%, rgba(255, 255, 255, 0.76), transparent 24rem);
+  filter: blur(0.2px);
+  z-index: -1;
+}
+
+html[data-ff-page="campaign"] .ff-campaignHero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.34fr) minmax(300px, 0.66fr);
+  align-items: start;
+  gap: clamp(18px, 2.6vw, 34px);
+}
+
+html[data-ff-page="campaign"] .ff-campaignHero__story,
+html[data-ff-page="campaign"] .ff-donatePanel {
+  border: 1px solid var(--ff-campaign-line);
+  box-shadow: var(--ff-campaign-shadow-lg);
+}
+
+html[data-ff-page="campaign"] .ff-campaignHero__story {
+  min-height: unset;
+  padding: clamp(22px, 4vw, 46px);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(255, 246, 235, 0.76)),
+    radial-gradient(circle at 10% 0%, rgba(255, 89, 31, 0.16), transparent 18rem);
+}
+
+html[data-ff-page="campaign"] .ff-heroTitle {
+  letter-spacing: -0.072em;
+  line-height: 0.86;
+  max-width: 10.5ch;
+  text-wrap: balance;
+}
+
+html[data-ff-page="campaign"] .ff-heroTitle span {
+  display: block;
+  color: var(--ff-campaign-orange);
+  font-style: italic;
+  letter-spacing: -0.064em;
+}
+
+html[data-ff-page="campaign"] .ff-heroActions {
+  gap: 10px;
+}
+
+html[data-ff-page="campaign"] .ff-donatePanel {
+  position: sticky;
+  top: 84px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 239, 222, 0.94), rgba(255, 250, 244, 0.9)),
+    radial-gradient(circle at 100% 0%, rgba(255, 91, 31, 0.2), transparent 14rem);
+}
+
+html[data-ff-page="campaign"] .ff-donatePanel::before {
+  content: "";
+  display: block;
+  height: 4px;
+  margin: -1px -1px 16px;
+  background: linear-gradient(90deg, var(--ff-campaign-orange), var(--ff-campaign-teal));
+}
+
+/* Trust chips and proof lines */
+html[data-ff-page="campaign"] .ff-campaignTrustLine {
+  border: 1px solid rgba(255, 105, 35, 0.18);
+  background: rgba(255, 247, 237, 0.76);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+html[data-ff-page="campaign"] :where(.ff-button, button, [role="button"]) {
+  touch-action: manipulation;
+}
+
+html[data-ff-page="campaign"] .ff-button--primary,
+html[data-ff-page="campaign"] .ff-button:not(.ff-button--ghost):not(.ff-button--secondary) {
+  box-shadow: 0 12px 26px rgba(255, 91, 31, 0.22);
+}
+
+/* Section rhythm: tighter, more deliberate, less empty runway */
+html[data-ff-page="campaign"] .ff-campaignSection {
+  margin-block: var(--ff-campaign-section-gap);
+  scroll-margin-top: 108px;
+}
+
+html[data-ff-page="campaign"] .ff-campaignHero + .ff-campaignSection,
+html[data-ff-page="campaign"] .ff-proofMarquee {
+  margin-block-start: clamp(38px, 5vw, 72px);
+}
+
+html[data-ff-page="campaign"] .ff-campaignSection :where(h2, h3) {
+  letter-spacing: -0.058em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+html[data-ff-page="campaign"] .ff-campaignSection :where(p) {
+  color: var(--ff-campaign-muted);
+}
+
+html[data-ff-page="campaign"] .ff-campaignSection :where(.ff-eyebrow) {
+  color: #a83b14;
+  letter-spacing: 0.18em;
+}
+
+/* Panels/cards: unify premium surface language across lower page */
+html[data-ff-page="campaign"] .ff-campaignSection :where(
+  .ff-card,
+  .ff-impactCard,
+  .ff-sponsorCard,
+  .ff-tierCard,
+  .ff-teamCard,
+  .ff-proofCard,
+  .ff-storyCard,
+  details,
+  article
+) {
+  border-color: var(--ff-campaign-line);
+}
+
+html[data-ff-page="campaign"] .ff-campaignSection :where(
+  .ff-card,
+  .ff-impactCard,
+  .ff-sponsorCard,
+  .ff-tierCard,
+  .ff-teamCard,
+  .ff-proofCard,
+  .ff-storyCard
+) {
+  background:
+    linear-gradient(180deg, var(--ff-campaign-soft-strong), rgba(255, 249, 240, 0.84));
+  box-shadow: var(--ff-campaign-shadow-sm);
+}
+
+html[data-ff-page="campaign"] .ff-campaignSection :where(
+  .ff-card,
+  .ff-impactCard,
+  .ff-sponsorCard,
+  .ff-tierCard,
+  .ff-teamCard,
+  .ff-proofCard,
+  .ff-storyCard
+):hover {
+  transform: translateY(-1px);
+  box-shadow: var(--ff-campaign-shadow-md);
+}
+
+/* Proof/player rail: image confidence + compact card rhythm */
+html[data-ff-page="campaign"] .ff-proofMarquee {
+  width: var(--ff-campaign-narrow-max);
+  margin-inline: auto;
+}
+
+html[data-ff-page="campaign"] .ff-proofMarquee :where(.ff-card, article) {
+  overflow: hidden;
+}
+
+html[data-ff-page="campaign"] .ff-proofMarquee img,
+html[data-ff-page="campaign"] #team img,
+html[data-ff-page="campaign"] .ff-storyPoster img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 98, 32, 0.25), transparent 12rem),
+    linear-gradient(135deg, #180b06, #3a1a0f);
+}
+
+html[data-ff-page="campaign"] .ff-proofMarquee :where(figure, picture, [class*="media" i], [class*="image" i]),
+html[data-ff-page="campaign"] #team :where(figure, picture, [class*="media" i], [class*="image" i]),
+html[data-ff-page="campaign"] .ff-storyPoster {
+  overflow: hidden;
+  border-radius: calc(var(--ff-campaign-card-radius) - 4px);
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255, 98, 32, 0.2), transparent 10rem),
+    linear-gradient(135deg, #140905, #32170d);
+}
+
+/* Impact and sponsor sections: make sponsor conversion feel cleaner */
+html[data-ff-page="campaign"] #impact,
+html[data-ff-page="campaign"] #sponsors,
+html[data-ff-page="campaign"] #team,
+html[data-ff-page="campaign"] #faq {
+  position: relative;
+}
+
+html[data-ff-page="campaign"] #impact::before,
+html[data-ff-page="campaign"] #sponsors::before,
+html[data-ff-page="campaign"] #team::before {
+  content: "";
+  position: absolute;
+  inset: -22px max(18px, calc((100vw - 1100px) / 2)) auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 91, 31, 0.42), rgba(8, 127, 115, 0.34), transparent);
+  pointer-events: none;
+}
+
+html[data-ff-page="campaign"] #sponsors :where(.ff-button, button) {
+  min-height: 42px;
+}
+
+html[data-ff-page="campaign"] #sponsors :where(.ff-card, article) {
+  box-shadow:
+    0 18px 44px rgba(55, 31, 15, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.76);
+}
+
+/* Story section: make real team media feel intentional */
+html[data-ff-page="campaign"] .ff-campaignSection--pressStory,
+html[data-ff-page="campaign"] [data-ff-press-story] {
+  width: var(--ff-campaign-narrow-max);
+  margin-inline: auto;
+}
+
+html[data-ff-page="campaign"] .ff-storyPoster {
+  box-shadow: var(--ff-campaign-shadow-md);
+}
+
+html[data-ff-page="campaign"] .ff-storyPoster img {
+  aspect-ratio: 4 / 5;
+}
+
+/* FAQ/final pass: compact close with stronger CTA containment */
+html[data-ff-page="campaign"] #faq {
+  width: var(--ff-campaign-narrow-max);
+  margin-inline: auto;
+}
+
+html[data-ff-page="campaign"] #faq details {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 8px 24px rgba(55, 31, 15, 0.07);
+}
+
+html[data-ff-page="campaign"] .ff-campaignFooter {
+  margin-top: clamp(58px, 7vw, 104px);
+}
+
+html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+  border: 1px solid var(--ff-campaign-line);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--ff-campaign-shadow-md);
+}
+
+/* Dark mode confidence */
+@media (prefers-color-scheme: dark) {
+  html[data-ff-page="campaign"][data-theme="dark"],
+  html[data-ff-page="campaign"].ff-root[data-theme="dark"] {
+    --ff-campaign-ink: #fff7ee;
+    --ff-campaign-muted: rgba(255, 247, 238, 0.72);
+    --ff-campaign-soft: rgba(34, 20, 14, 0.84);
+    --ff-campaign-soft-strong: rgba(38, 22, 15, 0.92);
+    --ff-campaign-line: rgba(255, 245, 235, 0.14);
+    --ff-campaign-line-strong: rgba(255, 245, 235, 0.22);
+  }
+
+  html[data-ff-page="campaign"][data-theme="dark"] body.ff-campaignBody {
+    background:
+      radial-gradient(circle at 18% 0%, rgba(255, 106, 42, 0.16), transparent 28rem),
+      radial-gradient(circle at 82% 6%, rgba(8, 127, 115, 0.12), transparent 30rem),
+      linear-gradient(180deg, #130905 0%, #20120c 48%, #160d08 100%);
+  }
+}
+
+/* Tablet */
+@media (max-width: 980px) {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-page-max: min(100% - 28px, 820px);
+    --ff-campaign-narrow-max: min(100% - 28px, 820px);
+    --ff-campaign-section-gap: clamp(58px, 8vw, 86px);
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ff-page="campaign"] .ff-donatePanel {
+    position: relative;
+    top: auto;
+  }
+
+  html[data-ff-page="campaign"] .ff-heroTitle {
+    max-width: 11ch;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-page-max: min(100% - 22px, 520px);
+    --ff-campaign-narrow-max: min(100% - 22px, 520px);
+    --ff-campaign-section-gap: 52px;
+    scroll-padding-top: 88px;
+  }
+
+  html[data-ff-page="campaign"] .ff-main--campaign,
+  html[data-ff-page="campaign"] .ff-campaignMain {
+    padding-block-start: 10px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero {
+    padding-block: 10px 42px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero::before {
+    inset-inline: 8px;
+    height: 560px;
+    border-radius: 28px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__story {
+    padding: 22px;
+  }
+
+  html[data-ff-page="campaign"] .ff-heroTitle {
+    font-size: clamp(3.1rem, 15vw, 5rem);
+    line-height: 0.88;
+    letter-spacing: -0.076em;
+  }
+
+  html[data-ff-page="campaign"] .ff-heroActions,
+  html[data-ff-page="campaign"] .ff-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ff-page="campaign"] .ff-heroActions .ff-button,
+  html[data-ff-page="campaign"] .ff-actions .ff-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection :where(h2) {
+    font-size: clamp(2rem, 10vw, 3.15rem);
+    line-height: 0.94;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection :where(.ff-card, article) {
+    border-radius: 18px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter__grid {
+    border-radius: 22px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html[data-ff-page="campaign"] .ff-campaignSection :where(.ff-card, article) {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+/* === FF_CAMPAIGN_FLAGSHIP_POLISH_PASS_1_END === */
+
+/* === FF_CAMPAIGN_FLAGSHIP_POLISH_PASS_1_1_START === */
+/*
+  Campaign Pass 1.1
+  Scope:
+  - campaign.css only
+  - fixes empty/brown media treatments
+  - tightens mobile/tablet campaign rhythm
+  - keeps checkout/runtime/template contracts untouched
+*/
+
+html[data-ff-page="campaign"] {
+  --ff-campaign-fallback-bg:
+    radial-gradient(circle at 24% 18%, rgba(255, 100, 34, 0.34), transparent 9rem),
+    radial-gradient(circle at 82% 72%, rgba(8, 127, 115, 0.18), transparent 10rem),
+    linear-gradient(135deg, #180b06 0%, #3a170d 52%, #140905 100%);
+}
+
+/* Turn blank media wells into intentional branded fallback surfaces. */
+html[data-ff-page="campaign"] .ff-proofMarquee :where(
+  figure,
+  picture,
+  [class*="media" i],
+  [class*="image" i],
+  [class*="photo" i],
+  [class*="poster" i]
+),
+html[data-ff-page="campaign"] #team :where(
+  figure,
+  picture,
+  [class*="media" i],
+  [class*="image" i],
+  [class*="photo" i],
+  [class*="poster" i]
+) {
+  position: relative;
+  min-height: 118px;
+  background: var(--ff-campaign-fallback-bg) !important;
+  border: 1px solid rgba(255, 245, 235, 0.16);
+}
+
+html[data-ff-page="campaign"] .ff-proofMarquee :where(
+  figure,
+  picture,
+  [class*="media" i],
+  [class*="image" i],
+  [class*="photo" i]
+):not(:has(img[src]))::after,
+html[data-ff-page="campaign"] #team :where(
+  figure,
+  picture,
+  [class*="media" i],
+  [class*="image" i],
+  [class*="photo" i]
+):not(:has(img[src]))::after {
+  content: "CONNECT ATX ELITE";
+  position: absolute;
+  inset: auto 10px 10px;
+  display: inline-flex;
+  width: max-content;
+  max-width: calc(100% - 20px);
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 6px 9px;
+  color: rgba(255, 247, 238, 0.9);
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+html[data-ff-page="campaign"] .ff-proofMarquee img,
+html[data-ff-page="campaign"] #team img {
+  min-height: 118px;
+  object-position: center;
+}
+
+/* Make proof/team media feel deliberate instead of fallback-heavy. */
+html[data-ff-page="campaign"] .ff-proofMarquee :where(article, .ff-card),
+html[data-ff-page="campaign"] #team :where(article, .ff-card) {
+  overflow: hidden;
+}
+
+html[data-ff-page="campaign"] .ff-proofMarquee :where(article, .ff-card) > * + *,
+html[data-ff-page="campaign"] #team :where(article, .ff-card) > * + * {
+  margin-top: 10px;
+}
+
+/* Tighten section containers after Pass 1 so the page feels less floaty. */
+html[data-ff-page="campaign"] .ff-campaignSection {
+  margin-block: clamp(58px, 6.6vw, 96px);
+}
+
+html[data-ff-page="campaign"] .ff-proofMarquee,
+html[data-ff-page="campaign"] #impact,
+html[data-ff-page="campaign"] #sponsors,
+html[data-ff-page="campaign"] #team,
+html[data-ff-page="campaign"] [data-ff-press-story],
+html[data-ff-page="campaign"] #faq {
+  max-width: min(100% - 28px, 980px);
+}
+
+/* Desktop/tablet: stronger card rhythm without touching markup. */
+@media (min-width: 760px) {
+  html[data-ff-page="campaign"] .ff-proofMarquee :where(img) {
+    aspect-ratio: 16 / 10;
+  }
+
+  html[data-ff-page="campaign"] #team :where(img) {
+    aspect-ratio: 16 / 10;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection--pressStory .ff-storyPoster img,
+  html[data-ff-page="campaign"] [data-ff-press-story] .ff-storyPoster img {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* Mobile: reduce stack fatigue and make CTAs feel thumb-ready. */
+@media (max-width: 640px) {
+  html[data-ff-page="campaign"] {
+    --ff-campaign-section-gap: 44px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero {
+    padding-block-end: 34px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__grid {
+    gap: 12px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignHero__story,
+  html[data-ff-page="campaign"] .ff-donatePanel {
+    border-radius: 20px;
+  }
+
+  html[data-ff-page="campaign"] .ff-heroTitle {
+    max-width: 9.75ch;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignTrustLine {
+    font-size: 0.78rem;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignSection {
+    margin-block: 44px;
+  }
+
+  html[data-ff-page="campaign"] .ff-proofMarquee,
+  html[data-ff-page="campaign"] #impact,
+  html[data-ff-page="campaign"] #sponsors,
+  html[data-ff-page="campaign"] #team,
+  html[data-ff-page="campaign"] [data-ff-press-story],
+  html[data-ff-page="campaign"] #faq {
+    max-width: min(100% - 20px, 460px);
+  }
+
+  html[data-ff-page="campaign"] .ff-proofMarquee :where(
+    figure,
+    picture,
+    [class*="media" i],
+    [class*="image" i],
+    [class*="photo" i]
+  ),
+  html[data-ff-page="campaign"] #team :where(
+    figure,
+    picture,
+    [class*="media" i],
+    [class*="image" i],
+    [class*="photo" i]
+  ) {
+    min-height: 132px;
+  }
+
+  html[data-ff-page="campaign"] .ff-proofMarquee img,
+  html[data-ff-page="campaign"] #team img {
+    min-height: 132px;
+    aspect-ratio: 16 / 10;
+  }
+
+  html[data-ff-page="campaign"] #sponsors :where(.ff-card, article),
+  html[data-ff-page="campaign"] #team :where(.ff-card, article),
+  html[data-ff-page="campaign"] #impact :where(.ff-card, article) {
+    box-shadow: 0 12px 30px rgba(55, 31, 15, 0.1);
+  }
+
+  html[data-ff-page="campaign"] :where(.ff-button, button, [role="button"]) {
+    min-height: 42px;
+  }
+
+  html[data-ff-page="campaign"] .ff-campaignFooter {
+    margin-top: 44px;
+  }
+}
+/* === FF_CAMPAIGN_FLAGSHIP_POLISH_PASS_1_1_END === */
