@@ -87,8 +87,10 @@ echo
 echo "== Copy active audit / test / demo scripts only =="
 ACTIVE_SCRIPTS=(
   "scripts/audit/ff-served-url-lite.sh"
-  "scripts/audit/ff-dashboard-board.sh"
-  "scripts/audit/ff-launch-surface-board.sh"
+  "scripts/visual/ff-launch-surface-board.py"
+  "scripts/visual/ff-all-page-boards.py"
+  "scripts/visual/ff-platform-dashboard-board.py"
+  "scripts/visual/ff_dashboard_access.py"
   "scripts/audit/ff-route-census.sh"
   "scripts/audit/ff-route-governance.sh"
   "scripts/audit/ff-production-checklist.sh"
