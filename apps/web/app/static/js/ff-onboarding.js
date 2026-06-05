@@ -2,6 +2,7 @@
    FutureFunded — Onboarding V1 Runtime
    File: apps/web/app/static/js/ff-onboarding.js
    Marker: FF_ONBOARDING_V1_OWNED_HEADER_RUNTIME
+   Builder: FF_ONBOARDING_BUILDER_WAVE1_RUNTIME
 
    Scope:
    - /platform/onboarding only
@@ -39,6 +40,13 @@
 
   const previewSources = $$("[data-ff-preview-source]", root);
   const previewTargets = $$("[data-ff-preview-target]", root);
+  const themePresets = $$("[data-ff-theme-preset]", root);
+  const themeNameField = $("[data-ff-theme-name]", root);
+  const colorPrimary = $("[data-ff-color-primary]", root);
+  const colorAccent = $("[data-ff-color-accent]", root);
+  const colorSoft = $("[data-ff-color-soft]", root);
+  const styleTargets = $$("[data-ff-style-target]", root);
+  const themeTargets = $$("[data-ff-theme-target]", root);
 
   const progressLabels = $$("[data-ff-progress-label]", root);
   const progressRing = $("[data-ff-progress-ring]", root);
@@ -107,6 +115,61 @@
   const save = () => {
     const ok = writeDraft(collect());
     announce(ok ? "Saved locally — safe to keep editing." : "Could not save in this browser.");
+  };
+
+  const syncBuilderMeta = () => {
+    const selectedStyle = $("input[name='campaign_style']:checked", root)?.value || "Community Team";
+    const selectedTheme = themeNameField?.value || "Custom Theme";
+
+    styleTargets.forEach((target) => {
+      target.textContent = selectedStyle;
+    });
+
+    themeTargets.forEach((target) => {
+      target.textContent = selectedTheme;
+    });
+
+    themePresets.forEach((button) => {
+      const active = button.getAttribute("data-ff-theme-preset") === selectedTheme;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+  };
+
+  const applyBrandTheme = () => {
+    const primary = colorPrimary?.value || "#ff5a1f";
+    const accent = colorAccent?.value || "#0f766e";
+    const soft = colorSoft?.value || "#fff3e7";
+
+    root.style.setProperty("--ob-live-primary", primary);
+    root.style.setProperty("--ob-live-primary-2", primary);
+    root.style.setProperty("--ob-live-accent", accent);
+    root.style.setProperty("--ob-live-soft", soft);
+  };
+
+  const applyThemePreset = (button) => {
+    if (!(button instanceof HTMLElement)) return;
+
+    const primary = button.getAttribute("data-primary") || "#ff5a1f";
+    const secondary = button.getAttribute("data-secondary") || primary;
+    const accent = button.getAttribute("data-accent") || "#0f766e";
+    const soft = button.getAttribute("data-soft") || "#fff3e7";
+    const name = button.getAttribute("data-ff-theme-preset") || "Custom Theme";
+
+    if (colorPrimary) colorPrimary.value = primary;
+    if (colorAccent) colorAccent.value = accent;
+    if (colorSoft) colorSoft.value = soft;
+    if (themeNameField) themeNameField.value = name;
+
+    root.style.setProperty("--ob-live-primary", primary);
+    root.style.setProperty("--ob-live-primary-2", secondary);
+    root.style.setProperty("--ob-live-accent", accent);
+    root.style.setProperty("--ob-live-soft", soft);
+
+    syncBuilderMeta();
+    syncPreview();
+    syncProgress();
+    save();
   };
 
   const syncPreview = () => {
@@ -232,15 +295,27 @@
 
   fields.forEach((field) => {
     field.addEventListener("input", () => {
+      applyBrandTheme();
+      syncBuilderMeta();
       syncPreview();
       syncProgress();
     });
 
     field.addEventListener("change", () => {
+      if (field.matches("[data-ff-color-primary], [data-ff-color-accent], [data-ff-color-soft]") && themeNameField) {
+        themeNameField.value = "Custom Theme";
+      }
+
+      applyBrandTheme();
+      syncBuilderMeta();
       syncPreview();
       syncProgress();
       save();
     });
+  });
+
+  themePresets.forEach((button) => {
+    button.addEventListener("click", () => applyThemePreset(button));
   });
 
   saveButtons.forEach((button) => {
@@ -248,6 +323,8 @@
   });
 
   restore();
+  applyBrandTheme();
+  syncBuilderMeta();
   syncPreview();
   syncProgress();
 
