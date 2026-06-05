@@ -19623,3 +19623,811 @@ html[data-ff-page="platform-dashboard"] body.ff-dashboardModernBody :where(
     padding-inline: 12px !important;
   }
 }
+
+/* === FF_PLATFORM_HOMEPAGE_FLAGSHIP_PASS_1_START === */
+/*
+  FutureFunded Platform Homepage · Flagship Pass 1
+  Scope:
+  - /platform/ homepage only
+  - CSS authority lives in ff.css
+  - no campaign.css changes
+  - no checkout/payment/dashboard/onboarding template changes
+  - designed for premium SaaS trust, mobile conversion, sponsor credibility
+*/
+
+@layer platform {
+  html[data-ff-page="platform"] {
+    --ff-home-p1-shell: min(100% - clamp(1rem, 4vw, 3rem), 1180px);
+    --ff-home-p1-wide: min(100% - clamp(1rem, 4vw, 3rem), 1320px);
+    --ff-home-p1-radius-xl: clamp(1.35rem, 2.6vw, 2.35rem);
+    --ff-home-p1-radius-lg: clamp(1.05rem, 1.9vw, 1.65rem);
+    --ff-home-p1-section: clamp(3.25rem, 7vw, 7rem);
+    --ff-home-p1-card-pad: clamp(1rem, 2.5vw, 2rem);
+    --ff-home-p1-ink: #120b07;
+    --ff-home-p1-muted: rgba(51, 35, 23, .70);
+    --ff-home-p1-soft: rgba(80, 56, 39, .54);
+    --ff-home-p1-line: rgba(78, 49, 28, .13);
+    --ff-home-p1-line-strong: rgba(78, 49, 28, .20);
+    --ff-home-p1-surface: rgba(255, 253, 248, .94);
+    --ff-home-p1-surface-strong: rgba(255, 255, 255, .985);
+    --ff-home-p1-orange: #ff6422;
+    --ff-home-p1-orange-2: #ff8a35;
+    --ff-home-p1-teal: #0f766e;
+    --ff-home-p1-brown: #2b160d;
+    --ff-home-p1-shadow-sm: 0 10px 28px rgba(48, 29, 14, .075);
+    --ff-home-p1-shadow-md: 0 20px 56px rgba(48, 29, 14, .105);
+    --ff-home-p1-shadow-lg: 0 34px 96px rgba(48, 29, 14, .15);
+    scroll-padding-top: 96px;
+  }
+
+  html[data-ff-page="platform"] body.ff-platformBody,
+  html[data-ff-page="platform"] body[data-ff-surface="platform"] {
+    color: var(--ff-home-p1-ink);
+    background:
+      linear-gradient(rgba(99, 65, 34, .035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99, 65, 34, .032) 1px, transparent 1px),
+      radial-gradient(circle at 12% -4%, rgba(255, 107, 26, .18), transparent 30rem),
+      radial-gradient(circle at 86% 0%, rgba(255, 196, 137, .32), transparent 36rem),
+      radial-gradient(circle at 52% 72%, rgba(15, 118, 110, .08), transparent 34rem),
+      linear-gradient(180deg, #fff8ef 0%, #f5eadc 52%, #efe1cf 100%);
+    background-size:
+      32px 32px,
+      32px 32px,
+      auto,
+      auto,
+      auto,
+      auto;
+  }
+
+  html[data-ff-page="platform"] .ff-platformPage {
+    isolation: isolate;
+    overflow-x: clip;
+  }
+
+  html[data-ff-page="platform"] .ff-platformPage::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 50% -8%, rgba(255,255,255,.82), transparent 28rem),
+      linear-gradient(180deg, rgba(255,255,255,.22), transparent 36rem);
+  }
+
+  html[data-ff-page="platform"] .ff-shell {
+    width: var(--ff-home-p1-shell);
+    max-width: var(--ff-home-p1-shell);
+  }
+
+  html[data-ff-page="platform"] .ff-shellWide {
+    width: var(--ff-home-p1-wide);
+    max-width: var(--ff-home-p1-wide);
+  }
+
+  html[data-ff-page="platform"] .ff-platformMain {
+    padding-top: clamp(78px, 8vw, 104px);
+  }
+
+  /* Header: quieter, cleaner, more software-company than template */
+  html[data-ff-page="platform"] .ff-siteHeader,
+  html[data-ff-page="platform"] .ffShellHeader {
+    backdrop-filter: none;
+  }
+
+  html[data-ff-page="platform"] .ff-siteHeader__shell,
+  html[data-ff-page="platform"] .ffShellHeader__shell {
+    min-height: 54px;
+    border-color: rgba(72, 44, 25, .115);
+    background: rgba(255, 251, 244, .9);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.78) inset,
+      0 14px 36px rgba(48, 29, 14, .08);
+    backdrop-filter: blur(18px) saturate(1.18);
+    -webkit-backdrop-filter: blur(18px) saturate(1.18);
+  }
+
+  html[data-ff-page="platform"] .ff-siteHeader__nav,
+  html[data-ff-page="platform"] .ffShellHeader__nav {
+    background: rgba(255,255,255,.64);
+    border-color: rgba(72,44,25,.075);
+  }
+
+  html[data-ff-page="platform"] .ff-siteHeader__nav a,
+  html[data-ff-page="platform"] .ffShellHeader__nav a {
+    color: rgba(43, 26, 16, .74);
+    font-weight: 880;
+  }
+
+  html[data-ff-page="platform"] .ff-siteHeader__actions .ff-button--primary,
+  html[data-ff-page="platform"] .ffShellHeader__actions .ff-button--primary {
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.22) inset,
+      0 12px 30px rgba(255, 100, 34, .24);
+  }
+
+  /* Hero composition */
+  html[data-ff-page="platform"] .ff-platformHero {
+    position: relative;
+    padding-block: clamp(.5rem, 1.5vw, 1.25rem) clamp(3.2rem, 6vw, 5.5rem);
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero::before {
+    content: "";
+    position: absolute;
+    inset: clamp(.5rem, 1.8vw, 1.4rem) max(1rem, calc((100vw - 1240px) / 2)) auto;
+    height: min(680px, calc(100svh - 92px));
+    min-height: 520px;
+    z-index: -1;
+    border-radius: clamp(1.5rem, 3vw, 2.8rem);
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 18% 0%, rgba(255,255,255,.9), transparent 24rem),
+      radial-gradient(circle at 78% 6%, rgba(255, 196, 137, .34), transparent 30rem),
+      radial-gradient(circle at 50% 100%, rgba(15, 118, 110, .08), transparent 25rem);
+    filter: saturate(1.04);
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero__grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(330px, .78fr);
+    gap: clamp(1rem, 2.3vw, 1.8rem);
+    align-items: stretch;
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero__copy,
+  html[data-ff-page="platform"] .ff-launchCard {
+    border: 1px solid var(--ff-home-p1-line);
+    border-radius: var(--ff-home-p1-radius-xl);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.86) inset,
+      var(--ff-home-p1-shadow-lg);
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero__copy {
+    min-height: clamp(540px, calc(100svh - 132px), 700px);
+    align-content: center;
+    gap: clamp(1rem, 2.2vw, 1.75rem);
+    padding: clamp(1.35rem, 4.7vw, 4.25rem);
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255,255,255,.98), transparent 19rem),
+      radial-gradient(circle at 20% 18%, rgba(255, 238, 212, .58), transparent 26rem),
+      radial-gradient(circle at 93% 0%, rgba(255, 190, 126, .48), transparent 32rem),
+      radial-gradient(circle at 80% 96%, rgba(15, 118, 110, .08), transparent 22rem),
+      linear-gradient(145deg, rgba(255,255,255,.992), rgba(255, 244, 231, .955));
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero__copy::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(255,100,34,.62), rgba(15,118,110,.38)) 0 0 / 100% 3px no-repeat;
+    opacity: .78;
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero__copy::after {
+    opacity: .86;
+    filter: blur(.2px);
+  }
+
+  html[data-ff-page="platform"] .ff-platformHeroTitle,
+  html[data-ff-page="platform"] .ff-platformHeroTitle--accented {
+    max-width: 9.3ch;
+    font-size: clamp(3.45rem, 7.55vw, 7.15rem);
+    line-height: .84;
+    letter-spacing: -.086em;
+  }
+
+  html[data-ff-page="platform"] .ff-platformHeroTitle em,
+  html[data-ff-page="platform"] .ff-platformHeroTitle--accented em {
+    color: var(--ff-home-p1-orange);
+    font-style: italic;
+    letter-spacing: -.07em;
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero .ff-lede {
+    max-width: 58ch;
+    color: var(--ff-home-p1-muted);
+    font-size: clamp(1rem, 1.22vw, 1.12rem);
+    line-height: 1.56;
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero .ff-pill {
+    min-height: 30px;
+    border-color: rgba(72,44,25,.11);
+    background: rgba(255,255,255,.74);
+    color: rgba(50,34,22,.72);
+    font-size: .72rem;
+    font-weight: 900;
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero .ff-pill--hot {
+    border-color: rgba(255,100,34,.22);
+    background: rgba(255,237,213,.88);
+    color: #a84310;
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero .ff-actions {
+    gap: .7rem;
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero .ff-button--xl {
+    min-height: 48px;
+    padding-inline: 1.35rem;
+  }
+
+  html[data-ff-page="platform"] .ff-trustGrid--compact {
+    gap: .68rem;
+  }
+
+  html[data-ff-page="platform"] .ff-trustGrid--compact article {
+    min-height: 92px;
+    border-color: rgba(72,44,25,.105);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.84), rgba(255,251,246,.72));
+    box-shadow: 0 8px 22px rgba(48,29,14,.052);
+  }
+
+  html[data-ff-page="platform"] .ff-trustGrid--compact strong {
+    font-size: .92rem;
+    letter-spacing: -.02em;
+  }
+
+  html[data-ff-page="platform"] .ff-trustGrid--compact span {
+    color: var(--ff-home-p1-soft);
+    line-height: 1.38;
+  }
+
+  /* Right-side live proof: product-grade, not generic card */
+  html[data-ff-page="platform"] .ff-launchCard {
+    display: grid;
+    align-content: stretch;
+    gap: clamp(.9rem, 1.7vw, 1.25rem);
+    padding: clamp(1.1rem, 2.25vw, 1.75rem);
+    color: #fffaf4;
+    background:
+      radial-gradient(circle at 82% 0%, rgba(255, 117, 38, .28), transparent 18rem),
+      radial-gradient(circle at 0% 100%, rgba(255, 196, 137, .12), transparent 17rem),
+      linear-gradient(150deg, #1c0f0a 0%, #2d160d 52%, #150a06 100%);
+  }
+
+  html[data-ff-page="platform"] .ff-launchCard h2,
+  html[data-ff-page="platform"] .ff-launchCard strong,
+  html[data-ff-page="platform"] .ff-launchCard b {
+    color: #fffaf4;
+  }
+
+  html[data-ff-page="platform"] .ff-launchCard p,
+  html[data-ff-page="platform"] .ff-launchCard em,
+  html[data-ff-page="platform"] .ff-launchCard span {
+    color: rgba(255, 250, 244, .70);
+  }
+
+  html[data-ff-page="platform"] .ff-launchCard .ff-eyebrow {
+    color: #ff8a35;
+  }
+
+  html[data-ff-page="platform"] .ff-platformReadinessTitle {
+    font-size: clamp(1.9rem, 3.15vw, 3.1rem);
+    line-height: .9;
+    letter-spacing: -.064em;
+  }
+
+  html[data-ff-page="platform"] .ff-platformReadinessTitle em {
+    color: #ff8a35;
+    font-style: normal;
+  }
+
+  html[data-ff-page="platform"] .ff-readinessList {
+    gap: .72rem;
+  }
+
+  html[data-ff-page="platform"] .ff-readinessList article {
+    min-height: 78px;
+    border-color: rgba(255,255,255,.09);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.052));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.08) inset,
+      0 12px 24px rgba(0,0,0,.16);
+  }
+
+  html[data-ff-page="platform"] .ff-readinessList article span {
+    color: #ff9b55;
+  }
+
+  html[data-ff-page="platform"] .ff-readinessList article em {
+    color: rgba(255,250,244,.62);
+  }
+
+  html[data-ff-page="platform"] .ff-readinessList article b {
+    background: rgba(255,138,53,.14);
+    color: #ffd8bd;
+  }
+
+  html[data-ff-page="platform"] .ff-previewStrip {
+    margin-top: auto;
+    border-color: rgba(255,255,255,.12);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.056));
+    box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  }
+
+  /* Section rhythm */
+  html[data-ff-page="platform"] .ff-platformSection {
+    padding-block: var(--ff-home-p1-section);
+  }
+
+  html[data-ff-page="platform"] .ff-platformHero + .ff-platformSection {
+    padding-top: clamp(2.4rem, 5vw, 5rem);
+  }
+
+  html[data-ff-page="platform"] .ff-sectionHeader {
+    margin-bottom: clamp(1.15rem, 2.3vw, 1.9rem);
+  }
+
+  html[data-ff-page="platform"] .ff-sectionHeader h2 {
+    max-width: 11.75ch;
+    font-size: clamp(2.15rem, 4.25vw, 4.15rem);
+    line-height: .9;
+    letter-spacing: -.069em;
+  }
+
+  html[data-ff-page="platform"] .ff-sectionHeader p,
+  html[data-ff-page="platform"] .ff-sectionHeader > div > p:last-child {
+    max-width: 64ch;
+  }
+
+  html[data-ff-page="platform"] .ff-sectionHeader--center {
+    max-width: 760px;
+  }
+
+  /* Major section panels */
+  html[data-ff-page="platform"] #product > .ff-shell,
+  html[data-ff-page="platform"] #sponsors > .ff-shell,
+  html[data-ff-page="platform"] #faq > .ff-shell,
+  html[data-ff-page="platform"] .ff-proofSplit,
+  html[data-ff-page="platform"] .ff-launchFlow,
+  html[data-ff-page="platform"] .ff-finalCta {
+    position: relative;
+    border: 1px solid var(--ff-home-p1-line);
+    border-radius: var(--ff-home-p1-radius-xl);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255, 196, 137, .12), transparent 22rem),
+      linear-gradient(180deg, rgba(255,255,255,.965), rgba(255,251,246,.88));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.86) inset,
+      var(--ff-home-p1-shadow-md);
+  }
+
+  html[data-ff-page="platform"] #product > .ff-shell,
+  html[data-ff-page="platform"] #sponsors > .ff-shell,
+  html[data-ff-page="platform"] #faq > .ff-shell {
+    padding: clamp(1.2rem, 2.8vw, 2.4rem);
+  }
+
+  html[data-ff-page="platform"] #product > .ff-shell::before,
+  html[data-ff-page="platform"] #sponsors > .ff-shell::before,
+  html[data-ff-page="platform"] #faq > .ff-shell::before,
+  html[data-ff-page="platform"] .ff-proofSplit::before,
+  html[data-ff-page="platform"] .ff-launchFlow::before,
+  html[data-ff-page="platform"] .ff-finalCta::before {
+    content: "";
+    position: absolute;
+    inset: -1px auto auto clamp(1.2rem, 3vw, 2.4rem);
+    width: min(180px, 42%);
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--ff-home-p1-orange), var(--ff-home-p1-teal));
+    opacity: .82;
+  }
+
+  /* Feature cards */
+  html[data-ff-page="platform"] .ff-featureGrid {
+    gap: clamp(.75rem, 1.35vw, 1rem);
+  }
+
+  html[data-ff-page="platform"] .ff-featureGrid--three,
+  html[data-ff-page="platform"] .ff-sponsorGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="platform"] .ff-featureCard,
+  html[data-ff-page="platform"] .ff-sponsorCard,
+  html[data-ff-page="platform"] .ff-flowGrid article,
+  html[data-ff-page="platform"] .ff-trustGrid--stack article {
+    border-color: rgba(72,44,25,.105);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,252,247,.74));
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.82) inset,
+      0 12px 26px rgba(48,29,14,.065);
+    transition:
+      transform 180ms cubic-bezier(.2,.8,.2,1),
+      box-shadow 180ms cubic-bezier(.2,.8,.2,1),
+      border-color 180ms cubic-bezier(.2,.8,.2,1);
+  }
+
+  html[data-ff-page="platform"] .ff-featureCard:hover,
+  html[data-ff-page="platform"] .ff-sponsorCard:hover,
+  html[data-ff-page="platform"] .ff-flowGrid article:hover,
+  html[data-ff-page="platform"] .ff-trustGrid--stack article:hover {
+    transform: translateY(-2px);
+    border-color: var(--ff-home-p1-line-strong);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.9) inset,
+      0 18px 42px rgba(48,29,14,.10);
+  }
+
+  html[data-ff-page="platform"] .ff-featureCard {
+    min-height: 178px;
+    display: grid;
+    align-content: start;
+    gap: .55rem;
+    padding: clamp(1rem, 1.6vw, 1.35rem);
+  }
+
+  html[data-ff-page="platform"] .ff-featureCard span,
+  html[data-ff-page="platform"] .ff-sponsorCard > span,
+  html[data-ff-page="platform"] .ff-flowGrid span {
+    width: fit-content;
+    min-height: 1.7rem;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255,100,34,.16);
+    border-radius: 999px;
+    background: rgba(255,237,213,.72);
+    color: #a84310;
+    padding-inline: .6rem;
+    font-size: .7rem;
+    font-weight: 940;
+  }
+
+  html[data-ff-page="platform"] .ff-featureCard h3 {
+    margin-top: .55rem;
+    font-size: clamp(1.02rem, 1.3vw, 1.22rem);
+    line-height: 1.02;
+    letter-spacing: -.035em;
+  }
+
+  html[data-ff-page="platform"] .ff-featureCard p,
+  html[data-ff-page="platform"] .ff-sponsorCard p,
+  html[data-ff-page="platform"] .ff-flowGrid p {
+    color: var(--ff-home-p1-muted);
+    font-size: .92rem;
+    line-height: 1.48;
+  }
+
+  /* Campaign preview split */
+  html[data-ff-page="platform"] .ff-proofSplit {
+    grid-template-columns: minmax(0, .95fr) minmax(310px, .56fr);
+    gap: clamp(.9rem, 1.8vw, 1.25rem);
+    padding: clamp(.7rem, 1vw, .9rem);
+  }
+
+  html[data-ff-page="platform"] .ff-proofSplit__copy,
+  html[data-ff-page="platform"] .ff-campaignPreview {
+    border-radius: calc(var(--ff-home-p1-radius-xl) - .5rem);
+  }
+
+  html[data-ff-page="platform"] .ff-proofSplit__copy {
+    min-height: 290px;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,196,137,.12), transparent 18rem),
+      linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,252,247,.82));
+  }
+
+  html[data-ff-page="platform"] .ff-campaignPreview {
+    border: 1px solid rgba(255,100,34,.15);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,196,137,.2), transparent 16rem),
+      linear-gradient(180deg, rgba(255,245,232,.96), rgba(255,250,244,.88));
+  }
+
+  html[data-ff-page="platform"] .ff-campaignPreview__meter {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="platform"] .ff-campaignPreview__meter > div {
+    border-color: rgba(72,44,25,.09);
+    background: rgba(255,255,255,.74);
+  }
+
+  html[data-ff-page="platform"] .ff-campaignPreview .ff-progressTrack {
+    height: 11px;
+  }
+
+  /* Sponsor cards: more institutional credibility */
+  html[data-ff-page="platform"] #sponsors .ff-sectionHeader {
+    align-items: center;
+  }
+
+  html[data-ff-page="platform"] #sponsors .ff-featureCard {
+    min-height: 164px;
+  }
+
+  html[data-ff-page="platform"] #sponsors .ff-featureCard:nth-child(2) {
+    border-color: rgba(255,100,34,.24);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.86) inset,
+      0 18px 48px rgba(255,100,34,.105);
+  }
+
+  /* Why it works */
+  html[data-ff-page="platform"] .ff-proofSplit--reverse {
+    grid-template-columns: minmax(0, .68fr) minmax(0, .82fr);
+  }
+
+  html[data-ff-page="platform"] .ff-trustGrid--stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .8rem;
+  }
+
+  html[data-ff-page="platform"] .ff-trustGrid--stack article {
+    min-height: 118px;
+    display: grid;
+    align-content: center;
+    padding: clamp(1rem, 1.8vw, 1.35rem);
+  }
+
+  html[data-ff-page="platform"] .ff-trustGrid--stack strong {
+    font-size: 1rem;
+  }
+
+  html[data-ff-page="platform"] .ff-trustGrid--stack span {
+    max-width: 58ch;
+    color: var(--ff-home-p1-muted);
+    font-size: .91rem;
+    line-height: 1.48;
+  }
+
+  /* Launch path */
+  html[data-ff-page="platform"] .ff-launchFlow {
+    padding: clamp(1.25rem, 3vw, 2.6rem);
+  }
+
+  html[data-ff-page="platform"] .ff-flowGrid {
+    gap: clamp(.75rem, 1.25vw, 1rem);
+  }
+
+  html[data-ff-page="platform"] .ff-flowGrid article {
+    min-height: 154px;
+  }
+
+  /* FAQ and final CTA */
+  html[data-ff-page="platform"] .ff-faqList {
+    gap: .65rem;
+  }
+
+  html[data-ff-page="platform"] .ff-faqItem {
+    border-color: rgba(72,44,25,.10);
+    background: rgba(255,255,255,.82);
+    box-shadow: 0 8px 18px rgba(48,29,14,.055);
+  }
+
+  html[data-ff-page="platform"] .ff-faqItem summary {
+    min-height: 44px;
+    font-weight: 920;
+  }
+
+  html[data-ff-page="platform"] .ff-finalCta {
+    padding: clamp(1.15rem, 2.8vw, 2.25rem);
+  }
+
+  html[data-ff-page="platform"] .ff-finalCta h2 {
+    max-width: 13ch;
+  }
+
+  html[data-ff-page="platform"] .ff-finalCta .ff-actions {
+    justify-content: flex-end;
+  }
+
+  /* Better responsive behavior */
+  @media (max-width: 1040px) {
+    html[data-ff-page="platform"] .ff-platformHero__grid,
+    html[data-ff-page="platform"] .ff-proofSplit,
+    html[data-ff-page="platform"] .ff-proofSplit--reverse {
+      grid-template-columns: 1fr;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero__copy,
+    html[data-ff-page="platform"] .ff-launchCard {
+      min-height: auto;
+    }
+
+    html[data-ff-page="platform"] .ff-launchCard {
+      color: #fffaf4;
+    }
+
+    html[data-ff-page="platform"] .ff-featureGrid--four,
+    html[data-ff-page="platform"] .ff-flowGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    html[data-ff-page="platform"] {
+      --ff-home-p1-shell: min(100% - 1rem, 1180px);
+      --ff-home-p1-section: clamp(2.2rem, 8vw, 3.6rem);
+    }
+
+    html[data-ff-page="platform"] .ff-platformMain {
+      padding-top: 68px;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero {
+      padding-block: .5rem 2.6rem;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero::before {
+      inset: 0 .5rem auto;
+      min-height: 0;
+      height: 620px;
+      border-radius: 1.35rem;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero__grid {
+      gap: .72rem;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero__copy,
+    html[data-ff-page="platform"] .ff-launchCard,
+    html[data-ff-page="platform"] #product > .ff-shell,
+    html[data-ff-page="platform"] #sponsors > .ff-shell,
+    html[data-ff-page="platform"] #faq > .ff-shell,
+    html[data-ff-page="platform"] .ff-proofSplit,
+    html[data-ff-page="platform"] .ff-launchFlow,
+    html[data-ff-page="platform"] .ff-finalCta {
+      border-radius: 1.15rem;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero__copy,
+    html[data-ff-page="platform"] .ff-launchCard {
+      padding: 1rem;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHeroTitle,
+    html[data-ff-page="platform"] .ff-platformHeroTitle--accented {
+      max-width: 9ch;
+      font-size: clamp(2.78rem, 14vw, 4.05rem);
+      line-height: .86;
+      letter-spacing: -.078em;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero .ff-lede {
+      font-size: .96rem;
+      line-height: 1.45;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero .ff-pillRow {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: .05rem;
+      scrollbar-width: none;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero .ff-pillRow::-webkit-scrollbar {
+      display: none;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero .ff-actions,
+    html[data-ff-page="platform"] .ff-finalCta .ff-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHero .ff-button,
+    html[data-ff-page="platform"] .ff-finalCta .ff-button {
+      width: 100%;
+    }
+
+    html[data-ff-page="platform"] .ff-trustGrid,
+    html[data-ff-page="platform"] .ff-trustGrid--compact,
+    html[data-ff-page="platform"] .ff-featureGrid--four,
+    html[data-ff-page="platform"] .ff-featureGrid--three,
+    html[data-ff-page="platform"] .ff-sponsorGrid,
+    html[data-ff-page="platform"] .ff-flowGrid,
+    html[data-ff-page="platform"] .ff-campaignPreview__meter {
+      grid-template-columns: 1fr;
+    }
+
+    html[data-ff-page="platform"] .ff-trustGrid--compact article {
+      min-height: auto;
+    }
+
+    html[data-ff-page="platform"] .ff-featureCard,
+    html[data-ff-page="platform"] .ff-sponsorCard,
+    html[data-ff-page="platform"] .ff-flowGrid article,
+    html[data-ff-page="platform"] .ff-trustGrid--stack article {
+      min-height: auto;
+      padding: 1rem;
+    }
+
+    html[data-ff-page="platform"] .ff-sectionHeader,
+    html[data-ff-page="platform"] .ff-sectionHeader--center {
+      justify-items: start;
+      text-align: left;
+    }
+
+    html[data-ff-page="platform"] .ff-sectionHeader--center p {
+      margin-inline: 0;
+    }
+
+    html[data-ff-page="platform"] .ff-sectionHeader h2,
+    html[data-ff-page="platform"] .ff-sectionHeader--center h2,
+    html[data-ff-page="platform"] .ff-proofSplit__copy h2,
+    html[data-ff-page="platform"] .ff-launchFlow h2 {
+      max-width: 11ch;
+      font-size: clamp(2.1rem, 10vw, 3.15rem);
+      line-height: .92;
+      letter-spacing: -.064em;
+    }
+
+    html[data-ff-page="platform"] .ff-launchCard__head h2,
+    html[data-ff-page="platform"] .ff-platformReadinessTitle {
+      font-size: clamp(2rem, 9.5vw, 3rem);
+      line-height: .92;
+    }
+
+    html[data-ff-page="platform"] .ff-readinessList article {
+      min-height: 72px;
+    }
+
+    html[data-ff-page="platform"] .ff-finalCta {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 430px) {
+    html[data-ff-page="platform"] .ff-platformHero__copy,
+    html[data-ff-page="platform"] .ff-launchCard,
+    html[data-ff-page="platform"] #product > .ff-shell,
+    html[data-ff-page="platform"] #sponsors > .ff-shell,
+    html[data-ff-page="platform"] #faq > .ff-shell,
+    html[data-ff-page="platform"] .ff-proofSplit,
+    html[data-ff-page="platform"] .ff-launchFlow,
+    html[data-ff-page="platform"] .ff-finalCta {
+      padding: .9rem;
+    }
+
+    html[data-ff-page="platform"] .ff-platformHeroTitle,
+    html[data-ff-page="platform"] .ff-platformHeroTitle--accented {
+      font-size: clamp(2.55rem, 13.6vw, 3.75rem);
+    }
+
+    html[data-ff-page="platform"] .ff-button {
+      min-height: 44px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html[data-ff-page="platform"] .ff-featureCard,
+    html[data-ff-page="platform"] .ff-sponsorCard,
+    html[data-ff-page="platform"] .ff-flowGrid article,
+    html[data-ff-page="platform"] .ff-trustGrid--stack article {
+      transition: none;
+    }
+
+    html[data-ff-page="platform"] .ff-featureCard:hover,
+    html[data-ff-page="platform"] .ff-sponsorCard:hover,
+    html[data-ff-page="platform"] .ff-flowGrid article:hover,
+    html[data-ff-page="platform"] .ff-trustGrid--stack article:hover {
+      transform: none;
+    }
+  }
+
+  :root[data-theme="dark"] html[data-ff-page="platform"] body.ff-platformBody,
+  html[data-ff-page="platform"][data-theme="dark"] body.ff-platformBody {
+    background:
+      radial-gradient(circle at 12% -4%, rgba(255, 107, 26, .22), transparent 30rem),
+      radial-gradient(circle at 86% 0%, rgba(37, 99, 235, .20), transparent 36rem),
+      linear-gradient(180deg, #07111f 0%, #0b1220 62%, #050814 100%);
+  }
+}
+/* === FF_PLATFORM_HOMEPAGE_FLAGSHIP_PASS_1_END === */
