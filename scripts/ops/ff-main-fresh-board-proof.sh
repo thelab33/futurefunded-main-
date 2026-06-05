@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$HOME/futurefunded-main" || exit 1
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+cd "$ROOT" || exit 1
 source .venv/bin/activate 2>/dev/null || true
 
-echo "== Fresh MAIN canonical board proof =="
+echo "== Fresh canonical board proof =="
 echo "Root: $(pwd)"
 
 echo
@@ -190,7 +192,7 @@ echo "== Latest screenshot set =="
 find "$BOARD_DIR" -maxdepth 2 -type f | grep -E '(\.png|index\.html)$' | sort
 
 echo
-echo "✅ Fresh MAIN canonical board is green."
+echo "✅ Fresh canonical board is green."
 echo
 echo "Open:"
 echo "  http://127.0.0.1:8788/?fresh=$(date +%s)"
