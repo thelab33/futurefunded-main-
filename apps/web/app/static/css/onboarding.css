@@ -2132,3 +2132,271 @@ html[data-ff-page="platform-onboarding"] .ffOnboardV1__headerButton {
     text-align: left;
   }
 }
+
+/* ==========================================================================
+   FF_ONBOARDING_BUILDER_WAVE2_POLISH_CSS_20260605
+   Purpose:
+   - prevent Live Preview meta truncation
+   - make selected campaign style/theme state stronger
+   - improve Brand Studio density/readability
+   - improve color-control layout
+   - add mobile/tablet polish
+   - add screenshot-board-safe sticky header hooks
+========================================================================== */
+
+/* Preview header: stop "Community Team · Te..." truncation */
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewChrome {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewChrome small {
+  justify-self: end;
+  max-width: 13.75rem;
+  overflow: visible;
+  color: rgba(255, 255, 255, .72);
+  font-size: .68rem;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: right;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewChrome small span {
+  display: inline;
+}
+
+/* Live badge: clearer builder affordance */
+html[data-ff-page="platform-onboarding"] .ffOnboard__liveBadge {
+  min-height: 32px;
+  border-color: rgba(255, 255, 255, .16);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.09));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 12px 22px rgba(0,0,0,.12);
+  font-size: .69rem;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__liveBadge i {
+  animation: ffOnboardLivePulse 1.9s ease-in-out infinite;
+}
+
+@keyframes ffOnboardLivePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--_preview-primary) 18%, transparent);
+  }
+  50% {
+    transform: scale(1.18);
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--_preview-primary) 10%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__liveBadge i {
+    animation: none;
+  }
+}
+
+/* Brand Studio readability: 3-column cards instead of cramped 5-column cards */
+html[data-ff-page="platform-onboarding"] .ffOnboard__brandStudio {
+  gap: clamp(18px, 2.4vw, 26px);
+  margin-bottom: clamp(22px, 2.8vw, 32px);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__choiceGroup {
+  padding: clamp(18px, 2.5vw, 24px);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__choiceGroup legend {
+  margin-bottom: 8px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__choiceGroup p {
+  margin-bottom: 16px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__choiceGrid--styles,
+html[data-ff-page="platform-onboarding"] .ffOnboard__themeGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Active style card: make selected state undeniable */
+html[data-ff-page="platform-onboarding"] .ffOnboard__choiceCard {
+  min-height: 124px;
+  padding: 16px 15px 15px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__choiceCard:has(input:checked) {
+  border-color: color-mix(in srgb, var(--ob-live-primary, var(--ob-orange)) 48%, rgba(70,42,22,.12));
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--ob-live-primary, var(--ob-orange)) 16%, transparent), transparent 13rem),
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,250,243,.92));
+  transform: translateY(-1px);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__choiceCard:has(input:checked)::after {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ob-live-primary, var(--ob-orange)) 14%, #fff);
+  color: color-mix(in srgb, var(--ob-live-primary, var(--ob-orange)) 72%, #140b07);
+  content: "Selected";
+  font-size: .56rem;
+  font-weight: 950;
+  letter-spacing: .09em;
+  line-height: 1;
+  padding: 6px 7px;
+  text-transform: uppercase;
+}
+
+/* Theme presets: stronger selected state and cleaner cards */
+html[data-ff-page="platform-onboarding"] .ffOnboard__themePreset {
+  position: relative;
+  min-height: 132px;
+  overflow: hidden;
+  padding: 15px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__themePreset.is-active {
+  border-color: color-mix(in srgb, var(--ob-live-primary, var(--ob-orange)) 52%, rgba(70,42,22,.12));
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--ob-live-primary, var(--ob-orange)) 14%, transparent), transparent 13rem),
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,250,243,.92));
+  transform: translateY(-1px);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__themePreset.is-active::after {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ob-live-primary, var(--ob-orange)) 14%, #fff);
+  color: color-mix(in srgb, var(--ob-live-primary, var(--ob-orange)) 72%, #140b07);
+  content: "Active";
+  font-size: .56rem;
+  font-weight: 950;
+  letter-spacing: .09em;
+  line-height: 1;
+  padding: 6px 7px;
+  text-transform: uppercase;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__themePreset strong {
+  padding-right: 54px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__themeSwatches {
+  min-height: 28px;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__themeSwatches i {
+  width: 25px;
+  height: 25px;
+}
+
+/* Fine-tune color controls: make three controls feel intentional */
+html[data-ff-page="platform-onboarding"] .ffOnboard__brandFields {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 14px;
+  padding-top: clamp(4px, 1vw, 10px);
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__brandFields .ffOnboard__wide {
+  grid-column: 1 / -1;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__brandFields::before {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(70,42,22,.13), transparent);
+  content: "";
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__colorField {
+  min-width: 0;
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__colorField input[type="color"] {
+  width: 100%;
+  height: 50px;
+  min-height: 50px;
+  border-radius: 16px;
+}
+
+/* Preview card: slightly more premium with builder-state color response */
+html[data-ff-page="platform-onboarding"] .ffOnboard__preview {
+  border-color: color-mix(in srgb, var(--ob-live-primary, var(--ob-orange)) 18%, rgba(255,255,255,.12));
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewButton {
+  background: linear-gradient(
+    135deg,
+    var(--ob-live-primary, var(--ob-orange)),
+    var(--ob-live-primary-2, var(--ob-orange-2))
+  );
+}
+
+html[data-ff-page="platform-onboarding"] .ffOnboard__previewMeta div {
+  border: 1px solid rgba(255,255,255,.055);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.075));
+}
+
+/* Tablet: keep builder readable inside the form column */
+@media (max-width: 980px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__choiceGrid--styles,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__themeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__previewChrome small {
+    max-width: none;
+  }
+}
+
+/* Mobile: stack cleanly, no cramped cards */
+@media (max-width: 640px) {
+  html[data-ff-page="platform-onboarding"] .ffOnboard__choiceGrid--styles,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__themeGrid,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__brandFields {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__choiceCard,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__themePreset {
+    min-height: auto;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__choiceCard:has(input:checked)::after,
+  html[data-ff-page="platform-onboarding"] .ffOnboard__themePreset.is-active::after {
+    position: static;
+    width: fit-content;
+    margin-top: 3px;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__previewChrome {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ff-page="platform-onboarding"] .ffOnboard__previewChrome small {
+    justify-self: start;
+    max-width: 100%;
+    text-align: left;
+  }
+}
+
+/* Screenshot board safety hook.
+   Does not affect normal browser behavior unless a capture page adds one of these attrs/classes. */
+html[data-ff-page="platform-onboarding"][data-ff-static-capture="true"] .ffOnboardV1__header,
+html[data-ff-page="platform-onboarding"].ff-static-capture .ffOnboardV1__header,
+html[data-ff-page="platform-onboarding"] .ff-static-capture .ffOnboardV1__header {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+}
