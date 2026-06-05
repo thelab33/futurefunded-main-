@@ -121,7 +121,7 @@
 ], true) %}
 {% set _squad_cards = squad_cards|default(_team_config.get('squad_cards'), true)|default([
   {'title': '6th Grade Gold', 'note': 'Travel + tournaments', 'image': 'images/connect-atx-team.jpg'},
-  {'title': '7th Grade Black', 'note': 'Entry fees + gear', 'image': 'images/7thBlack.png'},
+  {'title': '7th Grade Black', 'note': 'Entry fees + gear', 'image': 'images/connect-atx-team.jpg'},
   {'title': '8th Grade Gold', 'note': 'Hotels + meals', 'image': 'images/8thGold.jpg'},
   {'title': '7th Grade Gold', 'note': 'Player development', 'image': 'images/7thGold.jpg'}
 ], true) %}
@@ -400,12 +400,12 @@ data-ff-template="campaign-index-on-campaign-base-v1"
 
               <div class="ff-squadRail" aria-label="Team groups">
                 {% for card in _squad_cards %}
-                  {% set ff_squad_fallback_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/8thGold.jpg', 'images/7thGold.jpg', 'images/8thGold.jpg')) %}
+                  {% set ff_squad_fallback_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/connect-atx-team.jpg', 'images/8thGold.jpg', 'images/7thGold.jpg', 'images/8thGold.jpg')) %}
                   {% set ff_squad_media_src = ff_media_src(card.get('image')) if card.get('image') else ff_squad_fallback_src %}
                   {# Marker: hoi-phase3g-squad-card-render-photo-authority-v1 #}
                   {% set _squad_media_key = ff_squad_media_src|string %}
                   {% if 'placeholder' in _squad_media_key or 'connect-atx-team.svg' in _squad_media_key or _squad_media_key.endswith('.svg') %}
-                    {% set ff_squad_media_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/8thGold.jpg', 'images/7thGold.jpg', 'images/8thGold.jpg')) %}
+                    {% set ff_squad_media_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/connect-atx-team.jpg', 'images/8thGold.jpg', 'images/7thGold.jpg', 'images/8thGold.jpg')) %}
                   {% endif %}
                   {% set _squad_title = card.get('title')|default('Program team', true) %}
                   {% set _squad_note = card.get('note')|default('Season support', true) %}
@@ -538,12 +538,12 @@ data-ff-template="campaign-index-on-campaign-base-v1"
 
               <div class="ff-teamGrid">
                 {% for team in _team_cards %}
-                  {% set ff_team_fallback_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/8thGold.jpg', 'images/7thGold.jpg')) %}
+                  {% set ff_team_fallback_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/connect-atx-team.jpg', 'images/8thGold.jpg', 'images/7thGold.jpg')) %}
                   {% set ff_team_media_src = ff_media_src(team.get('image')) if team.get('image') else ff_team_fallback_src %}
                   {# Marker: hoi-phase3g-team-card-render-photo-authority-v1 #}
                   {% set _team_media_key = ff_team_media_src|string %}
                   {% if 'placeholder' in _team_media_key or 'connect-atx-team.svg' in _team_media_key or _team_media_key.endswith('.svg') %}
-                    {% set ff_team_media_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/7thBlack.png', 'images/8thGold.jpg', 'images/7thGold.jpg')) %}
+                    {% set ff_team_media_src = url_for('static', filename=loop.cycle('images/connect-atx-team.jpg', 'images/connect-atx-team.jpg', 'images/8thGold.jpg', 'images/7thGold.jpg')) %}
                   {% endif %}
                   {% set _team_label = team.get('eyebrow')|default('Program team', true) %}
                   {% set _team_title = team.get('title')|default('Support this team', true) %}
