@@ -14,8 +14,8 @@
 {% if not _team_name %}{% set _team_name = 'Connect ATX Elite' %}{% endif %}
 {% set _location = _platform.location|default('Austin, TX', true)|string|trim %}
 {% if not _location %}{% set _location = 'Austin, TX' %}{% endif %}
-{% set _campaign_title = campaign_title|default('Spring Fundraiser', true)|string|trim %}
-{% if not _campaign_title %}{% set _campaign_title = 'Spring Fundraiser' %}{% endif %}
+{% set _campaign_title = campaign_title|default('Connect ATX Elite Season Fund', true)|string|trim %}
+{% if not _campaign_title %}{% set _campaign_title = 'Connect ATX Elite Season Fund' %}{% endif %}
 {% set _public_url = _platform.campaign_url|default('/c/' ~ _dashboard_campaign_slug, true) %}
 {% set _setup_url = '/platform/onboarding' ~ _auth_qs %}
 {% set _dashboard_url = '/platform/dashboard' ~ _auth_qs %}

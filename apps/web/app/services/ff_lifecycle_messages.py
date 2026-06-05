@@ -104,7 +104,7 @@ def _wrap(title: str, preview: str, body: str, cta_label: str, cta_url: str) -> 
 
 def donor_receipt_email(payload: Mapping[str, Any]) -> LifecycleEmail:
     team = str(_v(payload, "team_name", "organization_name", default="Connect ATX Elite"))
-    campaign = str(_v(payload, "campaign_name", default="Spring Fundraiser"))
+    campaign = str(_v(payload, "campaign_name", default="Connect ATX Elite Season Fund"))
     name = str(_v(payload, "supporter_name", "donor_name", default="Friend"))
     amount = _money(payload)
     url = _campaign_url(payload)
@@ -140,7 +140,7 @@ def donor_receipt_email(payload: Mapping[str, Any]) -> LifecycleEmail:
 
 def sponsor_confirmation_email(payload: Mapping[str, Any]) -> LifecycleEmail:
     team = str(_v(payload, "team_name", "organization_name", default="Connect ATX Elite"))
-    campaign = str(_v(payload, "campaign_name", default="Spring Fundraiser"))
+    campaign = str(_v(payload, "campaign_name", default="Connect ATX Elite Season Fund"))
     sponsor = str(_v(payload, "sponsor_name", "business_name", default="Sponsor"))
     tier = str(_v(payload, "sponsor_tier", "tier", default="Community Partner"))
     amount = _money(payload)
@@ -249,7 +249,7 @@ def sample_payload() -> dict[str, Any]:
     return {
         "public_base_url": "https://getfuturefunded.com",
         "campaign_slug": "connect-atx-elite",
-        "campaign_name": "Spring Fundraiser",
+        "campaign_name": "Connect ATX Elite Season Fund",
         "team_name": "Connect ATX Elite",
         "supporter_name": "Jordan Supporter",
         "supporter_email": "supporter@example.com",

@@ -249,7 +249,7 @@ class PlatformService:
             ),
             "campaign_name": _clean(
                 self.config.get("DEMO_CAMPAIGN_DISPLAY_NAME"),
-                f"{campaign_name} Season Fund",
+                campaign_name,
             ),
             "location": _clean(self.config.get("DEMO_LOCATION"), DEFAULT_LOCATION),
             "goal": goal,

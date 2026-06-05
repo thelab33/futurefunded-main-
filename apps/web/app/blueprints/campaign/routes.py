@@ -714,7 +714,7 @@ def _ff_lifecycle_payload_from_session(slug=None, session=None, source="stripe")
         "public_base_url": _ff_lifecycle_public_base_url(),
         "campaign_slug": campaign_slug,
         "campaign_url": f"{_ff_lifecycle_public_base_url().rstrip('/')}/c/{campaign_slug}",
-        "campaign_name": metadata.get("campaign_name") or "Spring Fundraiser",
+        "campaign_name": metadata.get("campaign_name") or "Connect ATX Elite Season Fund",
         "team_name": metadata.get("team_name") or metadata.get("organization_name") or "Connect ATX Elite",
         "checkout_session_id": session_id,
         "session_id": session_id,

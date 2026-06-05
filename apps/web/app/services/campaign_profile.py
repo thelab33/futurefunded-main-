@@ -176,7 +176,7 @@ def resolve_campaign_profile(
 
     campaign_name = _clean(
         _first(merged, "campaign_name", "fund_name", "page_title"),
-        f"{team_name} Season Fund",
+        "Connect ATX Elite Season Fund",
     )
 
     organizer_name = _clean(

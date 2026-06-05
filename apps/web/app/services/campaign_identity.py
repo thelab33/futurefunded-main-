@@ -38,7 +38,7 @@ def get_campaign_identity_defaults() -> CampaignIdentityDefaults:
         team_name=team_name,
         campaign_slug=campaign_slug,
         location=_env("FF_DEFAULT_LOCATION", "Austin, TX"),
-        campaign_name=_env("FF_DEFAULT_CAMPAIGN_NAME", f"{team_name} Season Fund"),
+        campaign_name=_env("FF_DEFAULT_CAMPAIGN_NAME", "Connect ATX Elite Season Fund"),
         campaign_title=_env("FF_DEFAULT_CAMPAIGN_TITLE", "Fuel the season. Fund the future."),
         campaign_accent=_env("FF_DEFAULT_CAMPAIGN_ACCENT", "Back the athletes."),
         public_base_url=_env("PUBLIC_BASE_URL", _env("FF_PUBLIC_BASE_URL", "")),

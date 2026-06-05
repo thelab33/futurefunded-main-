@@ -39,7 +39,7 @@ _SLUG_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,118}[a-z0-9])?$")
 _SLUG_UNSAFE_RE = re.compile(r"[^a-z0-9]+")
 
 DEFAULT_SUPPORT_EMAIL = "support@getfuturefunded.com"
-DEFAULT_CAMPAIGN_NAME = "Spring Fundraiser"
+DEFAULT_CAMPAIGN_NAME = "Connect ATX Elite Season Fund"
 DEFAULT_HEADLINE = "Fuel the season. Fund the future."
 DEFAULT_SUBHEAD = "One shared season goal for"
 DEFAULT_TAGLINE = (

@@ -22,7 +22,7 @@ test("campaign page renders", async ({ page }) => {
   expect(response).not.toBeNull();
   expect(response.status()).toBe(200);
 
-  await expect(page.locator("body")).toContainText(/Support|Connect ATX Elite|Spring Fundraiser/i);
+  await expect(page.locator("body")).toContainText(/Support|Connect ATX Elite|Connect ATX Elite Season Fund/i);
 });
 
 test("campaign slug canonicalizes to lowercase", async ({ page }) => {
@@ -38,7 +38,7 @@ test("campaign checkout-state response is non-cacheable and non-indexable", asyn
   expect(response.headers()["x-robots-tag"]).toBe("noindex, nofollow");
 
   const text = await response.text();
-  expect(text).toMatch(/Connect ATX Elite|Spring Fundraiser|Support/i);
+  expect(text).toMatch(/Connect ATX Elite|Connect ATX Elite Season Fund|Support/i);
 });
 
 test("sponsor honeypot endpoint returns hardened headers", async ({ request }) => {
