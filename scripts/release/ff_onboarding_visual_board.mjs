@@ -4,6 +4,7 @@ import path from "node:path";
 
 const baseURL = process.env.FF_BASE_URL || "http://127.0.0.1:5000";
 const route = process.env.FF_ONBOARDING_ROUTE || "/platform/onboarding";
+// FF_ONBOARDING_VISUAL_BOARD_CONTRACT_FINAL_20260605
 const url = new URL(route, baseURL).toString();
 
 const outDir = path.join("audit_outputs", "onboarding-polish", "visual-board-latest");
@@ -85,15 +86,15 @@ async function main() {
       const text = clean(body?.innerText || "").toLowerCase();
 
       const contracts = {
-        pageRoot: all("[data-ff-onboard-root], [data-ff-onboarding-root]").length,
-        hero: all(".ffOnboardV2__hero").length,
-        readiness: all(".ffOnboardV2__readiness").length,
-        formSections: all("[data-ff-onboard-form-section]").length,
-        themePicker: all("[data-ff-theme-picker]").length,
-        saveButton: all("[data-ff-save-onboarding]").length,
-        campaignBasics: all('[data-ff-onboard-section="campaign-basics"]').length,
-        givingReadiness: all('[data-ff-onboard-section="giving-readiness"]').length,
-        sponsorPackages: all('[data-ff-onboard-section="sponsor-packages"]').length,
+        pageRoot: all("[data-ff-onboard-root], [data-ff-onboarding-root], [data-ff-page-root], .ffOnboard__main").length,
+        hero: all(".ffOnboard__hero, #onboard-title, .ffOnboard__campaignStrip").length,
+        readiness: all(".ffOnboard__status, .ffOnboard__progressRing, .ffOnboard__steps").length,
+        formSections: all(".ffOnboard__panel, [data-ff-step-panel], .ffOnboard__formCard").length,
+        themePicker: all("[data-ff-brand-studio], [data-ff-theme-preset], [data-ff-campaign-style], [data-ff-color-primary], [data-ff-color-accent], [data-ff-color-soft]").length,
+        saveButton: all("[data-ff-save], .ffOnboard__btn--save").length,
+        campaignBasics: all('[data-ff-step-panel="0"], input[name="campaign_name"], input[name="organization_name"], input[name="fundraising_goal"]').length,
+        givingReadiness: all('[data-ff-step-panel="2"], select[name="payment_provider"], input[name="giving_url"]').length,
+        sponsorPackages: all('[data-ff-step-panel="3"], input[name="tier_community"], input[name="tier_featured"], input[name="tier_season"]').length,
       };
 
       return {
@@ -112,6 +113,28 @@ async function main() {
     });
 
     const image = `onboarding-${viewport.name}-full.png`;
+    // FF_ONBOARDING_VISUAL_BOARD_STATIC_HEADER_FINAL_20260605
+    // Board-only: keep real browser sticky, but make fullPage screenshot capture stable.
+    await page.addStyleTag({
+      content: `
+        html[data-ff-page="platform-onboarding"][data-ff-static-capture="true"] .ffOnboardV1__header {
+          position: static !important;
+          top: auto !important;
+          transform: none !important;
+        }
+      `,
+    }).catch(() => {});
+
+    await page.evaluate(() => {
+      const html = document.documentElement;
+      html.setAttribute("data-ff-static-capture", "true");
+      html.classList.add("ff-static-capture");
+    }).catch(() => {});
+
+    if (typeof page.waitForTimeout === "function") {
+      await page.waitForTimeout(120);
+    }
+
     await page.screenshot({
       path: path.join(outDir, image),
       fullPage: true,
