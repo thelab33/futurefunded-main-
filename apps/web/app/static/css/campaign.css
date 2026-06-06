@@ -11686,3 +11686,208 @@ html[data-ff-page="campaign"] #faq {
     }
   }
 }
+
+/* ==========================================================================
+   FF_CAMPAIGN_FLAGSHIP_POLISH_WAVE2_20260605
+   Screenshot-driven refinement:
+   - tighter section rhythm
+   - stronger mobile campaign composition
+   - less empty vertical canvas
+   - more premium card scale
+   - runtime untouched
+========================================================================== */
+
+@layer campaign {
+  [data-ff-campaign-page] {
+    --ff-section-gap-tight: clamp(42px, 7vw, 96px);
+    --ff-section-gap-mid: clamp(54px, 8vw, 112px);
+  }
+
+  .ff-campaignMain,
+  [data-ff-campaign-page] main {
+    gap: var(--ff-section-gap-tight);
+  }
+
+  .ff-campaignSection {
+    margin-block: 0;
+    padding-block: clamp(28px, 4vw, 54px);
+  }
+
+  .ff-campaignSection + .ff-campaignSection {
+    margin-top: clamp(10px, 2vw, 24px);
+  }
+
+  .ff-campaignHero {
+    padding-block-end: clamp(34px, 5vw, 72px);
+  }
+
+  .ff-campaignHero__grid {
+    max-width: 1180px;
+    margin-inline: auto;
+  }
+
+  .ff-campaignHero__story.ff-card,
+  .ff-campaignHero__story.ff-card--hero {
+    padding: clamp(22px, 3.6vw, 44px);
+  }
+
+  .ff-campaignHero h1,
+  .ff-campaignHero [id="campaign-title"] {
+    line-height: .86;
+  }
+
+  .ff-campaignHero .ff-lede {
+    margin-top: clamp(12px, 1.6vw, 18px);
+  }
+
+  .ff-campaignHero .ff-actions,
+  .ff-campaignHero__actions {
+    margin-top: clamp(16px, 2vw, 24px);
+  }
+
+  .ff-donateForm,
+  .ff-donateCard,
+  .ff-donationCard,
+  .ff-campaignHero__donate,
+  .ff-campaignHero__donation,
+  .ff-campaignHero__checkout,
+  .ff-campaignHero aside.ff-card {
+    padding: clamp(18px, 2.6vw, 30px);
+  }
+
+  .ff-campaignSection > .ff-container,
+  .ff-campaignSection > .ff-shell,
+  .ff-campaignSection > .ff-sectionInner {
+    max-width: 1080px;
+    margin-inline: auto;
+  }
+
+  .ff-campaignSection h2 {
+    max-width: 12.5ch;
+    margin-inline: auto;
+    line-height: .9;
+  }
+
+  .ff-campaignSection .ff-sectionLead,
+  .ff-campaignSection .ff-lede {
+    max-width: 58ch;
+    margin-inline: auto;
+  }
+
+  .ff-sponsorGrid,
+  .ff-impactGrid,
+  .ff-proofGrid,
+  .ff-teamGrid {
+    align-items: stretch;
+  }
+
+  .ff-sponsorCard,
+  .ff-impactCard,
+  .ff-proofCard,
+  .ff-teamCard {
+    min-height: 100%;
+  }
+
+  .ff-sponsorCard {
+    padding: clamp(18px, 2vw, 24px);
+  }
+
+  .ff-sponsorCard h3 {
+    line-height: .96;
+  }
+
+  .ff-sponsorCard li + li {
+    margin-top: .45rem;
+  }
+
+  .ff-storyMedia,
+  .ff-campaignStory,
+  .ff-mediaStory {
+    max-width: 1060px;
+    margin-inline: auto;
+  }
+
+  .ff-campaignSection details + details {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 760px) {
+    [data-ff-campaign-page] {
+      --ff-section-gap-tight: 44px;
+      --ff-section-gap-mid: 56px;
+    }
+
+    .ff-campaignMain,
+    [data-ff-campaign-page] main {
+      gap: var(--ff-section-gap-tight);
+    }
+
+    .ff-campaignSection {
+      padding-block: 26px;
+    }
+
+    .ff-campaignHero {
+      padding-block-start: 8px;
+      padding-block-end: 34px;
+    }
+
+    .ff-campaignHero__story.ff-card,
+    .ff-campaignHero__story.ff-card--hero {
+      padding: 20px;
+    }
+
+    .ff-campaignHero h1,
+    .ff-campaignHero [id="campaign-title"] {
+      max-width: 9.8ch;
+      line-height: .84;
+    }
+
+    .ff-campaignHero .ff-lede {
+      max-width: 34ch;
+    }
+
+    .ff-donateForm,
+    .ff-donateCard,
+    .ff-donationCard,
+    .ff-campaignHero__donate,
+    .ff-campaignHero__donation,
+    .ff-campaignHero__checkout,
+    .ff-campaignHero aside.ff-card {
+      padding: 18px;
+    }
+
+    .ff-campaignSection h2 {
+      max-width: 11.5ch;
+      line-height: .88;
+    }
+
+    .ff-sponsorCard,
+    .ff-impactCard,
+    .ff-proofCard,
+    .ff-teamCard {
+      padding: 16px;
+    }
+
+    .ff-sponsorGrid,
+    .ff-impactGrid,
+    .ff-proofGrid,
+    .ff-teamGrid {
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .ff-campaignHero h1,
+    .ff-campaignHero [id="campaign-title"] {
+      font-size: clamp(3rem, 16vw, 4.6rem);
+    }
+
+    .ff-campaignSection h2 {
+      font-size: clamp(2.15rem, 11vw, 3.35rem);
+    }
+
+    .ff-campaignSection {
+      padding-block: 22px;
+    }
+  }
+}
