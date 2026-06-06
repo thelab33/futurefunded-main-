@@ -3,7 +3,7 @@ FutureFunded team campaign configs.
 
 Contract:
 - Image paths are Flask static filenames, not filesystem paths.
-- Keep values relative to app.static_folder, e.g. "images/connect-atx-team.jpg".
+- Keep values relative to app.static_folder, e.g. "images/program-proof/6th-grade.jpg".
 - The campaign template resolves them with url_for('static', filename=...).
 - Existing/current image path support is preserved first; canonical production paths are noted below.
 """
